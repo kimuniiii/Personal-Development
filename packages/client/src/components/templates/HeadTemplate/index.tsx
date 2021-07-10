@@ -29,8 +29,8 @@ type HeadTemplateProps = {
 };
 
 export const HeadTemplate: NextPage<HeadTemplateProps> = ({
-  pageTitle = "ホテル・宿の格安予約・検索・比較 | スカイチケット",
-  pageDescription = "国内海外ホテルの予約・比較なら「skyticket（スカイチケット）」。国内のビジネスホテルや旅館の予約はもちろん、海外ホテルの予約も可能です。",
+  pageTitle = "Riot ECサイト",
+  pageDescription = "このサイトはRiotのECサイトです",
   pageUrl,
   isNoIndex = false,
   dynamicOgp,
@@ -46,14 +46,14 @@ export const HeadTemplate: NextPage<HeadTemplateProps> = ({
       <meta name="theme-color" content="#1ba1ff" />
       <meta
         name="copyright"
-        content={`Copyright(c) ${new Date().getFullYear()} ADVENTURE inc. All Rights Reserved.}`}
+        content={`Copyright(c) ${new Date().getFullYear()} RIOT inc. All Rights Reserved.}`}
       />
       {isNoIndex ? <meta name="robots" content="noindex,nofollow" /> : ""}
       <meta property="og:title" content={pageTitle} />
       <meta property="og:site_name" content={pageTitle} />
       <meta property="og:description" content={pageDescription} />
       <meta property="og:type" content="website" />
-      {/* TODO : dynamicOgp?.ogpUrl ? dynamicOgp.ogpUrl : 'https://skyticket.jp/tour' みたいな感じにする */}
+      {/* TODO : dynamicOgp?.ogpUrl ? dynamicOgp.ogpUrl : 'https://riot.jp' みたいな感じにする */}
       <meta property="og:url" content={dynamicOgp?.ogpUrl} />
       {/* TODO : dynamicOgp?.ogpImageUrl ? dynamicOgp.ogpImageUrl : getSrcAbsolutePath('/img/ogp_image.png') みたいな感じにする */}
       <meta property="og:image" content={dynamicOgp?.ogpImageUrl} />
