@@ -1,9 +1,7 @@
 import type { VFC } from "react";
 
+import { COPY_RIGHT } from "src/constants";
+
 export const CommonFooter: VFC = () => {
-  return (
-    <footer>
-      Copyright(c) ${new Date().getFullYear()} RIOT inc. All Rights Reserved
-    </footer>
-  );
+  return <footer>{COPY_RIGHT}</footer>;
 };

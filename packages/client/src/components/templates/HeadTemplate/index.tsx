@@ -1,7 +1,7 @@
 import { NextPage } from "next";
 import Head from "next/head";
 
-import { FACEBOOK_ADMIN_ID, FACEBOOK_APP_ID } from "src/constants";
+import { COPY_RIGHT, FACEBOOK_ADMIN_ID, FACEBOOK_APP_ID } from "src/constants";
 
 type HeadTemplateProps = {
   /**
@@ -44,10 +44,7 @@ export const HeadTemplate: NextPage<HeadTemplateProps> = ({
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <meta name="author" content="ADVENTURE inc." />
       <meta name="theme-color" content="#1ba1ff" />
-      <meta
-        name="copyright"
-        content={`Copyright(c) ${new Date().getFullYear()} RIOT inc. All Rights Reserved.}`}
-      />
+      <meta name="copyright" content={COPY_RIGHT} />
       {isNoIndex ? <meta name="robots" content="noindex,nofollow" /> : ""}
       <meta property="og:title" content={pageTitle} />
       <meta property="og:site_name" content={pageTitle} />
