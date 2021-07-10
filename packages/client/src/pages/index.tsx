@@ -6,7 +6,7 @@ import { CommonTemplate } from "src/components/templates/CommonTemplate";
 const TopPage = () => {
   return (
     <React.Fragment>
-      <HeadTemplate pageTitle="TopPage" />
+      <HeadTemplate pageTitle="トップページ" />
       <CommonTemplate>TopPage</CommonTemplate>
     </React.Fragment>
   );
