@@ -1,9 +1,9 @@
 import React, { VFC } from "react";
 
-type Props = {
+type Props = JSX.IntrinsicElements["button"] & {
   buttonContent: string;
 };
 
-export const Button: VFC<Props> = ({ buttonContent }) => {
-  return <button>{buttonContent}</button>;
+export const Button: VFC<Props> = ({ buttonContent, ...buttonProps }) => {
+  return <button {...buttonProps}>{buttonContent}</button>;
 };
