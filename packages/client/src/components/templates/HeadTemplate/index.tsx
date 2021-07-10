@@ -1,7 +1,7 @@
 import { NextPage } from "next";
 import Head from "next/head";
 
-import { FACEBOOK_ADMIN_ID, FACEBOOK_APP_ID } from "../../../constants";
+import { FACEBOOK_ADMIN_ID, FACEBOOK_APP_ID } from "src/constants";
 
 type HeadTemplateProps = {
   /**
