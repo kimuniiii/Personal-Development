@@ -1,6 +1,6 @@
 import React from "react";
 
-import { HeadTemplate } from "../components/templates/HeadTemplate";
+import { HeadTemplate } from "src/components/templates/HeadTemplate";
 import { CommonTemplate } from "src/components/templates/CommonTemplate";
 
 const TopPage = () => {
