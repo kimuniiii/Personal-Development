@@ -1,20 +1,19 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react/types-6-0";
 
-import { Input } from ".";
+import { Textarea } from ".";
 
 export default {
-  title: "common/Input",
-  component: Input,
+  title: "common/Textarea",
+  component: Textarea,
 } as Meta;
 
-type Props = React.ComponentProps<typeof Input>;
+type Props = React.ComponentProps<typeof Textarea>;
 
-const Template: Story<Props> = (args) => <Input {...args} />;
+const Template: Story<Props> = (args) => <Textarea {...args} />;
 
 export const Basic = Template.bind({});
 
 Basic.args = {
-  type: "text",
   placeholder: "プレースホルダー",
 };
