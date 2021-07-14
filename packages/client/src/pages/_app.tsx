@@ -1,5 +1,7 @@
-function MyApp({ Component, pageProps }) {
-  return <Component {...pageProps} />;
-}
+import { AppProps } from "next/app";
 
-export default MyApp;
+const CustomApp = ({ Component, pageProps }: AppProps): JSX.Element => {
+  return <Component {...pageProps} />;
+};
+
+export default CustomApp;
