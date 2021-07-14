@@ -1,3 +1,7 @@
+## WBS
+
+[Google スプレッドシート](https://docs.google.com/spreadsheets/d/14s5g0BIRy1pFtTN1-IM4jdI_QZZiday2iWtwDcWui8w/edit#gid=0)
+
 ## 技術選定（暫定）
 
 ### Backend
