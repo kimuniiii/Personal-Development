@@ -1,7 +1,7 @@
 import { HeadTemplate } from 'src/components/templates/HeadTemplate';
 import { CommonTemplate } from 'src/components/templates/CommonTemplate';
 
-const TopPage = () => {
+const TopPage = (): JSX.Element => {
   return (
     <>
       <HeadTemplate pageTitle='トップページ' />
