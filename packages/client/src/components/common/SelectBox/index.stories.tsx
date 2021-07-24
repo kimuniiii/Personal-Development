@@ -1,10 +1,10 @@
-import React from "react";
-import { Story, Meta } from "@storybook/react/types-6-0";
+import React from 'react';
+import { Story, Meta } from '@storybook/react/types-6-0';
 
-import { SelectBox } from ".";
+import { SelectBox } from '.';
 
 export default {
-  title: "common/SelectBox",
+  title: 'common/SelectBox',
   component: SelectBox,
 } as Meta;
 

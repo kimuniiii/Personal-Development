@@ -1,4 +1,4 @@
-import { AppProps } from "next/app";
+import { AppProps } from 'next/app';
 
 const CustomApp = ({ Component, pageProps }: AppProps): JSX.Element => {
   return <Component {...pageProps} />;

@@ -1,6 +1,6 @@
-import React, { VFC } from "react";
+import React, { VFC } from 'react';
 
-type Props = JSX.IntrinsicElements["textarea"];
+type Props = JSX.IntrinsicElements['textarea'];
 
 export const Textarea: VFC<Props> = ({ ...textareaProps }) => {
   return <textarea {...textareaProps}></textarea>;

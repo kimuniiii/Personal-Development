@@ -1,6 +1,6 @@
-import React, { VFC } from "react";
+import React, { VFC } from 'react';
 
-type Props = JSX.IntrinsicElements["select"];
+type Props = JSX.IntrinsicElements['select'];
 
 export const SelectBox: VFC<Props> = ({ ...selectProps }) => {
   return (

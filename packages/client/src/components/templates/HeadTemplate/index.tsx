@@ -1,7 +1,7 @@
-import { NextPage } from "next";
-import Head from "next/head";
+import { NextPage } from 'next';
+import Head from 'next/head';
 
-import { COPY_RIGHT, FACEBOOK_ADMIN_ID, FACEBOOK_APP_ID } from "src/constants";
+import { COPY_RIGHT, FACEBOOK_ADMIN_ID, FACEBOOK_APP_ID } from 'src/constants';
 
 type HeadTemplateProps = {
   /**
@@ -29,8 +29,8 @@ type HeadTemplateProps = {
 };
 
 export const HeadTemplate: NextPage<HeadTemplateProps> = ({
-  pageTitle = "Riot ECサイト",
-  pageDescription = "このサイトはRiotのECサイトです",
+  pageTitle = 'Riot ECサイト',
+  pageDescription = 'このサイトはRiotのECサイトです',
   pageUrl,
   isNoIndex = false,
   dynamicOgp,
@@ -38,27 +38,27 @@ export const HeadTemplate: NextPage<HeadTemplateProps> = ({
   return (
     <Head>
       <title>{pageTitle}</title>
-      <meta charSet="UTF-8" />
-      <meta httpEquiv="x-ua-compatible" content="ie=edge" />
-      <meta name="description" content={pageDescription} />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <meta name="author" content="ADVENTURE inc." />
-      <meta name="theme-color" content="#1ba1ff" />
-      <meta name="copyright" content={COPY_RIGHT} />
-      {isNoIndex ? <meta name="robots" content="noindex,nofollow" /> : ""}
-      <meta property="og:title" content={pageTitle} />
-      <meta property="og:site_name" content={pageTitle} />
-      <meta property="og:description" content={pageDescription} />
-      <meta property="og:type" content="website" />
+      <meta charSet='UTF-8' />
+      <meta httpEquiv='x-ua-compatible' content='ie=edge' />
+      <meta name='description' content={pageDescription} />
+      <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+      <meta name='author' content='ADVENTURE inc.' />
+      <meta name='theme-color' content='#1ba1ff' />
+      <meta name='copyright' content={COPY_RIGHT} />
+      {isNoIndex ? <meta name='robots' content='noindex,nofollow' /> : ''}
+      <meta property='og:title' content={pageTitle} />
+      <meta property='og:site_name' content={pageTitle} />
+      <meta property='og:description' content={pageDescription} />
+      <meta property='og:type' content='website' />
       {/* TODO : dynamicOgp?.ogpUrl ? dynamicOgp.ogpUrl : 'https://riot.jp' みたいな感じにする */}
-      <meta property="og:url" content={dynamicOgp?.ogpUrl} />
+      <meta property='og:url' content={dynamicOgp?.ogpUrl} />
       {/* TODO : dynamicOgp?.ogpImageUrl ? dynamicOgp.ogpImageUrl : getSrcAbsolutePath('/img/ogp_image.png') みたいな感じにする */}
-      <meta property="og:image" content={dynamicOgp?.ogpImageUrl} />
-      <meta property="fb:admins" content={FACEBOOK_ADMIN_ID} />
-      <meta property="fb:app_id" content={FACEBOOK_APP_ID} />
+      <meta property='og:image' content={dynamicOgp?.ogpImageUrl} />
+      <meta property='fb:admins' content={FACEBOOK_ADMIN_ID} />
+      <meta property='fb:app_id' content={FACEBOOK_APP_ID} />
       {/* TODO : TwitterでOGPを表示させるときの「表示タイプ」をどうするのか要件を決める */}
-      <meta name="twitter:card" content="summary" />
-      <link rel="canonical" href={pageUrl} />
+      <meta name='twitter:card' content='summary' />
+      <link rel='canonical' href={pageUrl} />
     </Head>
   );
 };

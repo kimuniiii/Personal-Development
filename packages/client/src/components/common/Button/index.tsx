@@ -1,6 +1,6 @@
-import React, { VFC } from "react";
+import React, { VFC } from 'react';
 
-type Props = JSX.IntrinsicElements["button"] & {
+type Props = JSX.IntrinsicElements['button'] & {
   buttonContent: string;
 };
 

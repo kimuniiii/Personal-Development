@@ -1,10 +1,10 @@
-import React from "react";
-import { Story, Meta } from "@storybook/react/types-6-0";
+import React from 'react';
+import { Story, Meta } from '@storybook/react/types-6-0';
 
-import { Input } from ".";
+import { Input } from '.';
 
 export default {
-  title: "common/Input",
+  title: 'common/Input',
   component: Input,
 } as Meta;
 
@@ -15,6 +15,6 @@ const Template: Story<Props> = (args) => <Input {...args} />;
 export const Basic = Template.bind({});
 
 Basic.args = {
-  type: "text",
-  placeholder: "プレースホルダー",
+  type: 'text',
+  placeholder: 'プレースホルダー',
 };

@@ -1,10 +1,10 @@
-import React from "react";
-import { Story, Meta } from "@storybook/react/types-6-0";
+import React from 'react';
+import { Story, Meta } from '@storybook/react/types-6-0';
 
-import { Textarea } from ".";
+import { Textarea } from '.';
 
 export default {
-  title: "common/Textarea",
+  title: 'common/Textarea',
   component: Textarea,
 } as Meta;
 
@@ -15,5 +15,5 @@ const Template: Story<Props> = (args) => <Textarea {...args} />;
 export const Basic = Template.bind({});
 
 Basic.args = {
-  placeholder: "プレースホルダー",
+  placeholder: 'プレースホルダー',
 };

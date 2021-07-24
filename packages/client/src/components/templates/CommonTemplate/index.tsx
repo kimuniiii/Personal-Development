@@ -1,7 +1,7 @@
-import type { ReactNode, VFC } from "react";
+import type { ReactNode, VFC } from 'react';
 
-import { CommonFooter } from "src/components/templates/CommonTemplate/CommonFooter";
-import { CommonHeader } from "src/components/templates/CommonTemplate/CommonHeader";
+import { CommonFooter } from 'src/components/templates/CommonTemplate/CommonFooter';
+import { CommonHeader } from 'src/components/templates/CommonTemplate/CommonHeader';
 
 type CommonTemplateProps = {
   children: ReactNode;
