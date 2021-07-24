@@ -9,7 +9,8 @@
     "storybook": "start-storybook -s ./public -p 6006",
     "build-storybook": "build-storybook",
     "ts-test": "tsc -p tsconfig.json",
-    "format": "prettier --write \"**/*.{css,html,js,json,ts,tsx}\""
+    "format": "prettier --write \"**/*.{css,html,js,json,ts,tsx}\"",
+    "lint": "eslint src --ext .ts,.tsx ."
   },
   "dependencies": {
     "next": "^11.0.1",
