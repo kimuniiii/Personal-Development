@@ -8,7 +8,8 @@
     "start": "next start",
     "storybook": "start-storybook -s ./public -p 6006",
     "build-storybook": "build-storybook",
-    "ts-test": "tsc -p tsconfig.json"
+    "ts-test": "tsc -p tsconfig.json",
+    "format": "prettier -p .prettierrc --write"
   },
   "dependencies": {
     "next": "^11.0.1",
