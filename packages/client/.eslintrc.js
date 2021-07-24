@@ -3,8 +3,6 @@ module.exports = {
   env: {
     node: true,
   },
-  parser: '@typescript-eslint/parser',
-  plugins: ['@typescript-eslint'],
   extends: [
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
@@ -12,7 +10,15 @@ module.exports = {
     'plugin:react-hooks/recommended',
     'prettier',
   ],
+  parser: '@typescript-eslint/parser',
+  plugins: ['@typescript-eslint', 'react'],
+  settings: {
+    react: {
+      version: 'detect', // React version. "detect" automatically picks the version you have installed.
+    },
+  },
   rules: {
     'react/prop-types': 'off',
+    'react/react-in-jsx-scope': 'off',
   },
 };
