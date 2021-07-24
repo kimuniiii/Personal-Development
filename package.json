@@ -13,11 +13,6 @@
     "lint": "eslint --ext .ts,.tsx .",
     "lint-staged": "lint-staged"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
   "lint-staged": {
     "*.{js,ts,tsx}": [
       "yarn format",
