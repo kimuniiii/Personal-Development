@@ -24,6 +24,7 @@
     "@storybook/react": "^6.2.9",
     "@types/node": "^15.6.1",
     "@types/react": "^17.0.7",
+    "@typescript-eslint/parser": "^4.28.4",
     "babel-loader": "^8.2.2",
     "eslint": "^7.31.0",
     "prettier": "^2.3.2",
