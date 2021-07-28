@@ -2,5 +2,17 @@
   "extends": ["config:base"],
   "timezone": "Asia/Tokyo",
   "schedule": "every weekday",
-  "labels": ["renovate"]
+  "labels": ["renovate"],
+  "packageRules": [
+    {
+      "groupName": "major dependencies",
+      "matchUpdateTypes": ["major"],
+      "labels": ["UPDATE-MAJOR"]
+    },
+    {
+      "groupName": "minor dependencies",
+      "matchUpdateTypes": ["minor", "patch", "pin", "digest", "lockFileMaintenance"],
+      "automerge": true
+    }
+  ]
 }
