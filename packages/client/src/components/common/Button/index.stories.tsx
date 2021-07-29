@@ -16,4 +16,5 @@ export const Basic = Template.bind({});
 
 Basic.args = {
   buttonContent: 'Button',
+  width: '500px',
 };

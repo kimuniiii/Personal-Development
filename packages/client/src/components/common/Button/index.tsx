@@ -1,9 +1,21 @@
-import React, { VFC } from 'react';
+import styled from '@emotion/styled';
 
-type Props = JSX.IntrinsicElements['button'] & {
+import type { VFC } from 'react';
+
+type ButtonProps = JSX.IntrinsicElements['button'] & {
   buttonContent: string;
+  width: `${number}px` | `${number}%` | `${number}vw`;
 };
 
-export const Button: VFC<Props> = ({ buttonContent, ...buttonProps }) => {
-  return <button {...buttonProps}>{buttonContent}</button>;
+export const Button: VFC<ButtonProps> = ({ buttonContent, width, ...buttonProps }) => {
+  return (
+    <StButton width={width} {...buttonProps}>
+      {buttonContent}
+    </StButton>
+  );
 };
+
+const StButton = styled.button<Pick<ButtonProps, 'width'>>`
+  color: red;
+  width: ${({ width }) => width};
+`;
