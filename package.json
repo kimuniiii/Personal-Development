@@ -5,6 +5,9 @@
   "workspaces": [
     "packages/*"
   ],
+  "engines": {
+    "npm": "npmではなくyarnを使ってください"
+  },
   "scripts": {
     "server": "yarn workspace server",
     "client": "yarn workspace client",
