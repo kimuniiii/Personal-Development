@@ -27,7 +27,14 @@ export const GLOBAL_STYLE = css`
     text-decoration: none;
   }
 
-  button,
+  button {
+    margin: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    appearance: none;
+  }
+
   input {
     margin: 0;
     border: 0;

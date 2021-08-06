@@ -35,7 +35,7 @@ const UserRegisterPage = (): JSX.Element => {
       <CommonTemplate>
         <StUserRegisterFormContainer onSubmit={handleSubmit(onSubmit)}>
           <h3>ユーザ登録</h3>
-          <StWithDrawContainer>
+          <StUserRegisterContainer>
             <Input
               type='email'
               id='email'
@@ -92,7 +92,7 @@ const UserRegisterPage = (): JSX.Element => {
               disabled={!isValid}
               onClick={(): void => alert('登録するボタンをクリック')}
             />
-          </StWithDrawContainer>
+          </StUserRegisterContainer>
         </StUserRegisterFormContainer>
       </CommonTemplate>
     </>
@@ -114,7 +114,7 @@ const StUserRegisterFormContainer = styled.form`
   padding: 16px;
 `;
 
-const StWithDrawContainer = styled.div`
+const StUserRegisterContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
