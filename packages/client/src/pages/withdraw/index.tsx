@@ -1,3 +1,4 @@
+import Router from 'next/router';
 import styled from '@emotion/styled';
 
 import React from 'react';
@@ -5,6 +6,7 @@ import React from 'react';
 import { Button } from 'src/components/common/Button';
 import { CommonTemplate } from 'src/components/templates/CommonTemplate';
 import { HeadTemplate } from 'src/components/templates/HeadTemplate';
+
 import { COLOR_PALETTE } from 'src/styles/color_palette';
 
 /**
@@ -19,7 +21,6 @@ const WithDrawPage = (): JSX.Element => {
           <h3>退会</h3>
           <StWithDrawContainer>
             <Button
-              className='logo-button'
               type='button'
               styleTypes='tertiary'
               width='200px'
@@ -28,6 +29,14 @@ const WithDrawPage = (): JSX.Element => {
               onClick={(): void => alert('退会するボタンをクリック')}
             />
           </StWithDrawContainer>
+          <Button
+            type='button'
+            styleTypes='textLink'
+            width='200px'
+            fontSizeValue='16px'
+            buttonContent='マイページに戻る'
+            onClick={(): Promise<boolean> => Router.push('/my-page')}
+          />
         </StWithDrawRoot>
       </CommonTemplate>
     </React.Fragment>
@@ -51,6 +60,7 @@ const StWithDrawRoot = styled.div`
 
 const StWithDrawContainer = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 300px;
