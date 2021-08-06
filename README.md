@@ -1,3 +1,11 @@
+## Storybook のデプロイ環境
+
+- Storybook の Github Pages へ自動デプロイを設定
+- GitHub に push と同時に生成された Storybook の静的ファイルが gh-page ブランチに自動デプロイされる
+- なので、常に最新の状態の Storybook が下記 URL で確認できる
+
+[Storybook のデプロイ環境](https://kimuniiii.github.io/Personal-Development/?path=/story/common-button--basic)
+
 ## フロントエンドのデプロイ環境
 
 - フロントエンドのデプロイ先は「Vercel」を選択
