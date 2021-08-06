@@ -27,13 +27,18 @@ export const GLOBAL_STYLE = css`
     text-decoration: none;
   }
 
-  button,
-  input {
+  button {
     margin: 0;
     border: 0;
     border-radius: 0;
     background: transparent;
     appearance: none;
+  }
+
+  input {
+    margin: 0;
+    border: 0;
+    border-radius: 0;
   }
 
   /*
