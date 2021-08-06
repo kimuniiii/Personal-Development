@@ -17,5 +17,5 @@ export const Button: VFC<ButtonProps> = ({ buttonContent, width, ...buttonProps 
 
 const StButton = styled.button<Pick<ButtonProps, 'width'>>`
   color: red;
-  width: ${({ width }) => width};
+  width: ${({ width }): `${number}px` | `${number}%` | `${number}vw` => width};
 `;
