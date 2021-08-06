@@ -49,6 +49,7 @@ const StHeader = styled.header`
   justify-content: space-between;
   align-items: center;
   padding: 16px;
+  height: 48px;
   background-color: ${COLOR_PALETTE.LIGHT_GRAY};
 
   .logo-button {
