@@ -15,6 +15,7 @@ const Template: Story<Props> = (args) => <Button {...args} />;
 export const Basic = Template.bind({});
 
 Basic.args = {
+  styleTypes: 'primary',
   buttonContent: 'Button',
-  width: '500px',
+  width: '200px',
 };
