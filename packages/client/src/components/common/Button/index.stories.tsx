@@ -4,6 +4,12 @@ import { Story, Meta } from '@storybook/react/types-6-0';
 import { Button } from '.';
 
 export default {
+  argTypes: {
+    styleTypes: {
+      control: { type: 'radio' },
+      options: ['primary', 'secondary', 'tertiary', 'textLink'],
+    },
+  },
   title: 'common/Button',
   component: Button,
 } as Meta;
