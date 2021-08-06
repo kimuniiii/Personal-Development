@@ -36,3 +36,12 @@ jobs:
 
       - name: Client Build
         run: yarn client build
+
+      - name: build storybook
+        run: yarn client build-storybook
+
+      - name: deploy storybook
+        uses: JamesIves/github-pages-deploy-action@4.1.4
+        with:
+          branch: gh-pages
+          folder: build
