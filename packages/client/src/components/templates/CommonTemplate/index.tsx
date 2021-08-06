@@ -1,3 +1,5 @@
+import styled from '@emotion/styled';
+
 import type { ReactNode, VFC } from 'react';
 
 import { CommonFooter } from 'src/components/templates/CommonTemplate/CommonFooter';
@@ -9,10 +11,20 @@ type CommonTemplateProps = {
 
 export const CommonTemplate: VFC<CommonTemplateProps> = ({ children }) => {
   return (
-    <div>
+    <StCommonRoot>
       <CommonHeader />
       <main>{children}</main>
       <CommonFooter />
-    </div>
+    </StCommonRoot>
   );
 };
+
+const StCommonRoot = styled.div`
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+
+  main {
+    flex: 1;
+  }
+`;
