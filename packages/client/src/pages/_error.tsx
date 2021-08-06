@@ -21,6 +21,7 @@ const ErrorPage: NextPage<Props> = ({ title, errorCode }) => {
   );
 };
 
+// resが存在する時はSSR・resがない場合はCSR
 ErrorPage.getInitialProps = async ({ res }: NextPageContext): Promise<Props> => {
   if (res !== undefined) {
     return {
