@@ -25,6 +25,9 @@ const StCommonRoot = styled.div`
   min-height: 100vh;
 
   main {
+    /*
+    ** Flexアイテムを拡張して利用可能なスペースを埋めるために記載
+    */
     flex: 1;
   }
 `;
