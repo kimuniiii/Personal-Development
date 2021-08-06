@@ -22,5 +22,15 @@ module.exports = {
   rules: {
     'react/prop-types': 'off',
     'react/react-in-jsx-scope': 'off',
+    '@typescript-eslint/ban-types': [
+      'error',
+      {
+        types: {
+          fixWith: 'object',
+          message: 'Use object instead',
+        },
+      },
+    ],
+    '@typescript-eslint/explicit-function-return-type': 2,
   },
 };
