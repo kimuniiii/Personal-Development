@@ -22,6 +22,7 @@
 
 ### Backend
 
+- TypeScript
 - NestJS
 - Prisma
 - GraphQL
@@ -30,6 +31,7 @@
 ### Frontend
 
 - React
+- TypeScript
 - Next.js
 - GraphQL Code Generator
 - Apollo Client
