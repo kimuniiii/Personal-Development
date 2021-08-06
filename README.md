@@ -5,7 +5,7 @@
 
 [フロントエンドのデプロイ環境の URL](https://personal-development-client-kzbe79r2h-kimuniiii.vercel.app/top)
 
-## バックエンドののデプロイ環境
+## バックエンドのデプロイ環境
 
 - バックエンドのデプロイ先は「Heroku」を選択（予定）
 - Heroku は Salesforce 社が提供する「インフラ管理が不要な PaaS」です
