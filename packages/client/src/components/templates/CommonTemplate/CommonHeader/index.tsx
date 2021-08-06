@@ -10,7 +10,16 @@ import { COLOR_PALETTE } from 'src/styles/color_palette';
 export const CommonHeader: VFC = () => {
   return (
     <StHeader>
-      <strong>Riot</strong>
+      <Button
+        className='logo-button'
+        type='button'
+        styleTypes='textLink'
+        width='100px'
+        fontSizeValue='16px'
+        padding='0'
+        buttonContent='Riot'
+        onClick={(): Promise<boolean> => Router.push('/top')}
+      />
       <StButtonContainer>
         <Button
           type='button'
@@ -41,6 +50,11 @@ const StHeader = styled.header`
   align-items: center;
   padding: 16px;
   background-color: ${COLOR_PALETTE.LIGHT_GRAY};
+
+  .logo-button {
+    color: ${COLOR_PALETTE.BLACK};
+    text-align: left;
+  }
 `;
 
 const StButtonContainer = styled.div`
