@@ -14,15 +14,16 @@ import { FONT_SIZE } from 'src/styles/font_size';
 type InputProps = JSX.IntrinsicElements['input'] & {
   type: string;
   name: string;
-  width: string;
   placeholder: string;
   isError: boolean;
   errors: Record<string, unknown>;
   register: UseFormRegisterReturn;
+  width: string;
   id?: string;
   labelText?: string;
   disabled?: boolean;
   fontSizeValue?: ValueOf<typeof FONT_SIZE>;
+  bgColor?: ValueOf<typeof COLOR_PALETTE>;
 };
 
 export const Input = React.forwardRef<HTMLInputElement, InputProps>(
@@ -30,15 +31,16 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
     {
       type,
       name,
-      width,
       placeholder,
       isError,
       errors,
       register,
+      width,
       id = 'text-input',
       labelText = '',
       disabled = false,
       fontSizeValue,
+      bgColor,
       ...textInputProps
     },
     ref,
@@ -54,11 +56,12 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
           {...textInputProps}
           type={type}
           id={id}
+          placeholder={placeholder}
+          isError={isError}
           width={width}
           disabled={disabled}
           fontSizeValue={fontSizeValue}
-          placeholder={placeholder}
-          isError={isError}
+          bgColor={bgColor}
           {...register}
           ref={ref}
         />
@@ -92,7 +95,10 @@ const StLabel = styled.label<Pick<InputProps, 'fontSizeValue'>>`
   cursor: pointer;
 `;
 
-type StInputProps = Pick<InputProps, 'width' | 'fontSizeValue' | 'disabled' | 'isError'>;
+type StInputProps = Pick<
+  InputProps,
+  'width' | 'fontSizeValue' | 'bgColor' | 'disabled' | 'isError'
+>;
 
 const StInput = styled.input<StInputProps>`
   display: block;
@@ -104,6 +110,8 @@ const StInput = styled.input<StInputProps>`
   outline: 0;
   font-size: ${({ fontSizeValue }): ValueOf<typeof FONT_SIZE> => fontSizeValue ?? FONT_SIZE.FS_16};
   color: ${COLOR_PALETTE.BLACK};
+  background-color: ${({ bgColor }): ValueOf<typeof COLOR_PALETTE> =>
+    bgColor ?? COLOR_PALETTE.WHITE};
   cursor: pointer;
 
   &:hover {
