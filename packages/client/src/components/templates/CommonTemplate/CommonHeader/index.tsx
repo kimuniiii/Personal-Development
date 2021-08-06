@@ -1,3 +1,4 @@
+import Router from 'next/router';
 import styled from '@emotion/styled';
 
 import type { VFC } from 'react';
@@ -18,7 +19,7 @@ export const CommonHeader: VFC = () => {
           fontSizeValue='16px'
           padding='0'
           buttonContent='ログイン'
-          onClick={(): void => alert('clicked Login Button')}
+          onClick={(): Promise<boolean> => Router.push('/login')}
         />
         <Button
           type='button'
@@ -27,7 +28,7 @@ export const CommonHeader: VFC = () => {
           fontSizeValue='16px'
           padding='0'
           buttonContent='ユーザー登録'
-          onClick={(): void => alert('clicked User Register Button')}
+          onClick={(): Promise<boolean> => Router.push('/register')}
         />
       </StButtonContainer>
     </StHeader>
