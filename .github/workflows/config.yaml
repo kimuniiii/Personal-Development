@@ -29,7 +29,7 @@ jobs:
         run: yarn client install
 
       - name: Client ESLint
-        run: yarn client lint
+        run: yarn client lint:cache
 
       - name: Client Type Check
         run: yarn client ts-test
