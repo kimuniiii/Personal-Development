@@ -1,6 +1,9 @@
-## WBS
+## フロントエンドのデプロイ環境の URL
 
-[Google スプレッドシート](https://docs.google.com/spreadsheets/d/14s5g0BIRy1pFtTN1-IM4jdI_QZZiday2iWtwDcWui8w/edit#gid=0)
+- フロントエンドのデプロイ先は「Vercel」を選択
+- Vercel は ZEIT 社が提供するフロントエンド向けのホスティングサービスです
+
+[フロントエンドのデプロイ環境の URL](https://personal-development-client-kzbe79r2h-kimuniiii.vercel.app/top)
 
 ## 技術選定（暫定）
 
