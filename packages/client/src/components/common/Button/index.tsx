@@ -18,8 +18,8 @@ export type ButtonProps = JSX.IntrinsicElements['button'] & {
    */
   width: string;
   fontSizeValue: ValueOf<typeof FONT_SIZE>;
+  buttonContent: string;
   onClick: React.MouseEventHandler<HTMLButtonElement>;
-  buttonContent?: string;
   padding?: string;
   fontWeight?: ValueOf<typeof FONT_WEIGHT>;
   maxWidth?: string;
