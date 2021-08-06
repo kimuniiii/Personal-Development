@@ -4,7 +4,7 @@ import { CommonTemplate } from 'src/components/templates/CommonTemplate';
 /**
  * @概要 ユーザー登録ボタンを押したら表示されるページコンポーネント
  */
-const RegisterPage = (): JSX.Element => {
+const UserRegisterPage = (): JSX.Element => {
   return (
     <>
       <HeadTemplate pageTitle='ユーザー登録ページ' />
@@ -13,4 +13,4 @@ const RegisterPage = (): JSX.Element => {
   );
 };
 
-export default RegisterPage;
+export default UserRegisterPage;
