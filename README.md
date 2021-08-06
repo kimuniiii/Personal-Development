@@ -25,6 +25,7 @@
 - NestJS
 - Prisma
 - GraphQL
+- Hasura
 
 ### Frontend
 
@@ -32,7 +33,7 @@
 - Next.js
 - GraphQL Code Generator
 - Apollo Client
-- emotion or tailwindcss
+- Emotion
 
 ### Other
 
@@ -42,4 +43,4 @@
 - ESLint / Prettier / husky
 - Docker / Docker Compose
 - Vercel
-- GCP (CloudSQL / Cloud Run / Cloud Build) or AWS
+- Heroku
