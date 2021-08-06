@@ -4,14 +4,14 @@
 - GitHub に push と同時に生成された Storybook の静的ファイルが gh-page ブランチに自動デプロイされる
 - なので、常に最新の状態の Storybook が下記 URL で確認できる
 
-[Storybook のデプロイ環境](https://kimuniiii.github.io/Personal-Development/?path=/story/common-button--basic)
+[Storybook | デプロイ環境](https://kimuniiii.github.io/Personal-Development/?path=/story/common-button--basic)
 
 ## フロントエンドのデプロイ環境
 
 - フロントエンドのデプロイ先は「Vercel」を選択
 - Vercel は ZEIT 社が提供するフロントエンド向けのホスティングサービスです
 
-[フロントエンドのデプロイ環境の URL](https://personal-development-client-kzbe79r2h-kimuniiii.vercel.app/top)
+[フロントエンド | デプロイ環境](https://personal-development-client-kzbe79r2h-kimuniiii.vercel.app/top)
 
 ## バックエンドのデプロイ環境
 
