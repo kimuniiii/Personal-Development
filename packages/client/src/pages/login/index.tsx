@@ -22,7 +22,7 @@ const LoginPage = (): JSX.Element => {
     handleSubmit,
     formState: { errors, isValid },
   } = useForm({
-    mode: 'onChange',
+    mode: 'onBlur',
     reValidateMode: 'onChange',
   });
 
@@ -74,6 +74,10 @@ const LoginPage = (): JSX.Element => {
               isError={!!errors.password}
               errors={errors}
               register={register('password', {
+                minLength: {
+                  value: validations.minPasswordLength,
+                  message: 'パスワードは6文字以上で設定してください',
+                },
                 required: { message: '必須入力項目です！', value: true },
               })}
             />
