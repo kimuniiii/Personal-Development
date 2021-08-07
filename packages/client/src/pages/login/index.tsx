@@ -11,6 +11,8 @@ import { Margin } from 'src/components/layouts/Margin';
 
 import { COLOR_PALETTE } from 'src/styles/color_palette';
 
+import { validations } from 'src/utils/validate';
+
 /**
  * @概要 ログインボタンを押したら表示されるページコンポーネント
  */
@@ -56,7 +58,7 @@ const LoginPage = (): JSX.Element => {
               register={register('email', {
                 pattern: {
                   message: 'メールアドレスの書き方が間違ってます！',
-                  value: /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/,
+                  value: validations.email,
                 },
                 required: { message: '必須入力項目です！', value: true },
               })}
