@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 
 import type { VFC } from 'react';
 
-import { Button } from 'src/components/common/Button';
+import { Button } from 'src/components/atoms/Button';
 
 import { COLOR_PALETTE } from 'src/styles/color_palette';
 

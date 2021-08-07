@@ -5,7 +5,7 @@ import { Checkbox } from '.';
 
 export default {
   component: Checkbox,
-  title: 'common/Checkbox',
+  title: 'atoms/Checkbox',
 } as Meta;
 
 type Props = React.ComponentProps<typeof Checkbox>;

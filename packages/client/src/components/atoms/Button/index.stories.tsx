@@ -10,7 +10,7 @@ export default {
       options: ['primary', 'secondary', 'tertiary', 'textLink'],
     },
   },
-  title: 'common/Button',
+  title: 'atoms/Button',
   component: Button,
 } as Meta;
 

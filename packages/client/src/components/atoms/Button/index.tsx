@@ -4,7 +4,7 @@ import React from 'react';
 
 import type { ValueOf } from 'typings/ValueOf';
 
-import { buttonStyleTypes } from 'src/components/common/Button/buttonStyleTypes';
+import { buttonStyleTypes } from 'src/components/atoms/Button/buttonStyleTypes';
 
 import { FONT_SIZE } from 'src/styles/font_size';
 import { FONT_WEIGHT } from 'src/styles/font_weight';

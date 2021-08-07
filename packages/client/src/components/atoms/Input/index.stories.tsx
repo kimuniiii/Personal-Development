@@ -6,7 +6,7 @@ import { Input } from '.';
 
 export default {
   component: Input,
-  title: 'common/Input',
+  title: 'atoms/Input',
 } as Meta;
 
 type Props = React.ComponentProps<typeof Input>;

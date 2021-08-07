@@ -5,7 +5,7 @@ import { SelectBox } from './index';
 
 export default {
   component: SelectBox,
-  title: 'common/SelectBox',
+  title: 'atoms/SelectBox',
 } as Meta;
 
 type Props = React.ComponentProps<typeof SelectBox>;

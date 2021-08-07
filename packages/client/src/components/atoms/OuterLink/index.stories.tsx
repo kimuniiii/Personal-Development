@@ -5,7 +5,7 @@ import { OuterLink } from './index';
 
 export default {
   component: OuterLink,
-  title: 'common/OuterLink',
+  title: 'atoms/OuterLink',
 } as Meta;
 
 type Props = React.ComponentProps<typeof OuterLink>;

@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 
 import React from 'react';
 
-import { Button } from 'src/components/common/Button';
+import { Button } from 'src/components/atoms/Button';
 import { CommonTemplate } from 'src/components/templates/CommonTemplate';
 import { HeadTemplate } from 'src/components/templates/HeadTemplate';
 

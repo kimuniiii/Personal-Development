@@ -1,10 +1,10 @@
 import styled from '@emotion/styled';
 import { useForm } from 'react-hook-form';
 
-import { Button } from 'src/components/common/Button';
+import { Button } from 'src/components/atoms/Button';
 import { CommonTemplate } from 'src/components/templates/CommonTemplate';
 import { HeadTemplate } from 'src/components/templates/HeadTemplate';
-import { Input } from 'src/components/common/Input';
+import { Input } from 'src/components/atoms/Input';
 import { Margin } from 'src/components/layouts/Margin';
 
 import { COLOR_PALETTE } from 'src/styles/color_palette';
