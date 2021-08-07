@@ -1,11 +1,11 @@
+import { Meta, Story } from '@storybook/react/types-6-0';
 import React from 'react';
-import { Story, Meta } from '@storybook/react/types-6-0';
 
-import { SelectBox } from '.';
+import { SelectBox } from './index';
 
 export default {
-  title: 'common/SelectBox',
   component: SelectBox,
+  title: 'common/SelectBox',
 } as Meta;
 
 type Props = React.ComponentProps<typeof SelectBox>;
@@ -13,3 +13,11 @@ type Props = React.ComponentProps<typeof SelectBox>;
 const Template: Story<Props> = (args) => <SelectBox {...args} />;
 
 export const Basic = Template.bind({});
+
+Basic.args = {
+  labelText: 'カテゴリー',
+  optionList: ['選択肢1', '選択肢2', '選択肢3'],
+  subText: '',
+  top: '18px',
+  width: '300px',
+};
