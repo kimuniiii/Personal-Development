@@ -37,7 +37,7 @@ export const SelectBox = React.forwardRef<HTMLSelectElement, SelectBoxProps>(
               </option>
             ))}
           </StSelect>
-          <IoIosArrowDown width={12} height={12} fill={`${COLOR_PALETTE.DARK_GRAY}`} />
+          <IoIosArrowDown width={12} height={12} fill={COLOR_PALETTE.DARK_GRAY} />
         </StSelectBoxArea>
       </StSelectBoxWrapper>
     );
