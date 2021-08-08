@@ -77,6 +77,10 @@ const StIconButton = styled.button<Omit<IconButtonProps, 'type' | 'svgComponent'
       ? css`
           cursor: not-allowed;
           opacity: 0.45;
+
+          &:hover {
+            background-color: ${COLOR_PALETTE.WHITE};
+          }
         `
       : null}
 `;
