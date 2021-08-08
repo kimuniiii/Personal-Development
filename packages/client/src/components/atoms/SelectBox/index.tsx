@@ -16,7 +16,6 @@ type SelectBoxProps = {
   register: UseFormRegisterReturn;
   fontSizeValue?: ValueOf<typeof FONT_SIZE>;
   labelText?: string;
-  subText?: string;
 };
 
 export const SelectBox = React.forwardRef<HTMLSelectElement, SelectBoxProps>(
@@ -29,7 +28,6 @@ export const SelectBox = React.forwardRef<HTMLSelectElement, SelectBoxProps>(
           </StLabel>
         ) : null}
         <StSelectBoxArea>
-          {subText !== '' ? <StSubText>{subText}</StSubText> : null}
           <StSelect id={id} fontSizeValue={fontSizeValue} {...register} ref={ref}>
             {optionList.map((cur) => (
               <option key={cur} value={cur}>
@@ -63,16 +61,6 @@ const StSelectBoxWrapper = styled.div<Pick<SelectBoxProps, 'width' | 'top'>>`
 
 const StSelectBoxArea = styled.div`
   position: relative;
-`;
-
-const StSubText = styled.div`
-  position: absolute;
-  top: -4px;
-  left: 8px;
-  padding: 0 4px;
-  background-color: ${COLOR_PALETTE.WHITE};
-  font-size: ${FONT_SIZE.FS_12};
-  color: ${COLOR_PALETTE.SPEAR_GRAY};
 `;
 
 const StSelect = styled.select<Pick<SelectBoxProps, 'fontSizeValue'>>`
