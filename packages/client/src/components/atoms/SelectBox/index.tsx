@@ -1,25 +1,34 @@
 import { IoIosArrowDown } from 'react-icons/io/index';
 import React from 'react';
+import { ErrorMessage } from '@hookform/error-message';
 import styled from '@emotion/styled';
 
 import type { UseFormRegisterReturn } from 'react-hook-form';
 import type { ValueOf } from 'typings/ValueOf';
+
+import { Margin } from 'src/components/layouts/Margin';
 
 import { COLOR_PALETTE } from 'src/styles/color_palette';
 import { FONT_SIZE } from 'src/styles/font_size';
 
 type SelectBoxProps = {
   id: string;
+  name: string;
   top: string;
   width: `${number}px` | `${number}%` | `${number}vw`;
   optionList: string[];
+  isError: boolean;
+  errors: Record<string, unknown>;
   register: UseFormRegisterReturn;
   fontSizeValue?: ValueOf<typeof FONT_SIZE>;
   labelText?: string;
 };
 
 export const SelectBox = React.forwardRef<HTMLSelectElement, SelectBoxProps>(
-  ({ id, top, width, optionList, register, fontSizeValue, labelText = '', subText = '' }, ref) => {
+  (
+    { id, name, top, width, optionList, isError, errors, register, fontSizeValue, labelText = '' },
+    ref,
+  ) => {
     return (
       <StSelectBoxWrapper width={width} top={top}>
         {labelText !== '' ? (
@@ -37,6 +46,18 @@ export const SelectBox = React.forwardRef<HTMLSelectElement, SelectBoxProps>(
           </StSelect>
           <IoIosArrowDown width={12} height={12} fill={COLOR_PALETTE.DARK_GRAY} />
         </StSelectBoxArea>
+        {isError ? (
+          <ErrorMessage
+            errors={errors}
+            name={name}
+            render={({ message }): JSX.Element => (
+              <React.Fragment>
+                <Margin bottom='8px' />
+                <StErrorMessage>{message}</StErrorMessage>
+              </React.Fragment>
+            )}
+          />
+        ) : null}
       </StSelectBoxWrapper>
     );
   },
@@ -88,4 +109,8 @@ const StSelect = styled.select<Pick<SelectBoxProps, 'fontSizeValue'>>`
 const StLabel = styled.label<Pick<SelectBoxProps, 'fontSizeValue'>>`
   padding-bottom: 8px;
   font-size: ${({ fontSizeValue }): ValueOf<typeof FONT_SIZE> => fontSizeValue ?? FONT_SIZE.FS_14};
+`;
+
+const StErrorMessage = styled.div`
+  color: ${COLOR_PALETTE.ERROR_COLOR};
 `;

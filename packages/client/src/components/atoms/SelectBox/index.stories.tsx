@@ -17,7 +17,6 @@ export const Basic = Template.bind({});
 Basic.args = {
   labelText: 'カテゴリー',
   optionList: ['選択肢1', '選択肢2', '選択肢3'],
-  subText: '',
   top: '18px',
   width: '300px',
 };
