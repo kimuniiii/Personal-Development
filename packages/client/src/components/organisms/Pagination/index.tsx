@@ -15,6 +15,7 @@ type PaginationProps = {
   lastIndex: number;
   isPagerButton: boolean;
   onClick: (defaultIndex: number) => void;
+  className?: string;
 };
 
 export const Pagination: VFC<PaginationProps> = ({
@@ -22,9 +23,10 @@ export const Pagination: VFC<PaginationProps> = ({
   lastIndex,
   isPagerButton,
   onClick,
+  className,
 }) => {
   return (
-    <StPaginationWrapper>
+    <StPaginationWrapper className={className}>
       <IconButton
         type='button'
         svgComponent={<IoIosArrowBack size={20} fill={COLOR_PALETTE.DARK_GRAY} />}
@@ -39,6 +41,7 @@ export const Pagination: VFC<PaginationProps> = ({
         }}
         disabled={defaultIndex <= 1}
       />
+      <Margin right='16px' />
       <StPaginationText>
         {isPagerButton ? (
           <>
@@ -66,6 +69,7 @@ export const Pagination: VFC<PaginationProps> = ({
           </>
         )}
       </StPaginationText>
+      <Margin right='16px' />
       <IconButton
         type='button'
         svgComponent={<IoIosArrowForward size={20} fill={COLOR_PALETTE.DARK_GRAY} />}
