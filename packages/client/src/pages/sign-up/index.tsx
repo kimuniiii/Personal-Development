@@ -12,7 +12,7 @@ import { COLOR_PALETTE } from 'src/styles/color_palette';
 /**
  * @概要 ユーザー登録ボタンを押したら表示されるページコンポーネント
  */
-const UserRegisterPage = (): JSX.Element => {
+const SignUpFormPage = (): JSX.Element => {
   const {
     register,
     handleSubmit,
@@ -99,7 +99,7 @@ const UserRegisterPage = (): JSX.Element => {
   );
 };
 
-export default UserRegisterPage;
+export default SignUpFormPage;
 
 const StUserRegisterFormContainer = styled.form`
   display: flex;
