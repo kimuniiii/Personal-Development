@@ -16,7 +16,7 @@ import { validations } from 'src/utils/validate';
 /**
  * @概要 ログインボタンを押したら表示されるページコンポーネント
  */
-const LoginPage = (): JSX.Element => {
+const SignInFormPage = (): JSX.Element => {
   const {
     register,
     handleSubmit,
@@ -110,7 +110,7 @@ const LoginPage = (): JSX.Element => {
   );
 };
 
-export default LoginPage;
+export default SignInFormPage;
 
 const StLoginFormContainer = styled.form`
   display: flex;
