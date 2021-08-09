@@ -10,6 +10,10 @@ import { Margin } from 'src/components/layouts/Margin';
 import { COLOR_PALETTE } from 'src/styles/color_palette';
 
 const TopPage = (): JSX.Element => {
+  // API通信の結果に応じて「動的」に変化していく予定
+  const SEARCH_CURRENT_PAGE_NUMBER = 1;
+  const SEARCH_TOTAL_RESULT_NUMBER = 3;
+
   const [paginationDefaultIndex, setPaginationDefaultIndex] = useState(1);
 
   return (
@@ -20,8 +24,12 @@ const TopPage = (): JSX.Element => {
           <SearchBox />
           <StProductListContainer>
             <StSearchResultLabel>
-              <h4>3件の商品が見つかりました</h4>
-              <span>1 - 3件 / 3件中</span>
+              <h4>{SEARCH_TOTAL_RESULT_NUMBER}件の商品が見つかりました</h4>
+              <StSearchResultItem>
+                {SEARCH_CURRENT_PAGE_NUMBER} - {SEARCH_TOTAL_RESULT_NUMBER}件<Margin right='4px' />/
+                <Margin right='4px' />
+                {SEARCH_TOTAL_RESULT_NUMBER}件中
+              </StSearchResultItem>
             </StSearchResultLabel>
             <StProductList>
               <StProductItem>商品1</StProductItem>
@@ -77,6 +85,13 @@ const StProductListContainer = styled.section`
 const StSearchResultLabel = styled.section`
   display: flex;
   justify-content: space-between;
+  background-color: ${COLOR_PALETTE.LIGHT_GRAY};
+  padding: 8px;
+`;
+
+const StSearchResultItem = styled.section`
+  display: flex;
+  align-items: center;
 `;
 
 const StProductList = styled.ul`
