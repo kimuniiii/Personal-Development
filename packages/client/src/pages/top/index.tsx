@@ -5,9 +5,12 @@ import { CommonTemplate } from 'src/components/templates/CommonTemplate';
 import { HeadTemplate } from 'src/components/templates/HeadTemplate';
 import { SearchBox } from 'src/components/organisms/SearchBox';
 import { Pagination } from 'src/components/organisms/Pagination';
+import { ProductCard } from 'src/components/organisms/ProductCard';
 import { Margin } from 'src/components/layouts/Margin';
 
 import { COLOR_PALETTE } from 'src/styles/color_palette';
+
+import ReactImage from '../../../public/react.jpg';
 
 const TopPage = (): JSX.Element => {
   // API通信の結果に応じて「動的」に変化していく予定
@@ -31,15 +34,8 @@ const TopPage = (): JSX.Element => {
                 {SEARCH_TOTAL_RESULT_NUMBER}件中
               </StSearchResultItem>
             </StSearchResultLabel>
-            <StProductList>
-              <StProductItem>商品1</StProductItem>
-              <StProductItem>商品2</StProductItem>
-              <StProductItem>商品3</StProductItem>
-              <StProductItem>商品4</StProductItem>
-              <StProductItem>商品5</StProductItem>
-              <StProductItem>商品6</StProductItem>
-            </StProductList>
-            <Margin bottom='32px' />
+            <ProductCard productCardList={productCardList} />
+            <Margin bottom='8px' />
             <Pagination
               className='pagination'
               defaultIndex={paginationDefaultIndex}
@@ -72,7 +68,7 @@ const StRoot = styled.section`
 const StProductListContainer = styled.section`
   display: flex;
   flex-direction: column;
-  height: 414px;
+  height: 500px;
   gap: 16px;
 
   h1,
@@ -94,22 +90,53 @@ const StSearchResultItem = styled.section`
   align-items: center;
 `;
 
-const StProductList = styled.ul`
-  display: flex;
-  flex-flow: row wrap;
-  gap: 16px;
-  /*
-  ** 128 + 16 + 128 + 16 + 128 + 8 = 416
-  */
-  width: 416px;
-`;
+// データモックを簡易的に定義する
+export type ProductCardList = {
+  productImage: {
+    src: string;
+    width: number;
+    height: number;
+  };
+  productImageAlt: string;
+  productName: string;
+  productMoney: string;
+};
 
-const StProductItem = styled.li`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 128px;
-  height: 128px;
-  border-radius: 3px;
-  border: 1px solid ${COLOR_PALETTE.BLACK};
-`;
+const productCardList: ProductCardList[] = [
+  {
+    productImage: ReactImage,
+    productImageAlt: 'Reactの画像です',
+    productName: 'React First',
+    productMoney: '¥1000',
+  },
+  {
+    productImage: ReactImage,
+    productImageAlt: 'Reactの画像です',
+    productName: 'React Second',
+    productMoney: '¥1000',
+  },
+  {
+    productImage: ReactImage,
+    productImageAlt: 'Reactの画像です',
+    productName: 'React Third',
+    productMoney: '¥1000',
+  },
+  {
+    productImage: ReactImage,
+    productImageAlt: 'Reactの画像です',
+    productName: 'React Fourth',
+    productMoney: '¥1000',
+  },
+  {
+    productImage: ReactImage,
+    productImageAlt: 'Reactの画像です',
+    productName: 'React Fifth',
+    productMoney: '¥1000',
+  },
+  {
+    productImage: ReactImage,
+    productImageAlt: 'Reactの画像です',
+    productName: 'React Sixth',
+    productMoney: '¥1000',
+  },
+];
