@@ -3,6 +3,8 @@ import { Story, Meta } from '@storybook/react/types-6-0';
 
 import { ProductCard } from '.';
 
+import { priceToJapaneseYen } from 'src/utils/price';
+
 import ReactImage from '../../../../public/react.jpg';
 
 export default {
@@ -26,37 +28,37 @@ const productCardList: ProductCardList[] = [
     productImage: ReactImage,
     productImageAlt: 'Reactの画像です',
     productName: 'React First',
-    productMoney: '¥1000',
+    productMoney: `${priceToJapaneseYen(1000)}`,
   },
   {
     productImage: ReactImage,
     productImageAlt: 'Reactの画像です',
     productName: 'React Second',
-    productMoney: '¥1000',
+    productMoney: `${priceToJapaneseYen(1000)}`,
   },
   {
     productImage: ReactImage,
     productImageAlt: 'Reactの画像です',
     productName: 'React Third',
-    productMoney: '¥1000',
+    productMoney: `${priceToJapaneseYen(1000)}`,
   },
   {
     productImage: ReactImage,
     productImageAlt: 'Reactの画像です',
     productName: 'React Fourth',
-    productMoney: '¥1000',
+    productMoney: `${priceToJapaneseYen(1000)}`,
   },
   {
     productImage: ReactImage,
     productImageAlt: 'Reactの画像です',
     productName: 'React Fifth',
-    productMoney: '¥1000',
+    productMoney: `${priceToJapaneseYen(1000)}`,
   },
   {
     productImage: ReactImage,
     productImageAlt: 'Reactの画像です',
     productName: 'React Sixth',
-    productMoney: '¥1000',
+    productMoney: `${priceToJapaneseYen(1000)}`,
   },
 ];
 
