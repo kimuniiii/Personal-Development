@@ -1,8 +1,7 @@
 import styled from '@emotion/styled';
 import { useForm } from 'react-hook-form';
-// eslint-disable-next-line
-// @ts-ignore
-import React, { VFC } from 'react';
+
+import type { VFC } from 'react';
 
 import { Button } from 'src/components/atoms/Button';
 import { SelectBox } from 'src/components/atoms/SelectBox';
