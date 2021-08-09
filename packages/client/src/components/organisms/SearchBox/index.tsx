@@ -73,6 +73,7 @@ const StSearchForm = styled.form`
   flex-direction: column;
   gap: 16px;
   padding: 24px;
+  width: 348px;
   height: 500px;
   background-color: ${COLOR_PALETTE.LIGHT_GRAY};
 `;
