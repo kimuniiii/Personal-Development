@@ -10,6 +10,8 @@ import { Margin } from 'src/components/layouts/Margin';
 
 import { COLOR_PALETTE } from 'src/styles/color_palette';
 
+import { priceToJapaneseYen } from 'src/utils/price';
+
 import ReactImage from '../../../public/react.jpg';
 
 const TopPage = (): JSX.Element => {
@@ -107,36 +109,36 @@ const productCardList: ProductCardList[] = [
     productImage: ReactImage,
     productImageAlt: 'Reactの画像です',
     productName: 'React First',
-    productMoney: '¥1000',
+    productMoney: `${priceToJapaneseYen(1000)}`,
   },
   {
     productImage: ReactImage,
     productImageAlt: 'Reactの画像です',
     productName: 'React Second',
-    productMoney: '¥1000',
+    productMoney: `${priceToJapaneseYen(1000)}`,
   },
   {
     productImage: ReactImage,
     productImageAlt: 'Reactの画像です',
     productName: 'React Third',
-    productMoney: '¥1000',
+    productMoney: `${priceToJapaneseYen(1000)}`,
   },
   {
     productImage: ReactImage,
     productImageAlt: 'Reactの画像です',
     productName: 'React Fourth',
-    productMoney: '¥1000',
+    productMoney: `${priceToJapaneseYen(1000)}`,
   },
   {
     productImage: ReactImage,
     productImageAlt: 'Reactの画像です',
     productName: 'React Fifth',
-    productMoney: '¥1000',
+    productMoney: `${priceToJapaneseYen(1000)}`,
   },
   {
     productImage: ReactImage,
     productImageAlt: 'Reactの画像です',
     productName: 'React Sixth',
-    productMoney: '¥1000',
+    productMoney: `${priceToJapaneseYen(1000)}`,
   },
 ];
