@@ -1,5 +1,6 @@
-import React from 'react';
+import { action } from '@storybook/addon-actions';
 import { Story, Meta } from '@storybook/react/types-6-0';
+import React from 'react';
 
 import { Button } from '.';
 
@@ -24,4 +25,5 @@ Basic.args = {
   styleTypes: 'primary',
   buttonContent: 'Button',
   width: '200px',
+  onClick: action('Button Clicked'),
 };
