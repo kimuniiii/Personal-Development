@@ -1,33 +1,57 @@
+import { css, SerializedStyles } from '@emotion/react';
 import styled from '@emotion/styled';
 
 import type { ReactNode, VFC } from 'react';
 
 import { CommonFooter } from 'src/components/templates/CommonTemplate/CommonFooter';
 import { CommonHeader } from 'src/components/templates/CommonTemplate/CommonHeader';
+import { CommonSideBar } from 'src/components/templates/CommonTemplate/CommonSideBar';
 
 type CommonTemplateProps = {
   children: ReactNode;
+  isSideBar: boolean;
 };
 
-export const CommonTemplate: VFC<CommonTemplateProps> = ({ children }) => {
+export const CommonTemplate: VFC<CommonTemplateProps> = ({ children, isSideBar }) => {
   return (
     <StCommonRoot>
       <CommonHeader />
-      <main>{children}</main>
+      {isSideBar ? (
+        <StMain isSideBar={isSideBar}>
+          <main>{children}</main>
+          <CommonSideBar />
+        </StMain>
+      ) : (
+        <StMain isSideBar={isSideBar}>
+          <main>{children}</main>
+        </StMain>
+      )}
       <CommonFooter />
     </StCommonRoot>
   );
 };
 
-const StCommonRoot = styled.div`
+const StCommonRoot = styled.section`
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+`;
 
-  main {
-    /*
-    ** Flexアイテムを拡張して利用可能なスペースを埋めるために記載
-    */
-    flex: 1;
-  }
+const StMain = styled.div<{ isSideBar: boolean }>`
+  ${({ isSideBar }): SerializedStyles | null =>
+    isSideBar
+      ? css`
+          display: flex;
+          min-width: calc(100vw - 220px);
+
+          main {
+            flex: 1;
+          }
+        `
+      : css`
+          /*
+          ** Flexアイテムを拡張して利用可能なスペースを埋めるために記載
+          */
+          flex: 1;
+        `}
 `;
