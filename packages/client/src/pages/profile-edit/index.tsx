@@ -40,6 +40,42 @@ const ProfileEditPage = (): JSX.Element => {
           <h3>プロフィール編集</h3>
           <StProfileEditContainer>
             <Input
+              type='text'
+              id='first-name'
+              width='343px'
+              fontSizeValue='16px'
+              placeholder='例: タナカ'
+              labelText='姓（カナ）'
+              isError={!!errors.firstName}
+              errors={errors}
+              name='firstName'
+              register={register('firstName', {
+                pattern: {
+                  message: 'カタカナで入力してください！',
+                  value: validations.firstName,
+                },
+                required: { message: '必須入力項目です！', value: true },
+              })}
+            />
+            <Input
+              type='text'
+              id='last-name'
+              width='343px'
+              fontSizeValue='16px'
+              placeholder='例: タロウ'
+              labelText='名（カナ）'
+              isError={!!errors.lastName}
+              errors={errors}
+              name='lastName'
+              register={register('lastName', {
+                pattern: {
+                  message: 'カタカナで入力してください！',
+                  value: validations.lastName,
+                },
+                required: { message: '必須入力項目です！', value: true },
+              })}
+            />
+            <Input
               type='tel'
               id='phone-number'
               name='phoneNumber'
@@ -53,6 +89,42 @@ const ProfileEditPage = (): JSX.Element => {
                 pattern: {
                   message: '電話番号の書き方が間違ってます！',
                   value: validations.telephone,
+                },
+                required: { message: '必須入力項目です！', value: true },
+              })}
+            />
+            <Input
+              type='text'
+              id='postcode'
+              name='postCode'
+              labelText='郵便番号'
+              placeholder='例: 1516608'
+              isError={!!errors.postCode}
+              errors={errors}
+              width='343px'
+              fontSizeValue='16px'
+              register={register('postCode', {
+                pattern: {
+                  message: '郵便番号の書き方が間違ってます！',
+                  value: validations.postcode,
+                },
+                required: { message: '必須入力項目です！', value: true },
+              })}
+            />
+            <Input
+              type='number'
+              id='ageNumber'
+              name='ageNumber'
+              labelText='年齢'
+              placeholder='例: 25'
+              width='343px'
+              fontSizeValue='16px'
+              isError={!!errors.ageNumber}
+              errors={errors}
+              register={register('ageNumber', {
+                pattern: {
+                  message: '年齢の書き方が間違ってます！',
+                  value: validations.ageNumber,
                 },
                 required: { message: '必須入力項目です！', value: true },
               })}
