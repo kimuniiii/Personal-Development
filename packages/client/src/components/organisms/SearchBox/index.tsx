@@ -45,7 +45,7 @@ export const SearchBox: VFC = () => {
         id='select-display-order-box'
         name='select-display-order-box'
         labelText='表示順'
-        optionList={['表示順を選択してください', '昇順', '降順']}
+        optionList={['表示順を選択してください', '金額の安い順', '金額の高い順']}
         top='18px'
         width='300px'
         isError={!!errors['select-display-order-box']}
