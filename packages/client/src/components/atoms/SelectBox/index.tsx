@@ -20,13 +20,26 @@ type SelectBoxProps = {
   isError: boolean;
   errors: Record<string, unknown>;
   register: UseFormRegisterReturn;
+  padding?: string;
   fontSizeValue?: ValueOf<typeof FONT_SIZE>;
   labelText?: string;
 };
 
 export const SelectBox = React.forwardRef<HTMLSelectElement, SelectBoxProps>(
   (
-    { id, name, top, width, optionList, isError, errors, register, fontSizeValue, labelText = '' },
+    {
+      id,
+      name,
+      top,
+      width,
+      optionList,
+      isError,
+      errors,
+      register,
+      padding,
+      fontSizeValue,
+      labelText = '',
+    },
     ref,
   ) => {
     return (
@@ -37,7 +50,7 @@ export const SelectBox = React.forwardRef<HTMLSelectElement, SelectBoxProps>(
           </StLabel>
         ) : null}
         <StSelectBoxArea>
-          <StSelect id={id} fontSizeValue={fontSizeValue} {...register} ref={ref}>
+          <StSelect id={id} fontSizeValue={fontSizeValue} padding={padding} {...register} ref={ref}>
             {optionList.map((cur) => (
               <option key={cur} value={cur}>
                 {cur}
@@ -84,9 +97,9 @@ const StSelectBoxArea = styled.div`
   position: relative;
 `;
 
-const StSelect = styled.select<Pick<SelectBoxProps, 'fontSizeValue'>>`
+const StSelect = styled.select<Pick<SelectBoxProps, 'fontSizeValue' | 'padding'>>`
   width: 100%;
-  padding: 16px 8px;
+  padding: ${({ padding }): string => padding ?? '16px 8px'};
   border: 1px solid ${COLOR_PALETTE.DARK_GRAY};
   border-radius: 3px;
   outline: 0;

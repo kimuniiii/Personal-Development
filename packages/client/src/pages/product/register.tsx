@@ -67,6 +67,7 @@ const ProductRegisterPage = (): JSX.Element => {
               ]}
               top='18px'
               width='343px'
+              padding='16px'
               isError={!!errors['select-category-box']}
               errors={errors}
               register={register('select-category-box', {
