@@ -18,7 +18,7 @@ const SignUpFormPage = (): JSX.Element => {
     handleSubmit,
     formState: { errors, isValid },
   } = useForm({
-    mode: 'onChange',
+    mode: 'onBlur',
     reValidateMode: 'onChange',
   });
 
