@@ -52,7 +52,7 @@ const SignInFormPage = (): JSX.Element => {
               labelText='Email'
               placeholder='メールアドレスを入力してください'
               width='343px'
-              fontSizeValue='12px'
+              fontSizeValue='16px'
               isError={!!errors.email}
               errors={errors}
               register={register('email', {
@@ -70,7 +70,7 @@ const SignInFormPage = (): JSX.Element => {
               labelText='パスワード'
               placeholder='パスワードを入力してください'
               width='343px'
-              fontSizeValue='12px'
+              fontSizeValue='16px'
               isError={!!errors.password}
               errors={errors}
               register={register('password', {
