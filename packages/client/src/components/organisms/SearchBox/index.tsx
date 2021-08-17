@@ -32,7 +32,7 @@ export const SearchBox: VFC = () => {
         id='select-category-box'
         name='select-category-box'
         labelText='カテゴリー'
-        optionList={['カテゴリーを選択してください', 'カテゴリー1', 'カテゴリー2', 'カテゴリー3']}
+        optionList={['カテゴリーを選択してください', '家電', 'PC', 'ゲーム', '衣類', 'その他']}
         top='18px'
         width='300px'
         isError={!!errors['select-category-box']}
