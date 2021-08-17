@@ -43,7 +43,7 @@ const SignUpFormPage = (): JSX.Element => {
               labelText='Email'
               placeholder='メールアドレスを入力してください'
               width='343px'
-              fontSizeValue='12px'
+              fontSizeValue='16px'
               isError={!!errors.email}
               errors={errors}
               register={register('email', {
@@ -61,7 +61,7 @@ const SignUpFormPage = (): JSX.Element => {
               labelText='パスワード'
               placeholder='パスワードを入力してください'
               width='343px'
-              fontSizeValue='12px'
+              fontSizeValue='16px'
               isError={!!errors.password}
               errors={errors}
               register={register('password', {
@@ -73,9 +73,9 @@ const SignUpFormPage = (): JSX.Element => {
               id='re-password'
               name='re-password'
               labelText='パスワード(再入力)'
-              placeholder='再度、パスワードを入力してください'
+              placeholder='パスワードを再入力してください'
               width='343px'
-              fontSizeValue='12px'
+              fontSizeValue='16px'
               isError={!!errors.password}
               errors={errors}
               register={register('re-password', {
