@@ -34,7 +34,7 @@ export const TextArea: VFC<TextAreaProps> = ({
   register,
   width,
   height,
-  id = 'text-input',
+  id = 'textarea',
   labelText = '',
   disabled = false,
   fontSizeValue,
