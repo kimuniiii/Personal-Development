@@ -8,7 +8,7 @@ import { HeadTemplate } from 'src/components/templates/HeadTemplate';
 import { Input } from 'src/components/atoms/Input';
 import { Margin } from 'src/components/layouts/Margin';
 import { SelectBox } from 'src/components/atoms/SelectBox';
-import { TextArea } from 'src/components/atoms/Textarea';
+import { TextArea } from 'src/components/atoms/TextArea';
 
 import { COLOR_PALETTE } from 'src/styles/color_palette';
 
