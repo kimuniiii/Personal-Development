@@ -35,7 +35,7 @@ const ProfileEditPage = (): JSX.Element => {
   return (
     <React.Fragment>
       <HeadTemplate pageTitle='プロフィール編集ページ' />
-      <CommonTemplate>
+      <CommonTemplate isSideBar={true}>
         <StProfileEditFormContainer onSubmit={handleSubmit(onSubmit)}>
           <h3>プロフィール編集</h3>
           <StProfileEditContainer>
@@ -112,6 +112,20 @@ const ProfileEditPage = (): JSX.Element => {
               })}
             />
             <Input
+              type='text'
+              id='address'
+              name='address'
+              labelText='住所'
+              placeholder='例: 東京都調布市下石原3-9-12'
+              isError={!!errors.address}
+              errors={errors}
+              width='343px'
+              fontSizeValue='16px'
+              register={register('address', {
+                required: { message: '必須入力項目です！', value: true },
+              })}
+            />
+            <Input
               type='number'
               id='ageNumber'
               name='ageNumber'
@@ -176,16 +190,15 @@ const StProfileEditFormContainer = styled.form`
   ** CommonFooterのheight : 56px
   */
   min-height: calc(100vh - (48px + 56px));
-  padding: 16px;
+  padding: 8px;
 `;
 
-const StProfileEditContainer = styled.div`
+const StProfileEditContainer = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 16px;
   width: 375px;
-  height: auto;
   padding: 16px;
   background-color: ${COLOR_PALETTE.LIGHT_GRAY};
 `;
