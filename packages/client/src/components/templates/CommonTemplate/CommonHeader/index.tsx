@@ -18,7 +18,7 @@ export const CommonHeader: VFC = () => {
         fontSizeValue='16px'
         padding='0'
         buttonContent='Riot'
-        onClick={(): Promise<boolean> => Router.push('/top')}
+        onClick={(): Promise<boolean> => Router.push('/')}
       />
       <StButtonContainer>
         <Button

@@ -3,7 +3,7 @@ import Image from 'next/image';
 
 import type { VFC } from 'react';
 
-import type { ProductCardList } from 'src/pages/top';
+import type { ProductCardList } from 'src/pages';
 
 import { COLOR_PALETTE } from 'src/styles/color_palette';
 
