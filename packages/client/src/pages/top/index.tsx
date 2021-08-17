@@ -24,7 +24,7 @@ const TopPage = (): JSX.Element => {
   return (
     <React.Fragment>
       <HeadTemplate pageTitle='トップページ' />
-      <CommonTemplate>
+      <CommonTemplate isSideBar={false}>
         <StRoot>
           <SearchBox />
           <StProductListContainer>
