@@ -8,9 +8,9 @@ import { Margin } from 'src/components/layouts/Margin';
 
 import { COLOR_PALETTE } from 'src/styles/color_palette';
 
-export const SideBar: VFC = () => {
+export const CommonSideBar: VFC = () => {
   return (
-    <StButtonContainer>
+    <StSideBarContainer>
       <Button
         type='button'
         styleTypes='textLink'
@@ -60,17 +60,17 @@ export const SideBar: VFC = () => {
         buttonContent='退会'
         onClick={(): Promise<boolean> => Router.push('/withdraw')}
       />
-    </StButtonContainer>
+    </StSideBarContainer>
   );
 };
 
-const StButtonContainer = styled.section`
+const StSideBarContainer = styled.aside`
   display: flex;
   flex-direction: column;
   background-color: ${COLOR_PALETTE.LIGHT_GRAY};
-  width: 200px;
-  height: 500px;
-  padding: 8px;
+  width: 220px;
+  height: 100vh;
+  padding: 16px;
 
   button {
     color: ${COLOR_PALETTE.BLACK};
