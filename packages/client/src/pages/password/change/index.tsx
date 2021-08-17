@@ -34,7 +34,7 @@ const PasswordChangePage = (): JSX.Element => {
 
   return (
     <React.Fragment>
-      <HeadTemplate pageTitle='ログインページ' />
+      <HeadTemplate pageTitle='パスワード変更ページ' />
       <CommonTemplate isSideBar={true}>
         <StPasswordChangeFormContainer onSubmit={handleSubmit(onSubmit)}>
           <h3>パスワード変更</h3>
