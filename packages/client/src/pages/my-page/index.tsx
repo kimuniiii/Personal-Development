@@ -1,14 +1,11 @@
-import Router from 'next/router';
 import styled from '@emotion/styled';
 import React from 'react';
 
-import { Button } from 'src/components/atoms/Button';
 import { CommonTemplate } from 'src/components/templates/CommonTemplate';
 import { HeadTemplate } from 'src/components/templates/HeadTemplate';
-import { ProductCard } from 'src/components/organisms/ProductCard';
 import { Margin } from 'src/components/layouts/Margin';
-
-import { COLOR_PALETTE } from 'src/styles/color_palette';
+import { ProductCard } from 'src/components/organisms/ProductCard';
+import { SideBar } from 'src/components/organisms/SideBar';
 
 import { priceToJapaneseYen } from 'src/utils/price';
 
@@ -27,57 +24,7 @@ const MyPage = (): JSX.Element => {
             <h3>連絡掲示板</h3>
             <h3>お気に入り一覧</h3>
           </StProductListContainer>
-          <StButtonContainer>
-            <Button
-              type='button'
-              styleTypes='textLink'
-              width='auto'
-              fontSizeValue='16px'
-              padding='8px'
-              buttonContent='商品を出品する'
-              onClick={(): Promise<boolean> => Router.push('/product/register')}
-            />
-            <Margin bottom='8px' />
-            <Button
-              type='button'
-              styleTypes='textLink'
-              width='auto'
-              fontSizeValue='16px'
-              padding='8px'
-              buttonContent='販売履歴を見る'
-              onClick={(): void => alert('販売履歴を見るボタンをクリック')}
-            />
-            <Margin bottom='8px' />
-            <Button
-              type='button'
-              styleTypes='textLink'
-              width='auto'
-              fontSizeValue='16px'
-              padding='8px'
-              buttonContent='プロフィール編集'
-              onClick={(): Promise<boolean> => Router.push('/profile-edit')}
-            />
-            <Margin bottom='8px' />
-            <Button
-              type='button'
-              styleTypes='textLink'
-              width='auto'
-              fontSizeValue='16px'
-              padding='8px'
-              buttonContent='パスワード変更'
-              onClick={(): Promise<boolean> => Router.push('/password/change')}
-            />
-            <Margin bottom='8px' />
-            <Button
-              type='button'
-              styleTypes='textLink'
-              width='auto'
-              fontSizeValue='16px'
-              padding='8px'
-              buttonContent='退会'
-              onClick={(): Promise<boolean> => Router.push('/withdraw')}
-            />
-          </StButtonContainer>
+          <SideBar />
         </StRoot>
       </CommonTemplate>
     </React.Fragment>
@@ -104,19 +51,6 @@ const StProductListContainer = styled.section`
   flex-direction: column;
   height: 500px;
   gap: 16px;
-`;
-
-const StButtonContainer = styled.section`
-  display: flex;
-  flex-direction: column;
-  background-color: ${COLOR_PALETTE.LIGHT_GRAY};
-  width: 200px;
-  height: 500px;
-  padding: 8px;
-
-  button {
-    color: ${COLOR_PALETTE.BLACK};
-  }
 `;
 
 // データモックを簡易的に定義する
