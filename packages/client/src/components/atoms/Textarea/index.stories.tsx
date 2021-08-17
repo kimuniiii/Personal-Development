@@ -1,16 +1,16 @@
 import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 
-import { TextArea } from '.';
+import { Textarea } from '.';
 
 export default {
-  title: 'atoms/TextArea',
-  component: TextArea,
+  title: 'atoms/Textarea',
+  component: Textarea,
 } as Meta;
 
-type Props = React.ComponentProps<typeof TextArea>;
+type Props = React.ComponentProps<typeof Textarea>;
 
-const Template: Story<Props> = (args) => <TextArea {...args} />;
+const Template: Story<Props> = (args) => <Textarea {...args} />;
 
 export const Basic = Template.bind({});
 

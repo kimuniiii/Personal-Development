@@ -11,7 +11,7 @@ import { Margin } from 'src/components/layouts/Margin';
 import { COLOR_PALETTE } from 'src/styles/color_palette';
 import { FONT_SIZE } from 'src/styles/font_size';
 
-type TextAreaProps = JSX.IntrinsicElements['textarea'] & {
+type TextareaProps = JSX.IntrinsicElements['textarea'] & {
   name: string;
   placeholder: string;
   isError: boolean;
@@ -26,7 +26,7 @@ type TextAreaProps = JSX.IntrinsicElements['textarea'] & {
   bgColor?: ValueOf<typeof COLOR_PALETTE>;
 };
 
-export const TextArea: VFC<TextAreaProps> = ({
+export const Textarea: VFC<TextareaProps> = ({
   name,
   placeholder,
   isError,
@@ -48,7 +48,7 @@ export const TextArea: VFC<TextAreaProps> = ({
           {labelText}
         </StLabel>
       ) : null}
-      <StTextArea
+      <StTextarea
         {...textAreaProps}
         id={id}
         placeholder={placeholder}
@@ -76,25 +76,25 @@ export const TextArea: VFC<TextAreaProps> = ({
   );
 };
 
-TextArea.displayName = 'TextArea';
+Textarea.displayName = 'TextArea';
 
 const StTextField = styled.div`
   display: flex;
   flex-direction: column;
 `;
 
-const StLabel = styled.label<Pick<TextAreaProps, 'fontSizeValue'>>`
+const StLabel = styled.label<Pick<TextareaProps, 'fontSizeValue'>>`
   padding-bottom: 8px;
   font-size: ${({ fontSizeValue }): ValueOf<typeof FONT_SIZE> => fontSizeValue ?? FONT_SIZE.FS_16};
   cursor: pointer;
 `;
 
-type StTextAreaProps = Pick<
-  TextAreaProps,
+type StTextareaProps = Pick<
+  TextareaProps,
   'width' | 'height' | 'fontSizeValue' | 'bgColor' | 'disabled' | 'isError'
 >;
 
-const StTextArea = styled.textarea<StTextAreaProps>`
+const StTextarea = styled.textarea<StTextareaProps>`
   display: block;
   width: ${({ width }): string => width};
   height: ${({ height }): string => height};

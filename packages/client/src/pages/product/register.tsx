@@ -8,7 +8,7 @@ import { HeadTemplate } from 'src/components/templates/HeadTemplate';
 import { Input } from 'src/components/atoms/Input';
 import { Margin } from 'src/components/layouts/Margin';
 import { SelectBox } from 'src/components/atoms/SelectBox';
-import { TextArea } from 'src/components/atoms/TextArea';
+import { Textarea } from 'src/components/atoms/Textarea';
 
 import { COLOR_PALETTE } from 'src/styles/color_palette';
 
@@ -75,7 +75,7 @@ const ProductRegisterPage = (): JSX.Element => {
                 required: { message: 'カテゴリーをセットしてください', value: true },
               })}
             />
-            <TextArea
+            <Textarea
               id='productDetail'
               name='productDetail'
               labelText='詳細'
