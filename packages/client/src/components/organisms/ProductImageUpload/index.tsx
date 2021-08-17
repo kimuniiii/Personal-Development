@@ -11,7 +11,10 @@ import { FONT_SIZE } from 'src/styles/font_size';
 
 import ReactImage from '../../../../public/react.jpg';
 
-export const PhotoUpload: VFC = () => {
+/**
+ * @概要 商品登録ページで商品画像を最大3枚までアップロードできるコンポーネント
+ */
+export const ProductImageUpload: VFC = () => {
   return (
     <React.Fragment>
       <StImageContainer>
@@ -74,11 +77,12 @@ const StLabel = styled.label`
   text-align: center;
   padding: 12px 16px;
   width: 157px;
-  border-radius: 3px; /* 角の丸み */
-  background-color: #3e8bff; /* 背景色 */
-  color: ${COLOR_PALETTE.WHITE}; /* 文字色 */
-  font-size: ${FONT_SIZE.FS_16}; /* フォントサイズ */
-  transition: opacity 0.3s; /* ホバーをなめらかに */
+  border-radius: 3px;
+  background-color: #3e8bff;
+  color: ${COLOR_PALETTE.WHITE};
+  font-size: ${FONT_SIZE.FS_16};
+  /* ホバーをなめらかにするため */
+  transition: opacity 0.3s;
 
   input[type='file'] {
     display: none;
