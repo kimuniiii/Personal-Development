@@ -30,11 +30,13 @@ export const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(
       borderRadius,
       backgroundColor,
       disabled,
+      ...iconButtonProps
     },
     ref,
   ) => {
     return (
       <StIconButton
+        {...iconButtonProps}
         type={type}
         width={width}
         height={height}
