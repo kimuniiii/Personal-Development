@@ -5,7 +5,6 @@ import { CommonTemplate } from 'src/components/templates/CommonTemplate';
 import { HeadTemplate } from 'src/components/templates/HeadTemplate';
 import { Margin } from 'src/components/layouts/Margin';
 import { ProductCard } from 'src/components/organisms/ProductCard';
-import { SideBar } from 'src/components/organisms/SideBar';
 
 import { priceToJapaneseYen } from 'src/utils/price';
 
@@ -14,8 +13,8 @@ import ReactImage from '../../../public/react.jpg';
 const MyPage = (): JSX.Element => {
   return (
     <React.Fragment>
-      <HeadTemplate pageTitle='トップページ' />
-      <CommonTemplate>
+      <HeadTemplate pageTitle='マイページ' />
+      <CommonTemplate isSideBar={true}>
         <StRoot>
           <StProductListContainer>
             <h3>登録商品</h3>
@@ -24,7 +23,6 @@ const MyPage = (): JSX.Element => {
             <h3>連絡掲示板</h3>
             <h3>お気に入り一覧</h3>
           </StProductListContainer>
-          <SideBar />
         </StRoot>
       </CommonTemplate>
     </React.Fragment>
