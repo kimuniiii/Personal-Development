@@ -9,7 +9,7 @@ import { CommonSideBar } from 'src/components/templates/CommonTemplate/CommonSid
 
 type CommonTemplateProps = {
   children: ReactNode;
-  isSideBar: boolean;
+  isSideBar?: boolean;
 };
 
 export const CommonTemplate: VFC<CommonTemplateProps> = ({ children, isSideBar }) => {
@@ -37,7 +37,7 @@ const StCommonRoot = styled.section`
   min-height: 100vh;
 `;
 
-const StMain = styled.div<{ isSideBar: boolean }>`
+const StMain = styled.div<{ isSideBar?: boolean }>`
   ${({ isSideBar }): SerializedStyles | null =>
     isSideBar
       ? css`

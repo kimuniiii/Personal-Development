@@ -16,4 +16,5 @@ export const Basic = Template.bind({});
 
 Basic.args = {
   children: 'CommonTemplate',
+  isSideBar: false,
 };
