@@ -8,7 +8,7 @@ import { HeadTemplate } from 'src/components/templates/HeadTemplate';
 import { Input } from 'src/components/atoms/Input';
 import { Margin } from 'src/components/layouts/Margin';
 import { SelectBox } from 'src/components/atoms/SelectBox';
-// import { Textarea } from 'src/components/atoms/Textarea';
+import { TextArea } from 'src/components/atoms/Textarea';
 
 import { COLOR_PALETTE } from 'src/styles/color_palette';
 
@@ -68,13 +68,27 @@ const ProductRegisterPage = (): JSX.Element => {
               top='18px'
               width='343px'
               padding='16px'
+              fontSizeValue='16px'
               isError={!!errors['select-category-box']}
               errors={errors}
               register={register('select-category-box', {
                 required: { message: 'カテゴリーをセットしてください', value: true },
               })}
             />
-            {/* <Textarea /> */}
+            <TextArea
+              id='productDetail'
+              name='productDetail'
+              labelText='詳細'
+              placeholder='200文字以内で入力してください'
+              width='343px'
+              height='200px'
+              fontSizeValue='16px'
+              isError={!!errors.productDetail}
+              errors={errors}
+              register={register('productDetail', {
+                required: { message: '必須入力項目です！', value: true },
+              })}
+            />
             <Input
               type='number'
               id='priceNumber'
