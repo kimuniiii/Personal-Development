@@ -69,7 +69,6 @@ const StSideBarContainer = styled.aside`
   flex-direction: column;
   background-color: ${COLOR_PALETTE.LIGHT_GRAY};
   width: 220px;
-  height: 100vh;
   padding: 16px;
 
   button {
