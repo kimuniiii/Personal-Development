@@ -11,7 +11,8 @@
     "ts-test": "tsc -p tsconfig.json --noEmit",
     "format": "prettier --write \"**/*.{css,html,js,json,ts,tsx}\"",
     "lint": "eslint src --ext .ts,.tsx .",
-    "lint:cache": "eslint --cache src --ext .ts,.tsx ."
+    "lint:cache": "eslint --cache src --ext .ts,.tsx .",
+    "lint:fix": "eslint src --ext .ts,.tsx --fix ."
   },
   "dependencies": {
     "@emotion/react": "11.4.1",

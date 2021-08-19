@@ -18,6 +18,7 @@
   },
   "lint-staged": {
     "packages/**/*.{js,ts,tsx}": [
+      "yarn client lint:fix",
       "yarn format",
       "yarn lint"
     ]
