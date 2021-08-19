@@ -31,6 +31,6 @@ module.exports = {
         },
       },
     ],
-    '@typescript-eslint/explicit-function-return-type': 2,
+    '@typescript-eslint/explicit-function-return-type': 'error',
   },
 };
