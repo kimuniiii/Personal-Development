@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HTML・CSS・JavaScript練習用</title>
+  </head>
+  <body>
+    <button id="speech-execute" onclick="executeSpeech">日本語をしゃべるボタン</button>
+  </body>
+  <script>
+    function executeSpeech() {
+      let u = new SpeechSynthesisUtterance();
+      u.text = '日本語喋ります。かなり流暢に。';
+      u.lang = 'ja-JP';
+      u.tate = 1.4;
+      speechSynthesis.speak(u);
+    }
+
+    const buttonElement = document.getElementById('speech-execute');
+    buttonElement.addEventListener('click', executeSpeech);
+  </script>
+</html>
