@@ -1,7 +1,7 @@
 import { action } from '@storybook/addon-actions';
-import { IoIosArrowForward } from 'react-icons/io/index';
 import { Meta, Story } from '@storybook/react/types-6-0';
 import React from 'react';
+import { IoIosArrowForward } from 'react-icons/io/index';
 
 import { COLOR_PALETTE } from 'src/styles/color_palette';
 

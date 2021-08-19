@@ -1,9 +1,9 @@
-import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
-
-import { ProductCard } from '.';
+import React from 'react';
 
 import { priceToJapaneseYen } from 'src/utils/price';
+
+import { ProductCard } from '.';
 
 import ReactImage from '../../../../public/react.jpg';
 

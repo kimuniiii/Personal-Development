@@ -1,5 +1,5 @@
-import Router from 'next/router';
 import styled from '@emotion/styled';
+import Router from 'next/router';
 
 import type { VFC } from 'react';
 

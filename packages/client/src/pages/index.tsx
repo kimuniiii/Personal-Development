@@ -1,12 +1,12 @@
 import styled from '@emotion/styled';
 import React, { useState } from 'react';
 
-import { CommonTemplate } from 'src/components/templates/CommonTemplate';
-import { HeadTemplate } from 'src/components/templates/HeadTemplate';
-import { SearchBox } from 'src/components/organisms/SearchBox';
+import { Margin } from 'src/components/layouts/Margin';
 import { Pagination } from 'src/components/organisms/Pagination';
 import { ProductCard } from 'src/components/organisms/ProductCard';
-import { Margin } from 'src/components/layouts/Margin';
+import { SearchBox } from 'src/components/organisms/SearchBox';
+import { CommonTemplate } from 'src/components/templates/CommonTemplate';
+import { HeadTemplate } from 'src/components/templates/HeadTemplate';
 
 import { COLOR_PALETTE } from 'src/styles/color_palette';
 

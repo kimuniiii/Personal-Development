@@ -1,10 +1,10 @@
 import styled from '@emotion/styled';
 import React from 'react';
 
-import { CommonTemplate } from 'src/components/templates/CommonTemplate';
-import { HeadTemplate } from 'src/components/templates/HeadTemplate';
 import { Margin } from 'src/components/layouts/Margin';
 import { ProductCard } from 'src/components/organisms/ProductCard';
+import { CommonTemplate } from 'src/components/templates/CommonTemplate';
+import { HeadTemplate } from 'src/components/templates/HeadTemplate';
 
 import { priceToJapaneseYen } from 'src/utils/price';
 
