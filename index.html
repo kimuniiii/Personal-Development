@@ -11,10 +11,12 @@
   </body>
   <script>
     function executeSpeech() {
+      // 発言を作成
       let u = new SpeechSynthesisUtterance();
       u.text = '日本語喋ります。かなり流暢に。';
       u.lang = 'ja-JP';
       u.tate = 1.4;
+      // 発言を再生（発言キューに発言を追加）
       speechSynthesis.speak(u);
     }
 
