@@ -1,3 +1,7 @@
+## システム全体図
+
+<img width="752" alt="システム全体図" src="https://user-images.githubusercontent.com/59758368/130311652-5fdd73b9-368e-4a55-b37f-0bb999c4f3e6.png">
+
 ## Storybook のデプロイ環境
 
 - Storybook の Github Pages へ自動デプロイを設定
