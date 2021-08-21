@@ -1,3 +1,7 @@
+## ガントチャート
+
+[Notion | 個人開発](https://www.notion.so/51c38e11e05243e4b604f99577747392?v=79ae887da5784033bdb008443939c7b9)
+
 ## システム全体図
 
 <img width="752" alt="システム全体図" src="https://user-images.githubusercontent.com/59758368/130311652-5fdd73b9-368e-4a55-b37f-0bb999c4f3e6.png">
