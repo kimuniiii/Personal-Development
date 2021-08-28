@@ -1,3 +1,4 @@
+import { ApolloClient, InMemoryCache, ApolloProvider, useQuery, gql } from '@apollo/client';
 import { NextPage } from 'next';
 import React from 'react';
 
@@ -12,5 +13,24 @@ const Hasura: NextPage = () => {
     </React.Fragment>
   );
 };
+
+const createApolloClient = new ApolloClient({
+  uri: 'http://localhost:8080/v1/graphql',
+  cache: new InMemoryCache(),
+});
+
+createApolloClient
+  .query({
+    query: gql`
+      query {
+        sample_test_profile_table(order_by: { created_at: asc }) {
+          id
+          name
+          created_at
+        }
+      }
+    `,
+  })
+  .then((result) => console.table(result));
 
 export default Hasura;
