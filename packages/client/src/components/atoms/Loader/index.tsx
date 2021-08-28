@@ -23,8 +23,8 @@ type LoaderProps = {
 };
 
 export const Loader: VFC<LoaderProps> = ({
-  width = '50px',
-  height = '50px',
+  width,
+  height,
   loaderCircleSize = 50,
   loadingContent,
 }) => {
@@ -58,8 +58,8 @@ const StLoaderContainer = styled.div`
 `;
 
 const StLoader = styled.div<Pick<LoaderProps, 'width' | 'height'>>`
-  width: ${({ width }): `${number}px` => width};
-  height: ${({ height }): `${number}px` => height};
+  width: ${({ width }): `${number}px` => width ?? '50px'};
+  height: ${({ height }): `${number}px` => height ?? '50px'};
   animation: ${loadingSpinner} 1.5s infinite linear;
 `;
 
