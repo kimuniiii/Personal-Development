@@ -13,12 +13,12 @@ type LoaderProps = {
   /**
    * loaderCircleSize の値と同じにする
    */
-  width: `${number}px`;
+  width?: `${number}px`;
   /**
    * loaderCircleSize の値と同じにする
    */
-  height: `${number}px`;
-  loaderCircleSize: number;
+  height?: `${number}px`;
+  loaderCircleSize?: number;
   loadingContent?: string;
 };
 

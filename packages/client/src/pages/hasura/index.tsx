@@ -2,10 +2,25 @@ import { ApolloClient, InMemoryCache, ApolloProvider, useQuery, gql } from '@apo
 import { NextPage } from 'next';
 import React from 'react';
 
+import { Loader } from 'src/components/atoms/Loader';
 import { CommonTemplate } from 'src/components/templates/CommonTemplate';
 import { HeadTemplate } from 'src/components/templates/HeadTemplate';
 
+const SAMPLE_QUERY = gql`
+  query {
+    sample_test_profile_table(order_by: { created_at: asc }) {
+      id
+      name
+      created_at
+    }
+  }
+`;
+
 const Hasura: NextPage = () => {
+  const { loading, error, data } = useQuery(SAMPLE_QUERY);
+
+  if (loading) return <Loader />;
+
   return (
     <React.Fragment>
       <HeadTemplate pageTitle='Next.js + Hasura' />
