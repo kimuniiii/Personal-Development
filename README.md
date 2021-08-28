@@ -34,7 +34,7 @@ yarn server start
 yarn server ps
 ```
 
-[以下の URL](http://localhost:8080/console)にアクセスすると Docker 上に Hasura が立ち上がっている
+[バックエンド | ローカル環境](http://localhost:8080/console)
 
 ## バックエンドのデプロイ環境
 
