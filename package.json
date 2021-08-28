@@ -11,6 +11,7 @@
   "scripts": {
     "server": "yarn workspace server",
     "client": "yarn workspace client",
+    "hasura": "yarn workspace hasura",
     "prepare": "husky install",
     "format": "prettier --write \"**/*.{css,html,js,json,ts,tsx}\"",
     "lint": "eslint --ext .ts,.tsx .",
