@@ -31,7 +31,7 @@
 yarn server start
 
 # コンテナが起動しているか確認する
-docker ps
+yarn server ps
 ```
 
 [以下の URL](http://localhost:8080/console)にアクセスすると Docker 上に Hasura が立ち上がっている
