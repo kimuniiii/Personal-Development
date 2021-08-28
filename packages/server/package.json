@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "start": "docker-compose up",
+    "ps": "docker-compose ps",
     "down": "docker-compose down",
     "console": "hasura console",
     "metadata": "hasura metadata",
