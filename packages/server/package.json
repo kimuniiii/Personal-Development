@@ -1,8 +1,6 @@
 {
-  "name": "personal-development-hasura",
-  "author": "Kazuki Kimura",
-  "license": "MIT",
-  "private": false,
+  "name": "server-hasura",
+  "private": true,
   "scripts": {
     "start": "docker-compose up",
     "down": "docker-compose down",
