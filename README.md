@@ -21,6 +21,21 @@
 
 [フロントエンド | デプロイ環境](https://personal-development-client-kzbe79r2h-kimuniiii.vercel.app/top)
 
+## バックエンドのローカル環境
+
+- Hasura を Docker で立ち上げている
+- Docker Desktop を ON にした上で以下のコマンドを叩く
+
+```bash
+# コンテナを立ち上げて起動する
+yarn server start
+
+# コンテナが起動しているか確認する
+docker ps
+```
+
+[以下の URL](http://localhost:8080/console)にアクセスすると Docker 上に Hasura が立ち上がっている
+
 ## バックエンドのデプロイ環境
 
 - バックエンドのデプロイ先は「Heroku」を選択（予定）
