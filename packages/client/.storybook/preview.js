@@ -1,6 +1,7 @@
 import * as nextImage from 'next/image';
 import { useEffect, useState } from 'react';
 
+// next / Image の mock 化
 Object.defineProperty(nextImage, 'default', {
   value: (props) => {
     const { width, height } = props;
