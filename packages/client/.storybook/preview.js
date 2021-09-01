@@ -1,5 +1,12 @@
 import * as nextImage from 'next/image';
+import Router from 'next/router';
 import { useEffect, useState } from 'react';
+
+// Router オブジェクトの mock 化
+Router.router = {
+  push: () => {},
+  prefetch: () => new Promise((resolve, reject) => {}),
+};
 
 // next / Image の mock 化
 Object.defineProperty(nextImage, 'default', {
