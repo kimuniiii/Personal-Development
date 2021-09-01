@@ -4,7 +4,7 @@ import auth0 from 'src/pages/api/lib/auth0';
 
 /**
  * @概要 auth0のページで認証後、このAPIにリダイレクトされてクッキーを生成する関数
- * @説明 クッキーを生成した後は、auth0で設定したREDIRECT_URIにリダイレクトされる
+ * @説明 クッキーを生成した後は、auth0で設定した「callback」にリダイレクトされる
  */
 const callback = async (req: NextApiRequest, res: NextApiResponse): Promise<void> => {
   try {
