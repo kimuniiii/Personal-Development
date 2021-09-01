@@ -6,6 +6,7 @@
     "start": "docker-compose up",
     "ps": "docker-compose ps",
     "down": "docker-compose down",
+    "down:all": "docker-compose down --rmi all --volumes --remove-orphans",
     "console": "hasura console",
     "metadata": "hasura metadata",
     "migrate": "hasura migrate"
