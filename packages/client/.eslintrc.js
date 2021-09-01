@@ -75,6 +75,11 @@ module.exports = {
           },
           {
             group: 'index',
+            pattern: 'src/pages/**',
+            position: 'before',
+          },
+          {
+            group: 'index',
             pattern: 'src/utils/**',
             position: 'before',
           },
