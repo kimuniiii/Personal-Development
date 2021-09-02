@@ -1,5 +1,4 @@
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
-import { UserProvider } from '@auth0/nextjs-auth0';
 import { css, Global } from '@emotion/react';
 import App, { AppContext, AppInitialProps, AppProps } from 'next/app';
 import React from 'react';
@@ -14,21 +13,17 @@ const createApolloClient = new ApolloClient({
 });
 
 const CustomApp = ({ Component, pageProps }: AppProps): JSX.Element => {
-  const { user } = pageProps;
-
   return (
     <React.Fragment>
       <HeadTemplate />
-      <UserProvider user={user}>
-        <ApolloProvider client={createApolloClient}>
-          <Global
-            styles={css`
-              ${GLOBAL_STYLE}
-            `}
-          />
-          <Component {...pageProps} />
-        </ApolloProvider>
-      </UserProvider>
+      <ApolloProvider client={createApolloClient}>
+        <Global
+          styles={css`
+            ${GLOBAL_STYLE}
+          `}
+        />
+        <Component {...pageProps} />
+      </ApolloProvider>
     </React.Fragment>
   );
 };
