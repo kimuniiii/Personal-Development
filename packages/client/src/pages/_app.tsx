@@ -26,6 +26,9 @@ const CustomApp = ({ Component, pageProps, origin }: CustomAppProps): JSX.Elemen
   const redirectUri = `${origin}/my-page`;
   console.log(redirectUri);
 
+  console.log('NEXT_PUBLIC_AUTH0_DOMAIN', process.env.NEXT_PUBLIC_AUTH0_DOMAIN);
+  console.log('NEXT_PUBLIC_AUTH0_CLIENT_ID', process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID);
+
   return (
     <React.Fragment>
       <HeadTemplate />
