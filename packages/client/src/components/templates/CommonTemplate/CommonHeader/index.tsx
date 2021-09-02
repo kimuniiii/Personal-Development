@@ -28,7 +28,7 @@ export const CommonHeader: VFC = () => {
           fontSizeValue='16px'
           padding='0'
           buttonContent='ログイン'
-          onClick={(): Promise<boolean> => Router.push('/sign-in')}
+          onClick={(): Promise<boolean> => Router.push('/api/auth/login')}
         />
         <Button
           type='button'
@@ -37,7 +37,7 @@ export const CommonHeader: VFC = () => {
           fontSizeValue='16px'
           padding='0'
           buttonContent='ユーザー登録'
-          onClick={(): Promise<boolean> => Router.push('/sign-up')}
+          onClick={(): Promise<boolean> => Router.push('api/auth/logout')}
         />
       </StButtonContainer>
     </StHeader>
