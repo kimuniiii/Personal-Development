@@ -6,6 +6,6 @@ export const getRedirectUriOrigin = (): string => {
   if (process.env.NEXT_PUBLIC_RIOT_DEVELOPMENT === 'development') {
     return 'http://localhost:3001';
   } else {
-    return 'https://www.riot-ec-site.com/';
+    return 'https://riot-ec-site.com/';
   }
 };
