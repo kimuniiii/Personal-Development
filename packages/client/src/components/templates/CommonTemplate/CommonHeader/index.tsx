@@ -1,3 +1,4 @@
+import { useAuth0 } from '@auth0/auth0-react';
 import styled from '@emotion/styled';
 import Router from 'next/router';
 
@@ -8,6 +9,16 @@ import { Button } from 'src/components/atoms/Button';
 import { COLOR_PALETTE } from 'src/styles/color_palette';
 
 export const CommonHeader: VFC = () => {
+  const { isLoading, isAuthenticated, error, loginWithRedirect, logout } = useAuth0();
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Oops... {error.message}</div>;
+  }
+
   return (
     <StHeader>
       <Button
@@ -21,24 +32,27 @@ export const CommonHeader: VFC = () => {
         onClick={(): Promise<boolean> => Router.push('/')}
       />
       <StButtonContainer>
-        <Button
-          type='button'
-          styleTypes='textLink'
-          width='100px'
-          fontSizeValue='16px'
-          padding='0'
-          buttonContent='ログイン'
-          onClick={(): Promise<boolean> => Router.push('/login')}
-        />
-        <Button
-          type='button'
-          styleTypes='textLink'
-          width='100px'
-          fontSizeValue='16px'
-          padding='0'
-          buttonContent='ログアウト'
-          onClick={(): Promise<boolean> => Router.push('/')}
-        />
+        {isAuthenticated ? (
+          <Button
+            type='button'
+            styleTypes='textLink'
+            width='100px'
+            fontSizeValue='16px'
+            padding='0'
+            buttonContent='ログアウト'
+            onClick={(): void => logout({ returnTo: window.location.origin })}
+          />
+        ) : (
+          <Button
+            type='button'
+            styleTypes='textLink'
+            width='100px'
+            fontSizeValue='16px'
+            padding='0'
+            buttonContent='ログイン'
+            onClick={loginWithRedirect}
+          />
+        )}
       </StButtonContainer>
     </StHeader>
   );
