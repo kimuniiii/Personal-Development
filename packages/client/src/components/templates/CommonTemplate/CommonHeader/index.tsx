@@ -61,10 +61,3 @@ const StHeader = styled.header`
 const StButtonContainer = styled.div`
   display: flex;
 `;
-
-const StCenterLoaderContainer = styled.div`
-  display: 'flex';
-  justify-content: 'center';
-  align-items: 'center';
-  height: '100vh';
-`;
