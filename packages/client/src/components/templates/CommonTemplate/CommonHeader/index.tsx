@@ -1,26 +1,13 @@
-import { useUser } from '@auth0/nextjs-auth0';
 import styled from '@emotion/styled';
 import Router from 'next/router';
 
 import type { VFC } from 'react';
 
 import { Button } from 'src/components/atoms/Button';
-import { Loader } from 'src/components/atoms/Loader';
 
 import { COLOR_PALETTE } from 'src/styles/color_palette';
 
 export const CommonHeader: VFC = () => {
-  const { user, error, isLoading } = useUser();
-
-  if (isLoading)
-    return (
-      <StCenterLoaderContainer>
-        <Loader />
-      </StCenterLoaderContainer>
-    );
-
-  if (error) return <div>{error.message}</div>;
-
   return (
     <StHeader>
       <Button
@@ -34,27 +21,24 @@ export const CommonHeader: VFC = () => {
         onClick={(): Promise<boolean> => Router.push('/')}
       />
       <StButtonContainer>
-        {!user ? (
-          <Button
-            type='button'
-            styleTypes='textLink'
-            width='100px'
-            fontSizeValue='16px'
-            padding='0'
-            buttonContent='ログイン'
-            onClick={(): Promise<boolean> => Router.push('/api/auth/login')}
-          />
-        ) : (
-          <Button
-            type='button'
-            styleTypes='textLink'
-            width='100px'
-            fontSizeValue='16px'
-            padding='0'
-            buttonContent='ログアウト'
-            onClick={(): Promise<boolean> => Router.push('/api/auth/logout')}
-          />
-        )}
+        <Button
+          type='button'
+          styleTypes='textLink'
+          width='100px'
+          fontSizeValue='16px'
+          padding='0'
+          buttonContent='ログイン'
+          onClick={(): Promise<boolean> => Router.push('/login')}
+        />
+        <Button
+          type='button'
+          styleTypes='textLink'
+          width='100px'
+          fontSizeValue='16px'
+          padding='0'
+          buttonContent='ログアウト'
+          onClick={(): Promise<boolean> => Router.push('/')}
+        />
       </StButtonContainer>
     </StHeader>
   );
