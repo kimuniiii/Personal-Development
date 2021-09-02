@@ -15,8 +15,9 @@ import { validations } from 'src/utils/validate';
 
 /**
  * @概要 ログインボタンを押したら表示されるページコンポーネント
+ * @説明 TODO : Auth0 で認証を行うため使用しない可能性がある
  */
-const SignInFormPage = (): JSX.Element => {
+const LoginFormPage = (): JSX.Element => {
   const {
     register,
     handleSubmit,
@@ -110,7 +111,7 @@ const SignInFormPage = (): JSX.Element => {
   );
 };
 
-export default SignInFormPage;
+export default LoginFormPage;
 
 const StLoginFormContainer = styled.form`
   display: flex;
