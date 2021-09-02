@@ -31,8 +31,8 @@ export const CommonHeader: VFC = () => {
         buttonContent='Riot'
         onClick={(): Promise<boolean> => Router.push('/')}
       />
-      <StButtonContainer>
-        {isAuthenticated ? (
+      {isAuthenticated ? (
+        <StButtonContainer>
           <Button
             type='button'
             styleTypes='textLink'
@@ -42,7 +42,9 @@ export const CommonHeader: VFC = () => {
             buttonContent='ログアウト'
             onClick={(): void => logout({ returnTo: window.location.origin })}
           />
-        ) : (
+        </StButtonContainer>
+      ) : (
+        <StButtonContainer>
           <Button
             type='button'
             styleTypes='textLink'
@@ -52,8 +54,21 @@ export const CommonHeader: VFC = () => {
             buttonContent='ログイン'
             onClick={loginWithRedirect}
           />
-        )}
-      </StButtonContainer>
+          <Button
+            type='button'
+            styleTypes='textLink'
+            width='100px'
+            fontSizeValue='16px'
+            padding='0'
+            buttonContent='ユーザー登録'
+            onClick={(): Promise<void> =>
+              loginWithRedirect({
+                screen_hint: 'signup',
+              })
+            }
+          />
+        </StButtonContainer>
+      )}
     </StHeader>
   );
 };
