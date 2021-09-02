@@ -50,11 +50,11 @@ const CustomApp = ({ Component, pageProps, origin }: CustomAppProps): JSX.Elemen
 export default CustomApp;
 
 type CustomAppInitialProps = AppInitialProps & {
-  origin?: string;
+  origin: string;
 };
 
 CustomApp.getInitialProps = async (appContext: AppContext): Promise<CustomAppInitialProps> => {
-  const origin = getRedirectUriOrigin(appContext.ctx.req);
+  const origin = getRedirectUriOrigin();
   const appProps = await App.getInitialProps(appContext);
   return { ...appProps, origin };
 };
