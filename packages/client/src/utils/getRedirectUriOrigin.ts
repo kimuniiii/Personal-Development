@@ -8,6 +8,6 @@ export const getRedirectUriOrigin = (req?: IncomingMessage): string | undefined 
   if (process.env.NEXT_PUBLIC_RIOT_DEVELOPMENT === 'development') {
     return 'http://localhost:3001';
   } else {
-    return req?.headers?.origin;
+    return typeof req !== 'undefined' ? req.headers.origin : window.location.origin;
   }
 };
