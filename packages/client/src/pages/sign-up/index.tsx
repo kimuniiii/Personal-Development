@@ -11,6 +11,7 @@ import { COLOR_PALETTE } from 'src/styles/color_palette';
 
 /**
  * @概要 ユーザー登録ボタンを押したら表示されるページコンポーネント
+ * @説明 TODO : Auth0 で認証を行うため使用しない可能性がある
  */
 const SignUpFormPage = (): JSX.Element => {
   const {
