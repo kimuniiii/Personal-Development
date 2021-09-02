@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@apollo/client": "^3.4.10",
+    "@auth0/auth0-react": "^1.6.0",
     "@emotion/react": "11.4.1",
     "@emotion/styled": "11.3.0",
     "@hookform/error-message": "2.0.0",
