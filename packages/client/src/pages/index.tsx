@@ -12,7 +12,7 @@ import { COLOR_PALETTE } from 'src/styles/color_palette';
 
 import { priceToJapaneseYen } from 'src/utils/price';
 
-import ReactImage from '../../public/react.jpg';
+import ReactImage from '../../public/images/react.jpg';
 
 const TopPage = (): JSX.Element => {
   // API通信の結果に応じて「動的」に変化していく予定

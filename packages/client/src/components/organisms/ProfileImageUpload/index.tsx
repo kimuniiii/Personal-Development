@@ -9,7 +9,7 @@ import { Margin } from 'src/components/layouts/Margin';
 import { COLOR_PALETTE } from 'src/styles/color_palette';
 import { FONT_SIZE } from 'src/styles/font_size';
 
-import ReactImage from '../../../../public/react.jpg';
+import ReactImage from '../../../../public/images/react.jpg';
 
 /**
  * @概要 プロフィール編集ページでプロフィール画像を最大1枚までアップロードできるコンポーネント

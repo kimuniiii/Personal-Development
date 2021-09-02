@@ -8,7 +8,7 @@ import { HeadTemplate } from 'src/components/templates/HeadTemplate';
 
 import { priceToJapaneseYen } from 'src/utils/price';
 
-import ReactImage from '../../../public/react.jpg';
+import ReactImage from '../../../public/images/react.jpg';
 
 const MyPage = (): JSX.Element => {
   return (

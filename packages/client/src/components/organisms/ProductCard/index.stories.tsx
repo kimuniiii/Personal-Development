@@ -5,7 +5,7 @@ import { priceToJapaneseYen } from 'src/utils/price';
 
 import { ProductCard } from '.';
 
-import ReactImage from '../../../../public/react.jpg';
+import ReactImage from '../../../../public/images/react.jpg';
 
 export default {
   title: 'organisms/ProductCard',
