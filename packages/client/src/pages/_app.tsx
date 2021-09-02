@@ -10,14 +10,21 @@ import { HeadTemplate } from 'src/components/templates/HeadTemplate';
 
 import { GLOBAL_STYLE } from 'src/styles/global_style';
 
+import { getRedirectUriOrigin } from 'src/utils/getRedirectUriOrigin';
+
 const createApolloClient = new ApolloClient({
   uri: 'http://localhost:8080/v1/graphql',
   cache: new InMemoryCache(),
 });
 
-const CustomApp = ({ Component, pageProps }: AppProps): JSX.Element => {
+type CustomAppProps = AppProps & {
+  origin?: string;
+};
+
+const CustomApp = ({ Component, pageProps, origin }: CustomAppProps): JSX.Element => {
   // ログイン後のリダイレクト先を指定
-  // const redirectUri = 'http://localhost:3001/my-page';
+  const redirectUri = `${origin}/my-page`;
+  console.log(redirectUri);
 
   return (
     <React.Fragment>
@@ -25,7 +32,7 @@ const CustomApp = ({ Component, pageProps }: AppProps): JSX.Element => {
       <Auth0Provider
         domain={process.env.NEXT_PUBLIC_AUTH0_DOMAIN || ''}
         clientId={process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID || ''}
-        redirectUri='http://localhost:3001/my-page'
+        redirectUri={redirectUri}
       >
         <ApolloProvider client={createApolloClient}>
           <Global
@@ -42,7 +49,12 @@ const CustomApp = ({ Component, pageProps }: AppProps): JSX.Element => {
 
 export default CustomApp;
 
-CustomApp.getInitialProps = async (appContext: AppContext): Promise<AppInitialProps> => {
+type CustomAppInitialProps = AppInitialProps & {
+  origin?: string;
+};
+
+CustomApp.getInitialProps = async (appContext: AppContext): Promise<CustomAppInitialProps> => {
+  const origin = getRedirectUriOrigin(appContext.ctx.req);
   const appProps = await App.getInitialProps(appContext);
-  return { ...appProps };
+  return { ...appProps, origin };
 };
