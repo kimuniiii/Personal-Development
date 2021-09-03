@@ -42,6 +42,9 @@ jobs:
       - name: Client Type Check
         run: yarn client ts-test
 
+      - name: Vercel Login
+        run: yarn client vercel:login
+
       - name: Client Build to Vercel
         run: yarn client vercel:preview
 
