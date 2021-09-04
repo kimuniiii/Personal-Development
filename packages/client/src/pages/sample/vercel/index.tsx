@@ -12,6 +12,7 @@ type DisplayVercelEnvTestProps = {
 const DisplayVercelEnvTest: NextPage<DisplayVercelEnvTestProps> = ({ env }) => {
   return (
     <React.Fragment>
+      <p>Staging環境が更新されているかを確認します</p>
       <div>{env}</div>
     </React.Fragment>
   );
