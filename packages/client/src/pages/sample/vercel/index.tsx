@@ -4,6 +4,11 @@ import React from 'react';
 type DisplayVercelEnvTestProps = {
   env: string;
 };
+
+/**
+ * @概要 Vercel の環境変数確認のためのページコンポーネント
+ * @説明 ローカル : development | デプロイ : staging | 本番 : production が返却されれば目的達成
+ */
 const DisplayVercelEnvTest: NextPage<DisplayVercelEnvTestProps> = ({ env }) => {
   return (
     <React.Fragment>
