@@ -6,6 +6,9 @@ import { Loader } from 'src/components/atoms/Loader';
 import { CommonTemplate } from 'src/components/templates/CommonTemplate';
 import { HeadTemplate } from 'src/components/templates/HeadTemplate';
 
+/**
+ * @概要 Hasura と GraphQL の連携を確認するためのページコンポーネント
+ */
 const Hasura: NextPage = () => {
   const SAMPLE_QUERY = gql`
     query {
