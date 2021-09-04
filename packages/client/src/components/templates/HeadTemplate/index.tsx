@@ -3,6 +3,8 @@ import Head from 'next/head';
 
 import { COPY_RIGHT, FACEBOOK_ADMIN_ID, FACEBOOK_APP_ID } from 'src/constants';
 
+import { getSrcAbsolutePath } from 'src/utils/getSrcAbsolutePath';
+
 type HeadTemplateProps = {
   /**
    * @概要 サイト内の各ページで個別の内容になるように設定すること
@@ -33,7 +35,10 @@ export const HeadTemplate: NextPage<HeadTemplateProps> = ({
   pageDescription = 'このサイトはRiotのECサイトです',
   pageUrl,
   isNoIndex = false,
-  dynamicOgp,
+  dynamicOgp = {
+    ogpUrl: 'https://riot-ec-site.com/',
+    ogpImageUrl: getSrcAbsolutePath('/images/riot_logo.png'),
+  },
 }) => {
   return (
     <Head>
