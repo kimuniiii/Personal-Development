@@ -42,8 +42,8 @@ jobs:
       - name: Client Type Check
         run: yarn client ts-test
 
-      - name: Client Build to Vercel
-        run: yarn client vercel:preview
+      - name: Client Next Build
+        run: yarn client build
 
       - name: build storybook
         run: yarn client build-storybook
