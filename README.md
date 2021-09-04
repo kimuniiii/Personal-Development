@@ -6,6 +6,23 @@
 
 <img width="752" alt="システム全体図" src="https://user-images.githubusercontent.com/59758368/130311652-5fdd73b9-368e-4a55-b37f-0bb999c4f3e6.png">
 
+## 環境変数
+
+環境変数は 3 つ用意する
+
+| 環境名           | 環境変数    | 説明             | ブランチ     |
+| ---------------- | ----------- | ---------------- | ------------ |
+| 本番環境         | production  | 本番環境         | master       |
+| ステージング環境 | staging     | ステージング環境 | develop      |
+| 開発環境         | development | ローカル開発環境 | feature/〇〇 |
+
+## ステージング環境・本番環境の URL
+
+| 環境名           | URL                                                      |
+| ---------------- | -------------------------------------------------------- |
+| 本番環境         | https://www.riot-ec-site.com/                            |
+| ステージング環境 | develop ブランチに push する毎に新しいドメインを発行する |
+
 ## Storybook のデプロイ環境
 
 - Storybook の Github Pages へ自動デプロイを設定
