@@ -25,7 +25,8 @@ type HeadTemplateProps = {
   isNoIndex?: boolean;
   /**
    * @概要 SSRでOGPを動的に生成するため
-   * @説明 ogpUrl・ogpImageUrl は「絶対パス」で指定する
+   * @説明1 ogpUrl : ページの正規URL・パラメーターの無いURL・「絶対パス」で指定
+   * @説明2 ogpImageUrl : シェアされた時に表示される画像のURL・「絶対パス」で指定
    */
   dynamicOgp?: { ogpUrl?: string; ogpImageUrl?: string };
 };
