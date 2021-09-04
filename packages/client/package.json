@@ -9,7 +9,7 @@
     "vercel:development": "vercel dev --listen 3002",
     "vercel:preview": "vercel",
     "vercel:production": "vercel --prod",
-    "vercel:login": "vercel login",
+    "vercel:login": "vercel login --github",
     "storybook": "start-storybook -s ./public -p 6007",
     "build-storybook": "build-storybook --output-dir ./build -s ./src/styles",
     "ts-test": "tsc -p tsconfig.json --noEmit",
