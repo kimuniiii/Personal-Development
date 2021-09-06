@@ -24,16 +24,21 @@ const CustomApp = ({ Component, pageProps, origin }: CustomAppProps): JSX.Elemen
   const redirectUri = `${origin}/my-page`;
   console.log(redirectUri);
 
+  const auth0Domain: string =
+    process.env.NEXT_PUBLIC_AUTH0_DOMAIN || process.env.VERCEL_AUTH0_DOMAIN || '';
+
+  const auth0ClientId: string =
+    process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID ||
+    process.env.VERCEL_STAGING_AUTH0_CLIENT_ID ||
+    process.env.VERCEL_PRODUCTION_AUTH0_CLIENT_ID ||
+    '';
+
   console.log('NEXT_PUBLIC_AUTH0_DOMAIN', process.env.NEXT_PUBLIC_AUTH0_DOMAIN);
   console.log('NEXT_PUBLIC_AUTH0_CLIENT_ID', process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID);
 
   return (
     <React.Fragment>
-      <Auth0Provider
-        domain={process.env.NEXT_PUBLIC_AUTH0_DOMAIN || ''}
-        clientId={process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID || ''}
-        redirectUri={redirectUri}
-      >
+      <Auth0Provider domain={auth0Domain} clientId={auth0ClientId} redirectUri={redirectUri}>
         <ApolloProvider client={createApolloClient}>
           <Global
             styles={css`
