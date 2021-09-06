@@ -65,6 +65,11 @@ module.exports = {
           },
           {
             group: 'index',
+            pattern: 'src/lib/**',
+            position: 'before',
+          },
+          {
+            group: 'index',
             pattern: 'src/stores/**',
             position: 'before',
           },
