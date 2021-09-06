@@ -6,6 +6,9 @@ import React from 'react';
 
 import type { AppProps } from 'next/app';
 
+import { getAuth0ClientId } from 'src/lib/getAuth0ClientId';
+import { getAuth0Domain } from 'src/lib/getAuth0Domain';
+
 import { GLOBAL_STYLE } from 'src/styles/global_style';
 
 import { getRedirectUriOrigin } from 'src/utils/getRedirectUriOrigin';
@@ -17,27 +20,29 @@ const createApolloClient = new ApolloClient({
 
 type CustomAppProps = AppProps & {
   origin?: string;
+  auth0Domain: string;
+  auth0ClientId: string;
 };
 
-const CustomApp = ({ Component, pageProps, origin }: CustomAppProps): JSX.Element => {
+const CustomApp = ({
+  Component,
+  pageProps,
+  origin,
+  auth0Domain,
+  auth0ClientId,
+}: CustomAppProps): JSX.Element => {
   // ログイン後のリダイレクト先を指定
   const redirectUri = `${origin}/my-page`;
   console.log(redirectUri);
-
-  const auth0Domain: string =
-    process.env.NEXT_PUBLIC_AUTH0_DOMAIN || process.env.VERCEL_AUTH0_DOMAIN || '';
-
-  const auth0ClientId: string =
-    process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID ||
-    process.env.VERCEL_STAGING_AUTH0_CLIENT_ID ||
-    process.env.VERCEL_PRODUCTION_AUTH0_CLIENT_ID ||
-    '';
 
   console.log('NEXT_PUBLIC_AUTH0_DOMAIN', process.env.NEXT_PUBLIC_AUTH0_DOMAIN);
   console.log('VERCEL_AUTH0_DOMAIN ', process.env.VERCEL_AUTH0_DOMAIN);
   console.log('NEXT_PUBLIC_AUTH0_CLIENT_ID', process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID);
   console.log('VERCEL_STAGING_AUTH0_CLIENT_ID', process.env.VERCEL_STAGING_AUTH0_CLIENT_ID);
   console.log('VERCEL_PRODUCTION_AUTH0_CLIENT_ID', process.env.VERCEL_PRODUCTION_AUTH0_CLIENT_ID);
+
+  console.log('auth0Domain', auth0Domain);
+  console.log('auth0ClientId', auth0ClientId);
 
   return (
     <React.Fragment>
@@ -59,10 +64,14 @@ export default CustomApp;
 
 type CustomAppInitialProps = AppInitialProps & {
   origin: string;
+  auth0Domain: string;
+  auth0ClientId: string;
 };
 
 CustomApp.getInitialProps = async (appContext: AppContext): Promise<CustomAppInitialProps> => {
   const origin = getRedirectUriOrigin();
+  const auth0Domain = getAuth0Domain();
+  const auth0ClientId = getAuth0ClientId();
   const appProps = await App.getInitialProps(appContext);
-  return { ...appProps, origin };
+  return { ...appProps, origin, auth0Domain, auth0ClientId };
 };
