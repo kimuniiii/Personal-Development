@@ -33,7 +33,7 @@ const SignUpFormPage = (): JSX.Element => {
   return (
     <>
       <HeadTemplate
-        pageCanonicalUrl='https://www.riot-ec-site.com/password/sign-up'
+        pageCanonicalUrl='https://www.riot-ec-site.com/sign-up'
         pageTitle='ユーザー登録ページ'
       />
       <CommonTemplate>

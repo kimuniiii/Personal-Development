@@ -14,7 +14,10 @@ import { COLOR_PALETTE } from 'src/styles/color_palette';
 const WithDrawPage = (): JSX.Element => {
   return (
     <React.Fragment>
-      <HeadTemplate pageTitle='退会ページ' />
+      <HeadTemplate
+        pageCanonicalUrl='https://www.riot-ec-site.com/withdraw'
+        pageTitle='退会ページ'
+      />
       <CommonTemplate>
         <StWithDrawRoot>
           <h3>退会</h3>
