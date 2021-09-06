@@ -34,7 +34,10 @@ const ProfileEditPage = (): JSX.Element => {
 
   return (
     <React.Fragment>
-      <HeadTemplate pageTitle='プロフィール編集ページ' />
+      <HeadTemplate
+        pageCanonicalUrl='https://www.riot-ec-site.com/profile-edit'
+        pageTitle='プロフィール編集ページ'
+      />
       <CommonTemplate isSideBar={true}>
         <StProfileEditFormContainer onSubmit={handleSubmit(onSubmit)}>
           <h3>プロフィール編集</h3>
