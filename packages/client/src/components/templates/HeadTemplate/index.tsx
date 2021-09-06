@@ -38,7 +38,7 @@ export const HeadTemplate: NextPage<HeadTemplateProps> = ({
   isNoIndex = false,
   dynamicOgp = {
     ogpUrl: 'https://riot-ec-site.com/',
-    ogpImageUrl: getSrcAbsolutePath('/images/riot_logo.png'),
+    ogpImageUrl: getSrcAbsolutePath('/images/ec_site.png'),
   },
 }) => {
   return (
