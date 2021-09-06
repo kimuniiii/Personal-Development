@@ -41,7 +41,10 @@ const LoginFormPage = (): JSX.Element => {
 
   return (
     <React.Fragment>
-      <HeadTemplate pageTitle='ログインページ' />
+      <HeadTemplate
+        pageCanonicalUrl='https://www.riot-ec-site.com/login'
+        pageTitle='ログインページ'
+      />
       <CommonTemplate>
         <StLoginFormContainer onSubmit={handleSubmit(onSubmit)}>
           <h3>ログイン</h3>
