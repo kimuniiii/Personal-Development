@@ -6,6 +6,7 @@ import { COPY_RIGHT, FACEBOOK_ADMIN_ID, FACEBOOK_APP_ID } from 'src/constants';
 import { getSrcAbsolutePath } from 'src/utils/getSrcAbsolutePath';
 
 type HeadTemplateProps = {
+  pageCanonicalUrl: string;
   /**
    * @概要 サイト内の各ページで個別の内容になるように設定すること
    * @説明 全角35文字以下
@@ -16,7 +17,6 @@ type HeadTemplateProps = {
    * @説明 全角80〜110文字以内・適当に書いたり自動抽出するくらいなら全く書かない方がマシ
    */
   pageDescription?: string;
-  pageUrl?: string;
   /**
    * @概要 検索を避けるための判定フラグ
    * @説明 低品質なページや、ユーザーにとって価値のないページの場合「true」
@@ -41,9 +41,9 @@ type HeadTemplateProps = {
  * @説明 各ページごとにOGP・metaタグは変更される使い方が想定される
  */
 export const HeadTemplate: NextPage<HeadTemplateProps> = ({
+  pageCanonicalUrl,
   pageTitle = 'Riot ECサイト',
   pageDescription = 'このサイトはRiotのECサイトです',
-  pageUrl,
   isNoIndex = false,
   dynamicOgp = {
     ogpUrl: 'https://riot-ec-site.com/',
@@ -77,7 +77,7 @@ export const HeadTemplate: NextPage<HeadTemplateProps> = ({
       <meta property='fb:app_id' content={FACEBOOK_APP_ID} />
       {/* TODO : TwitterでOGPを表示させるときの「表示タイプ」をどうするのか要件を決める */}
       <meta name='twitter:card' content='summary' />
-      <link rel='canonical' href={pageUrl} />
+      <link rel='canonical' href={pageCanonicalUrl} />
       <link rel='icon' href='/favicon/favicon.ico' />
     </Head>
   );
