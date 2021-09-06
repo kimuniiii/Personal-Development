@@ -7,7 +7,9 @@ export default class CustomDocument extends Document {
   render(): JSX.Element {
     return (
       <Html>
-        <Head />
+        <Head>
+          <link rel='icon' href='/favicon/favicon.ico' />
+        </Head>
         <body>
           <Main />
           <NextScript />
