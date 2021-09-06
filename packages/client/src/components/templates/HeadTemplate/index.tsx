@@ -36,6 +36,10 @@ type HeadTemplateProps = {
   };
 };
 
+/**
+ * @概要 OGP・metaタグ用のコンポーネント
+ * @説明 各ページごとにOGP・metaタグは変更される使い方が想定される
+ */
 export const HeadTemplate: NextPage<HeadTemplateProps> = ({
   pageTitle = 'Riot ECサイト',
   pageDescription = 'このサイトはRiotのECサイトです',
