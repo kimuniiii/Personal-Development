@@ -28,7 +28,12 @@ type HeadTemplateProps = {
    * @説明1 ogpUrl : ページの正規URL・パラメーターの無いURL・「絶対パス」で指定
    * @説明2 ogpImageUrl : シェアされた時に表示される画像のURL・「絶対パス」で指定
    */
-  dynamicOgp?: { ogpUrl?: string; ogpImageUrl?: string };
+  dynamicOgp?: {
+    ogpUrl?: string;
+    ogpImageWidth: number;
+    ogpImageHeight: number;
+    ogpImageUrl?: string;
+  };
 };
 
 export const HeadTemplate: NextPage<HeadTemplateProps> = ({
@@ -38,6 +43,8 @@ export const HeadTemplate: NextPage<HeadTemplateProps> = ({
   isNoIndex = false,
   dynamicOgp = {
     ogpUrl: 'https://riot-ec-site.com/',
+    ogpImageWidth: 1200,
+    ogpImageHeight: 630,
     ogpImageUrl: getSrcAbsolutePath('/images/ec_site.png'),
   },
 }) => {
@@ -60,6 +67,8 @@ export const HeadTemplate: NextPage<HeadTemplateProps> = ({
       <meta property='og:url' content={dynamicOgp?.ogpUrl} />
       {/* TODO : dynamicOgp?.ogpImageUrl ? dynamicOgp.ogpImageUrl : getSrcAbsolutePath('/img/ogp_image.png') みたいな感じにする */}
       <meta property='og:image' content={dynamicOgp?.ogpImageUrl} />
+      <meta property='og:image:width' content={String(dynamicOgp?.ogpImageWidth)} />
+      <meta property='og:image:height' content={String(dynamicOgp?.ogpImageHeight)} />
       <meta property='fb:admins' content={FACEBOOK_ADMIN_ID} />
       <meta property='fb:app_id' content={FACEBOOK_APP_ID} />
       {/* TODO : TwitterでOGPを表示させるときの「表示タイプ」をどうするのか要件を決める */}
