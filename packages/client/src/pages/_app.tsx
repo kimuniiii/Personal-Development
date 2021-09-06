@@ -6,8 +6,6 @@ import React from 'react';
 
 import type { AppProps } from 'next/app';
 
-import { HeadTemplate } from 'src/components/templates/HeadTemplate';
-
 import { GLOBAL_STYLE } from 'src/styles/global_style';
 
 import { getRedirectUriOrigin } from 'src/utils/getRedirectUriOrigin';
@@ -31,7 +29,6 @@ const CustomApp = ({ Component, pageProps, origin }: CustomAppProps): JSX.Elemen
 
   return (
     <React.Fragment>
-      <HeadTemplate />
       <Auth0Provider
         domain={process.env.NEXT_PUBLIC_AUTH0_DOMAIN || ''}
         clientId={process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID || ''}
