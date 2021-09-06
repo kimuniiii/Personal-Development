@@ -65,6 +65,7 @@ export const HeadTemplate: NextPage<HeadTemplateProps> = ({
       {/* TODO : TwitterでOGPを表示させるときの「表示タイプ」をどうするのか要件を決める */}
       <meta name='twitter:card' content='summary' />
       <link rel='canonical' href={pageUrl} />
+      <link rel='icon' href='/favicon/favicon.ico' />
     </Head>
   );
 };
