@@ -13,7 +13,10 @@ import ReactImage from '../../../public/images/react.jpg';
 const MyPage = (): JSX.Element => {
   return (
     <React.Fragment>
-      <HeadTemplate pageTitle='マイページ' />
+      <HeadTemplate
+        pageCanonicalUrl='https://www.riot-ec-site.com/my-page'
+        pageTitle='マイページ'
+      />
       <CommonTemplate isSideBar={true}>
         <StRoot>
           <StProductListContainer>

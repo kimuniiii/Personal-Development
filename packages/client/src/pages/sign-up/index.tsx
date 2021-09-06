@@ -32,7 +32,10 @@ const SignUpFormPage = (): JSX.Element => {
 
   return (
     <>
-      <HeadTemplate pageTitle='ユーザー登録ページ' />
+      <HeadTemplate
+        pageCanonicalUrl='https://www.riot-ec-site.com/sign-up'
+        pageTitle='ユーザー登録ページ'
+      />
       <CommonTemplate>
         <StUserRegisterFormContainer onSubmit={handleSubmit(onSubmit)}>
           <h3>ユーザ登録</h3>

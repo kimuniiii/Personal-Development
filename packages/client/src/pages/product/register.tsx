@@ -34,7 +34,10 @@ const ProductRegisterPage = (): JSX.Element => {
 
   return (
     <React.Fragment>
-      <HeadTemplate pageTitle='商品登録ページ' />
+      <HeadTemplate
+        pageCanonicalUrl='https://www.riot-ec-site.com/password/product/register'
+        pageTitle='商品登録ページ'
+      />
       <CommonTemplate isSideBar={true}>
         <StProfileEditFormContainer onSubmit={handleSubmit(onSubmit)}>
           <h3>商品名</h3>

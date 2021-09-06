@@ -6,7 +6,10 @@ import { HeadTemplate } from 'src/components/templates/HeadTemplate';
 const Chatroom = (): JSX.Element => {
   return (
     <React.Fragment>
-      <HeadTemplate pageTitle='連絡掲示板' />
+      <HeadTemplate
+        pageCanonicalUrl='https://www.riot-ec-site.com/chatroom'
+        pageTitle='連絡掲示板'
+      />
       <CommonTemplate>連絡掲示板</CommonTemplate>
     </React.Fragment>
   );
