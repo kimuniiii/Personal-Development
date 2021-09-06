@@ -1,4 +1,8 @@
 # dependencies
 node_modules
 
+# vercel
 .vercel
+
+# misc
+.DS_Store

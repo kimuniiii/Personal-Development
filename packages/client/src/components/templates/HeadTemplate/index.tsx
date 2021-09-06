@@ -25,7 +25,8 @@ type HeadTemplateProps = {
   isNoIndex?: boolean;
   /**
    * @概要 SSRでOGPを動的に生成するため
-   * @説明 ogpUrl・ogpImageUrl は「絶対パス」で指定する
+   * @説明1 ogpUrl : ページの正規URL・パラメーターの無いURL・「絶対パス」で指定
+   * @説明2 ogpImageUrl : シェアされた時に表示される画像のURL・「絶対パス」で指定
    */
   dynamicOgp?: { ogpUrl?: string; ogpImageUrl?: string };
 };
@@ -37,7 +38,7 @@ export const HeadTemplate: NextPage<HeadTemplateProps> = ({
   isNoIndex = false,
   dynamicOgp = {
     ogpUrl: 'https://riot-ec-site.com/',
-    ogpImageUrl: getSrcAbsolutePath('/images/riot_logo.png'),
+    ogpImageUrl: getSrcAbsolutePath('/images/ec_site.png'),
   },
 }) => {
   return (
@@ -64,6 +65,7 @@ export const HeadTemplate: NextPage<HeadTemplateProps> = ({
       {/* TODO : TwitterでOGPを表示させるときの「表示タイプ」をどうするのか要件を決める */}
       <meta name='twitter:card' content='summary' />
       <link rel='canonical' href={pageUrl} />
+      <link rel='icon' href='/favicon/favicon.ico' />
     </Head>
   );
 };
