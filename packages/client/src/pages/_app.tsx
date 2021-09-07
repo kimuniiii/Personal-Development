@@ -6,6 +6,8 @@ import React from 'react';
 
 import type { AppProps } from 'next/app';
 
+import { HeadTemplate } from 'src/components/templates/HeadTemplate';
+
 import { getAuth0ClientId } from 'src/lib/getAuth0ClientId';
 import { getAuth0Domain } from 'src/lib/getAuth0Domain';
 
@@ -46,6 +48,7 @@ const CustomApp = ({
 
   return (
     <React.Fragment>
+      <HeadTemplate pageOrigin={origin} />
       <Auth0Provider domain={auth0Domain} clientId={auth0ClientId} redirectUri={redirectUri}>
         <ApolloProvider client={createApolloClient}>
           <Global
