@@ -1,12 +1,27 @@
 import { NextPage } from 'next';
 import Head from 'next/head';
 
-import { COPY_RIGHT, FACEBOOK_ADMIN_ID, FACEBOOK_APP_ID } from 'src/constants';
+import {
+  COPY_RIGHT,
+  FACEBOOK_ADMIN_ID,
+  FACEBOOK_APP_ID,
+  PRODUCTION_ORIGIN,
+  STAGING_ORIGIN,
+} from 'src/constants';
 
 import { getSrcAbsolutePath } from 'src/utils/getSrcAbsolutePath';
 
 type HeadTemplateProps = {
-  pageCanonicalUrl: string;
+  /**
+   * @概要 オリジン = スキーム + ホスト（ドメイン）+ ポート番号 のこと
+   * @説明 スキーム、ホスト、ポートがすべて一致した場合のみ、2つのオブジェクトは同じオリジンと言える
+   */
+  pageOrigin?: string;
+  /**
+   * @概要 サイト内で評価される正規URLをGoogleの検索エンジンに認識させるURL
+   * @説明 重複コンテンツを解消する目的・リンクの評価を集約する目的
+   */
+  pageCanonicalUrl?: string;
   /**
    * @概要 サイト内の各ページで個別の内容になるように設定すること
    * @説明 全角35文字以下
@@ -41,12 +56,13 @@ type HeadTemplateProps = {
  * @説明 各ページごとにOGP・metaタグは変更される使い方が想定される
  */
 export const HeadTemplate: NextPage<HeadTemplateProps> = ({
+  pageOrigin,
   pageCanonicalUrl,
   pageTitle = 'Riot ECサイト',
   pageDescription = 'このサイトはRiotのECサイトです',
   isNoIndex = false,
   dynamicOgp = {
-    ogpUrl: 'https://riot-ec-site.com/',
+    ogpUrl: 'https://www.riot-ec-site.com/',
     ogpImageWidth: 1200,
     ogpImageHeight: 630,
     ogpImageUrl: getSrcAbsolutePath('/images/ec_site.png'),
@@ -78,7 +94,13 @@ export const HeadTemplate: NextPage<HeadTemplateProps> = ({
       {/* TODO : TwitterでOGPを表示させるときの「表示タイプ」をどうするのか要件を決める */}
       <meta name='twitter:card' content='summary' />
       <link rel='canonical' href={pageCanonicalUrl} />
-      <link rel='icon' href='/favicon/favicon.ico' />
+      {pageOrigin === PRODUCTION_ORIGIN ? (
+        <link rel='icon' href='/favicon/production_favicon.ico' />
+      ) : pageOrigin === STAGING_ORIGIN ? (
+        <link rel='icon' href='/favicon/staging_favicon.ico' />
+      ) : (
+        <link rel='icon' href='/favicon/development_favicon.ico' />
+      )}
     </Head>
   );
 };
