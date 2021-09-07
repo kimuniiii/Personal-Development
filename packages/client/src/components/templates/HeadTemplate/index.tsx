@@ -1,7 +1,13 @@
 import { NextPage } from 'next';
 import Head from 'next/head';
 
-import { COPY_RIGHT, FACEBOOK_ADMIN_ID, FACEBOOK_APP_ID, PRODUCTION_ORIGIN } from 'src/constants';
+import {
+  COPY_RIGHT,
+  FACEBOOK_ADMIN_ID,
+  FACEBOOK_APP_ID,
+  PRODUCTION_ORIGIN,
+  STAGING_ORIGIN,
+} from 'src/constants';
 
 import { getSrcAbsolutePath } from 'src/utils/getSrcAbsolutePath';
 
@@ -90,8 +96,10 @@ export const HeadTemplate: NextPage<HeadTemplateProps> = ({
       <link rel='canonical' href={pageCanonicalUrl} />
       {pageOrigin === PRODUCTION_ORIGIN ? (
         <link rel='icon' href='/favicon/production_favicon.ico' />
-      ) : (
+      ) : pageOrigin === STAGING_ORIGIN ? (
         <link rel='icon' href='/favicon/staging_favicon.ico' />
+      ) : (
+        <link rel='icon' href='/favicon/development_favicon.ico' />
       )}
     </Head>
   );
