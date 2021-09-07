@@ -8,6 +8,6 @@ export const getRedirectUriOrigin = (): string => {
   } else if (process.env.VERCEL_ENV === 'staging') {
     return 'https://personal-development-client-git-develop-kimuniiii.vercel.app';
   } else {
-    return 'https://riot-ec-site.com';
+    return 'https://www.riot-ec-site.com';
   }
 };
