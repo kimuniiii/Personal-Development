@@ -11,7 +11,7 @@
     "vercel:production": "vercel --prod",
     "vercel:login": "vercel login --github",
     "storybook": "start-storybook -s ./public -p 6007",
-    "build-storybook": "build-storybook --output-dir ./build -s ./src/styles",
+    "build-storybook": "build-storybook --output-dir ./build -s ./public",
     "ts-test": "tsc -p tsconfig.json --noEmit",
     "format": "prettier --write \"**/*.{css,html,js,json,ts,tsx}\"",
     "lint": "eslint src --ext .ts,.tsx .",
