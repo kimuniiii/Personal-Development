@@ -1,6 +1,8 @@
-name: Node.js CI
+name: Storybook Deploy
 
-on: ['push']
+on:
+  push:
+    branches: [master]
 
 jobs:
   client-build:
@@ -32,11 +34,11 @@ jobs:
       - name: Client Install Dependencies
         run: yarn client install
 
-      - name: Client ESLint
-        run: yarn client lint:cache
+      - name: build storybook
+        run: yarn client build-storybook
 
-      - name: Client Type Check
-        run: yarn client ts-test
-
-      - name: Client Next Build
-        run: yarn client build
+      - name: deploy storybook
+        uses: JamesIves/github-pages-deploy-action@4.1.5
+        with:
+          branch: gh-pages
+          folder: packages/client/build
