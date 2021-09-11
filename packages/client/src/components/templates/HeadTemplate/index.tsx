@@ -5,8 +5,8 @@ import {
   COPY_RIGHT,
   FACEBOOK_ADMIN_ID,
   FACEBOOK_APP_ID,
-  PRODUCTION_ORIGIN,
-  STAGING_ORIGIN,
+  VERCEL_PRODUCTION_ORIGIN,
+  VERCEL_STAGING_ORIGIN,
 } from 'src/constants';
 
 import { getSrcAbsolutePath } from 'src/utils/getSrcAbsolutePath';
@@ -94,9 +94,9 @@ export const HeadTemplate: NextPage<HeadTemplateProps> = ({
       {/* TODO : TwitterでOGPを表示させるときの「表示タイプ」をどうするのか要件を決める */}
       <meta name='twitter:card' content='summary' />
       <link rel='canonical' href={pageCanonicalUrl} />
-      {pageOrigin === PRODUCTION_ORIGIN ? (
+      {pageOrigin === VERCEL_PRODUCTION_ORIGIN ? (
         <link rel='icon' href='/favicon/production_favicon.ico' />
-      ) : pageOrigin === STAGING_ORIGIN ? (
+      ) : pageOrigin === VERCEL_STAGING_ORIGIN ? (
         <link rel='icon' href='/favicon/staging_favicon.ico' />
       ) : (
         <link rel='icon' href='/favicon/development_favicon.ico' />
