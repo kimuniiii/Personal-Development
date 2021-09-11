@@ -72,7 +72,7 @@ type CustomAppInitialProps = AppInitialProps & {
 };
 
 CustomApp.getInitialProps = async (appContext: AppContext): Promise<CustomAppInitialProps> => {
-  const origin = getRedirectUriOrigin();
+  const origin = getRedirectUriOrigin(process.env.VERCEL_ENV);
   const auth0Domain = getAuth0Domain();
   const auth0ClientId = getAuth0ClientId();
   const appProps = await App.getInitialProps(appContext);
