@@ -4,7 +4,7 @@ import {
   VERCEL_PRODUCTION_ORIGIN,
 } from 'src/constants';
 
-import { getRedirectUriOrigin } from './';
+import { getRedirectUriOrigin } from '.';
 
 describe('getRedirectUriOrigin', () => {
   describe('undefinedの場合', () => {

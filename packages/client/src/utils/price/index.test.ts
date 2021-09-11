@@ -1,4 +1,4 @@
-import { priceToJapaneseYen } from './';
+import { priceToJapaneseYen } from '.';
 
 describe('priceToJapaneseYen', () => {
   describe('数値を入力した場合', () => {
