@@ -65,7 +65,7 @@ export const HeadTemplate: NextPage<HeadTemplateProps> = ({
     ogpUrl: 'https://www.riot-ec-site.com/',
     ogpImageWidth: 1200,
     ogpImageHeight: 630,
-    ogpImageUrl: getSrcAbsolutePath('/images/ec_site.png'),
+    ogpImageUrl: getSrcAbsolutePath('/images/ec_site.png', process.env.VERCEL_ENV),
   },
 }) => {
   return (
