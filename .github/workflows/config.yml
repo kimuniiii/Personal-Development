@@ -38,5 +38,8 @@ jobs:
       - name: Client Type Check
         run: yarn client ts-test
 
+      - name: Client Unit Test & DOM Test
+        run: yarn client jest
+
       - name: Client Next Build
         run: yarn client build
