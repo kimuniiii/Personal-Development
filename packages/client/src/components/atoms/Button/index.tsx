@@ -56,7 +56,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       disabled={disabled}
       onClick={onClick}
     >
-      {buttonContent ?? buttonContent}
+      {buttonContent}
     </StButton>
   ),
 );
