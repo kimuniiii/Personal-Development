@@ -6,7 +6,8 @@
     "packages/*"
   ],
   "engines": {
-    "npm": "npmではなくyarnを使ってください"
+    "npm": "npmではなくyarnを使ってください",
+    "node": "16.x"
   },
   "scripts": {
     "server": "yarn workspace server",
