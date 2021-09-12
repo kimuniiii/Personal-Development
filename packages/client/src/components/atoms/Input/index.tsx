@@ -47,7 +47,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
   ) => {
     return (
       <StTextField>
-        {labelText !== '' ? (
+        {labelText ? (
           <StLabel htmlFor={id} fontSizeValue={fontSizeValue}>
             {labelText}
           </StLabel>
