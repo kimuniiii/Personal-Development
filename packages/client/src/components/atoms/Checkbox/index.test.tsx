@@ -30,11 +30,30 @@ describe('Checkbox', () => {
       });
     });
   });
-  describe('クリックした場合', () => {
-    test('register.onChangeが発火すること', () => {
-      render(<Checkbox {...testProps} />);
-      userEvent.click(screen.getByText('labelText'));
-      expect(testProps.register.onChange).toHaveBeenCalledTimes(1);
+  describe('イベント', () => {
+    describe('クリックした場合', () => {
+      test('register.onChangeが1回発火すること', () => {
+        render(<Checkbox {...testProps} />);
+        userEvent.click(screen.getByLabelText('labelText'));
+        expect(testProps.register.onChange).toHaveBeenCalledTimes(1);
+      });
+      test('Checkboxのチェックマークが付くこと', () => {
+        render(<Checkbox {...testProps} />);
+        userEvent.click(screen.getByLabelText('labelText'));
+        expect(screen.getByLabelText('labelText')).toBeChecked();
+      });
+    });
+    describe('ダブルクリックした場合', () => {
+      test('register.onChangeが2回発火すること', () => {
+        render(<Checkbox {...testProps} />);
+        userEvent.dblClick(screen.getByRole('checkbox'));
+        expect(testProps.register.onChange).toHaveBeenCalledTimes(4);
+      });
+      test('Checkboxのチェックマークが外れること', () => {
+        render(<Checkbox {...testProps} />);
+        userEvent.dblClick(screen.getByLabelText('labelText'));
+        expect(screen.getByLabelText('labelText')).not.toBeChecked();
+      });
     });
   });
   describe('非活性状態の場合', () => {
