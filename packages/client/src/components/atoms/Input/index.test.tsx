@@ -3,7 +3,7 @@
  */
 
 import { render, screen } from '@testing-library/react';
-// import userEvent from '@testing-library/user-event';
+import userEvent from '@testing-library/user-event';
 
 import { Input } from 'src/components/atoms/Input';
 
@@ -29,6 +29,22 @@ describe('Input', () => {
     test('input要素が描画されること', () => {
       render(<Input {...testProps} />);
       expect(screen.getByPlaceholderText('メールアドレスを入力')).toBeInTheDocument();
+    });
+  });
+  describe('イベント', () => {
+    describe('何らかの文字 を入力した場合', () => {
+      test('register.onChangeイベントが発火すること', () => {
+        render(<Input {...testProps} />);
+        userEvent.type(screen.getByRole('textbox'), 'K');
+        expect(testProps.register.onChange).toHaveBeenCalledTimes(1);
+      });
+    });
+    describe('Hello World を入力した場合', () => {
+      test('Hello World が input要素 に適用されること', () => {
+        render(<Input {...testProps} />);
+        userEvent.type(screen.getByRole('textbox'), 'Hello World!');
+        expect(screen.getByRole('textbox')).toHaveValue('Hello World!');
+      });
     });
   });
   describe('labelText', () => {
