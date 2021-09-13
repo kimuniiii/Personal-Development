@@ -22,6 +22,7 @@ const testProps = {
     name: 'text',
   },
   width: '320px',
+  labelText: 'labelText',
 };
 
 describe('Input', () => {
@@ -48,15 +49,15 @@ describe('Input', () => {
     });
   });
   describe('labelText', () => {
-    describe('Falsy な値を渡す場合', () => {
+    describe('空文字を渡す場合', () => {
       test('label要素なしの input要素 が描画されること', () => {
-        render(<Input {...testProps} />);
+        render(<Input {...testProps} labelText='' />);
         expect(screen.getByPlaceholderText('メールアドレスを入力')).toBeInTheDocument();
       });
     });
-    describe('Truthy な値を渡す場合', () => {
+    describe('空文字以外の文字列を渡す場合', () => {
       test('label要素ありの input要素 が描画されること', () => {
-        render(<Input {...testProps} labelText='labelText' />);
+        render(<Input {...testProps} />);
         expect(screen.getByLabelText('labelText')).toBeInTheDocument();
       });
     });

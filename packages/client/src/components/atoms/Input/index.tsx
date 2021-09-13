@@ -19,8 +19,8 @@ type InputProps = JSX.IntrinsicElements['input'] & {
   errors: Record<string, unknown>;
   register: UseFormRegisterReturn;
   width: string;
+  labelText: string;
   id?: string;
-  labelText?: string;
   disabled?: boolean;
   fontSizeValue?: ValueOf<typeof FONT_SIZE>;
   bgColor?: ValueOf<typeof COLOR_PALETTE>;
@@ -36,8 +36,8 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
       errors,
       register,
       width,
+      labelText,
       id = 'text-input',
-      labelText = '',
       disabled = false,
       fontSizeValue,
       bgColor,
@@ -47,7 +47,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
   ) => {
     return (
       <StTextField>
-        {labelText ? (
+        {labelText !== '' ? (
           <StLabel htmlFor={id} fontSizeValue={fontSizeValue}>
             {labelText}
           </StLabel>
