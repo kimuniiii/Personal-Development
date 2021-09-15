@@ -43,7 +43,7 @@ export const ProfileImageUpload: VFC<ProfileImageUploadProps> = ({
       </StImageContainer>
       {imageUrl !== '' ? <Margin bottom='16px' /> : null}
       <StLabel>
-        写真を追加
+        プロフィール写真を1枚追加する
         <input type='file' onChange={onChange} />
       </StLabel>
     </React.Fragment>

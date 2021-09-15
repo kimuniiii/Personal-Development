@@ -1,10 +1,11 @@
 import styled from '@emotion/styled';
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { Button } from 'src/components/atoms/Button';
 import { Input } from 'src/components/atoms/Input';
 import { Margin } from 'src/components/layouts/Margin';
+import { ProfileImageUpload } from 'src/components/organisms/ProfileImageUpload';
 import { CommonTemplate } from 'src/components/templates/CommonTemplate';
 import { HeadTemplate } from 'src/components/templates/HeadTemplate';
 
@@ -30,6 +31,26 @@ const ProfileEditPage = (): JSX.Element => {
    */
   const onSubmit = (data: Record<string, unknown>): void => {
     console.log(data);
+  };
+
+  const [imageUrl, setImageUrl] = useState<string>('');
+
+  const onFileInputChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+    if (event.target.files === null || event.target.files.length === 0) {
+      return;
+    }
+
+    const imageFile = event.target.files[0];
+    const imageUrl = URL.createObjectURL(imageFile);
+    setImageUrl(imageUrl);
+    // onChangeは連続で同じファイルを選択すると発火しない問題の対応のため
+    event.target.value = '';
+  };
+
+  const deleteProfileImg = (): void => {
+    if (confirm('選択した画像を削除してもよろしいですか？')) {
+      setImageUrl('');
+    }
   };
 
   return (
@@ -164,13 +185,19 @@ const ProfileEditPage = (): JSX.Element => {
                 required: { message: '必須入力項目です！', value: true },
               })}
             />
+            <Margin bottom='16px' />
+            <ProfileImageUpload
+              imageUrl={imageUrl}
+              onClick={deleteProfileImg}
+              onChange={onFileInputChange}
+            />
             <Margin bottom='24px' />
             <Button
               type='submit'
               styleTypes='tertiary'
               width='100%'
               fontSizeValue='16px'
-              buttonContent='変更する'
+              buttonContent='プロフィールを変更する'
               disabled={!isValid}
               onClick={(): void => alert('変更するボタンをクリック')}
             />
