@@ -38,16 +38,14 @@ export const ProfileImageUpload: VFC<ProfileImageUploadProps> = ({
               onClick={onClick}
             />
             <Image src={imageUrl} alt='Reactの画像です' layout='fill' />
-            <Margin bottom='32px' />
           </StImagePosition>
         ) : null}
       </StImageContainer>
-      <StFileUploadBtnContainer>
-        <StLabel>
-          写真を追加
-          <input type='file' onChange={onChange} />
-        </StLabel>
-      </StFileUploadBtnContainer>
+      {imageUrl !== '' ? <Margin bottom='16px' /> : null}
+      <StLabel>
+        写真を追加
+        <input type='file' onChange={onChange} />
+      </StLabel>
     </React.Fragment>
   );
 };
@@ -71,16 +69,11 @@ const StImagePosition = styled.div`
   }
 `;
 
-const StFileUploadBtnContainer = styled.section`
-  display: flex;
-  flex-direction: row-reverse;
-  max-width: 375px;
-`;
-
 const StLabel = styled.label`
   display: inline-block;
   text-align: center;
   padding: 12px 16px;
+  max-width: 343px;
   width: 343px;
   border-radius: 3px;
   background-color: #3e8bff;
