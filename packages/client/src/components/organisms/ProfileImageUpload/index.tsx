@@ -53,15 +53,14 @@ export const ProfileImageUpload: VFC<ProfileImageUploadProps> = ({
 };
 
 const StImageContainer = styled.section`
-  display: flex;
-  gap: 16px;
-  max-width: 375px;
+  max-width: 343px;
 `;
 
 const StImagePosition = styled.div`
   position: relative;
-  width: 375px;
-  height: 375px;
+  padding: 16px;
+  width: 343px;
+  height: 343px;
 
   .icon-close-button {
     position: absolute;
@@ -82,7 +81,7 @@ const StLabel = styled.label`
   display: inline-block;
   text-align: center;
   padding: 12px 16px;
-  width: 157px;
+  width: 343px;
   border-radius: 3px;
   background-color: #3e8bff;
   color: ${COLOR_PALETTE.WHITE};
