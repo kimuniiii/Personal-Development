@@ -1,5 +1,5 @@
 import { Story, Meta } from '@storybook/react/types-6-0';
-import React from 'react';
+import React, { useState } from 'react';
 
 import { ProfileImageUpload } from '.';
 
@@ -10,7 +10,38 @@ export default {
 
 type Props = React.ComponentProps<typeof ProfileImageUpload>;
 
-const Template: Story<Props> = (args) => <ProfileImageUpload {...args} />;
+const Template: Story<Props> = (args) => {
+  const [imageUrl, setImageUrl] = useState<string>('');
+
+  const onFileInputChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+    if (event.target.files === null || event.target.files.length === 0) {
+      return;
+    }
+
+    console.log(event.target.files[0]);
+
+    const imageFile = event.target.files[0];
+    const imageUrl = URL.createObjectURL(imageFile);
+    setImageUrl(imageUrl);
+    // onChangeは連続で同じファイルを選択すると発火しない問題の対応のため
+    event.target.value = '';
+  };
+
+  const deleteProfileImg = (): void => {
+    if (confirm('選択した画像を削除してもよろしいですか？')) {
+      setImageUrl('');
+    }
+  };
+
+  return (
+    <ProfileImageUpload
+      {...args}
+      imageUrl={imageUrl}
+      onClick={deleteProfileImg}
+      onChange={onFileInputChange}
+    />
+  );
+};
 
 export const Basic = Template.bind({});
 
