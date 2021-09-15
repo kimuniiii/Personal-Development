@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import Image from 'next/image';
+import Router from 'next/router';
 
 import type { VFC } from 'react';
 import type { ProductCardList } from 'src/pages';
@@ -17,7 +18,10 @@ export const ProductCard: VFC<Props> = ({ productCardList }) => {
         return (
           <StProductItem key={idx}>
             <StFigure>
-              <Image src={productItem.productImage} alt={productItem.productImageAlt} />
+              {/* TODO ログインしていなかったらユーザー登録画面に遷移させる実装を行う */}
+              <StImageBtn onClick={(): Promise<boolean> => Router.push('/product/detail')}>
+                <Image src={productItem.productImage} alt={productItem.productImageAlt} />
+              </StImageBtn>
               <figcaption>{productItem.productName}</figcaption>
               <figcaption>{productItem.productMoney}</figcaption>
             </StFigure>
@@ -50,4 +54,14 @@ const StFigure = styled.figure`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+`;
+
+const StImageBtn = styled.button`
+  cursor: pointer;
+  /* ホバーをなめらかにするため */
+  transition: opacity 0.3s;
+
+  &:hover {
+    opacity: 0.6;
+  }
 `;
