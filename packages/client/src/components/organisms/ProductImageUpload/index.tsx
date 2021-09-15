@@ -45,12 +45,12 @@ export const ProductImageUpload: VFC<ProductImageUploadProps> = ({
                   layout='fill'
                 />
               </StImagePosition>
-              <Margin right='16px' />
+              {idx !== 2 ? <Margin right='16px' /> : null}
             </React.Fragment>
           ) : (
             <React.Fragment key={idx}>
               <StImagePlaceholderBox />
-              <Margin right='16px' />
+              {idx !== 2 ? <Margin right='16px' /> : null}
             </React.Fragment>
           ),
         )}
@@ -71,7 +71,8 @@ const StImageContainer = styled.section`
 const StImagePlaceholderBox = styled.div`
   width: 104px;
   height: 100px;
-  background-color: ${COLOR_PALETTE.LIGHT_GRAY};
+  background-color: ${COLOR_PALETTE.WHITE};
+  border: 1px dotted ${COLOR_PALETTE.BLACK};
 `;
 
 const StImagePosition = styled.div`
