@@ -5,5 +5,15 @@
     "source.fixAll.eslint": true
   },
   "liveServer.settings.port": 5501,
-  "cSpell.words": ["Anxw", "CODECOV", "JBNBHY", "nextjs", "nkmc", "signup", "testid", "Ydui"]
+  "cSpell.words": [
+    "Anxw",
+    "CODECOV",
+    "Hasura",
+    "JBNBHY",
+    "nextjs",
+    "nkmc",
+    "signup",
+    "testid",
+    "Ydui"
+  ]
 }
