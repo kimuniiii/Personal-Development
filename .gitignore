@@ -9,3 +9,6 @@ node_modules
 
 # testing
 /coverage
+
+# vscode
+.vscode/snipsnap.code-snippets
