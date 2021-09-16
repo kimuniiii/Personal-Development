@@ -1,10 +1,6 @@
 name: Node.js CI
 
-on:
-  push:
-    branches: [master]
-  pull_request:
-    branches: [master]
+on: ['push']
 
 jobs:
   client-build:
@@ -12,7 +8,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [16.x]
+        node-version: [14.x]
 
     steps:
       - uses: actions/checkout@v2
@@ -42,14 +38,13 @@ jobs:
       - name: Client Type Check
         run: yarn client ts-test
 
+      - name: Client Unit Test & DOM Test
+        run: yarn client jest
+
       - name: Client Next Build
         run: yarn client build
 
-      - name: build storybook
-        run: yarn client build-storybook
-
-      - name: deploy storybook
-        uses: JamesIves/github-pages-deploy-action@4.1.5
+      - name: Upload Coverage Report
+        uses: codecov/codecov-action@v1
         with:
-          branch: gh-pages
-          folder: packages/client/build
+          token: ${{ secrets.CODECOV_TOKEN }}

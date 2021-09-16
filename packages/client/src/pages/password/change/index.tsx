@@ -34,7 +34,10 @@ const PasswordChangePage = (): JSX.Element => {
 
   return (
     <React.Fragment>
-      <HeadTemplate pageTitle='パスワード変更ページ' />
+      <HeadTemplate
+        pageCanonicalUrl='https://www.riot-ec-site.com/password/change'
+        pageTitle='パスワード変更ページ'
+      />
       <CommonTemplate isSideBar={true}>
         <StPasswordChangeFormContainer onSubmit={handleSubmit(onSubmit)}>
           <h3>パスワード変更</h3>

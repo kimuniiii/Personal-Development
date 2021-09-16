@@ -10,10 +10,11 @@ module.exports = {
     'next/core-web-vitals',
     'plugin:react/recommended',
     'plugin:react-hooks/recommended',
+    'plugin:jest/recommended',
     'prettier',
   ],
   parser: '@typescript-eslint/parser',
-  plugins: ['@typescript-eslint', 'react'],
+  plugins: ['@typescript-eslint', 'react', 'jest'],
   settings: {
     'import/resolver': {
       node: {
@@ -61,6 +62,11 @@ module.exports = {
           {
             group: 'index',
             pattern: 'src/hooks/**',
+            position: 'before',
+          },
+          {
+            group: 'index',
+            pattern: 'src/lib/**',
             position: 'before',
           },
           {

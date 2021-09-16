@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { Button } from 'src/components/atoms/Button';
@@ -7,6 +7,7 @@ import { Input } from 'src/components/atoms/Input';
 import { SelectBox } from 'src/components/atoms/SelectBox';
 import { Textarea } from 'src/components/atoms/Textarea';
 import { Margin } from 'src/components/layouts/Margin';
+import { ProductImageUpload } from 'src/components/organisms/ProductImageUpload';
 import { CommonTemplate } from 'src/components/templates/CommonTemplate';
 import { HeadTemplate } from 'src/components/templates/HeadTemplate';
 
@@ -32,9 +33,31 @@ const ProductRegisterPage = (): JSX.Element => {
     console.log(data);
   };
 
+  const [photoFiles, setPhotoFiles] = useState<File[]>([]);
+
+  const onDeleteImgBtn = (photoIndex: number): void => {
+    if (confirm('選択した画像を消してよろしいですか？')) {
+      const modifyPhotos = photoFiles.concat();
+      modifyPhotos.splice(photoIndex, 1);
+      setPhotoFiles(modifyPhotos);
+    }
+  };
+
+  const onFileInputChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+    if (event.target.files === null || event.target.files.length === 0) {
+      return;
+    }
+    setPhotoFiles([...photoFiles, ...event.target.files]);
+    // onChangeは連続で同じファイルを選択すると発火しない問題の対応のため
+    event.target.value = '';
+  };
+
   return (
     <React.Fragment>
-      <HeadTemplate pageTitle='商品登録ページ' />
+      <HeadTemplate
+        pageCanonicalUrl='https://www.riot-ec-site.com/password/product/register'
+        pageTitle='商品登録ページ'
+      />
       <CommonTemplate isSideBar={true}>
         <StProfileEditFormContainer onSubmit={handleSubmit(onSubmit)}>
           <h3>商品名</h3>
@@ -103,13 +126,19 @@ const ProductRegisterPage = (): JSX.Element => {
                 required: { message: '必須入力項目です！', value: true },
               })}
             />
+            <Margin bottom='16px' />
+            <ProductImageUpload
+              photoFiles={photoFiles}
+              onDeleteImgBtn={onDeleteImgBtn}
+              onFileInputChange={onFileInputChange}
+            />
             <Margin bottom='24px' />
             <Button
               type='submit'
               styleTypes='tertiary'
               width='100%'
               fontSizeValue='16px'
-              buttonContent='出品する'
+              buttonContent='商品を出品する'
               disabled={!isValid}
               onClick={(): void => alert('出品するボタンをクリック')}
             />

@@ -33,7 +33,10 @@ const PasswordReminderSubmitPage = (): JSX.Element => {
 
   return (
     <React.Fragment>
-      <HeadTemplate pageTitle='パスワードリマインダー送信ページ' />
+      <HeadTemplate
+        pageCanonicalUrl='https://www.riot-ec-site.com/password/reminder/submit'
+        pageTitle='パスワードリマインダー送信ページ'
+      />
       <CommonTemplate>
         <StPasswordReminderChangeFormContainer onSubmit={handleSubmit(onSubmit)}>
           <StPasswordReminderChangeContainer>

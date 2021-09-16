@@ -28,7 +28,10 @@ const Hasura: NextPage = () => {
 
   return (
     <React.Fragment>
-      <HeadTemplate pageTitle='Next.js + Hasura' />
+      <HeadTemplate
+        pageCanonicalUrl='https://www.riot-ec-site.com/sample/hasura'
+        pageTitle='Next.js + Hasura'
+      />
       <CommonTemplate>
         <h1>Next.js + Apollo + Hasura</h1>
         {data.sample_test_profile_table.map(

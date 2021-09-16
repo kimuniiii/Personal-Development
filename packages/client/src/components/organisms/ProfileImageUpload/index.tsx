@@ -9,49 +9,56 @@ import { Margin } from 'src/components/layouts/Margin';
 import { COLOR_PALETTE } from 'src/styles/color_palette';
 import { FONT_SIZE } from 'src/styles/font_size';
 
-import ReactImage from '../../../../public/images/react.jpg';
+type ProfileImageUploadProps = {
+  imageUrl: string;
+  onClick: React.MouseEventHandler<HTMLButtonElement>;
+  onChange: React.ChangeEventHandler<HTMLInputElement>;
+};
 
 /**
  * @概要 プロフィール編集ページでプロフィール画像を最大1枚までアップロードできるコンポーネント
  */
-export const ProfileImageUpload: VFC = () => {
+export const ProfileImageUpload: VFC<ProfileImageUploadProps> = ({
+  imageUrl,
+  onClick,
+  onChange,
+}) => {
   return (
     <React.Fragment>
       <StImageContainer>
-        <StImagePosition>
-          <IconButton
-            className='icon-close-button'
-            type='button'
-            svgComponent={<ImCross size={16} />}
-            width='40px'
-            height='40px'
-            borderRadius='50%'
-            onClick={(): void => alert('IconButton Clicked')}
-          />
-          <Image src={ReactImage} alt='Reactの画像です' />
-        </StImagePosition>
+        {imageUrl !== '' ? (
+          <StImagePosition>
+            <IconButton
+              className='icon-close-button'
+              type='button'
+              svgComponent={<ImCross size={16} />}
+              width='40px'
+              height='40px'
+              borderRadius='50%'
+              onClick={onClick}
+            />
+            <Image src={imageUrl} alt='Reactの画像です' layout='fill' />
+          </StImagePosition>
+        ) : null}
       </StImageContainer>
-      <Margin bottom='32px' />
-      <StFileUploadBtnContainer>
-        <StLabel>
-          写真を追加
-          <input type='file' />
-        </StLabel>
-      </StFileUploadBtnContainer>
+      {imageUrl !== '' ? <Margin bottom='16px' /> : null}
+      <StLabel>
+        プロフィール写真を1枚追加する
+        <input type='file' onChange={onChange} />
+      </StLabel>
     </React.Fragment>
   );
 };
 
 const StImageContainer = styled.section`
-  display: flex;
-  gap: 16px;
-  max-width: 375px;
+  max-width: 343px;
 `;
 
 const StImagePosition = styled.div`
   position: relative;
-  width: 375px;
-  height: 375px;
+  padding: 16px;
+  width: 343px;
+  height: 343px;
 
   .icon-close-button {
     position: absolute;
@@ -62,17 +69,12 @@ const StImagePosition = styled.div`
   }
 `;
 
-const StFileUploadBtnContainer = styled.section`
-  display: flex;
-  flex-direction: row-reverse;
-  max-width: 375px;
-`;
-
 const StLabel = styled.label`
   display: inline-block;
   text-align: center;
   padding: 12px 16px;
-  width: 157px;
+  max-width: 343px;
+  width: 343px;
   border-radius: 3px;
   background-color: #3e8bff;
   color: ${COLOR_PALETTE.WHITE};

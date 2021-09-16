@@ -15,14 +15,14 @@ type CheckboxProps = JSX.IntrinsicElements['input'] & {
 };
 
 export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
-  ({ register, labelText = '', ...inputProps }, ref) => {
+  ({ register, labelText, ...inputProps }, ref) => {
     // undefined を取り除くため
     const isDisabled = !!inputProps['disabled'];
 
     return (
       <StLabel disabled={isDisabled}>
-        <StInput {...inputProps} type='checkbox' {...register} ref={ref} />
-        {labelText !== '' ? <StLabelText disabled={isDisabled}>{labelText}</StLabelText> : null}
+        <input {...inputProps} type='checkbox' {...register} ref={ref} />
+        {labelText ? <StLabelText disabled={isDisabled}>{labelText}</StLabelText> : ''}
       </StLabel>
     );
   },
@@ -43,10 +43,6 @@ const StLabel = styled.label<Pick<CheckboxProps, 'disabled'>>`
           opacity: 0.3;
         `
       : null}
-`;
-
-const StInput = styled.input`
-  cursor: pointer;
 `;
 
 const StLabelText = styled.span<Pick<CheckboxProps, 'disabled'>>`
