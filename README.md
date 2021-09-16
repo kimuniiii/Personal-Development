@@ -23,12 +23,12 @@
 | 本番環境         | https://www.riot-ec-site.com/                                                      |
 | ステージング環境 | https://personal-development-client-git-develop-kimuniiii.vercel.app/sample/vercel |
 
-ステージング環境の URL は、develop ブランチに push する毎に新しいドメインを発行するが  
+ステージング環境の URL は、develop ブランチへ push する毎に新しいドメインを発行するが
 上記で添付した URL なら、ドメインは固定されているため、常に最新の情報が反映されるはず
 
 ## Storybook のデプロイ環境
 
-- Storybook の Github Pages へ自動デプロイを設定
+- Storybook の GitHub Pages へ自動デプロイを設定
 - GitHub に push と同時に生成された Storybook の静的ファイルが gh-pages ブランチに自動デプロイされる
 - なので、常に最新の状態の Storybook が下記 URL で確認できる
 
@@ -54,7 +54,7 @@ yarn server start
 yarn server ps
 ```
 
-### Hasura GraphQL Engine を Docker コンテナ環境で動かす
+### Hasura GraphQL Engine を Docker コンテナー環境で動かす
 
 [バックエンド | ローカル環境](http://localhost:8080/console)
 
@@ -63,17 +63,17 @@ yarn server ps
 ## バックエンドのデプロイ環境
 
 - バックエンドのデプロイ先は「Heroku」を選択（予定）
-- Heroku は Salesforce 社が提供する「インフラ管理が不要な PaaS」です
+- Heroku は Salesforce 社が提供する「インフラ管理不要な PaaS」です
 
 ## 技術選定（暫定）
 
 ### Backend
 
 - TypeScript
-- NestJS
-- Prisma
 - GraphQL
 - Hasura
+- NestJS
+- Prisma
 
 ### Frontend
 
@@ -89,7 +89,7 @@ yarn server ps
 - yarn workspace
 - Storybook
 - GitHub Actions
-- ESLint / Prettier / husky
+- ESLint / Prettier / Husky / lint-staged
 - Docker / Docker Compose
 - Vercel
 - Heroku
