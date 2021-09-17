@@ -34,6 +34,7 @@ const Template: Story<Props> = (args) => {
       )
     ) {
       setIsFileTypeError(true);
+      return;
     }
 
     console.log('event.target.value', event.target.value);
@@ -70,4 +71,6 @@ const Template: Story<Props> = (args) => {
 
 export const Basic = Template.bind({});
 
-Basic.args = {};
+Basic.args = {
+  labelText: 'プロフィール画像',
+};

@@ -34,9 +34,28 @@ const ProfileEditPage = (): JSX.Element => {
   };
 
   const [imageUrl, setImageUrl] = useState<string>('');
+  const [isFileTypeError, setIsFileTypeError] = useState(false);
+
+  /**
+   * @概要 全てのエラーを一度リセットするため関数
+   */
+  const resetErrors = (): void => {
+    setIsFileTypeError(false);
+  };
 
   const onFileInputChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     if (event.target.files === null || event.target.files.length === 0) {
+      return;
+    }
+
+    resetErrors();
+
+    if (
+      !['image/gif', 'image/jpeg', 'image/png', 'image/bmp', 'image/svg+xml'].includes(
+        event.target.files[0].type,
+      )
+    ) {
+      setIsFileTypeError(true);
       return;
     }
 
@@ -81,6 +100,7 @@ const ProfileEditPage = (): JSX.Element => {
                 required: { message: '必須入力項目です！', value: true },
               })}
             />
+            <Margin bottom='16px' />
             <Input
               type='text'
               id='last-name'
@@ -99,6 +119,7 @@ const ProfileEditPage = (): JSX.Element => {
                 required: { message: '必須入力項目です！', value: true },
               })}
             />
+            <Margin bottom='16px' />
             <Input
               type='tel'
               id='phone-number'
@@ -117,6 +138,7 @@ const ProfileEditPage = (): JSX.Element => {
                 required: { message: '必須入力項目です！', value: true },
               })}
             />
+            <Margin bottom='16px' />
             <Input
               type='text'
               id='postcode'
@@ -135,6 +157,7 @@ const ProfileEditPage = (): JSX.Element => {
                 required: { message: '必須入力項目です！', value: true },
               })}
             />
+            <Margin bottom='16px' />
             <Input
               type='text'
               id='address'
@@ -149,6 +172,7 @@ const ProfileEditPage = (): JSX.Element => {
                 required: { message: '必須入力項目です！', value: true },
               })}
             />
+            <Margin bottom='16px' />
             <Input
               type='number'
               id='ageNumber'
@@ -167,6 +191,7 @@ const ProfileEditPage = (): JSX.Element => {
                 required: { message: '必須入力項目です！', value: true },
               })}
             />
+            <Margin bottom='16px' />
             <Input
               type='email'
               id='email'
@@ -187,7 +212,9 @@ const ProfileEditPage = (): JSX.Element => {
             />
             <Margin bottom='16px' />
             <ProfileImageUpload
+              labelText='プロフィール画像'
               imageUrl={imageUrl}
+              isFileTypeError={isFileTypeError}
               onClick={deleteProfileImg}
               onChange={onFileInputChange}
             />
@@ -227,7 +254,8 @@ const StProfileEditContainer = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 16px;
+  /* Safari 非対応のため */
+  /* gap: 16px; */
   width: 375px;
   padding: 16px;
   background-color: ${COLOR_PALETTE.LIGHT_GRAY};

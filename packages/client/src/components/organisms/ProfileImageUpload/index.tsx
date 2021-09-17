@@ -12,6 +12,7 @@ import { FONT_SIZE } from 'src/styles/font_size';
 import NoImage from '../../../../public/images/no_image.png';
 
 type ProfileImageUploadProps = {
+  labelText: string;
   imageUrl: string;
   isFileTypeError: boolean;
   onClick: React.MouseEventHandler<HTMLButtonElement>;
@@ -22,6 +23,7 @@ type ProfileImageUploadProps = {
  * @概要 プロフィール編集ページでプロフィール画像を最大1枚までアップロードできるコンポーネント
  */
 export const ProfileImageUpload: VFC<ProfileImageUploadProps> = ({
+  labelText,
   imageUrl,
   isFileTypeError,
   onClick,
@@ -30,6 +32,12 @@ export const ProfileImageUpload: VFC<ProfileImageUploadProps> = ({
   return (
     <React.Fragment>
       <StImageContainer>
+        {labelText !== '' ? (
+          <section>
+            {labelText}
+            <Margin bottom='8px' />
+          </section>
+        ) : null}
         {imageUrl !== '' && !isFileTypeError ? (
           <React.Fragment>
             <StImagePosition>
@@ -42,7 +50,7 @@ export const ProfileImageUpload: VFC<ProfileImageUploadProps> = ({
                 borderRadius='50%'
                 onClick={onClick}
               />
-              <Image src={imageUrl} alt='preview image' layout='fill' />
+              <Image src={imageUrl} alt='preview image' width='343px' height='343px' />
             </StImagePosition>
             <Margin bottom='16px' />
           </React.Fragment>
