@@ -13,6 +13,7 @@ type Props = React.ComponentProps<typeof ProductImageUpload>;
 const Template: Story<Props> = () => {
   const [photoFiles, setPhotoFiles] = useState<File[]>([]);
   const [isFileTypeError, setIsFileTypeError] = useState(false);
+  const [isNumberError, setIsNumberError] = useState(false);
 
   const onDeleteImgBtn = (photoIndex: number): void => {
     if (confirm('選択した画像を消してよろしいですか？')) {
@@ -35,9 +36,14 @@ const Template: Story<Props> = () => {
       setIsFileTypeError(true);
     }
 
+    if (photoFiles.length >= 3) {
+      setIsNumberError(true);
+    }
+
     console.log('event.target.value', event.target.value);
     console.log('event.target.files', event.target.files);
     console.log('event.target.files[0]', event.target.files[0]);
+    console.log('photoFiles', photoFiles);
 
     setPhotoFiles([...photoFiles, ...event.target.files]);
 
@@ -51,6 +57,7 @@ const Template: Story<Props> = () => {
     <ProductImageUpload
       photoFiles={photoFiles}
       isFileTypeError={isFileTypeError}
+      isNumberError={isNumberError}
       onDeleteImgBtn={onDeleteImgBtn}
       onFileInputChange={onFileInputChange}
     />

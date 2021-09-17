@@ -12,6 +12,7 @@ import { FONT_SIZE } from 'src/styles/font_size';
 type ProductImageUploadProps = {
   photoFiles: File[];
   isFileTypeError: boolean;
+  isNumberError: boolean;
   onDeleteImgBtn: (photoIndex: number) => void;
   onFileInputChange: React.ChangeEventHandler<HTMLInputElement>;
 };
@@ -22,6 +23,7 @@ type ProductImageUploadProps = {
 export const ProductImageUpload: VFC<ProductImageUploadProps> = ({
   photoFiles,
   isFileTypeError,
+  isNumberError,
   onDeleteImgBtn,
   onFileInputChange,
 }) => {
@@ -64,6 +66,12 @@ export const ProductImageUpload: VFC<ProductImageUploadProps> = ({
           <StErrorMessage>
             ※jpeg, png, bmp, gif, svg以外のファイル形式は表示されません
           </StErrorMessage>
+        </React.Fragment>
+      ) : null}
+      {isNumberError ? (
+        <React.Fragment>
+          <Margin bottom='8px' />
+          <StErrorMessage>※3枚を超えて選択された画像は表示されません</StErrorMessage>
         </React.Fragment>
       ) : null}
     </React.Fragment>
