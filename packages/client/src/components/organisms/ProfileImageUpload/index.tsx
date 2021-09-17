@@ -9,6 +9,8 @@ import { Margin } from 'src/components/layouts/Margin';
 import { COLOR_PALETTE } from 'src/styles/color_palette';
 import { FONT_SIZE } from 'src/styles/font_size';
 
+import NoImage from '../../../../public/images/no_image.png';
+
 type ProfileImageUploadProps = {
   imageUrl: string;
   isFileTypeError: boolean;
@@ -44,7 +46,14 @@ export const ProfileImageUpload: VFC<ProfileImageUploadProps> = ({
             </StImagePosition>
             <Margin bottom='16px' />
           </React.Fragment>
-        ) : null}
+        ) : (
+          <React.Fragment>
+            <StImagePlaceholderBox>
+              <Image src={NoImage} alt='no image' width='343px' height='343px' />
+            </StImagePlaceholderBox>
+            <Margin bottom='16px' />
+          </React.Fragment>
+        )}
       </StImageContainer>
       <StLabel>
         プロフィール写真を1枚追加する
@@ -79,6 +88,12 @@ const StImagePosition = styled.div`
     /* 画像よりもボタンを上に表示させるため */
     z-index: 1;
   }
+`;
+
+const StImagePlaceholderBox = styled.div`
+  width: 343px;
+  height: 343px;
+  border: 1px dotted ${COLOR_PALETTE.BLACK};
 `;
 
 const StLabel = styled.label`

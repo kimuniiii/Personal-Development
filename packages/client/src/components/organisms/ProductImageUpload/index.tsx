@@ -9,6 +9,8 @@ import { Margin } from 'src/components/layouts/Margin';
 import { COLOR_PALETTE } from 'src/styles/color_palette';
 import { FONT_SIZE } from 'src/styles/font_size';
 
+import NoImage from '../../../../public/images/no_image.png';
+
 type ProductImageUploadProps = {
   photoFiles: File[];
   isFileTypeError: boolean;
@@ -45,13 +47,19 @@ export const ProductImageUpload: VFC<ProductImageUploadProps> = ({
                   borderRadius='50%'
                   onClick={(): void => onDeleteImgBtn(idx)}
                 />
-                <Image src={URL.createObjectURL(photoFiles[idx])} alt='no image' layout='fill' />
+                <Image
+                  src={URL.createObjectURL(photoFiles[idx])}
+                  alt='preview image'
+                  layout='fill'
+                />
               </StImagePosition>
               {idx !== 2 ? <Margin right='16px' /> : null}
             </React.Fragment>
           ) : (
             <React.Fragment key={idx}>
-              <StImagePlaceholderBox />
+              <StImagePlaceholderBox>
+                <Image src={NoImage} alt='no image' width='104px' height='104px' />
+              </StImagePlaceholderBox>
               {idx !== 2 ? <Margin right='16px' /> : null}
             </React.Fragment>
           ),
@@ -92,8 +100,7 @@ const StImageContainer = styled.section`
 
 const StImagePlaceholderBox = styled.div`
   width: 104px;
-  height: 100px;
-  background-color: ${COLOR_PALETTE.WHITE};
+  height: 104px;
   border: 1px dotted ${COLOR_PALETTE.BLACK};
 `;
 
