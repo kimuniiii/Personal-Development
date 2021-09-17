@@ -28,7 +28,6 @@ const Template: Story<Props> = (args) => {
     }
 
     console.log('event.target.value', event.target.value);
-
     console.log('event.target.files', event.target.files);
     console.log('event.target.files[0]', event.target.files[0]);
 
