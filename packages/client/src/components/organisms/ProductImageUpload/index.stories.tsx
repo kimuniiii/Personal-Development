@@ -14,6 +14,7 @@ const Template: Story<Props> = () => {
   const [photoFiles, setPhotoFiles] = useState<File[]>([]);
   const [isFileTypeError, setIsFileTypeError] = useState(false);
   const [isNumberError, setIsNumberError] = useState(false);
+  const [isSameImgSizeError, setIsSameImgSizeError] = useState(false);
 
   const onDeleteImgBtn = (photoIndex: number): void => {
     if (confirm('選択した画像を消してよろしいですか？')) {
@@ -26,6 +27,23 @@ const Template: Story<Props> = () => {
   const onFileInputChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     // 型ガード（Nullチェック）
     if (event.target.files === null || event.target.files.length === 0) {
+      return;
+    }
+
+    // 同じ画像はアップロードしないように弾くため
+    // 同じサイズの画像は配列に追加できないというロジックで実装
+    // 同じサイズの画像だったらエラー文を表示する。処理を中断する。
+    const existsSameSizeImg = photoFiles.some((photo) => {
+      // 型ガード（Nullチェック）
+      if (event.target.files === null || event.target.files.length === 0) {
+        return false;
+      }
+
+      return photo.size === event.target.files[0].size;
+    });
+
+    if (existsSameSizeImg) {
+      setIsSameImgSizeError(true);
       return;
     }
 
@@ -69,6 +87,7 @@ const Template: Story<Props> = () => {
       photoFiles={photoFiles}
       isFileTypeError={isFileTypeError}
       isNumberError={isNumberError}
+      isSameImgSizeError={isSameImgSizeError}
       onDeleteImgBtn={onDeleteImgBtn}
       onFileInputChange={onFileInputChange}
     />

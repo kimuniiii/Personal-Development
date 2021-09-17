@@ -13,6 +13,7 @@ type ProductImageUploadProps = {
   photoFiles: File[];
   isFileTypeError: boolean;
   isNumberError: boolean;
+  isSameImgSizeError: boolean;
   onDeleteImgBtn: (photoIndex: number) => void;
   onFileInputChange: React.ChangeEventHandler<HTMLInputElement>;
 };
@@ -24,6 +25,7 @@ export const ProductImageUpload: VFC<ProductImageUploadProps> = ({
   photoFiles,
   isFileTypeError,
   isNumberError,
+  isSameImgSizeError,
   onDeleteImgBtn,
   onFileInputChange,
 }) => {
@@ -72,6 +74,12 @@ export const ProductImageUpload: VFC<ProductImageUploadProps> = ({
         <React.Fragment>
           <Margin bottom='8px' />
           <StErrorMessage>※3枚を超えて選択された画像は表示されません</StErrorMessage>
+        </React.Fragment>
+      ) : null}
+      {isSameImgSizeError ? (
+        <React.Fragment>
+          <Margin bottom='8px' />
+          <StErrorMessage>※既に選択された画像と同じものは表示されません</StErrorMessage>
         </React.Fragment>
       ) : null}
     </React.Fragment>
