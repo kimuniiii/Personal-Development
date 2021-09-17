@@ -16,8 +16,18 @@ const Template: Story<Props> = () => {
   const [isNumberError, setIsNumberError] = useState(false);
   const [isSameImgSizeError, setIsSameImgSizeError] = useState(false);
 
+  /**
+   * @概要 全てのエラーを一度リセットするため関数
+   */
+  const resetErrors = (): void => {
+    setIsFileTypeError(false);
+    setIsSameImgSizeError(false);
+    setIsNumberError(false);
+  };
+
   const onDeleteImgBtn = (photoIndex: number): void => {
     if (confirm('選択した画像を消してよろしいですか？')) {
+      resetErrors();
       const modifyPhotos = photoFiles.concat();
       modifyPhotos.splice(photoIndex, 1);
       setPhotoFiles(modifyPhotos);
@@ -29,6 +39,8 @@ const Template: Story<Props> = () => {
     if (event.target.files === null || event.target.files.length === 0) {
       return;
     }
+
+    resetErrors();
 
     // 同じ画像はアップロードしないように弾くため
     // 同じサイズの画像は配列に追加できないというロジックで実装
