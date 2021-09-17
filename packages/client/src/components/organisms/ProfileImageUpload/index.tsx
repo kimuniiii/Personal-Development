@@ -42,7 +42,7 @@ export const ProfileImageUpload: VFC<ProfileImageUploadProps> = ({
                 borderRadius='50%'
                 onClick={onClick}
               />
-              <Image src={imageUrl} alt='Reactの画像です' layout='fill' />
+              <Image src={imageUrl} alt='preview image' layout='fill' />
             </StImagePosition>
             <Margin bottom='16px' />
           </React.Fragment>
