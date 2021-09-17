@@ -11,6 +11,7 @@ import { FONT_SIZE } from 'src/styles/font_size';
 
 type ProductImageUploadProps = {
   photoFiles: File[];
+  isFileTypeError: boolean;
   onDeleteImgBtn: (photoIndex: number) => void;
   onFileInputChange: React.ChangeEventHandler<HTMLInputElement>;
 };
@@ -20,6 +21,7 @@ type ProductImageUploadProps = {
  */
 export const ProductImageUpload: VFC<ProductImageUploadProps> = ({
   photoFiles,
+  isFileTypeError,
   onDeleteImgBtn,
   onFileInputChange,
 }) => {
@@ -27,7 +29,7 @@ export const ProductImageUpload: VFC<ProductImageUploadProps> = ({
     <React.Fragment>
       <StImageContainer>
         {[...Array(3)].map((_: number, idx: number) =>
-          idx < photoFiles.length ? (
+          idx < photoFiles.length && !isFileTypeError ? (
             <React.Fragment key={idx}>
               <StImagePosition>
                 <IconButton
@@ -39,11 +41,7 @@ export const ProductImageUpload: VFC<ProductImageUploadProps> = ({
                   borderRadius='50%'
                   onClick={(): void => onDeleteImgBtn(idx)}
                 />
-                <Image
-                  src={URL.createObjectURL(photoFiles[idx])}
-                  alt='Reactの画像です'
-                  layout='fill'
-                />
+                <Image src={URL.createObjectURL(photoFiles[idx])} alt='no image' layout='fill' />
               </StImagePosition>
               {idx !== 2 ? <Margin right='16px' /> : null}
             </React.Fragment>
@@ -60,6 +58,14 @@ export const ProductImageUpload: VFC<ProductImageUploadProps> = ({
         商品の写真を追加する（最大3枚まで）
         <input type='file' onChange={onFileInputChange} />
       </StLabel>
+      {isFileTypeError ? (
+        <React.Fragment>
+          <Margin bottom='8px' />
+          <StErrorMessage>
+            ※jpeg, png, bmp, gif, svg以外のファイル形式は表示されません
+          </StErrorMessage>
+        </React.Fragment>
+      ) : null}
     </React.Fragment>
   );
 };
@@ -110,4 +116,8 @@ const StLabel = styled.label`
     cursor: pointer;
     opacity: 0.6;
   }
+`;
+
+const StErrorMessage = styled.p`
+  color: ${COLOR_PALETTE.ERROR_COLOR};
 `;
