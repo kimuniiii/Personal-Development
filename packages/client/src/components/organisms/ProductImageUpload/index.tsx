@@ -12,6 +12,7 @@ import { FONT_SIZE } from 'src/styles/font_size';
 import NoImage from '../../../../public/images/no_image.png';
 
 type ProductImageUploadProps = {
+  labelText: string;
   photoFiles: File[];
   isFileTypeError: boolean;
   isNumberError: boolean;
@@ -24,6 +25,7 @@ type ProductImageUploadProps = {
  * @概要 商品登録ページで商品画像を最大3枚までアップロードできるコンポーネント
  */
 export const ProductImageUpload: VFC<ProductImageUploadProps> = ({
+  labelText,
   photoFiles,
   isFileTypeError,
   isNumberError,
@@ -32,10 +34,16 @@ export const ProductImageUpload: VFC<ProductImageUploadProps> = ({
   onFileInputChange,
 }) => {
   return (
-    <React.Fragment>
+    <StRoot>
+      {labelText !== '' ? (
+        <section>
+          {labelText}
+          <Margin bottom='8px' />
+        </section>
+      ) : null}
       <StImageContainer>
         {[...Array(3)].map((_: number, idx: number) =>
-          idx < photoFiles.length && !isFileTypeError ? (
+          idx < photoFiles.length ? (
             <React.Fragment key={idx}>
               <StImagePosition>
                 <IconButton
@@ -90,9 +98,14 @@ export const ProductImageUpload: VFC<ProductImageUploadProps> = ({
           <StErrorMessage>※既に選択された画像と同じものは表示されません</StErrorMessage>
         </React.Fragment>
       ) : null}
-    </React.Fragment>
+    </StRoot>
   );
 };
+
+const StRoot = styled.section`
+  display: flex;
+  flex-direction: column;
+`;
 
 const StImageContainer = styled.section`
   display: flex;

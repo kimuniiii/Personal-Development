@@ -10,7 +10,7 @@ export default {
 
 type Props = React.ComponentProps<typeof ProductImageUpload>;
 
-const Template: Story<Props> = () => {
+const Template: Story<Props> = (args) => {
   const [photoFiles, setPhotoFiles] = useState<File[]>([]);
   const [isFileTypeError, setIsFileTypeError] = useState(false);
   const [isNumberError, setIsNumberError] = useState(false);
@@ -96,6 +96,7 @@ const Template: Story<Props> = () => {
 
   return (
     <ProductImageUpload
+      {...args}
       photoFiles={photoFiles}
       isFileTypeError={isFileTypeError}
       isNumberError={isNumberError}
@@ -107,3 +108,7 @@ const Template: Story<Props> = () => {
 };
 
 export const Basic = Template.bind({});
+
+Basic.args = {
+  labelText: '商品画像',
+};
