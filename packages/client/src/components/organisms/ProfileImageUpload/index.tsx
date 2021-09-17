@@ -11,6 +11,7 @@ import { FONT_SIZE } from 'src/styles/font_size';
 
 type ProfileImageUploadProps = {
   imageUrl: string;
+  isFileTypeError: boolean;
   onClick: React.MouseEventHandler<HTMLButtonElement>;
   onChange: React.ChangeEventHandler<HTMLInputElement>;
 };
@@ -20,32 +21,43 @@ type ProfileImageUploadProps = {
  */
 export const ProfileImageUpload: VFC<ProfileImageUploadProps> = ({
   imageUrl,
+  isFileTypeError,
   onClick,
   onChange,
 }) => {
   return (
     <React.Fragment>
       <StImageContainer>
-        {imageUrl !== '' ? (
-          <StImagePosition>
-            <IconButton
-              className='icon-close-button'
-              type='button'
-              svgComponent={<ImCross size={16} />}
-              width='40px'
-              height='40px'
-              borderRadius='50%'
-              onClick={onClick}
-            />
-            <Image src={imageUrl} alt='Reactの画像です' layout='fill' />
-          </StImagePosition>
+        {imageUrl !== '' && !isFileTypeError ? (
+          <React.Fragment>
+            <StImagePosition>
+              <IconButton
+                className='icon-close-button'
+                type='button'
+                svgComponent={<ImCross size={16} />}
+                width='40px'
+                height='40px'
+                borderRadius='50%'
+                onClick={onClick}
+              />
+              <Image src={imageUrl} alt='Reactの画像です' layout='fill' />
+            </StImagePosition>
+            <Margin bottom='16px' />
+          </React.Fragment>
         ) : null}
       </StImageContainer>
-      {imageUrl !== '' ? <Margin bottom='16px' /> : null}
       <StLabel>
         プロフィール写真を1枚追加する
         <input type='file' onChange={onChange} />
       </StLabel>
+      {isFileTypeError ? (
+        <React.Fragment>
+          <Margin bottom='8px' />
+          <StErrorMessage>
+            ※jpeg, png, bmp, gif, svg以外のファイル形式は表示されません
+          </StErrorMessage>
+        </React.Fragment>
+      ) : null}
     </React.Fragment>
   );
 };
@@ -90,4 +102,8 @@ const StLabel = styled.label`
     cursor: pointer;
     opacity: 0.6;
   }
+`;
+
+const StErrorMessage = styled.p`
+  color: ${COLOR_PALETTE.ERROR_COLOR};
 `;
