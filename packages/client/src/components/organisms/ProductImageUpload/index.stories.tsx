@@ -34,24 +34,30 @@ const Template: Story<Props> = () => {
       )
     ) {
       setIsFileTypeError(true);
+      return;
     }
 
     if (photoFiles.length >= 3) {
       setIsNumberError(true);
+      return;
     }
 
     console.log('event.target.value', event.target.value);
     console.log('event.target.files', event.target.files);
     console.log('event.target.files[0]', event.target.files[0]);
-    console.log('photoFiles', photoFiles);
+    console.log('forward photoFiles', photoFiles);
 
     setPhotoFiles([...photoFiles, ...event.target.files]);
+
+    console.log('after photoFiles', photoFiles);
 
     // onChangeは連続で同じファイルを選択すると発火しない問題の対応のため
     // 初期化することで同じファイルを連続で選択してもonChangeが発動するように設定する
     // こうすることで、画像をキャンセルしてすぐに同じ画像を選ぶ動作に対応できる
     event.target.value = '';
   };
+
+  console.log('out event handler photoFiles', photoFiles);
 
   return (
     <ProductImageUpload
