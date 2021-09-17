@@ -14,10 +14,19 @@ const Template: Story<Props> = (args) => {
   const [imageUrl, setImageUrl] = useState<string>('');
   const [isFileTypeError, setIsFileTypeError] = useState(false);
 
+  /**
+   * @概要 全てのエラーを一度リセットするため関数
+   */
+  const resetErrors = (): void => {
+    setIsFileTypeError(false);
+  };
+
   const onFileInputChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     if (event.target.files === null || event.target.files.length === 0) {
       return;
     }
+
+    resetErrors();
 
     if (
       !['image/gif', 'image/jpeg', 'image/png', 'image/bmp', 'image/svg+xml'].includes(
@@ -43,6 +52,7 @@ const Template: Story<Props> = (args) => {
 
   const deleteProfileImg = (): void => {
     if (confirm('選択した画像を削除してもよろしいですか？')) {
+      resetErrors();
       setImageUrl('');
     }
   };
