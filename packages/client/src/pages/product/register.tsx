@@ -33,10 +33,24 @@ const ProductRegisterPage = (): JSX.Element => {
     console.log(data);
   };
 
+  // ProductImageUpload に関する状態管理と更新関数とイベントハンドラ
   const [photoFiles, setPhotoFiles] = useState<File[]>([]);
+  const [isFileTypeError, setIsFileTypeError] = useState(false);
+  const [isNumberError, setIsNumberError] = useState(false);
+  const [isSameImgSizeError, setIsSameImgSizeError] = useState(false);
+
+  /**
+   * @概要 全てのエラーを一度リセットするため関数
+   */
+  const resetErrors = (): void => {
+    setIsFileTypeError(false);
+    setIsSameImgSizeError(false);
+    setIsNumberError(false);
+  };
 
   const onDeleteImgBtn = (photoIndex: number): void => {
     if (confirm('選択した画像を消してよろしいですか？')) {
+      resetErrors();
       const modifyPhotos = photoFiles.concat();
       modifyPhotos.splice(photoIndex, 1);
       setPhotoFiles(modifyPhotos);
@@ -44,11 +58,53 @@ const ProductRegisterPage = (): JSX.Element => {
   };
 
   const onFileInputChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+    // 型ガード（Nullチェック）
     if (event.target.files === null || event.target.files.length === 0) {
       return;
     }
+
+    resetErrors();
+
+    // 同じ画像はアップロードしないように弾くため
+    // 同じサイズの画像は配列に追加できないというロジックで実装
+    // 同じサイズの画像だったらエラー文を表示する。処理を中断する。
+    const existsSameSizeImg = photoFiles.some((photo) => {
+      // 型ガード（Nullチェック）
+      if (event.target.files === null || event.target.files.length === 0) {
+        return false;
+      }
+
+      return photo.size === event.target.files[0].size;
+    });
+
+    if (existsSameSizeImg) {
+      setIsSameImgSizeError(true);
+      return;
+    }
+
+    // 画像のみアップロードするようにするため
+    // 画像以外のファイルだったらエラー文を表示する。処理を中断する。
+    if (
+      !['image/gif', 'image/jpeg', 'image/png', 'image/bmp', 'image/svg+xml'].includes(
+        event.target.files[0].type,
+      )
+    ) {
+      setIsFileTypeError(true);
+      return;
+    }
+
+    // 商品登録ページのアップロードできる画像（＝プレビューの画像）の枚数は3枚までにするため
+    // 3枚以上のファイルをアップロードしようとしたらエラー文を出す。処理を中断する。
+    if (photoFiles.length >= 3) {
+      setIsNumberError(true);
+      return;
+    }
+
     setPhotoFiles([...photoFiles, ...event.target.files]);
+
     // onChangeは連続で同じファイルを選択すると発火しない問題の対応のため
+    // 初期化することで同じファイルを連続で選択してもonChangeが発動するように設定する
+    // こうすることで、画像をキャンセルしてすぐに同じ画像を選ぶ動作に対応できる
     event.target.value = '';
   };
 
@@ -76,6 +132,7 @@ const ProductRegisterPage = (): JSX.Element => {
                 required: { message: '必須入力項目です！', value: true },
               })}
             />
+            <Margin bottom='16px' />
             <SelectBox
               id='select-category-box'
               name='select-category-box'
@@ -98,6 +155,7 @@ const ProductRegisterPage = (): JSX.Element => {
                 required: { message: 'カテゴリーをセットしてください', value: true },
               })}
             />
+            <Margin bottom='16px' />
             <Textarea
               id='productDetail'
               name='productDetail'
@@ -112,6 +170,7 @@ const ProductRegisterPage = (): JSX.Element => {
                 required: { message: '必須入力項目です！', value: true },
               })}
             />
+            <Margin bottom='16px' />
             <Input
               type='number'
               id='priceNumber'
@@ -128,11 +187,15 @@ const ProductRegisterPage = (): JSX.Element => {
             />
             <Margin bottom='16px' />
             <ProductImageUpload
+              labelText='商品画像'
+              isFileTypeError={isFileTypeError}
+              isNumberError={isNumberError}
+              isSameImgSizeError={isSameImgSizeError}
               photoFiles={photoFiles}
               onDeleteImgBtn={onDeleteImgBtn}
               onFileInputChange={onFileInputChange}
             />
-            <Margin bottom='24px' />
+            <Margin bottom='32px' />
             <Button
               type='submit'
               styleTypes='tertiary'
@@ -168,7 +231,8 @@ const StProfileEditContainer = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 16px;
+  /* Safari 非対応のため */
+  /* gap: 16px; */
   width: 375px;
   padding: 16px;
   background-color: ${COLOR_PALETTE.LIGHT_GRAY};

@@ -9,8 +9,14 @@ import { Margin } from 'src/components/layouts/Margin';
 import { COLOR_PALETTE } from 'src/styles/color_palette';
 import { FONT_SIZE } from 'src/styles/font_size';
 
+import NoImage from '../../../../public/images/no_image.png';
+
 type ProductImageUploadProps = {
+  labelText: string;
   photoFiles: File[];
+  isFileTypeError: boolean;
+  isNumberError: boolean;
+  isSameImgSizeError: boolean;
   onDeleteImgBtn: (photoIndex: number) => void;
   onFileInputChange: React.ChangeEventHandler<HTMLInputElement>;
 };
@@ -19,12 +25,22 @@ type ProductImageUploadProps = {
  * @概要 商品登録ページで商品画像を最大3枚までアップロードできるコンポーネント
  */
 export const ProductImageUpload: VFC<ProductImageUploadProps> = ({
+  labelText,
   photoFiles,
+  isFileTypeError,
+  isNumberError,
+  isSameImgSizeError,
   onDeleteImgBtn,
   onFileInputChange,
 }) => {
   return (
-    <React.Fragment>
+    <StRoot>
+      {labelText !== '' ? (
+        <section>
+          {labelText}
+          <Margin bottom='8px' />
+        </section>
+      ) : null}
       <StImageContainer>
         {[...Array(3)].map((_: number, idx: number) =>
           idx < photoFiles.length ? (
@@ -41,7 +57,7 @@ export const ProductImageUpload: VFC<ProductImageUploadProps> = ({
                 />
                 <Image
                   src={URL.createObjectURL(photoFiles[idx])}
-                  alt='Reactの画像です'
+                  alt='preview image'
                   layout='fill'
                 />
               </StImagePosition>
@@ -49,7 +65,9 @@ export const ProductImageUpload: VFC<ProductImageUploadProps> = ({
             </React.Fragment>
           ) : (
             <React.Fragment key={idx}>
-              <StImagePlaceholderBox />
+              <StImagePlaceholderBox>
+                <Image src={NoImage} alt='no image' width='104px' height='104px' />
+              </StImagePlaceholderBox>
               {idx !== 2 ? <Margin right='16px' /> : null}
             </React.Fragment>
           ),
@@ -60,9 +78,34 @@ export const ProductImageUpload: VFC<ProductImageUploadProps> = ({
         商品の写真を追加する（最大3枚まで）
         <input type='file' onChange={onFileInputChange} />
       </StLabel>
-    </React.Fragment>
+      {isFileTypeError ? (
+        <React.Fragment>
+          <Margin bottom='8px' />
+          <StErrorMessage>
+            ※jpeg, png, bmp, gif, svg以外のファイル形式は表示されません
+          </StErrorMessage>
+        </React.Fragment>
+      ) : null}
+      {isNumberError ? (
+        <React.Fragment>
+          <Margin bottom='8px' />
+          <StErrorMessage>※3枚を超えて選択された画像は表示されません</StErrorMessage>
+        </React.Fragment>
+      ) : null}
+      {isSameImgSizeError ? (
+        <React.Fragment>
+          <Margin bottom='8px' />
+          <StErrorMessage>※既に選択された画像と同じものは表示されません</StErrorMessage>
+        </React.Fragment>
+      ) : null}
+    </StRoot>
   );
 };
+
+const StRoot = styled.section`
+  display: flex;
+  flex-direction: column;
+`;
 
 const StImageContainer = styled.section`
   display: flex;
@@ -70,8 +113,7 @@ const StImageContainer = styled.section`
 
 const StImagePlaceholderBox = styled.div`
   width: 104px;
-  height: 100px;
-  background-color: ${COLOR_PALETTE.WHITE};
+  height: 104px;
   border: 1px dotted ${COLOR_PALETTE.BLACK};
 `;
 
@@ -110,4 +152,8 @@ const StLabel = styled.label`
     cursor: pointer;
     opacity: 0.6;
   }
+`;
+
+const StErrorMessage = styled.p`
+  color: ${COLOR_PALETTE.ERROR_COLOR};
 `;
