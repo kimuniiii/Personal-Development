@@ -20,7 +20,7 @@ const ProfileEditPage = (): JSX.Element => {
   const {
     register,
     handleSubmit,
-    formState: { errors, isValid },
+    formState: { errors },
   } = useForm({
     mode: 'onBlur',
     reValidateMode: 'onChange',
@@ -36,10 +36,7 @@ const ProfileEditPage = (): JSX.Element => {
    */
   const onSubmit = async (data: Record<string, unknown>): Promise<void> => {
     console.log(data);
-
-    // 画像を送信できるようにFormDataに変換する
-    const formData = new FormData();
-    console.log('formData', formData);
+    console.log('data.profileImage', data.profileImage);
   };
 
   /**
@@ -79,6 +76,8 @@ const ProfileEditPage = (): JSX.Element => {
     }
   };
 
+  const profileImageRegister = register('profileImage');
+
   return (
     <React.Fragment>
       <HeadTemplate
@@ -101,10 +100,10 @@ const ProfileEditPage = (): JSX.Element => {
               name='firstName'
               register={register('firstName', {
                 pattern: {
-                  message: 'カタカナで入力してください！',
+                  message: 'カタカナで入力してください',
                   value: validations.firstName,
                 },
-                required: { message: '必須入力項目です！', value: true },
+                required: { message: '必須入力項目です', value: true },
               })}
             />
             <Margin bottom='16px' />
@@ -120,10 +119,10 @@ const ProfileEditPage = (): JSX.Element => {
               name='lastName'
               register={register('lastName', {
                 pattern: {
-                  message: 'カタカナで入力してください！',
+                  message: 'カタカナで入力してください',
                   value: validations.lastName,
                 },
-                required: { message: '必須入力項目です！', value: true },
+                required: { message: '必須入力項目です', value: true },
               })}
             />
             <Margin bottom='16px' />
@@ -139,10 +138,10 @@ const ProfileEditPage = (): JSX.Element => {
               errors={errors}
               register={register('phoneNumber', {
                 pattern: {
-                  message: '電話番号の書き方が間違ってます！',
+                  message: '電話番号の書き方が間違ってます',
                   value: validations.telephone,
                 },
-                required: { message: '必須入力項目です！', value: true },
+                required: { message: '必須入力項目です', value: true },
               })}
             />
             <Margin bottom='16px' />
@@ -158,10 +157,10 @@ const ProfileEditPage = (): JSX.Element => {
               fontSizeValue='16px'
               register={register('postCode', {
                 pattern: {
-                  message: '郵便番号の書き方が間違ってます！',
+                  message: '郵便番号の書き方が間違ってます',
                   value: validations.postcode,
                 },
-                required: { message: '必須入力項目です！', value: true },
+                required: { message: '必須入力項目です', value: true },
               })}
             />
             <Margin bottom='16px' />
@@ -176,7 +175,7 @@ const ProfileEditPage = (): JSX.Element => {
               width='343px'
               fontSizeValue='16px'
               register={register('address', {
-                required: { message: '必須入力項目です！', value: true },
+                required: { message: '必須入力項目です', value: true },
               })}
             />
             <Margin bottom='16px' />
@@ -192,10 +191,10 @@ const ProfileEditPage = (): JSX.Element => {
               errors={errors}
               register={register('ageNumber', {
                 pattern: {
-                  message: '年齢の書き方が間違ってます！',
+                  message: '年齢の書き方が間違ってます',
                   value: validations.ageNumber,
                 },
-                required: { message: '必須入力項目です！', value: true },
+                required: { message: '必須入力項目です', value: true },
               })}
             />
             <Margin bottom='16px' />
@@ -211,21 +210,25 @@ const ProfileEditPage = (): JSX.Element => {
               errors={errors}
               register={register('email', {
                 pattern: {
-                  message: 'メールアドレスの書き方が間違ってます！',
+                  message: 'メールアドレスの書き方が間違ってます',
                   value: validations.email,
                 },
-                required: { message: '必須入力項目です！', value: true },
+                required: { message: '必須入力項目です', value: true },
               })}
             />
             <Margin bottom='16px' />
             <ProfileImageUpload
-              name='profile-image'
               labelText='プロフィール画像'
               imageUrl={imageUrl}
               imageFileSize={imageFileSize}
               isFileTypeError={isFileTypeError}
               onClick={deleteProfileImg}
-              onChange={onFileInputChange}
+              name='profileImage'
+              register={register('profileImage')}
+              onChange={(e): void => {
+                onFileInputChange(e); // your method
+                profileImageRegister.onChange(e); // method from hook form register
+              }}
             />
             <Margin bottom='24px' />
             <Button
@@ -234,7 +237,6 @@ const ProfileEditPage = (): JSX.Element => {
               width='100%'
               fontSizeValue='16px'
               buttonContent='プロフィールを変更する'
-              disabled={!isValid}
               onClick={(): void => alert('変更するボタンをクリック')}
             />
           </StProfileEditContainer>
@@ -268,4 +270,10 @@ const StProfileEditContainer = styled.section`
   width: 375px;
   padding: 16px;
   background-color: ${COLOR_PALETTE.LIGHT_GRAY};
+`;
+
+const StErrorMessageContainer = styled.div`
+  display: flex;
+  width: 343px;
+  color: ${COLOR_PALETTE.ERROR_COLOR};
 `;

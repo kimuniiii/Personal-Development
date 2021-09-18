@@ -1,7 +1,10 @@
 import styled from '@emotion/styled';
+import { ErrorMessage } from '@hookform/error-message';
 import Image from 'next/image';
 import React, { VFC } from 'react';
 import { ImCross } from 'react-icons/im';
+
+import type { UseFormRegisterReturn } from 'react-hook-form';
 
 import { IconButton } from 'src/components/atoms/IconButton';
 import { Margin } from 'src/components/layouts/Margin';
@@ -14,11 +17,14 @@ import { validations } from 'src/utils/validate';
 import NoImage from '../../../../public/images/no_image.png';
 
 type ProfileImageUploadProps = {
-  name: string;
   labelText: string;
   imageUrl: string;
   imageFileSize: number;
   isFileTypeError: boolean;
+  name: string;
+  isRequiredError?: boolean;
+  errors?: Record<string, unknown>;
+  register: UseFormRegisterReturn;
   onClick: React.MouseEventHandler<HTMLButtonElement>;
   onChange: React.ChangeEventHandler<HTMLInputElement>;
 };
@@ -27,11 +33,14 @@ type ProfileImageUploadProps = {
  * @概要 プロフィール編集ページでプロフィール画像を最大1枚までアップロードできるコンポーネント
  */
 export const ProfileImageUpload: VFC<ProfileImageUploadProps> = ({
-  name,
   labelText,
   imageUrl,
   imageFileSize,
   isFileTypeError,
+  name,
+  isRequiredError,
+  errors,
+  register,
   onClick,
   onChange,
 }) => {
@@ -74,8 +83,20 @@ export const ProfileImageUpload: VFC<ProfileImageUploadProps> = ({
       </StImageContainer>
       <StLabel htmlFor={name}>
         プロフィール写真を1枚追加する
-        <input type='file' accept='image/*' name={name} id={name} onChange={onChange} />
+        <input type='file' accept='image/*' id={name} {...register} onChange={onChange} />
       </StLabel>
+      {isRequiredError ? (
+        <ErrorMessage
+          errors={errors}
+          name={name}
+          render={({ message }): JSX.Element => (
+            <React.Fragment>
+              <Margin bottom='8px' />
+              <StErrorMessage>{message}</StErrorMessage>
+            </React.Fragment>
+          )}
+        />
+      ) : null}
       {isFileTypeError ? (
         <React.Fragment>
           <Margin bottom='8px' />
