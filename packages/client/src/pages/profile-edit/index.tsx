@@ -226,8 +226,8 @@ const ProfileEditPage = (): JSX.Element => {
               name='profileImage'
               register={register('profileImage')}
               onChange={(e): void => {
-                onFileInputChange(e); // your method
                 profileImageRegister.onChange(e); // method from hook form register
+                onFileInputChange(e); // your method
               }}
             />
             <Margin bottom='24px' />
@@ -270,10 +270,4 @@ const StProfileEditContainer = styled.section`
   width: 375px;
   padding: 16px;
   background-color: ${COLOR_PALETTE.LIGHT_GRAY};
-`;
-
-const StErrorMessageContainer = styled.div`
-  display: flex;
-  width: 343px;
-  color: ${COLOR_PALETTE.ERROR_COLOR};
 `;
