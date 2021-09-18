@@ -17,6 +17,7 @@ type ProductImageUploadProps = {
   isFileTypeError: boolean;
   isNumberError: boolean;
   isSameImgSizeError: boolean;
+  isMaxImgSizeError: boolean;
   onDeleteImgBtn: (photoIndex: number) => void;
   onFileInputChange: React.ChangeEventHandler<HTMLInputElement>;
 };
@@ -30,6 +31,7 @@ export const ProductImageUpload: VFC<ProductImageUploadProps> = ({
   isFileTypeError,
   isNumberError,
   isSameImgSizeError,
+  isMaxImgSizeError,
   onDeleteImgBtn,
   onFileInputChange,
 }) => {
@@ -96,6 +98,12 @@ export const ProductImageUpload: VFC<ProductImageUploadProps> = ({
         <React.Fragment>
           <Margin bottom='8px' />
           <StErrorMessage>※既に選択された画像と同じものは表示されません</StErrorMessage>
+        </React.Fragment>
+      ) : null}
+      {isMaxImgSizeError ? (
+        <React.Fragment>
+          <Margin bottom='8px' />
+          <StErrorMessage>※10MB以上の画像ファイルはアップロードできません</StErrorMessage>
         </React.Fragment>
       ) : null}
     </StRoot>
