@@ -12,6 +12,7 @@ import { FONT_SIZE } from 'src/styles/font_size';
 import NoImage from '../../../../public/images/no_image.png';
 
 type ProfileImageUploadProps = {
+  name: string;
   labelText: string;
   imageUrl: string;
   isFileTypeError: boolean;
@@ -23,6 +24,7 @@ type ProfileImageUploadProps = {
  * @概要 プロフィール編集ページでプロフィール画像を最大1枚までアップロードできるコンポーネント
  */
 export const ProfileImageUpload: VFC<ProfileImageUploadProps> = ({
+  name,
   labelText,
   imageUrl,
   isFileTypeError,
@@ -63,9 +65,9 @@ export const ProfileImageUpload: VFC<ProfileImageUploadProps> = ({
           </React.Fragment>
         )}
       </StImageContainer>
-      <StLabel>
+      <StLabel htmlFor={name}>
         プロフィール写真を1枚追加する
-        <input type='file' accept='image/*' onChange={onChange} />
+        <input type='file' accept='image/*' name={name} id={name} onChange={onChange} />
       </StLabel>
       {isFileTypeError ? (
         <React.Fragment>

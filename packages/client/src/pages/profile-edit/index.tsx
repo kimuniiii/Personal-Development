@@ -212,6 +212,7 @@ const ProfileEditPage = (): JSX.Element => {
             />
             <Margin bottom='16px' />
             <ProfileImageUpload
+              name='profile-image'
               labelText='プロフィール画像'
               imageUrl={imageUrl}
               isFileTypeError={isFileTypeError}
