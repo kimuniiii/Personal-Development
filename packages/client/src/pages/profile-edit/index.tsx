@@ -225,10 +225,10 @@ const ProfileEditPage = (): JSX.Element => {
               onClick={deleteProfileImg}
               name='profileImage'
               register={register('profileImage')}
-              onChange={(e): void => {
-                profileImageRegister.onChange(e); // method from hook form register
-                onFileInputChange(e); // your method
-              }}
+              // onChange={(e): void => {
+              //   profileImageRegister.onChange(e); // method from hook form register
+              //   onFileInputChange(e); // your method
+              // }}
             />
             <Margin bottom='24px' />
             <Button

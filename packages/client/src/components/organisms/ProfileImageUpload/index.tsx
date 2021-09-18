@@ -26,7 +26,7 @@ type ProfileImageUploadProps = {
   errors?: Record<string, unknown>;
   register: UseFormRegisterReturn;
   onClick: React.MouseEventHandler<HTMLButtonElement>;
-  onChange: React.ChangeEventHandler<HTMLInputElement>;
+  // onChange: React.ChangeEventHandler<HTMLInputElement>;
 };
 
 /**
@@ -42,7 +42,7 @@ export const ProfileImageUpload: VFC<ProfileImageUploadProps> = ({
   errors,
   register,
   onClick,
-  onChange,
+  // onChange,
 }) => {
   const isMaxFileSizeError = imageFileSize >= validations.maxImageSize;
   const isNotNoImage = imageUrl !== '' && !isFileTypeError && !isMaxFileSizeError;
@@ -83,7 +83,7 @@ export const ProfileImageUpload: VFC<ProfileImageUploadProps> = ({
       </StImageContainer>
       <StLabel htmlFor={name}>
         プロフィール写真を1枚追加する
-        <input type='file' accept='image/*' id={name} {...register} onChange={onChange} />
+        <input type='file' accept='image/*' id={name} {...register} />
       </StLabel>
       {isRequiredError ? (
         <ErrorMessage
