@@ -9,11 +9,15 @@ import { Margin } from 'src/components/layouts/Margin';
 import { COLOR_PALETTE } from 'src/styles/color_palette';
 import { FONT_SIZE } from 'src/styles/font_size';
 
+import { validations } from 'src/utils/validate';
+
 import NoImage from '../../../../public/images/no_image.png';
 
 type ProfileImageUploadProps = {
+  name: string;
   labelText: string;
   imageUrl: string;
+  imageFileSize: number;
   isFileTypeError: boolean;
   onClick: React.MouseEventHandler<HTMLButtonElement>;
   onChange: React.ChangeEventHandler<HTMLInputElement>;
@@ -23,12 +27,17 @@ type ProfileImageUploadProps = {
  * @概要 プロフィール編集ページでプロフィール画像を最大1枚までアップロードできるコンポーネント
  */
 export const ProfileImageUpload: VFC<ProfileImageUploadProps> = ({
+  name,
   labelText,
   imageUrl,
+  imageFileSize,
   isFileTypeError,
   onClick,
   onChange,
 }) => {
+  const isMaxFileSizeError = imageFileSize >= validations.maxImageSize;
+  const isNotNoImage = imageUrl !== '' && !isFileTypeError && !isMaxFileSizeError;
+
   return (
     <React.Fragment>
       <StImageContainer>
@@ -38,7 +47,7 @@ export const ProfileImageUpload: VFC<ProfileImageUploadProps> = ({
             <Margin bottom='8px' />
           </section>
         ) : null}
-        {imageUrl !== '' && !isFileTypeError ? (
+        {isNotNoImage ? (
           <React.Fragment>
             <StImagePosition>
               <IconButton
@@ -63,9 +72,9 @@ export const ProfileImageUpload: VFC<ProfileImageUploadProps> = ({
           </React.Fragment>
         )}
       </StImageContainer>
-      <StLabel>
+      <StLabel htmlFor={name}>
         プロフィール写真を1枚追加する
-        <input type='file' onChange={onChange} />
+        <input type='file' accept='image/*' name={name} id={name} onChange={onChange} />
       </StLabel>
       {isFileTypeError ? (
         <React.Fragment>
@@ -73,6 +82,12 @@ export const ProfileImageUpload: VFC<ProfileImageUploadProps> = ({
           <StErrorMessage>
             ※jpeg, png, bmp, gif, svg以外のファイル形式は表示されません
           </StErrorMessage>
+        </React.Fragment>
+      ) : null}
+      {isMaxFileSizeError ? (
+        <React.Fragment>
+          <Margin bottom='8px' />
+          <StErrorMessage>※10MB以上の画像ファイルはアップロードできません</StErrorMessage>
         </React.Fragment>
       ) : null}
     </React.Fragment>

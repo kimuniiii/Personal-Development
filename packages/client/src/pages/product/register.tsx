@@ -13,6 +13,8 @@ import { HeadTemplate } from 'src/components/templates/HeadTemplate';
 
 import { COLOR_PALETTE } from 'src/styles/color_palette';
 
+import { validations } from 'src/utils/validate';
+
 /**
  * @概要 マイページの商品を出品するボタンを押したら表示されるページコンポーネント
  */
@@ -38,6 +40,7 @@ const ProductRegisterPage = (): JSX.Element => {
   const [isFileTypeError, setIsFileTypeError] = useState(false);
   const [isNumberError, setIsNumberError] = useState(false);
   const [isSameImgSizeError, setIsSameImgSizeError] = useState(false);
+  const [isMaxImgSizeError, setIsMaxImgSizeError] = useState(false);
 
   /**
    * @概要 全てのエラーを一度リセットするため関数
@@ -46,6 +49,7 @@ const ProductRegisterPage = (): JSX.Element => {
     setIsFileTypeError(false);
     setIsSameImgSizeError(false);
     setIsNumberError(false);
+    setIsMaxImgSizeError(false);
   };
 
   const onDeleteImgBtn = (photoIndex: number): void => {
@@ -64,6 +68,12 @@ const ProductRegisterPage = (): JSX.Element => {
     }
 
     resetErrors();
+
+    // 10MB以上の画像はアップロードしないように弾くため
+    if (event.target.files[0].size >= validations.maxImageSize) {
+      setIsMaxImgSizeError(true);
+      return;
+    }
 
     // 同じ画像はアップロードしないように弾くため
     // 同じサイズの画像は配列に追加できないというロジックで実装
@@ -191,6 +201,7 @@ const ProductRegisterPage = (): JSX.Element => {
               isFileTypeError={isFileTypeError}
               isNumberError={isNumberError}
               isSameImgSizeError={isSameImgSizeError}
+              isMaxImgSizeError={isMaxImgSizeError}
               photoFiles={photoFiles}
               onDeleteImgBtn={onDeleteImgBtn}
               onFileInputChange={onFileInputChange}
