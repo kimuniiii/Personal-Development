@@ -51,6 +51,7 @@ export const ProductImageUpload: VFC<ProductImageUploadProps> = ({
     resetErrors();
 
     // 10MB以上の画像はアップロードしないように弾くため
+    // TODO : 9.9MB | 10MB | 10.1MB でテストを行う（境界値テスト）
     if (event.target.files[0].size >= validations.maxImageSize) {
       setIsMaxImgSizeError(true);
       return;
@@ -58,7 +59,8 @@ export const ProductImageUpload: VFC<ProductImageUploadProps> = ({
 
     // 同じ画像はアップロードしないように弾くため
     // 同じサイズの画像は配列に追加できないというロジックで実装
-    // 同じサイズの画像だったらエラー文を表示する。処理を中断する。
+    // 同じサイズの画像だったらエラー文を表示する。処理を中断する
+    // TODO : 同じサイズで違う画像だった場合の条件分岐はどうする？
     const existsSameSizeImg = selectedFiles.some((photo) => {
       // 型ガード（Nullチェック）
       if (event.target.files === null || event.target.files.length === 0) {

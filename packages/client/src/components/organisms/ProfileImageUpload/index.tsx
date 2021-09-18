@@ -55,6 +55,7 @@ export const ProfileImageUpload: VFC<ProfileImageUploadProps> = ({
     resetErrors();
 
     // 10MB以上の画像はアップロードしないように弾くため
+    // TODO : 9.9MB | 10MB | 10.1MB でテストを行う（境界値テスト）
     if (event.target.files[0].size >= validations.maxImageSize) {
       setIsMaxImgSizeError(true);
       return;
