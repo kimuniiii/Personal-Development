@@ -65,7 +65,7 @@ export const ProfileImageUpload: VFC<ProfileImageUploadProps> = ({
       </StImageContainer>
       <StLabel>
         プロフィール写真を1枚追加する
-        <input type='file' onChange={onChange} />
+        <input type='file' accept='image/*' onChange={onChange} />
       </StLabel>
       {isFileTypeError ? (
         <React.Fragment>
