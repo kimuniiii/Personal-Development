@@ -42,6 +42,9 @@ export const ProductImageUpload: VFC<ProductImageUploadProps> = ({
     setIsMaxImgSizeError(false);
   };
 
+  /**
+   * @概要 子供でアップロードされたファイルを親コンポーネントに送り返すイベントハンドラ
+   */
   const onFileInputChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     // 型ガード（Nullチェック）
     if (event.target.files === null || event.target.files.length === 0) {
