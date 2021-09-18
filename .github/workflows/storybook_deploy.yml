@@ -2,9 +2,7 @@ name: Storybook Deploy
 
 # プッシュもしくはマージでワークフローをトリガーする
 # ただし、masterブランチの場合のみ
-on:
-  push:
-    branches: [master]
+on: ['push']
 
 jobs:
   client-build:
