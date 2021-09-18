@@ -12,6 +12,7 @@ type Props = React.ComponentProps<typeof ProfileImageUpload>;
 
 const Template: Story<Props> = (args) => {
   const [imageUrl, setImageUrl] = useState<string>('');
+  const [imageFileSize, setImageFileSize] = useState(0);
   const [isFileTypeError, setIsFileTypeError] = useState(false);
 
   /**
@@ -44,6 +45,7 @@ const Template: Story<Props> = (args) => {
     const imageFile = event.target.files[0];
     const imageUrl = URL.createObjectURL(imageFile);
     setImageUrl(imageUrl);
+    setImageFileSize(event.target.files[0].size);
 
     // onChangeは連続で同じファイルを選択すると発火しない問題の対応のため
     // 初期化することで同じファイルを連続で選択してもonChangeが発動するように設定する
@@ -62,6 +64,7 @@ const Template: Story<Props> = (args) => {
     <ProfileImageUpload
       {...args}
       imageUrl={imageUrl}
+      imageFileSize={imageFileSize}
       isFileTypeError={isFileTypeError}
       onClick={deleteProfileImg}
       onChange={onFileInputChange}

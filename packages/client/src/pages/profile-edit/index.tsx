@@ -26,15 +26,21 @@ const ProfileEditPage = (): JSX.Element => {
     reValidateMode: 'onChange',
   });
 
+  // プロフィール編集画像に関する「状態変数」と「更新関数」と「イベントハンドラ」
+  const [imageUrl, setImageUrl] = useState<string>('');
+  const [isFileTypeError, setIsFileTypeError] = useState(false);
+  const [imageFileSize, setImageFileSize] = useState(0);
+
   /**
    * @概要 送信ボタンを押した時に呼び出されるイベントハンドラ
    */
-  const onSubmit = (data: Record<string, unknown>): void => {
+  const onSubmit = async (data: Record<string, unknown>): Promise<void> => {
     console.log(data);
-  };
 
-  const [imageUrl, setImageUrl] = useState<string>('');
-  const [isFileTypeError, setIsFileTypeError] = useState(false);
+    // 画像を送信できるようにFormDataに変換する
+    const formData = new FormData();
+    console.log('formData', formData);
+  };
 
   /**
    * @概要 全てのエラーを一度リセットするため関数
@@ -62,6 +68,7 @@ const ProfileEditPage = (): JSX.Element => {
     const imageFile = event.target.files[0];
     const imageUrl = URL.createObjectURL(imageFile);
     setImageUrl(imageUrl);
+    setImageFileSize(event.target.files[0].size);
     // onChangeは連続で同じファイルを選択すると発火しない問題の対応のため
     event.target.value = '';
   };
@@ -215,6 +222,7 @@ const ProfileEditPage = (): JSX.Element => {
               name='profile-image'
               labelText='プロフィール画像'
               imageUrl={imageUrl}
+              imageFileSize={imageFileSize}
               isFileTypeError={isFileTypeError}
               onClick={deleteProfileImg}
               onChange={onFileInputChange}
