@@ -2,7 +2,10 @@ name: Storybook Deploy
 
 # プッシュもしくはマージでワークフローをトリガーする
 # ただし、masterブランチの場合のみ
-on: ['push']
+on:
+  push:
+    branches:
+      - 'master'
 
 jobs:
   client-build:
@@ -10,7 +13,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [16.x]
+        node-version: [14.x]
 
     steps:
       - uses: actions/checkout@v2
