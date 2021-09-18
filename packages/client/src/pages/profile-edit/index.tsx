@@ -32,8 +32,20 @@ const ProfileEditPage = (): JSX.Element => {
     handleSubmit,
     formState: { errors },
   } = useForm<UseFormInputs>({
-    mode: 'onBlur',
+    // 最初に送信ボタンを押す前に、バリデーションが実行されるタイミング
+    mode: 'onSubmit',
+    // 送信ボタン押した以降に、バリデーションを実行するタイミング、onChangeの場合は、入力の度にバリデーションが走る
     reValidateMode: 'onChange',
+    // 初回レンダリング時のフォームのデフォルト値
+    defaultValues: {
+      firstName: '',
+      lastName: '',
+      phoneNumber: '',
+      postCode: '',
+      address: '',
+      ageNumber: '',
+      email: '',
+    },
   });
 
   // プロフィール編集画像に関する「状態変数」と「更新関数」と「イベントハンドラ」
