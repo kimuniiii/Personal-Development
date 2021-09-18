@@ -13,6 +13,16 @@ import { COLOR_PALETTE } from 'src/styles/color_palette';
 
 import { validations } from 'src/utils/validate';
 
+type UseFormInputs = {
+  firstName: string;
+  lastName: string;
+  phoneNumber: string;
+  postCode: string;
+  address: string;
+  ageNumber: string;
+  email: string;
+};
+
 /**
  * @概要 マイページのプロフィール編集ボタンを押したら表示されるページコンポーネント
  */
@@ -21,53 +31,38 @@ const ProfileEditPage = (): JSX.Element => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({
+  } = useForm<UseFormInputs>({
     mode: 'onBlur',
     reValidateMode: 'onChange',
   });
 
   // プロフィール編集画像に関する「状態変数」と「更新関数」と「イベントハンドラ」
+  const [selectedFile, setSelectedFile] = useState<File>();
   const [imageUrl, setImageUrl] = useState<string>('');
-  const [isFileTypeError, setIsFileTypeError] = useState(false);
-  const [imageFileSize, setImageFileSize] = useState(0);
 
   /**
    * @概要 送信ボタンを押した時に呼び出されるイベントハンドラ
    */
-  const onSubmit = async (data: Record<string, unknown>): Promise<void> => {
+  const onSubmit = async (data: UseFormInputs): Promise<void> => {
+    console.log('selectedFile', selectedFile);
     console.log(data);
-    console.log('data.profileImage', data.profileImage);
+    console.log({ ...data, profileImage: selectedFile });
+
+    // TODO : フォームデータを作成
+    // TODO : 値を実際にサーバーに送信するときにちゃんと実装を行う
+    // const formData = new FormData();
+    // formData.append('email', email);
+    // formData.append('ageNumber', ageNumber);
+    // formData.append('address', address);
+    // formData.append('postCode', postCode);
+    // formData.append('phoneNumber', phoneNumber);
+    // profileImage というフィールド名でファイルを追加
+    // formData.append('profileImage', imageFile as Blob, imageFile?.name);
   };
 
-  /**
-   * @概要 全てのエラーを一度リセットするため関数
-   */
-  const resetErrors = (): void => {
-    setIsFileTypeError(false);
-  };
-
-  const onFileInputChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    if (event.target.files === null || event.target.files.length === 0) {
-      return;
-    }
-
-    resetErrors();
-
-    if (
-      !['image/gif', 'image/jpeg', 'image/png', 'image/bmp', 'image/svg+xml'].includes(
-        event.target.files[0].type,
-      )
-    ) {
-      setIsFileTypeError(true);
-      return;
-    }
-
-    const imageFile = event.target.files[0];
-    const imageUrl = URL.createObjectURL(imageFile);
-    setImageUrl(imageUrl);
-    setImageFileSize(event.target.files[0].size);
-    // onChangeは連続で同じファイルを選択すると発火しない問題の対応のため
-    event.target.value = '';
+  const onFileSelect = (selectedFile: File): void => {
+    setSelectedFile(selectedFile);
+    setImageUrl(URL.createObjectURL(selectedFile));
   };
 
   const deleteProfileImg = (): void => {
@@ -75,8 +70,6 @@ const ProfileEditPage = (): JSX.Element => {
       setImageUrl('');
     }
   };
-
-  const profileImageRegister = register('profileImage');
 
   return (
     <React.Fragment>
@@ -219,16 +212,10 @@ const ProfileEditPage = (): JSX.Element => {
             <Margin bottom='16px' />
             <ProfileImageUpload
               labelText='プロフィール画像'
-              imageUrl={imageUrl}
-              imageFileSize={imageFileSize}
-              isFileTypeError={isFileTypeError}
-              onClick={deleteProfileImg}
               name='profileImage'
-              register={register('profileImage')}
-              // onChange={(e): void => {
-              //   profileImageRegister.onChange(e); // method from hook form register
-              //   onFileInputChange(e); // your method
-              // }}
+              imageUrl={imageUrl}
+              onClick={deleteProfileImg}
+              onFileSelect={onFileSelect}
             />
             <Margin bottom='24px' />
             <Button
