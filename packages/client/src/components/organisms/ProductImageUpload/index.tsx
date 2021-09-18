@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import Image from 'next/image';
-import React, { VFC } from 'react';
+import React, { useState, VFC } from 'react';
 import { ImCross } from 'react-icons/im';
 
 import { IconButton } from 'src/components/atoms/IconButton';
@@ -9,17 +9,14 @@ import { Margin } from 'src/components/layouts/Margin';
 import { COLOR_PALETTE } from 'src/styles/color_palette';
 import { FONT_SIZE } from 'src/styles/font_size';
 
+import { validations } from 'src/utils/validate';
+
 import NoImage from '../../../../public/images/no_image.png';
 
 type ProductImageUploadProps = {
   labelText: string;
-  photoFiles: File[];
-  isFileTypeError: boolean;
-  isNumberError: boolean;
-  isSameImgSizeError: boolean;
-  isMaxImgSizeError: boolean;
-  onDeleteImgBtn: (photoIndex: number) => void;
-  onFileInputChange: React.ChangeEventHandler<HTMLInputElement>;
+  selectedFiles: File[];
+  onFileSelect: (file: File[]) => void;
 };
 
 /**
@@ -27,14 +24,96 @@ type ProductImageUploadProps = {
  */
 export const ProductImageUpload: VFC<ProductImageUploadProps> = ({
   labelText,
-  photoFiles,
-  isFileTypeError,
-  isNumberError,
-  isSameImgSizeError,
-  isMaxImgSizeError,
-  onDeleteImgBtn,
-  onFileInputChange,
+  selectedFiles,
+  onFileSelect,
 }) => {
+  const [isFileTypeError, setIsFileTypeError] = useState(false);
+  const [isNumberError, setIsNumberError] = useState(false);
+  const [isSameImgSizeError, setIsSameImgSizeError] = useState(false);
+  const [isMaxImgSizeError, setIsMaxImgSizeError] = useState(false);
+
+  /**
+   * @概要 全てのエラーを一度リセットするため関数
+   */
+  const resetErrors = (): void => {
+    setIsFileTypeError(false);
+    setIsSameImgSizeError(false);
+    setIsNumberError(false);
+    setIsMaxImgSizeError(false);
+  };
+
+  const onFileInputChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+    // 型ガード（Nullチェック）
+    if (event.target.files === null || event.target.files.length === 0) {
+      return;
+    }
+
+    resetErrors();
+
+    // 10MB以上の画像はアップロードしないように弾くため
+    // TODO : 9.9MB | 10MB | 10.1MB でテストを行う（境界値テスト）
+    if (event.target.files[0].size >= validations.maxImageSize) {
+      setIsMaxImgSizeError(true);
+      return;
+    }
+
+    // 同じ画像はアップロードしないように弾くため
+    // 同じサイズの画像は配列に追加できないというロジックで実装
+    // 同じサイズの画像だったらエラー文を表示する。処理を中断する
+    // TODO : 同じサイズで違う画像だった場合の条件分岐はどうする？
+    const existsSameSizeImg = selectedFiles.some((photo) => {
+      // 型ガード（Nullチェック）
+      if (event.target.files === null || event.target.files.length === 0) {
+        return false;
+      }
+
+      return photo.size === event.target.files[0].size;
+    });
+
+    if (existsSameSizeImg) {
+      setIsSameImgSizeError(true);
+      return;
+    }
+
+    // 画像のみアップロードするようにするため
+    // 画像以外のファイルだったらエラー文を表示する。処理を中断する。
+    if (
+      !['image/gif', 'image/jpeg', 'image/png', 'image/bmp', 'image/svg+xml'].includes(
+        event.target.files[0].type,
+      )
+    ) {
+      setIsFileTypeError(true);
+      return;
+    }
+
+    // 商品登録ページのアップロードできる画像（＝プレビューの画像）の枚数は3枚までにするため
+    // 3枚以上のファイルをアップロードしようとしたらエラー文を出す。処理を中断する。
+    if (selectedFiles.length >= 3) {
+      setIsNumberError(true);
+      return;
+    }
+
+    console.log('event.target.value', event.target.value);
+    console.log('event.target.files', event.target.files);
+    console.log('event.target.files[0]', event.target.files[0]);
+
+    onFileSelect([...selectedFiles, ...event.target.files]);
+
+    // onChangeは連続で同じファイルを選択すると発火しない問題の対応のため
+    // 初期化することで同じファイルを連続で選択してもonChangeが発動するように設定する
+    // こうすることで、画像をキャンセルしてすぐに同じ画像を選ぶ動作に対応できる
+    event.target.value = '';
+  };
+
+  const onDeleteImgBtn = (photoIndex: number): void => {
+    if (confirm('選択した画像を消してよろしいですか？')) {
+      resetErrors();
+      const modifyPhotos = selectedFiles.concat();
+      modifyPhotos.splice(photoIndex, 1);
+      onFileSelect(modifyPhotos);
+    }
+  };
+
   return (
     <StRoot>
       {labelText !== '' ? (
@@ -45,7 +124,7 @@ export const ProductImageUpload: VFC<ProductImageUploadProps> = ({
       ) : null}
       <StImageContainer>
         {[...Array(3)].map((_: number, idx: number) =>
-          idx < photoFiles.length ? (
+          idx < selectedFiles.length ? (
             <React.Fragment key={idx}>
               <StImagePosition>
                 <IconButton
@@ -58,7 +137,7 @@ export const ProductImageUpload: VFC<ProductImageUploadProps> = ({
                   onClick={(): void => onDeleteImgBtn(idx)}
                 />
                 <Image
-                  src={URL.createObjectURL(photoFiles[idx])}
+                  src={URL.createObjectURL(selectedFiles[idx])}
                   alt='preview image'
                   layout='fill'
                 />
@@ -78,7 +157,7 @@ export const ProductImageUpload: VFC<ProductImageUploadProps> = ({
       <Margin bottom='16px' />
       <StLabel>
         商品の写真を追加する（最大3枚まで）
-        <input type='file' onChange={onFileInputChange} />
+        <input type='file' accept='image/*' onChange={onFileInputChange} />
       </StLabel>
       {isFileTypeError ? (
         <React.Fragment>

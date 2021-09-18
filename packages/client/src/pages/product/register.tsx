@@ -13,8 +13,6 @@ import { HeadTemplate } from 'src/components/templates/HeadTemplate';
 
 import { COLOR_PALETTE } from 'src/styles/color_palette';
 
-import { validations } from 'src/utils/validate';
-
 /**
  * @概要 マイページの商品を出品するボタンを押したら表示されるページコンポーネント
  */
@@ -28,94 +26,23 @@ const ProductRegisterPage = (): JSX.Element => {
     reValidateMode: 'onChange',
   });
 
+  // ProductImageUpload に関する状態管理と更新関数とイベントハンドラ
+  const [selectedFiles, setPhotoFiles] = useState<File[]>([]);
+
   /**
    * @概要 送信ボタンを押した時に呼び出されるイベントハンドラ
    */
   const onSubmit = (data: Record<string, unknown>): void => {
+    console.log('selectedFiles', selectedFiles);
     console.log(data);
+    console.log({ ...data, profileImage: selectedFiles });
   };
-
-  // ProductImageUpload に関する状態管理と更新関数とイベントハンドラ
-  const [photoFiles, setPhotoFiles] = useState<File[]>([]);
-  const [isFileTypeError, setIsFileTypeError] = useState(false);
-  const [isNumberError, setIsNumberError] = useState(false);
-  const [isSameImgSizeError, setIsSameImgSizeError] = useState(false);
-  const [isMaxImgSizeError, setIsMaxImgSizeError] = useState(false);
 
   /**
-   * @概要 全てのエラーを一度リセットするため関数
+   * @概要 子供から親に送られたファイル情報を更新する関数
    */
-  const resetErrors = (): void => {
-    setIsFileTypeError(false);
-    setIsSameImgSizeError(false);
-    setIsNumberError(false);
-    setIsMaxImgSizeError(false);
-  };
-
-  const onDeleteImgBtn = (photoIndex: number): void => {
-    if (confirm('選択した画像を消してよろしいですか？')) {
-      resetErrors();
-      const modifyPhotos = photoFiles.concat();
-      modifyPhotos.splice(photoIndex, 1);
-      setPhotoFiles(modifyPhotos);
-    }
-  };
-
-  const onFileInputChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    // 型ガード（Nullチェック）
-    if (event.target.files === null || event.target.files.length === 0) {
-      return;
-    }
-
-    resetErrors();
-
-    // 10MB以上の画像はアップロードしないように弾くため
-    if (event.target.files[0].size >= validations.maxImageSize) {
-      setIsMaxImgSizeError(true);
-      return;
-    }
-
-    // 同じ画像はアップロードしないように弾くため
-    // 同じサイズの画像は配列に追加できないというロジックで実装
-    // 同じサイズの画像だったらエラー文を表示する。処理を中断する。
-    const existsSameSizeImg = photoFiles.some((photo) => {
-      // 型ガード（Nullチェック）
-      if (event.target.files === null || event.target.files.length === 0) {
-        return false;
-      }
-
-      return photo.size === event.target.files[0].size;
-    });
-
-    if (existsSameSizeImg) {
-      setIsSameImgSizeError(true);
-      return;
-    }
-
-    // 画像のみアップロードするようにするため
-    // 画像以外のファイルだったらエラー文を表示する。処理を中断する。
-    if (
-      !['image/gif', 'image/jpeg', 'image/png', 'image/bmp', 'image/svg+xml'].includes(
-        event.target.files[0].type,
-      )
-    ) {
-      setIsFileTypeError(true);
-      return;
-    }
-
-    // 商品登録ページのアップロードできる画像（＝プレビューの画像）の枚数は3枚までにするため
-    // 3枚以上のファイルをアップロードしようとしたらエラー文を出す。処理を中断する。
-    if (photoFiles.length >= 3) {
-      setIsNumberError(true);
-      return;
-    }
-
-    setPhotoFiles([...photoFiles, ...event.target.files]);
-
-    // onChangeは連続で同じファイルを選択すると発火しない問題の対応のため
-    // 初期化することで同じファイルを連続で選択してもonChangeが発動するように設定する
-    // こうすることで、画像をキャンセルしてすぐに同じ画像を選ぶ動作に対応できる
-    event.target.value = '';
+  const onFileSelect = (selectedFiles: File[]): void => {
+    setPhotoFiles(selectedFiles);
   };
 
   return (
@@ -198,13 +125,8 @@ const ProductRegisterPage = (): JSX.Element => {
             <Margin bottom='16px' />
             <ProductImageUpload
               labelText='商品画像'
-              isFileTypeError={isFileTypeError}
-              isNumberError={isNumberError}
-              isSameImgSizeError={isSameImgSizeError}
-              isMaxImgSizeError={isMaxImgSizeError}
-              photoFiles={photoFiles}
-              onDeleteImgBtn={onDeleteImgBtn}
-              onFileInputChange={onFileInputChange}
+              selectedFiles={selectedFiles}
+              onFileSelect={onFileSelect}
             />
             <Margin bottom='32px' />
             <Button

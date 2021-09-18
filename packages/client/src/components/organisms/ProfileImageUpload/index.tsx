@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import Image from 'next/image';
-import React, { VFC } from 'react';
+import React, { useState, VFC } from 'react';
 import { ImCross } from 'react-icons/im';
 
 import { IconButton } from 'src/components/atoms/IconButton';
@@ -14,29 +14,71 @@ import { validations } from 'src/utils/validate';
 import NoImage from '../../../../public/images/no_image.png';
 
 type ProfileImageUploadProps = {
-  name: string;
   labelText: string;
+  name: string;
   imageUrl: string;
-  imageFileSize: number;
-  isFileTypeError: boolean;
   onClick: React.MouseEventHandler<HTMLButtonElement>;
-  onChange: React.ChangeEventHandler<HTMLInputElement>;
+  onFileSelect: (file: File) => void;
 };
 
 /**
  * @概要 プロフィール編集ページでプロフィール画像を最大1枚までアップロードできるコンポーネント
  */
 export const ProfileImageUpload: VFC<ProfileImageUploadProps> = ({
-  name,
   labelText,
+  name,
   imageUrl,
-  imageFileSize,
-  isFileTypeError,
   onClick,
-  onChange,
+  onFileSelect,
 }) => {
-  const isMaxFileSizeError = imageFileSize >= validations.maxImageSize;
-  const isNotNoImage = imageUrl !== '' && !isFileTypeError && !isMaxFileSizeError;
+  const [isFileTypeError, setIsFileTypeError] = useState(false);
+  const [isMaxImgSizeError, setIsMaxImgSizeError] = useState(false);
+
+  const isNotNoImage = imageUrl !== '' && !isFileTypeError && !isMaxImgSizeError;
+
+  /**
+   * @概要 全てのエラーを一度リセットするため関数
+   */
+  const resetErrors = (): void => {
+    setIsFileTypeError(false);
+    setIsMaxImgSizeError(false);
+  };
+
+  /**
+   * @概要 子供でアップロードされたファイルを親コンポーネントに送り返すイベントハンドラ
+   */
+  const handleFileInput = (event: React.ChangeEvent<HTMLInputElement>): void => {
+    if (event.target.files === null || event.target.files.length === 0) {
+      return;
+    }
+
+    resetErrors();
+
+    // 10MB以上の画像はアップロードしないように弾くため
+    // TODO : 9.9MB | 10MB | 10.1MB でテストを行う（境界値テスト）
+    if (event.target.files[0].size >= validations.maxImageSize) {
+      setIsMaxImgSizeError(true);
+      return;
+    }
+
+    // 画像以外のファイルはアップロードしないように弾くため
+    if (
+      !['image/gif', 'image/jpeg', 'image/png', 'image/bmp', 'image/svg+xml'].includes(
+        event.target.files[0].type,
+      )
+    ) {
+      setIsFileTypeError(true);
+      return;
+    }
+
+    const imageFile = event.target.files[0];
+
+    // 親コンポーネントに選択したファイルの情報を送る
+    onFileSelect(imageFile);
+
+    // onChangeは連続で同じファイルを選択すると発火しない問題の対応のため
+    event.target.value = '';
+  };
 
   return (
     <React.Fragment>
@@ -74,7 +116,7 @@ export const ProfileImageUpload: VFC<ProfileImageUploadProps> = ({
       </StImageContainer>
       <StLabel htmlFor={name}>
         プロフィール写真を1枚追加する
-        <input type='file' accept='image/*' name={name} id={name} onChange={onChange} />
+        <input type='file' accept='image/*' id={name} onChange={handleFileInput} />
       </StLabel>
       {isFileTypeError ? (
         <React.Fragment>
@@ -84,7 +126,7 @@ export const ProfileImageUpload: VFC<ProfileImageUploadProps> = ({
           </StErrorMessage>
         </React.Fragment>
       ) : null}
-      {isMaxFileSizeError ? (
+      {isMaxImgSizeError ? (
         <React.Fragment>
           <Margin bottom='8px' />
           <StErrorMessage>※10MB以上の画像ファイルはアップロードできません</StErrorMessage>
