@@ -23,7 +23,7 @@
 | 本番環境         | https://www.riot-ec-site.com/                                                      |
 | ステージング環境 | https://personal-development-client-git-develop-kimuniiii.vercel.app/sample/vercel |
 
-ステージング環境の URL は、develop ブランチへ push する毎に新しいドメインを発行するが
+ステージング環境の URL は、develop ブランチへ push する毎に新しいドメインを発行するが  
 上記で添付した URL なら、ドメインは固定されているため、常に最新の情報が反映されるはず
 
 ## Storybook のデプロイ環境
@@ -72,12 +72,13 @@ yarn server ps
 - TypeScript
 - GraphQL
 - Hasura
-- NestJS
-- Prisma
+- NestJS（暫定）
+- Prisma（暫定）
 
 ### Frontend
 
 - React
+- React Hook Form
 - TypeScript
 - Next.js
 - GraphQL Code Generator
@@ -90,6 +91,7 @@ yarn server ps
 - Storybook
 - GitHub Actions
 - ESLint / Prettier / Husky / lint-staged
+- Renovate
 - Docker / Docker Compose
 - Vercel
 - Heroku
