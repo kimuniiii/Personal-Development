@@ -8,6 +8,7 @@ import { Margin } from 'src/components/layouts/Margin';
 
 import { COLOR_PALETTE } from 'src/styles/color_palette';
 import { FONT_SIZE } from 'src/styles/font_size';
+import { FONT_WEIGHT } from 'src/styles/font_weight';
 
 import { validations } from 'src/utils/validate';
 
@@ -84,10 +85,10 @@ export const ProfileImageUpload: VFC<ProfileImageUploadProps> = ({
     <React.Fragment>
       <StImageContainer>
         {labelText !== '' ? (
-          <section>
+          <StSection>
             {labelText}
             <Margin bottom='8px' />
-          </section>
+          </StSection>
         ) : null}
         {isNotNoImage ? (
           <React.Fragment>
@@ -186,4 +187,8 @@ const StLabel = styled.label`
 
 const StErrorMessage = styled.p`
   color: ${COLOR_PALETTE.ERROR_COLOR};
+`;
+
+const StSection = styled.section`
+  font-weight: ${FONT_WEIGHT.BOLD};
 `;
