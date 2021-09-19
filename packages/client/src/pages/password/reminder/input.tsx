@@ -50,6 +50,7 @@ const PasswordReminderInputPage = (): JSX.Element => {
               id='authKey'
               name='authKey'
               labelText='認証キー'
+              labelType='requiredMarker'
               placeholder='認証キーを入力してください'
               width='343px'
               fontSizeValue='16px'

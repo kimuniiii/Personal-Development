@@ -61,6 +61,7 @@ const ProductRegisterPage = (): JSX.Element => {
               name='productName'
               placeholder='例: ノートPC'
               labelText='商品名'
+              labelType='requiredMarker'
               width='343px'
               fontSizeValue='16px'
               isError={!!errors.productName}
@@ -113,6 +114,7 @@ const ProductRegisterPage = (): JSX.Element => {
               id='priceNumber'
               name='priceNumber'
               labelText='金額'
+              labelType='requiredMarker'
               placeholder='例: 25000'
               width='343px'
               fontSizeValue='16px'

@@ -47,6 +47,7 @@ const PasswordChangePage = (): JSX.Element => {
               id='beforePassword'
               name='beforePassword'
               labelText='古いパスワード'
+              labelType='requiredMarker'
               placeholder='古いパスワードを入力してください'
               width='343px'
               fontSizeValue='16px'

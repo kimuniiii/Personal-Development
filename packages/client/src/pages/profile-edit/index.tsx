@@ -100,6 +100,7 @@ const ProfileEditPage = (): JSX.Element => {
               fontSizeValue='16px'
               placeholder='例: タナカ'
               labelText='姓（カナ）'
+              labelType='requiredMarker'
               isError={!!errors.firstName}
               errors={errors}
               name='firstName'
@@ -119,6 +120,7 @@ const ProfileEditPage = (): JSX.Element => {
               fontSizeValue='16px'
               placeholder='例: タロウ'
               labelText='名（カナ）'
+              labelType='requiredMarker'
               isError={!!errors.lastName}
               errors={errors}
               name='lastName'
@@ -136,6 +138,7 @@ const ProfileEditPage = (): JSX.Element => {
               id='phone-number'
               name='phoneNumber'
               labelText='TEL'
+              labelType='requiredMarker'
               placeholder='例: 03-1234-5678'
               width='343px'
               fontSizeValue='16px'
@@ -155,6 +158,7 @@ const ProfileEditPage = (): JSX.Element => {
               id='postcode'
               name='postCode'
               labelText='郵便番号'
+              labelType='requiredMarker'
               placeholder='例: 1516608'
               isError={!!errors.postCode}
               errors={errors}
@@ -174,6 +178,7 @@ const ProfileEditPage = (): JSX.Element => {
               id='address'
               name='address'
               labelText='住所'
+              labelType='requiredMarker'
               placeholder='例: 東京都調布市下石原3-9-12'
               isError={!!errors.address}
               errors={errors}
@@ -189,6 +194,7 @@ const ProfileEditPage = (): JSX.Element => {
               id='ageNumber'
               name='ageNumber'
               labelText='年齢'
+              labelType='requiredMarker'
               placeholder='例: 25'
               width='343px'
               fontSizeValue='16px'
@@ -208,6 +214,7 @@ const ProfileEditPage = (): JSX.Element => {
               id='email'
               name='email'
               labelText='Email'
+              labelType='requiredMarker'
               placeholder='メールアドレスを入力してください'
               width='343px'
               fontSizeValue='16px'
