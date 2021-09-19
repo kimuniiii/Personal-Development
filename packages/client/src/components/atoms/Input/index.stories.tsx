@@ -50,6 +50,7 @@ Basic.args = {
   fontSizeValue: '12px',
   id: 'email',
   labelText: 'Email',
+  labelType: 'requiredMarker',
   name: 'email',
   placeholder: '例: riot-ec-site@gmail.com',
   width: '343px',

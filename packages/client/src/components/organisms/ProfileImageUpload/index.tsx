@@ -3,11 +3,13 @@ import Image from 'next/image';
 import React, { useState, VFC } from 'react';
 import { ImCross } from 'react-icons/im';
 
+import { FormLabel } from 'src/components/atoms/FormLabel';
 import { IconButton } from 'src/components/atoms/IconButton';
 import { Margin } from 'src/components/layouts/Margin';
 
 import { COLOR_PALETTE } from 'src/styles/color_palette';
 import { FONT_SIZE } from 'src/styles/font_size';
+import { FONT_WEIGHT } from 'src/styles/font_weight';
 
 import { validations } from 'src/utils/validate';
 
@@ -84,10 +86,10 @@ export const ProfileImageUpload: VFC<ProfileImageUploadProps> = ({
     <React.Fragment>
       <StImageContainer>
         {labelText !== '' ? (
-          <section>
-            {labelText}
+          <StSection>
+            <FormLabel labelText={labelText} labelType='optionalMarker' />
             <Margin bottom='8px' />
-          </section>
+          </StSection>
         ) : null}
         {isNotNoImage ? (
           <React.Fragment>
@@ -186,4 +188,8 @@ const StLabel = styled.label`
 
 const StErrorMessage = styled.p`
   color: ${COLOR_PALETTE.ERROR_COLOR};
+`;
+
+const StSection = styled.section`
+  font-weight: ${FONT_WEIGHT.BOLD};
 `;

@@ -49,6 +49,7 @@ const PasswordReminderSubmitPage = (): JSX.Element => {
               id='email'
               name='email'
               labelText='Email'
+              labelType='requiredMarker'
               placeholder='メールアドレスを入力してください'
               width='343px'
               fontSizeValue='16px'
