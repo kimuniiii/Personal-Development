@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import React, { useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { SubmitErrorHandler, SubmitHandler, useForm } from 'react-hook-form';
 
 import { Button } from 'src/components/atoms/Button';
 import { Input } from 'src/components/atoms/Input';
@@ -53,12 +53,15 @@ const ProfileEditPage = (): JSX.Element => {
   const [imageUrl, setImageUrl] = useState<string>('');
 
   /**
-   * @概要 送信ボタンを押した時に呼び出されるイベントハンドラ
+   * @概要 バリデーション成功時に呼び出されるイベントハンドラ
    */
-  const onSubmit = async (data: UseFormInputs): Promise<void> => {
-    console.log('selectedFile', selectedFile);
-    console.log(data);
-    console.log({ ...data, profileImage: selectedFile });
+  const handleOnSubmit: SubmitHandler<UseFormInputs> = (values) => {
+    console.log('selectedFile');
+    console.table(selectedFile);
+    console.log('values');
+    console.table(values);
+    console.log('{ ...values, profileImage: selectedFile }');
+    console.table({ ...values, profileImage: selectedFile });
 
     // TODO : フォームデータを作成
     // TODO : 値を実際にサーバーに送信するときにちゃんと実装を行う
@@ -72,11 +75,19 @@ const ProfileEditPage = (): JSX.Element => {
     // formData.append('profileImage', imageFile as Blob, imageFile?.name);
   };
 
+  /**
+   * @概要 バリデーション失敗時に呼び出されるイベントハンドラ
+   */
+  const handleOnError: SubmitErrorHandler<UseFormInputs> = (errors) => {
+    console.error(errors);
+  };
+
   const onFileSelect = (selectedFile: File): void => {
     setSelectedFile(selectedFile);
     setImageUrl(URL.createObjectURL(selectedFile));
   };
 
+  // TODO : 画面上で画像は消えているけどデータ上は削除できていない
   const deleteProfileImg = (): void => {
     if (confirm('選択した画像を削除してもよろしいですか？')) {
       setImageUrl('');
@@ -90,7 +101,7 @@ const ProfileEditPage = (): JSX.Element => {
         pageTitle='プロフィール編集ページ'
       />
       <CommonTemplate isSideBar={true}>
-        <StProfileEditFormContainer onSubmit={handleSubmit(onSubmit)}>
+        <StProfileEditFormContainer onSubmit={handleSubmit(handleOnSubmit, handleOnError)}>
           <h3>プロフィール編集</h3>
           <StProfileEditContainer>
             <Input
