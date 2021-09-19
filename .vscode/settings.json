@@ -1,10 +1,17 @@
 {
+  "workbench.iconTheme": "vscode-icons",
   "editor.formatOnSave": true,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
   },
   "liveServer.settings.port": 5501,
+  "workbench.editor.showTabs": true,
+  "workbench.editor.enablePreview": false,
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/yarn.lock": true
+  },
   "cSpell.words": [
     "Anxw",
     "CODECOV",
