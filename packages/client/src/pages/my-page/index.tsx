@@ -4,7 +4,6 @@ import React from 'react';
 
 import type { NextPage } from 'next';
 
-import { Loader } from 'src/components/atoms/Loader';
 import { Margin } from 'src/components/layouts/Margin';
 import { ProductCard } from 'src/components/organisms/ProductCard';
 import { CommonTemplate } from 'src/components/templates/CommonTemplate';
@@ -18,21 +17,11 @@ import ReactImage from '../../../public/images/react.jpg';
  * @概要 ログインしていたらマイページ・ログインしていなかったらログイン画面に遷移するコンポーネント
  */
 const MyPage: NextPage = () => {
-  const { isAuthenticated, isLoading, user, loginWithRedirect } = useAuth0();
+  const { isAuthenticated, user } = useAuth0();
 
-  if (isLoading) {
-    <StCenterLoaderContainer>
-      <Loader loadingContent='ユーザー登録画面に遷移中です' />
-    </StCenterLoaderContainer>;
-  }
-
-  // ログインしてないのに「マイページ」にURLで直接アクセスした場合
-  // Auth0 の「ログインモーダル」に遷移する
-  if (!isAuthenticated) {
-    loginWithRedirect();
-    return null;
-  }
-
+  // FIXME : ログインしてないのに「マイページ」にURLで直接アクセスした場合
+  // FIXME : Auth0 の「ログインモーダル」に遷移させたいがエラーになるので
+  // FIXME : とりあえず、何も描画させないような実装で対応を行った
   if (isAuthenticated && user !== undefined) {
     return (
       <React.Fragment>
@@ -43,7 +32,7 @@ const MyPage: NextPage = () => {
         <CommonTemplate isSideBar={true}>
           <StRoot>
             <StProductListContainer>
-              <h3>Hello {user.name}</h3>
+              <h3>Hello！{user.name}さん</h3>
               <h3>登録商品</h3>
               <ProductCard productCardList={productCardList} />
               <Margin bottom='8px' />
@@ -60,13 +49,6 @@ const MyPage: NextPage = () => {
 };
 
 export default MyPage;
-
-const StCenterLoaderContainer = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-`;
 
 const StRoot = styled.section`
   display: flex;
