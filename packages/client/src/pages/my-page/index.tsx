@@ -15,6 +15,7 @@ import ReactImage from '../../../public/images/react.jpg';
 
 /**
  * @概要 ログインしていたらマイページ・ログインしていなかったらログイン画面に遷移するコンポーネント
+ * @説明 ユーザーの情報が表示されているため「protected page」となる
  */
 const MyPage: NextPage = () => {
   const { isAuthenticated, user } = useAuth0();
