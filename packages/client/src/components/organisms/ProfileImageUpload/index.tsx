@@ -3,6 +3,7 @@ import Image from 'next/image';
 import React, { useState, VFC } from 'react';
 import { ImCross } from 'react-icons/im';
 
+import { FormLabel } from 'src/components/atoms/FormLabel';
 import { IconButton } from 'src/components/atoms/IconButton';
 import { Margin } from 'src/components/layouts/Margin';
 
@@ -86,7 +87,7 @@ export const ProfileImageUpload: VFC<ProfileImageUploadProps> = ({
       <StImageContainer>
         {labelText !== '' ? (
           <StSection>
-            {labelText}
+            <FormLabel labelText={labelText} labelType='optionalMarker' />
             <Margin bottom='8px' />
           </StSection>
         ) : null}
