@@ -14,6 +14,7 @@ import { validations } from 'src/utils/validate';
 
 /**
  * @概要 パスワード変更ボタンを押したら表示されるページコンポーネント
+ * @説明 TODO : Auth0 で認証を行うため使用しない可能性がある
  */
 const PasswordChangePage = (): JSX.Element => {
   const {
