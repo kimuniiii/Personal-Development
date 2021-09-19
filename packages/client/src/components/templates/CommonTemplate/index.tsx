@@ -1,8 +1,7 @@
 import { useAuth0 } from '@auth0/auth0-react';
 import { css, SerializedStyles } from '@emotion/react';
 import styled from '@emotion/styled';
-
-import type { ReactNode, VFC } from 'react';
+import { ReactNode, useEffect, VFC } from 'react';
 
 import { Loader } from 'src/components/atoms/Loader';
 import { CommonFooter } from 'src/components/templates/CommonTemplate/CommonFooter';
@@ -15,7 +14,20 @@ type CommonTemplateProps = {
 };
 
 export const CommonTemplate: VFC<CommonTemplateProps> = ({ children, isSideBar }) => {
-  const { isLoading, isAuthenticated, error, loginWithRedirect, logout } = useAuth0();
+  const { isLoading, isAuthenticated, error, getAccessTokenSilently, loginWithRedirect, logout } =
+    useAuth0();
+
+  // auth0-react ではクライアントサイドで「アクセストークン」を取得する
+  useEffect(() => {
+    (async (): Promise<void> => {
+      try {
+        const token = await getAccessTokenSilently();
+        console.log({ token });
+      } catch (e) {
+        console.error(e);
+      }
+    })();
+  }, [getAccessTokenSilently]);
 
   if (isLoading) {
     return (
