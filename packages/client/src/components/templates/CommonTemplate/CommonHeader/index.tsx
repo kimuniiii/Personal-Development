@@ -42,6 +42,15 @@ export const CommonHeader: VFC<CommonHeaderProps> = ({
             buttonContent='ログアウト'
             onClick={(): void => logout({ returnTo: window.location.origin })}
           />
+          <Button
+            type='button'
+            styleTypes='textLink'
+            width='100px'
+            fontSizeValue='16px'
+            padding='0'
+            buttonContent='マイページ'
+            onClick={(): Promise<boolean> => Router.push('/my-page')}
+          />
         </StButtonContainer>
       ) : (
         <StButtonContainer>
