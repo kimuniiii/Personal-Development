@@ -11,6 +11,8 @@ import { Margin } from 'src/components/layouts/Margin';
 import { COLOR_PALETTE } from 'src/styles/color_palette';
 import { FONT_SIZE } from 'src/styles/font_size';
 
+import { FormLabel } from '../FormLabel';
+
 type InputProps = JSX.IntrinsicElements['input'] & {
   type: string;
   name: string;
@@ -20,6 +22,7 @@ type InputProps = JSX.IntrinsicElements['input'] & {
   register: UseFormRegisterReturn;
   width: string;
   labelText: string;
+  labelType: 'requiredMarker' | 'optionalMarker';
   id?: string;
   disabled?: boolean;
   fontSizeValue?: ValueOf<typeof FONT_SIZE>;
@@ -37,6 +40,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
       register,
       width,
       labelText,
+      labelType,
       id = 'text-input',
       disabled = false,
       fontSizeValue,
@@ -48,10 +52,9 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
     return (
       <StTextField>
         {labelText !== '' ? (
-          <StLabel htmlFor={id} fontSizeValue={fontSizeValue}>
-            {labelText}
-          </StLabel>
+          <FormLabel htmlFor={id} labelType={labelType} labelText={labelText} />
         ) : null}
+        <Margin bottom='8px' />
         <StInput
           {...textInputProps}
           type={type}
@@ -87,12 +90,6 @@ Input.displayName = 'TextInput';
 const StTextField = styled.div`
   display: flex;
   flex-direction: column;
-`;
-
-const StLabel = styled.label<Pick<InputProps, 'fontSizeValue'>>`
-  padding-bottom: 8px;
-  font-size: ${({ fontSizeValue }): ValueOf<typeof FONT_SIZE> => fontSizeValue ?? FONT_SIZE.FS_16};
-  cursor: pointer;
 `;
 
 type StInputProps = Pick<

@@ -23,6 +23,7 @@ const testProps = {
   },
   width: '320px',
   labelText: 'labelText',
+  labelType: 'requiredMarker' as const,
 };
 
 describe('Input', () => {
@@ -58,7 +59,7 @@ describe('Input', () => {
     describe('空文字以外の文字列を渡す場合', () => {
       test('label要素ありの input要素 が描画されること', () => {
         render(<Input {...testProps} />);
-        expect(screen.getByLabelText('labelText')).toBeInTheDocument();
+        expect(screen.getByPlaceholderText('メールアドレスを入力')).toBeInTheDocument();
       });
     });
   });
