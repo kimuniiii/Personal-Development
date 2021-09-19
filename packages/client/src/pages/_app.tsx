@@ -39,6 +39,7 @@ const CustomApp = ({
 
   console.log('NEXT_PUBLIC_AUTH0_DOMAIN', process.env.NEXT_PUBLIC_AUTH0_DOMAIN);
   console.log('VERCEL_AUTH0_DOMAIN ', process.env.VERCEL_AUTH0_DOMAIN);
+
   console.log('NEXT_PUBLIC_AUTH0_CLIENT_ID', process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID);
   console.log('VERCEL_STAGING_AUTH0_CLIENT_ID', process.env.VERCEL_STAGING_AUTH0_CLIENT_ID);
   console.log('VERCEL_PRODUCTION_AUTH0_CLIENT_ID', process.env.VERCEL_PRODUCTION_AUTH0_CLIENT_ID);
