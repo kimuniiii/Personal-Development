@@ -10,12 +10,12 @@ import { COLOR_PALETTE } from 'src/styles/color_palette';
 import { FONT_WEIGHT } from 'src/styles/font_weight';
 
 type Props = {
-  htmlFor: string;
   labelType: 'requiredMarker' | 'optionalMarker';
   labelText: string;
+  htmlFor?: string;
 };
 
-export const FormLabel: VFC<Props> = ({ htmlFor, labelType, labelText }) => {
+export const FormLabel: VFC<Props> = ({ labelType, labelText, htmlFor }) => {
   return (
     <React.Fragment>
       {labelType === 'requiredMarker' ? (
@@ -46,7 +46,7 @@ const StFormLabel = styled.label`
   align-items: center;
   cursor: pointer;
   /* TODO : 固定値ではない対応を行いたい */
-  width: 130px;
+  /* TODO : width: 130px; */
 `;
 
 const StLabelText = styled.span`
