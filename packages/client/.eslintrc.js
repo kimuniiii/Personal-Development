@@ -89,6 +89,11 @@ module.exports = {
             pattern: 'src/utils/**',
             position: 'before',
           },
+          {
+            group: 'index',
+            pattern: 'src/typings/**',
+            position: 'before',
+          },
         ],
         pathGroupsExcludedImportTypes: ['src/components/**', 'src/styles/**'],
       },
