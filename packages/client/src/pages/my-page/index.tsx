@@ -25,17 +25,9 @@ type MyPageProps = {
  * @説明 ユーザーの情報が表示されているため「protected page」となる
  */
 const MyPage: NextPage<MyPageProps> = ({ origin }) => {
-  const { loading, error } = useAuth0Api(`${origin}/my-page`, {
+  const { isLoading, error } = useAuth0Api(`${origin}/my-page`, {
     audience: `${origin}`,
   });
-
-  if (loading) {
-    return (
-      <StCenterLoaderContainer>
-        <Loader loadingContent='このまましばらくお待ち下さい' />
-      </StCenterLoaderContainer>
-    );
-  }
 
   if (error) {
     return (
@@ -44,6 +36,14 @@ const MyPage: NextPage<MyPageProps> = ({ origin }) => {
         <h2>{error.message}</h2>
         <p>{error.stack}</p>
       </div>
+    );
+  }
+
+  if (isLoading) {
+    return (
+      <StCenterLoaderContainer>
+        <Loader loadingContent='マイページに画面遷移しています' />
+      </StCenterLoaderContainer>
     );
   }
 
@@ -73,7 +73,7 @@ export default withAuthenticationRequired(MyPage, {
   // eslint-disable-next-line react/display-name
   onRedirecting: () => (
     <StCenterLoaderContainer>
-      <Loader loadingContent='ログイン画面に遷移しています' />
+      <Loader loadingContent='ログイン済かどうか判定してます' />
     </StCenterLoaderContainer>
   ),
 });

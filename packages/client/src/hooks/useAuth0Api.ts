@@ -1,23 +1,20 @@
 import { useAuth0 } from '@auth0/auth0-react';
 import { useEffect, useState } from 'react';
 
-type UseApiState = {
-  loading: boolean;
-  error?: Error;
-};
+import type { AuthState } from 'src/typings/lib/AuthState';
+
+import { initialAuthState } from 'src/lib/initialAuthState';
 
 export const useAuth0Api = (
   url: string,
   options: {
     audience: string;
   },
-): UseApiState => {
+): AuthState => {
   const { audience } = options;
   const { getAccessTokenSilently } = useAuth0();
 
-  const [state, setState] = useState<UseApiState>({
-    loading: true,
-  });
+  const [state, setState] = useState<AuthState>(initialAuthState);
 
   useEffect(() => {
     (async (): Promise<void> => {
@@ -33,14 +30,16 @@ export const useAuth0Api = (
         });
         if (res.ok) {
           setState({
-            loading: false,
+            isAuthenticated: true,
+            isLoading: false,
           });
         }
       } catch (error) {
         if (error instanceof Error) {
           setState({
             error,
-            loading: false,
+            isAuthenticated: false,
+            isLoading: false,
           });
         }
       }
