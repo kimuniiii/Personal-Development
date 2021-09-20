@@ -1,4 +1,4 @@
-import { withAuthenticationRequired } from '@auth0/auth0-react';
+import { withAuthenticationRequired, useAuth0 } from '@auth0/auth0-react';
 import styled from '@emotion/styled';
 import React from 'react';
 
@@ -12,6 +12,8 @@ import { HeadTemplate } from 'src/components/templates/HeadTemplate';
 
 import { useAuth0Api } from 'src/hooks/useAuth0Api';
 
+import { formatDateToyyyyMMdd } from 'src/lib/date';
+
 import { priceToJapaneseYen } from 'src/utils/price';
 
 import ReactImage from '../../../public/images/react.jpg';
@@ -22,12 +24,13 @@ type MyPageProps = {
 
 /**
  * @概要 ログインしていたらマイページ・ログインしていなかったらログイン画面に遷移するコンポーネント
- * @説明 ユーザーの情報が表示されているため「protected page」となる
+ * @説明 非ログイン時にアクセスできないようにしたいため「Protected Page」である
  */
 const MyPage: NextPage<MyPageProps> = ({ origin }) => {
   const { isLoading, error } = useAuth0Api(`${origin}/my-page`, {
     audience: `${origin}`,
   });
+  const { user } = useAuth0();
 
   if (error) {
     return (
@@ -47,6 +50,10 @@ const MyPage: NextPage<MyPageProps> = ({ origin }) => {
     );
   }
 
+  if (typeof user === 'undefined') {
+    return null;
+  }
+
   return (
     <React.Fragment>
       <HeadTemplate
@@ -56,7 +63,20 @@ const MyPage: NextPage<MyPageProps> = ({ origin }) => {
       <CommonTemplate isSideBar={true}>
         <StRoot>
           <StProductListContainer>
-            <h3>Hello！さん</h3>
+            <StProfileInfoContainer>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={user.picture} alt='user picture' width={126} height={126} />
+              <Margin right='32px' />
+              <StUserProfileContainer>
+                <h3>Hello！{user.nickname}さん</h3>
+                <Margin bottom='8px' />
+                <h5>メールアドレス : {user.email}</h5>
+                <Margin bottom='8px' />
+                <h5>登録名 : {user.nickname}</h5>
+                <Margin bottom='8px' />
+                <h5>最終更新日時 : {formatDateToyyyyMMdd(new Date(`${user.updated_at}`))}</h5>
+              </StUserProfileContainer>
+            </StProfileInfoContainer>
             <h3>登録商品</h3>
             <ProductCard productCardList={productCardList} />
             <Margin bottom='8px' />
@@ -101,8 +121,17 @@ const StRoot = styled.section`
 const StProductListContainer = styled.section`
   display: flex;
   flex-direction: column;
-  height: 500px;
   gap: 16px;
+`;
+
+const StProfileInfoContainer = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const StUserProfileContainer = styled.div`
+  display: flex;
+  flex-direction: column;
 `;
 
 // データモックを簡易的に定義する
