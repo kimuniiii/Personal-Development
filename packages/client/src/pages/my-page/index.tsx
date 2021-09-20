@@ -25,8 +25,6 @@ type MyPageProps = {
  * @説明 ユーザーの情報が表示されているため「protected page」となる
  */
 const MyPage: NextPage<MyPageProps> = ({ origin }) => {
-  console.log('my-page-origin', origin);
-  console.log('useApiの前');
   const { loading, error } = useAuth0Api(`${origin}/my-page`, {
     audience: `${origin}`,
   });
