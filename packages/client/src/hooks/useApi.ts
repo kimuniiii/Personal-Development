@@ -1,19 +1,23 @@
 import { useAuth0 } from '@auth0/auth0-react';
 import { useEffect, useState } from 'react';
 
+type UseApiState = {
+  loading: boolean;
+  error?: Error;
+};
+
 export const useApi = (
   url: string,
-): {
-  loading: boolean;
-  error: boolean;
-  data: null;
-} => {
+  options: {
+    audience: string;
+  },
+): UseApiState => {
+  const { audience } = options;
+  // const { getAccessTokenWithPopup } = useAuth0();
   const { getAccessTokenSilently } = useAuth0();
 
-  const [state, setState] = useState({
+  const [state, setState] = useState<UseApiState>({
     loading: true,
-    error: false,
-    data: null,
   });
 
   console.log('useEffectの前');
@@ -21,30 +25,27 @@ export const useApi = (
   useEffect(() => {
     (async (): Promise<void> => {
       try {
-        console.log('useEffectの中・getAccessTokenSilentlyの前');
         // auth0-react ではクライアントサイドで「アクセストークン」を取得する
-        const accessToken = await getAccessTokenSilently();
-        console.log('accessToken', accessToken);
+        const accessToken = await getAccessTokenSilently({ audience });
         const res = await fetch(url, {
           headers: {
+            'Content-Type': 'application/json',
             // Add the Authorization header to the existing headers
             Authorization: `Bearer ${accessToken}`,
           },
         });
-        const data = await res.json();
-        console.log('data', data);
-        setState({
-          ...state,
-          data,
-          error: false,
-          loading: false,
-        });
-      } catch (error: unknown) {
-        setState({
-          ...state,
-          error: true,
-          loading: false,
-        });
+        if (res.ok) {
+          setState({
+            loading: false,
+          });
+        }
+      } catch (error) {
+        if (error instanceof Error) {
+          setState({
+            error,
+            loading: false,
+          });
+        }
       }
     })();
   }, [getAccessTokenSilently]); // eslint-disable-line react-hooks/exhaustive-deps
