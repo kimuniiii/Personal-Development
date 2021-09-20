@@ -2,7 +2,7 @@ import { css, SerializedStyles } from '@emotion/react';
 import styled from '@emotion/styled';
 import React from 'react';
 
-import type { ValueOf } from 'typings/ValueOf';
+import type { ValueOf } from 'src/typings/utils/ValueOf';
 
 import { buttonStyleTypes } from 'src/components/atoms/Button/buttonStyleTypes';
 
