@@ -1,55 +1,83 @@
-import { useAuth0 } from '@auth0/auth0-react';
 import styled from '@emotion/styled';
 import React from 'react';
 
 import type { NextPage } from 'next';
 
+import { Loader } from 'src/components/atoms/Loader';
 import { Margin } from 'src/components/layouts/Margin';
 import { ProductCard } from 'src/components/organisms/ProductCard';
 import { CommonTemplate } from 'src/components/templates/CommonTemplate';
 import { HeadTemplate } from 'src/components/templates/HeadTemplate';
 
+import { useAuth0Api } from 'src/hooks/useAuth0Api';
+
 import { priceToJapaneseYen } from 'src/utils/price';
 
 import ReactImage from '../../../public/images/react.jpg';
+
+type MyPageProps = {
+  origin: string;
+};
 
 /**
  * @概要 ログインしていたらマイページ・ログインしていなかったらログイン画面に遷移するコンポーネント
  * @説明 ユーザーの情報が表示されているため「protected page」となる
  */
-const MyPage: NextPage = () => {
-  const { isAuthenticated, user } = useAuth0();
+const MyPage: NextPage<MyPageProps> = ({ origin }) => {
+  console.log('my-page-origin', origin);
+  console.log('useApiの前');
+  const { loading, error } = useAuth0Api(`${origin}/my-page`, {
+    audience: `${origin}`,
+  });
 
-  // FIXME : ログインしてないのに「マイページ」にURLで直接アクセスした場合
-  // FIXME : Auth0 の「ログインモーダル」に遷移させたいがエラーになるので
-  // FIXME : とりあえず、何も描画させないような実装で対応を行った
-  if (isAuthenticated && user !== undefined) {
+  if (loading) {
     return (
-      <React.Fragment>
-        <HeadTemplate
-          pageCanonicalUrl='https://www.riot-ec-site.com/my-page'
-          pageTitle='マイページ'
-        />
-        <CommonTemplate isSideBar={true}>
-          <StRoot>
-            <StProductListContainer>
-              <h3>Hello！{user.name}さん</h3>
-              <h3>登録商品</h3>
-              <ProductCard productCardList={productCardList} />
-              <Margin bottom='8px' />
-              <h3>連絡掲示板</h3>
-              <h3>お気に入り一覧</h3>
-            </StProductListContainer>
-          </StRoot>
-        </CommonTemplate>
-      </React.Fragment>
+      <StCenterLoaderContainer>
+        <Loader loadingContent='このまましばらくお待ち下さい' />
+      </StCenterLoaderContainer>
     );
-  } else {
-    return null;
   }
+
+  if (error) {
+    return (
+      <div style={{ color: 'red' }}>
+        <h1>{error.name}</h1>
+        <h2>{error.message}</h2>
+        <p>{error.stack}</p>
+      </div>
+    );
+  }
+
+  return (
+    <React.Fragment>
+      <HeadTemplate
+        pageCanonicalUrl='https://www.riot-ec-site.com/my-page'
+        pageTitle='マイページ'
+      />
+      <CommonTemplate isSideBar={true}>
+        <StRoot>
+          <StProductListContainer>
+            <h3>Hello！さん</h3>
+            <h3>登録商品</h3>
+            <ProductCard productCardList={productCardList} />
+            <Margin bottom='8px' />
+            <h3>連絡掲示板</h3>
+            <h3>お気に入り一覧</h3>
+          </StProductListContainer>
+        </StRoot>
+      </CommonTemplate>
+    </React.Fragment>
+  );
 };
 
 export default MyPage;
+
+const StCenterLoaderContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+`;
 
 const StRoot = styled.section`
   display: flex;
