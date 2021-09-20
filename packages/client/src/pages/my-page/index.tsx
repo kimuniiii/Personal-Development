@@ -1,3 +1,4 @@
+import { withAuthenticationRequired } from '@auth0/auth0-react';
 import styled from '@emotion/styled';
 import React from 'react';
 
@@ -70,7 +71,14 @@ const MyPage: NextPage<MyPageProps> = ({ origin }) => {
   );
 };
 
-export default MyPage;
+export default withAuthenticationRequired(MyPage, {
+  // eslint-disable-next-line react/display-name
+  onRedirecting: () => (
+    <StCenterLoaderContainer>
+      <Loader loadingContent='ログイン画面に遷移しています' />
+    </StCenterLoaderContainer>
+  ),
+});
 
 const StCenterLoaderContainer = styled.div`
   display: flex;
