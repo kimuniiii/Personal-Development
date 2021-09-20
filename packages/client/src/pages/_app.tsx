@@ -1,7 +1,8 @@
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
-import { Auth0Provider } from '@auth0/auth0-react';
+import { Auth0Provider, AppState } from '@auth0/auth0-react';
 import { css, Global } from '@emotion/react';
 import App, { AppContext, AppInitialProps } from 'next/app';
+import Router from 'next/router';
 import React from 'react';
 
 import type { AppProps } from 'next/app';
@@ -47,6 +48,12 @@ const CustomApp = ({
   console.log('auth0Domain', auth0Domain);
   console.log('auth0ClientId', auth0ClientId);
 
+  const onRedirectCallback = (appState: AppState): void => {
+    console.log('appState', appState);
+    console.log('appState?.returnTo', appState?.returnTo);
+    Router.replace(appState?.returnTo || '/my-page');
+  };
+
   return (
     <React.Fragment>
       <HeadTemplate pageOrigin={origin} />
@@ -55,6 +62,7 @@ const CustomApp = ({
         clientId={auth0ClientId}
         redirectUri={redirectUri}
         audience={origin}
+        onRedirectCallback={onRedirectCallback}
       >
         <ApolloProvider client={createApolloClient}>
           <Global
