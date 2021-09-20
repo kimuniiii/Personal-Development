@@ -6,21 +6,18 @@ type UseApiState = {
   error?: Error;
 };
 
-export const useApi = (
+export const useAuth0Api = (
   url: string,
   options: {
     audience: string;
   },
 ): UseApiState => {
   const { audience } = options;
-  // const { getAccessTokenWithPopup } = useAuth0();
   const { getAccessTokenSilently } = useAuth0();
 
   const [state, setState] = useState<UseApiState>({
     loading: true,
   });
-
-  console.log('useEffectの前');
 
   useEffect(() => {
     (async (): Promise<void> => {
