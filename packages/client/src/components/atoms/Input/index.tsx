@@ -4,7 +4,7 @@ import { ErrorMessage } from '@hookform/error-message';
 import React from 'react';
 
 import type { UseFormRegisterReturn } from 'react-hook-form';
-import type { ValueOf } from 'typings/ValueOf';
+import type { ValueOf } from 'src/typings/utils/ValueOf';
 
 import { FormLabel } from 'src/components/atoms/FormLabel';
 import { Margin } from 'src/components/layouts/Margin';

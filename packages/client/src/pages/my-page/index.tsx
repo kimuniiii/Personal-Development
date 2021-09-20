@@ -1,54 +1,109 @@
-import { useAuth0 } from '@auth0/auth0-react';
+import { withAuthenticationRequired, useAuth0 } from '@auth0/auth0-react';
 import styled from '@emotion/styled';
 import React from 'react';
 
 import type { NextPage } from 'next';
 
+import { Loader } from 'src/components/atoms/Loader';
 import { Margin } from 'src/components/layouts/Margin';
 import { ProductCard } from 'src/components/organisms/ProductCard';
 import { CommonTemplate } from 'src/components/templates/CommonTemplate';
 import { HeadTemplate } from 'src/components/templates/HeadTemplate';
 
+import { useAuth0Api } from 'src/hooks/useAuth0Api';
+
+import { formatDateToyyyyMMdd } from 'src/lib/date';
+
 import { priceToJapaneseYen } from 'src/utils/price';
 
 import ReactImage from '../../../public/images/react.jpg';
 
-/**
- * @概要 ログインしていたらマイページ・ログインしていなかったらログイン画面に遷移するコンポーネント
- */
-const MyPage: NextPage = () => {
-  const { isAuthenticated, user } = useAuth0();
-
-  // FIXME : ログインしてないのに「マイページ」にURLで直接アクセスした場合
-  // FIXME : Auth0 の「ログインモーダル」に遷移させたいがエラーになるので
-  // FIXME : とりあえず、何も描画させないような実装で対応を行った
-  if (isAuthenticated && user !== undefined) {
-    return (
-      <React.Fragment>
-        <HeadTemplate
-          pageCanonicalUrl='https://www.riot-ec-site.com/my-page'
-          pageTitle='マイページ'
-        />
-        <CommonTemplate isSideBar={true}>
-          <StRoot>
-            <StProductListContainer>
-              <h3>Hello！{user.name}さん</h3>
-              <h3>登録商品</h3>
-              <ProductCard productCardList={productCardList} />
-              <Margin bottom='8px' />
-              <h3>連絡掲示板</h3>
-              <h3>お気に入り一覧</h3>
-            </StProductListContainer>
-          </StRoot>
-        </CommonTemplate>
-      </React.Fragment>
-    );
-  } else {
-    return null;
-  }
+type MyPageProps = {
+  origin: string;
 };
 
-export default MyPage;
+/**
+ * @概要 ログインしていたらマイページ・ログインしていなかったらログイン画面に遷移するコンポーネント
+ * @説明 非ログイン時にアクセスできないようにしたいため「Protected Page」である
+ */
+const MyPage: NextPage<MyPageProps> = ({ origin }) => {
+  const { isLoading, error } = useAuth0Api(`${origin}/my-page`, {
+    audience: `${origin}`,
+  });
+  const { user } = useAuth0();
+
+  if (error) {
+    return (
+      <div style={{ color: 'red' }}>
+        <h1>{error.name}</h1>
+        <h2>{error.message}</h2>
+        <p>{error.stack}</p>
+      </div>
+    );
+  }
+
+  if (isLoading) {
+    return (
+      <StCenterLoaderContainer>
+        <Loader loadingContent='マイページに画面遷移しています' />
+      </StCenterLoaderContainer>
+    );
+  }
+
+  if (typeof user === 'undefined') {
+    return null;
+  }
+
+  return (
+    <React.Fragment>
+      <HeadTemplate
+        pageCanonicalUrl='https://www.riot-ec-site.com/my-page'
+        pageTitle='マイページ'
+      />
+      <CommonTemplate isSideBar={true}>
+        <StRoot>
+          <StProductListContainer>
+            <StProfileInfoContainer>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={user.picture} alt='user picture' width={126} height={126} />
+              <Margin right='32px' />
+              <StUserProfileContainer>
+                <h3>Hello！{user.nickname}さん</h3>
+                <Margin bottom='8px' />
+                <h5>メールアドレス : {user.email}</h5>
+                <Margin bottom='8px' />
+                <h5>登録名 : {user.nickname}</h5>
+                <Margin bottom='8px' />
+                <h5>最終更新日時 : {formatDateToyyyyMMdd(new Date(`${user.updated_at}`))}</h5>
+              </StUserProfileContainer>
+            </StProfileInfoContainer>
+            <h3>登録商品</h3>
+            <ProductCard productCardList={productCardList} />
+            <Margin bottom='8px' />
+            <h3>連絡掲示板</h3>
+            <h3>お気に入り一覧</h3>
+          </StProductListContainer>
+        </StRoot>
+      </CommonTemplate>
+    </React.Fragment>
+  );
+};
+
+export default withAuthenticationRequired(MyPage, {
+  // eslint-disable-next-line react/display-name
+  onRedirecting: () => (
+    <StCenterLoaderContainer>
+      <Loader loadingContent='ログイン済かどうか判定してます' />
+    </StCenterLoaderContainer>
+  ),
+});
+
+const StCenterLoaderContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+`;
 
 const StRoot = styled.section`
   display: flex;
@@ -66,8 +121,17 @@ const StRoot = styled.section`
 const StProductListContainer = styled.section`
   display: flex;
   flex-direction: column;
-  height: 500px;
   gap: 16px;
+`;
+
+const StProfileInfoContainer = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const StUserProfileContainer = styled.div`
+  display: flex;
+  flex-direction: column;
 `;
 
 // データモックを簡易的に定義する

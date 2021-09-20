@@ -1,10 +1,8 @@
 import { useAuth0 } from '@auth0/auth0-react';
 import { css, SerializedStyles } from '@emotion/react';
 import styled from '@emotion/styled';
+import { ReactNode, VFC } from 'react';
 
-import type { ReactNode, VFC } from 'react';
-
-import { Loader } from 'src/components/atoms/Loader';
 import { CommonFooter } from 'src/components/templates/CommonTemplate/CommonFooter';
 import { CommonHeader } from 'src/components/templates/CommonTemplate/CommonHeader';
 import { CommonSideBar } from 'src/components/templates/CommonTemplate/CommonSideBar';
@@ -15,19 +13,7 @@ type CommonTemplateProps = {
 };
 
 export const CommonTemplate: VFC<CommonTemplateProps> = ({ children, isSideBar }) => {
-  const { isLoading, isAuthenticated, error, loginWithRedirect, logout } = useAuth0();
-
-  if (isLoading) {
-    return (
-      <StCenterLoaderContainer>
-        <Loader loadingContent='このまましばらくお待ち下さい' />
-      </StCenterLoaderContainer>
-    );
-  }
-
-  if (error) {
-    return <div>Oops... {error.message}</div>;
-  }
+  const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
 
   return (
     <StCommonRoot>
@@ -50,13 +36,6 @@ export const CommonTemplate: VFC<CommonTemplateProps> = ({ children, isSideBar }
     </StCommonRoot>
   );
 };
-
-const StCenterLoaderContainer = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-`;
 
 const StCommonRoot = styled.section`
   display: flex;

@@ -4,7 +4,7 @@ import React from 'react';
 import { IoIosArrowDown } from 'react-icons/io/index';
 
 import type { UseFormRegisterReturn } from 'react-hook-form';
-import type { ValueOf } from 'typings/ValueOf';
+import type { ValueOf } from 'src/typings/utils/ValueOf';
 
 import { Margin } from 'src/components/layouts/Margin';
 
