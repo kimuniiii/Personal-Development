@@ -13,11 +13,3 @@ export type AuthState<TUser extends User = User> = {
   error?: Error;
   user?: TUser;
 };
-
-/**
- * @概要 The initial auth state.
- */
-export const initialAuthState: AuthState = {
-  isAuthenticated: false,
-  isLoading: true,
-};
