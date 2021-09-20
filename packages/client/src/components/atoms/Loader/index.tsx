@@ -18,6 +18,9 @@ type LoaderProps = {
    * loaderCircleSize の値と同じにする
    */
   height?: `${number}px`;
+  /**
+   * width・height の`px値`と同じ数値にする
+   */
   loaderCircleSize?: number;
   loadingContent?: string;
 };
