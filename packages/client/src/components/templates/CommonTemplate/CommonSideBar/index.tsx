@@ -1,3 +1,4 @@
+import { useAuth0 } from '@auth0/auth0-react';
 import styled from '@emotion/styled';
 import Router from 'next/router';
 
@@ -6,9 +7,20 @@ import type { VFC } from 'react';
 import { Button } from 'src/components/atoms/Button';
 import { Margin } from 'src/components/layouts/Margin';
 
+import { changePassword } from 'src/lib/changePassword';
+
 import { COLOR_PALETTE } from 'src/styles/color_palette';
 
-export const CommonSideBar: VFC = () => {
+type CommonSideBarProps = {
+  auth0Domain: string;
+  auth0ClientId: string;
+};
+
+export const CommonSideBar: VFC<CommonSideBarProps> = ({ auth0Domain, auth0ClientId }) => {
+  const { user } = useAuth0();
+  console.log('CommonSideBar');
+  console.log('user', user);
+
   return (
     <StSideBarContainer>
       <Button
@@ -48,7 +60,7 @@ export const CommonSideBar: VFC = () => {
         fontSizeValue='16px'
         padding='8px'
         buttonContent='パスワード変更'
-        onClick={(): Promise<boolean> => Router.push('/password/change')}
+        onClick={(): Promise<void> => changePassword({ auth0Domain, auth0ClientId, user })}
       />
       <Margin bottom='8px' />
       <Button
