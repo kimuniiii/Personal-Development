@@ -1,8 +1,8 @@
 import type { User } from '@auth0/auth0-spa-js';
 
 type ChangePasswordArgs = {
-  auth0Domain: string;
-  auth0ClientId: string;
+  auth0Domain?: string;
+  auth0ClientId?: string;
   user?: User;
 };
 
@@ -23,6 +23,14 @@ export const changePassword = async ({
   console.log('auth0ClientId', process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID);
   console.log('user?.email', user?.email);
 
+  const jsonData = JSON.stringify({
+    client_id: process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID,
+    email: user?.email,
+    connection: 'Username-Password-Authentication',
+  });
+
+  console.log(jsonData);
+
   const res = await fetch(
     `https://${process.env.NEXT_PUBLIC_AUTH0_DOMAIN}/dbconnections/change_password`,
     {
@@ -30,13 +38,12 @@ export const changePassword = async ({
       mode: 'cors',
       credentials: 'same-origin',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        client_id: process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID,
-        email: user?.email,
-        connection: 'Username-Password-Authentication',
-      }),
+      body: jsonData,
     },
   );
 
+  console.log('res.json()');
   console.log(res.json());
+  console.log('res.text()');
+  console.log(res.text());
 };

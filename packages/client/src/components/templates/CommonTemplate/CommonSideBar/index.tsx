@@ -12,8 +12,8 @@ import { changePassword } from 'src/lib/changePassword';
 import { COLOR_PALETTE } from 'src/styles/color_palette';
 
 type CommonSideBarProps = {
-  auth0Domain: string;
-  auth0ClientId: string;
+  auth0Domain?: string;
+  auth0ClientId?: string;
 };
 
 export const CommonSideBar: VFC<CommonSideBarProps> = ({ auth0Domain, auth0ClientId }) => {

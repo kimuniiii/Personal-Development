@@ -9,8 +9,8 @@ import { CommonSideBar } from 'src/components/templates/CommonTemplate/CommonSid
 
 type CommonTemplateProps = {
   children: ReactNode;
-  auth0Domain: string;
-  auth0ClientId: string;
+  auth0Domain?: string;
+  auth0ClientId?: string;
   isSideBar?: boolean;
 };
 
