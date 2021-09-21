@@ -10,6 +10,7 @@ type ChangePasswordArgs = {
  * @概要 パスワード変更ボタンをクリックしたときに発火する関数
  * @説明 FIXME : なぜかメールが送信されない問題が起きているので対応が必要
  * @エラー文 FIXME : SyntaxError: Unexpected token W in JSON at position 0"
+ * @解決方法 JSON.stringify() を 変数 に格納した上で「body」に紐付ける
  */
 export const changePassword = async ({
   auth0Domain,
@@ -23,13 +24,13 @@ export const changePassword = async ({
   console.log('auth0ClientId', process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID);
   console.log('user?.email', user?.email);
 
-  const jsonData = JSON.stringify({
+  const jsonBodyData = JSON.stringify({
     client_id: process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID,
     email: user?.email,
     connection: 'Username-Password-Authentication',
   });
 
-  console.log(jsonData);
+  console.log('jsonBodyData', jsonBodyData);
 
   const res = await fetch(
     `https://${process.env.NEXT_PUBLIC_AUTH0_DOMAIN}/dbconnections/change_password`,
@@ -38,12 +39,10 @@ export const changePassword = async ({
       mode: 'cors',
       credentials: 'same-origin',
       headers: { 'Content-Type': 'application/json' },
-      body: jsonData,
+      body: jsonBodyData,
     },
   );
 
-  console.log('res.json()');
-  console.log(res.json());
   console.log('res.text()');
   console.log(res.text());
 };
