@@ -23,7 +23,11 @@ const TopPage = (): JSX.Element => {
 
   return (
     <React.Fragment>
-      <HeadTemplate pageCanonicalUrl='https://www.riot-ec-site.com' pageTitle='トップページ' />
+      <HeadTemplate
+        pageOrigin={origin}
+        pageCanonicalUrl='https://www.riot-ec-site.com'
+        pageTitle='トップページ'
+      />
       <CommonTemplate isSideBar={false}>
         <StRoot>
           <SearchBox />
