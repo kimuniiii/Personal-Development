@@ -19,7 +19,8 @@ type CommonSideBarProps = {
 export const CommonSideBar: VFC<CommonSideBarProps> = ({ auth0Domain, auth0ClientId }) => {
   const { user } = useAuth0();
   console.log('CommonSideBar');
-  console.log('user', user);
+  console.log('user');
+  console.table(user);
 
   return (
     <StSideBarContainer>
