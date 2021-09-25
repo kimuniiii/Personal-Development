@@ -22,7 +22,7 @@ type ProductRegisterProps = {
 /**
  * @概要 マイページの商品を出品するボタンを押したら表示されるページコンポーネント
  */
-const ProductRegisterPage: NextPage<ProductRegisterProps> = () => {
+const ProductRegisterPage: NextPage<ProductRegisterProps> = ({ origin }) => {
   const {
     register,
     handleSubmit,
@@ -55,7 +55,7 @@ const ProductRegisterPage: NextPage<ProductRegisterProps> = () => {
     <React.Fragment>
       <HeadTemplate
         pageOrigin={origin}
-        pageCanonicalUrl='https://www.riot-ec-site.com/password/product/register'
+        pageCanonicalUrl='https://www.riot-ec-site.com/product/register'
         pageTitle='商品登録ページ'
       />
       <CommonTemplate isSideBar={true}>
