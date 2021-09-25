@@ -12,7 +12,7 @@ const ProductDetailPage: NextPage<ProductDetailPageProps> = ({ origin }) => {
     <>
       <HeadTemplate
         pageOrigin={origin}
-        pageCanonicalUrl='https://www.riot-ec-site.com/password/product/detail'
+        pageCanonicalUrl='https://www.riot-ec-site.com/product/detail'
         pageTitle='商品詳細ページ'
       />
       <CommonTemplate>商品詳細ページ</CommonTemplate>
