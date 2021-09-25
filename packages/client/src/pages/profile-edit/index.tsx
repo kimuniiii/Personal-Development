@@ -2,6 +2,8 @@ import styled from '@emotion/styled';
 import React, { useState } from 'react';
 import { SubmitErrorHandler, SubmitHandler, useForm } from 'react-hook-form';
 
+import type { NextPage } from 'next';
+
 import { Button } from 'src/components/atoms/Button';
 import { Input } from 'src/components/atoms/Input';
 import { Margin } from 'src/components/layouts/Margin';
@@ -23,10 +25,14 @@ type UseFormInputs = {
   email: string;
 };
 
+type ProfileEditProps = {
+  origin: string;
+};
+
 /**
  * @概要 マイページのプロフィール編集ボタンを押したら表示されるページコンポーネント
  */
-const ProfileEditPage = (): JSX.Element => {
+const ProfileEditPage: NextPage<ProfileEditProps> = ({ origin }) => {
   const {
     register,
     handleSubmit,
@@ -97,6 +103,7 @@ const ProfileEditPage = (): JSX.Element => {
   return (
     <React.Fragment>
       <HeadTemplate
+        pageOrigin={origin}
         pageCanonicalUrl='https://www.riot-ec-site.com/profile-edit'
         pageTitle='プロフィール編集ページ'
       />

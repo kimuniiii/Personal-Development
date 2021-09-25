@@ -2,6 +2,8 @@ import styled from '@emotion/styled';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
+import type { NextPage } from 'next';
+
 import { Button } from 'src/components/atoms/Button';
 import { Input } from 'src/components/atoms/Input';
 import { SelectBox } from 'src/components/atoms/SelectBox';
@@ -13,10 +15,14 @@ import { HeadTemplate } from 'src/components/templates/HeadTemplate';
 
 import { COLOR_PALETTE } from 'src/styles/color_palette';
 
+type ProductRegisterProps = {
+  origin: string;
+};
+
 /**
  * @概要 マイページの商品を出品するボタンを押したら表示されるページコンポーネント
  */
-const ProductRegisterPage = (): JSX.Element => {
+const ProductRegisterPage: NextPage<ProductRegisterProps> = () => {
   const {
     register,
     handleSubmit,
@@ -48,6 +54,7 @@ const ProductRegisterPage = (): JSX.Element => {
   return (
     <React.Fragment>
       <HeadTemplate
+        pageOrigin={origin}
         pageCanonicalUrl='https://www.riot-ec-site.com/password/product/register'
         pageTitle='商品登録ページ'
       />

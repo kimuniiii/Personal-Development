@@ -57,6 +57,7 @@ const MyPage: NextPage<MyPageProps> = ({ origin }) => {
   return (
     <React.Fragment>
       <HeadTemplate
+        pageOrigin={origin}
         pageCanonicalUrl='https://www.riot-ec-site.com/my-page'
         pageTitle='マイページ'
       />

@@ -2,19 +2,26 @@ import styled from '@emotion/styled';
 import Router from 'next/router';
 import React from 'react';
 
+import type { NextPage } from 'next';
+
 import { Button } from 'src/components/atoms/Button';
 import { CommonTemplate } from 'src/components/templates/CommonTemplate';
 import { HeadTemplate } from 'src/components/templates/HeadTemplate';
 
 import { COLOR_PALETTE } from 'src/styles/color_palette';
 
+type WithDrawProps = {
+  origin: string;
+};
+
 /**
  * @概要 マイページの「退会ボタン」を押したら表示されるページコンポーネント
  */
-const WithDrawPage = (): JSX.Element => {
+const WithDrawPage: NextPage<WithDrawProps> = ({ origin }) => {
   return (
     <React.Fragment>
       <HeadTemplate
+        pageOrigin={origin}
         pageCanonicalUrl='https://www.riot-ec-site.com/withdraw'
         pageTitle='退会ページ'
       />
