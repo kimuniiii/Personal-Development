@@ -9,10 +9,17 @@ import { CommonSideBar } from 'src/components/templates/CommonTemplate/CommonSid
 
 type CommonTemplateProps = {
   children: ReactNode;
+  auth0Domain?: string;
+  auth0ClientId?: string;
   isSideBar?: boolean;
 };
 
-export const CommonTemplate: VFC<CommonTemplateProps> = ({ children, isSideBar }) => {
+export const CommonTemplate: VFC<CommonTemplateProps> = ({
+  children,
+  auth0Domain,
+  auth0ClientId,
+  isSideBar,
+}) => {
   const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
 
   return (
@@ -25,7 +32,7 @@ export const CommonTemplate: VFC<CommonTemplateProps> = ({ children, isSideBar }
       {isSideBar ? (
         <StMain isSideBar={isSideBar}>
           <main>{children}</main>
-          <CommonSideBar />
+          <CommonSideBar auth0Domain={auth0Domain} auth0ClientId={auth0ClientId} />
         </StMain>
       ) : (
         <StMain isSideBar={isSideBar}>

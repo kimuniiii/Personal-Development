@@ -70,7 +70,12 @@ const CustomApp = ({
               ${GLOBAL_STYLE}
             `}
           />
-          <Component {...pageProps} origin={origin} />
+          <Component
+            {...pageProps}
+            origin={origin}
+            auth0Domain={auth0Domain}
+            auth0ClientId={auth0ClientId}
+          />
         </ApolloProvider>
       </Auth0Provider>
     </React.Fragment>
