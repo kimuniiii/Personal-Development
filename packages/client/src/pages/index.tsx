@@ -1,6 +1,8 @@
 import styled from '@emotion/styled';
 import React, { useState } from 'react';
 
+import type { NextPage } from 'next';
+
 import { Margin } from 'src/components/layouts/Margin';
 import { Pagination } from 'src/components/organisms/Pagination';
 import { ProductCard } from 'src/components/organisms/ProductCard';
@@ -14,7 +16,11 @@ import { priceToJapaneseYen } from 'src/utils/price';
 
 import ReactImage from '../../public/images/react.jpg';
 
-const TopPage = (): JSX.Element => {
+type TopPageProps = {
+  origin: string;
+};
+
+const TopPage: NextPage<TopPageProps> = ({ origin }) => {
   // API通信の結果に応じて「動的」に変化していく予定
   const SEARCH_CURRENT_PAGE_NUMBER = 1;
   const SEARCH_TOTAL_RESULT_NUMBER = 3;
