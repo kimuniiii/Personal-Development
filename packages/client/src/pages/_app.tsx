@@ -14,15 +14,12 @@ import { getAuth0Domain } from 'src/lib/getAuth0Domain';
 
 import { GLOBAL_STYLE } from 'src/styles/global_style';
 
+import { getApiEndPoint } from 'src/utils/getApiEndPoint';
 import { getRedirectUriOrigin } from 'src/utils/getRedirectUriOrigin';
-
-const createApolloClient = new ApolloClient({
-  uri: 'http://localhost:8080/v1/graphql',
-  cache: new InMemoryCache(),
-});
 
 type CustomAppProps = AppProps & {
   origin?: string;
+  endPoint?: string;
   auth0Domain: string;
   auth0ClientId: string;
 };
@@ -31,9 +28,16 @@ const CustomApp = ({
   Component,
   pageProps,
   origin,
+  endPoint,
   auth0Domain,
   auth0ClientId,
 }: CustomAppProps): JSX.Element => {
+  console.log('endPoint', endPoint);
+  const createApolloClient = new ApolloClient({
+    uri: endPoint,
+    cache: new InMemoryCache(),
+  });
+
   // ログイン後のリダイレクト先を指定
   const redirectUri = `${origin}/my-page`;
   console.log(redirectUri);
@@ -86,14 +90,16 @@ export default CustomApp;
 
 type CustomAppInitialProps = AppInitialProps & {
   origin: string;
+  endPoint: string;
   auth0Domain: string;
   auth0ClientId: string;
 };
 
 CustomApp.getInitialProps = async (appContext: AppContext): Promise<CustomAppInitialProps> => {
   const origin = getRedirectUriOrigin(process.env.VERCEL_ENV);
+  const endPoint = getApiEndPoint(process.env.VERCEL_ENV);
   const auth0Domain = getAuth0Domain();
   const auth0ClientId = getAuth0ClientId();
   const appProps = await App.getInitialProps(appContext);
-  return { ...appProps, origin, auth0Domain, auth0ClientId };
+  return { ...appProps, origin, endPoint, auth0Domain, auth0ClientId };
 };
