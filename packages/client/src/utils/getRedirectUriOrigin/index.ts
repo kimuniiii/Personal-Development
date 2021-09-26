@@ -9,13 +9,14 @@ import {
  * @説明 開発環境と本番環境で、ログイン後のリダイレクト先のオリジンを出し分けたいため
  */
 export const getRedirectUriOrigin = (vercelEnv?: string): string => {
-  if (vercelEnv === 'development') {
-    return VERCEL_DEVELOPMENT_ORIGIN;
-  } else if (vercelEnv === 'staging') {
-    return VERCEL_STAGING_ORIGIN;
-  } else if (vercelEnv === 'production') {
-    return VERCEL_PRODUCTION_ORIGIN;
-  } else {
-    return '';
+  switch (vercelEnv) {
+    case 'development':
+      return VERCEL_DEVELOPMENT_ORIGIN;
+    case 'staging':
+      return VERCEL_STAGING_ORIGIN;
+    case 'production':
+      return VERCEL_PRODUCTION_ORIGIN;
+    default:
+      return '';
   }
 };
