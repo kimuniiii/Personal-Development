@@ -36,6 +36,9 @@ const CustomApp = ({
   const createApolloClient = new ApolloClient({
     uri: endPoint,
     cache: new InMemoryCache(),
+    headers: {
+      'x-hasura-admin-secret': 'heroku-staging',
+    },
   });
 
   // ログイン後のリダイレクト先を指定
