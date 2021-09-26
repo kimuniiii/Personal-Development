@@ -18,8 +18,8 @@ import { getApiEndPoint } from 'src/utils/getApiEndPoint';
 import { getRedirectUriOrigin } from 'src/utils/getRedirectUriOrigin';
 
 type CustomAppProps = AppProps & {
-  origin?: string;
-  endPoint?: string;
+  origin: string;
+  endPoint: string;
   auth0Domain: string;
   auth0ClientId: string;
 };
@@ -37,7 +37,7 @@ const CustomApp = ({
     uri: endPoint,
     cache: new InMemoryCache(),
     headers: {
-      'x-hasura-admin-secret': 'heroku-staging',
+      'x-hasura-admin-secret': 'heroku-admin-secret',
     },
   });
 
@@ -99,6 +99,7 @@ type CustomAppInitialProps = AppInitialProps & {
 };
 
 CustomApp.getInitialProps = async (appContext: AppContext): Promise<CustomAppInitialProps> => {
+  // VERCEL_ENV : Vercel の ダッシュボードで登録した環境変数
   const origin = getRedirectUriOrigin(process.env.VERCEL_ENV);
   const endPoint = getApiEndPoint(process.env.VERCEL_ENV);
   const auth0Domain = getAuth0Domain();
