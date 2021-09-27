@@ -9,6 +9,8 @@ import type { AppProps } from 'next/app';
 
 import { HeadTemplate } from 'src/components/templates/HeadTemplate';
 
+import { X_HASURA_ADMIN_SECRET } from 'src/constants';
+
 import { getAuth0ClientId } from 'src/lib/getAuth0ClientId';
 import { getAuth0Domain } from 'src/lib/getAuth0Domain';
 
@@ -37,7 +39,7 @@ const CustomApp = ({
     uri: endPoint,
     cache: new InMemoryCache(),
     headers: {
-      'x-hasura-admin-secret': 'heroku-admin-secret',
+      'x-hasura-admin-secret': X_HASURA_ADMIN_SECRET,
     },
   });
 
