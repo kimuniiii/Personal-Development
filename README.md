@@ -90,6 +90,14 @@ yarn server ps
 - バックエンドのデプロイ先は「Heroku」を選択（予定）
 - Heroku は Salesforce 社が提供する「インフラ管理不要な PaaS」です
 
+| 環境名           | URL                                                |
+| ---------------- | -------------------------------------------------- |
+| ステージング環境 | https://riot-ec-site-staging.herokuapp.com/console |
+| 本番環境         | https://riot-ec-site.herokuapp.com/console         |
+
+- エンドポイントの「Console 画面」にアクセスするには「パスワード」が必要になります
+- もし仮にアクセスしたい場合は「木村」に「パスワード」を聞きに来てください
+
 ---
 
 ## 技術選定（暫定）
