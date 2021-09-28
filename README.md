@@ -64,7 +64,23 @@ Next.js では、データベースサーバーまではデフォルトで搭載
 
 ---
 
-## バックエンドのローカル環境
+## バックエンドのデプロイ環境
+
+- バックエンドのデプロイ先は「Heroku」を選択（予定）
+- Heroku は Salesforce 社が提供する「インフラ管理不要な PaaS」です
+
+| 環境名           | URL                                                |
+| ---------------- | -------------------------------------------------- |
+| 開発環境         | https://riot-ec-site-staging.herokuapp.com/console |
+| ステージング環境 | https://riot-ec-site-staging.herokuapp.com/console |
+| 本番環境         | https://riot-ec-site.herokuapp.com/console         |
+
+- エンドポイントの「Hasura Console」にアクセスするには「パスワード」が必要になります
+- もし仮にアクセスしたい場合は「木村」に「パスワード」を聞きに来てください
+
+---
+
+## バックエンドのローカル環境（廃止）
 
 - Hasura を Docker で立ち上げている
 - Docker Desktop を ON にした上で以下のコマンドを叩く
@@ -77,26 +93,11 @@ yarn server start
 yarn server ps
 ```
 
-### Hasura GraphQL Engine を Docker コンテナー環境で動かす
+### Hasura GraphQL Engine を Docker コンテナー環境で動かす（廃止）
 
 [バックエンド | ローカル環境](http://localhost:8080/console)
 
 上記工程で、ローカル環境上で Hasura のコンソール画面を見ることができます
-
----
-
-## バックエンドのデプロイ環境
-
-- バックエンドのデプロイ先は「Heroku」を選択（予定）
-- Heroku は Salesforce 社が提供する「インフラ管理不要な PaaS」です
-
-| 環境名           | URL                                                |
-| ---------------- | -------------------------------------------------- |
-| ステージング環境 | https://riot-ec-site-staging.herokuapp.com/console |
-| 本番環境         | https://riot-ec-site.herokuapp.com/console         |
-
-- エンドポイントの「Console 画面」にアクセスするには「パスワード」が必要になります
-- もし仮にアクセスしたい場合は「木村」に「パスワード」を聞きに来てください
 
 ---
 
