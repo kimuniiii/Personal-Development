@@ -1,8 +1,4 @@
-import {
-  DEVELOPMENT_GRAPHQL_API_ENDPOINT,
-  STAGING_GRAPHQL_API_ENDPOINT,
-  PRODUCTION_GRAPHQL_API_ENDPOINT,
-} from 'src/constants';
+import { STAGING_GRAPHQL_API_ENDPOINT, PRODUCTION_GRAPHQL_API_ENDPOINT } from 'src/constants';
 
 import { getApiEndPoint } from '.';
 
@@ -14,7 +10,7 @@ describe('getApiEndPoint', () => {
   });
   describe('開発環境の場合', () => {
     test('開発環境のAPIエンドポイントを返却すること', () => {
-      expect(getApiEndPoint('development')).toBe(DEVELOPMENT_GRAPHQL_API_ENDPOINT);
+      expect(getApiEndPoint('development')).toBe(STAGING_GRAPHQL_API_ENDPOINT);
     });
   });
   describe('ステージング環境の場合', () => {
