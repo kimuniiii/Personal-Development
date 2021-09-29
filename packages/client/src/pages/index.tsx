@@ -33,9 +33,11 @@ const TopPage: NextPage<TopPageProps> = ({ origin }) => {
     }
   `;
 
+  const [getProductCard, setGetProductCard] = useState(GET_PRODUCT_CARD);
+
   const { loading, error, data } = useQuery<{
     product: [{ id: number; name: string; price: number }];
-  }>(GET_PRODUCT_CARD);
+  }>(getProductCard);
 
   // API通信の結果に応じて「動的」に変化していく予定
   const SEARCH_TOTAL_RESULT_NUMBER = data?.product.length;
@@ -43,6 +45,20 @@ const TopPage: NextPage<TopPageProps> = ({ origin }) => {
   console.log(data?.product);
 
   if (error) return <p>{error.toString()}</p>;
+
+  const handleSearchBtnClick = (): void => {
+    alert('検索するボタンをクリックしました');
+
+    setGetProductCard(gql`
+      query {
+        product(limit: 6, offset: 2) {
+          id
+          name
+          price
+        }
+      }
+    `);
+  };
 
   return (
     <React.Fragment>
@@ -53,7 +69,7 @@ const TopPage: NextPage<TopPageProps> = ({ origin }) => {
       />
       <CommonTemplate isSideBar={false}>
         <StRoot>
-          <SearchBox />
+          <SearchBox onClick={handleSearchBtnClick} />
           <StProductListContainer>
             <StSearchResultLabel>
               <h4>{SEARCH_TOTAL_RESULT_NUMBER}件の商品が見つかりました</h4>
