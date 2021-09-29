@@ -106,7 +106,7 @@ yarn server ps
 ### Backend
 
 - TypeScript
-- GraphQL
+- GraphQL Server
 - Hasura
 - ~NestJS（暫定）~
 - ~Prisma（暫定）~
@@ -120,14 +120,24 @@ yarn server ps
 - GraphQL Code Generator
 - Apollo Client
 - Emotion
+- ESLint
+- Prettier
+- Husky
+- lint-staged
+- Renovate
+
+### PaaS
+
+- Vercel
+- Heroku
+
+### SaaS
+
+- Auth0
 
 ### Other
 
 - yarn workspace
 - Storybook
 - GitHub Actions
-- ESLint / Prettier / Husky / lint-staged
-- Renovate
 - Docker / Docker Compose
-- Vercel
-- Heroku
