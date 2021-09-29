@@ -7,7 +7,7 @@ import { Skeleton } from 'src/components/atoms/Skeleton';
 export const ProductCardSkeleton: VFC = () => {
   return (
     <StProductList>
-      {[...Array(5)].map((_, idx) => {
+      {[...Array(6)].map((_, idx) => {
         return <Skeleton key={idx} width='126px' height='180px' />;
       })}
     </StProductList>
