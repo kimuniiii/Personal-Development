@@ -14,6 +14,7 @@ import { COLOR_PALETTE } from 'src/styles/color_palette';
 
 import { priceToJapaneseYen } from 'src/utils/price';
 
+import MacBookImage from '../../public/images/macbook.jpeg';
 import ReactImage from '../../public/images/react.jpg';
 
 type TopPageProps = {
@@ -21,6 +22,7 @@ type TopPageProps = {
 };
 
 const TopPage: NextPage<TopPageProps> = ({ origin }) => {
+  console.log(productCardList);
   // API通信の結果に応じて「動的」に変化していく予定
   const SEARCH_CURRENT_PAGE_NUMBER = 1;
   const SEARCH_TOTAL_RESULT_NUMBER = 3;
@@ -125,30 +127,36 @@ const productCardList: ProductCardList[] = [
     productImage: ReactImage,
     productImageAlt: 'Reactの画像です',
     productName: 'React Second',
-    productMoney: `${priceToJapaneseYen(1000)}`,
+    productMoney: `${priceToJapaneseYen(2000)}`,
   },
   {
     productImage: ReactImage,
     productImageAlt: 'Reactの画像です',
     productName: 'React Third',
-    productMoney: `${priceToJapaneseYen(1000)}`,
+    productMoney: `${priceToJapaneseYen(3000)}`,
   },
   {
     productImage: ReactImage,
     productImageAlt: 'Reactの画像です',
     productName: 'React Fourth',
-    productMoney: `${priceToJapaneseYen(1000)}`,
+    productMoney: `${priceToJapaneseYen(4000)}`,
   },
   {
     productImage: ReactImage,
     productImageAlt: 'Reactの画像です',
     productName: 'React Fifth',
-    productMoney: `${priceToJapaneseYen(1000)}`,
+    productMoney: `${priceToJapaneseYen(5000)}`,
   },
   {
     productImage: ReactImage,
     productImageAlt: 'Reactの画像です',
     productName: 'React Sixth',
-    productMoney: `${priceToJapaneseYen(1000)}`,
+    productMoney: `${priceToJapaneseYen(6000)}`,
+  },
+  {
+    productImage: MacBookImage,
+    productImageAlt: 'MacBookの画像です',
+    productName: 'MacBook Pro',
+    productMoney: `${priceToJapaneseYen(10000)}`,
   },
 ];
