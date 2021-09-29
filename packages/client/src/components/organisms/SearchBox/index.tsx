@@ -2,12 +2,18 @@ import styled from '@emotion/styled';
 import { useForm } from 'react-hook-form';
 
 import type { VFC } from 'react';
+import type { SubmitHandler, SubmitErrorHandler } from 'react-hook-form';
 
 import { Button } from 'src/components/atoms/Button';
 import { SelectBox } from 'src/components/atoms/SelectBox';
 import { Margin } from 'src/components/layouts/Margin';
 
 import { COLOR_PALETTE } from 'src/styles/color_palette';
+
+type UseSearchFormInputs = {
+  select_category_box: string;
+  select_display_order_box: string;
+};
 
 export const SearchBox: VFC = () => {
   const {
@@ -20,10 +26,17 @@ export const SearchBox: VFC = () => {
   });
 
   /**
-   * 検索ボタンを押した時に呼び出されるイベントハンドラ
+   * @概要 バリデーション成功時に呼び出されるイベントハンドラ
    */
-  const onSubmit = (data: Record<string, unknown>): void => {
+  const handleOnSubmit: SubmitHandler<UseSearchFormInputs> = (data): void => {
     console.log(data);
+  };
+
+  /**
+   * @概要 バリデーション失敗時に呼び出されるイベントハンドラ
+   */
+  const handleOnError: SubmitErrorHandler<UseSearchFormInputs> = (errors) => {
+    console.error(errors);
   };
 
   const handleSearchBtnClick = (): void => {
@@ -31,30 +44,30 @@ export const SearchBox: VFC = () => {
   };
 
   return (
-    <StSearchForm onSubmit={handleSubmit(onSubmit)}>
+    <StSearchForm onSubmit={handleSubmit(handleOnSubmit, handleOnError)}>
       <SelectBox
-        id='select-category-box'
-        name='select-category-box'
+        id='select_category_box'
+        name='select_category-box'
         labelText='カテゴリー'
         optionList={['カテゴリーを選択してください', '家電', 'PC', 'ゲーム', '衣類', 'その他']}
         top='18px'
         width='300px'
-        isError={!!errors['select-category-box']}
+        isError={!!errors['select_category-box']}
         errors={errors}
-        register={register('select-category-box', {
+        register={register('select_category-box', {
           required: { message: 'カテゴリーをセットしてください', value: true },
         })}
       />
       <SelectBox
-        id='select-display-order-box'
-        name='select-display-order-box'
+        id='select_display_order_box'
+        name='select_display_order_box'
         labelText='表示順'
         optionList={['表示順を選択してください', '金額の安い順', '金額の高い順']}
         top='18px'
         width='300px'
-        isError={!!errors['select-display-order-box']}
+        isError={!!errors['select_display_order_box']}
         errors={errors}
-        register={register('select-display-order-box', {
+        register={register('select_display_order_box', {
           required: { message: '表示順をセットしてください', value: true },
         })}
       />
