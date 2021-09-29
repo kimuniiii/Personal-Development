@@ -1,3 +1,4 @@
+import { DocumentNode, gql } from '@apollo/client';
 import styled from '@emotion/styled';
 import { useForm } from 'react-hook-form';
 
@@ -16,10 +17,10 @@ type UseSearchFormInputs = {
 };
 
 type SearchBoxProps = {
-  onClick: React.MouseEventHandler<HTMLButtonElement>;
+  setGetProductData: React.Dispatch<React.SetStateAction<DocumentNode>>;
 };
 
-export const SearchBox: VFC<SearchBoxProps> = ({ onClick }) => {
+export const SearchBox: VFC<SearchBoxProps> = ({ setGetProductData }) => {
   const {
     register,
     handleSubmit,
@@ -33,9 +34,19 @@ export const SearchBox: VFC<SearchBoxProps> = ({ onClick }) => {
    * @概要 バリデーション成功時に呼び出されるイベントハンドラ
    */
   const handleOnSubmit: SubmitHandler<UseSearchFormInputs> = (data): void => {
-    console.log('data', data);
-    console.table(data);
-    console.log(data.select_category_box);
+    const orderByPrice = data.select_display_order_box === '金額の安い順' ? 'asc' : 'desc';
+
+    const GET_FILTER_PRODUCT_DATA = gql`
+      query GetFilterProductData {
+        product(limit: 6, order_by: {price: ${orderByPrice} }, where: { category: { _eq: "${data.select_category_box}" }}) {
+          id
+          name
+          price
+        }
+      }
+    `;
+
+    setGetProductData(GET_FILTER_PRODUCT_DATA);
   };
 
   /**
@@ -43,6 +54,13 @@ export const SearchBox: VFC<SearchBoxProps> = ({ onClick }) => {
    */
   const handleOnError: SubmitErrorHandler<UseSearchFormInputs> = (errors) => {
     console.error(errors);
+  };
+
+  /**
+   * @概要 検索ボタン押下時に呼び出されるイベントハンドラ
+   */
+  const handleSearchBtnClick = (): void => {
+    alert('検索するボタンをクリックしました');
   };
 
   return (
@@ -80,7 +98,7 @@ export const SearchBox: VFC<SearchBoxProps> = ({ onClick }) => {
         width='300px'
         fontSizeValue='16px'
         buttonContent='検索する'
-        onClick={onClick}
+        onClick={handleSearchBtnClick}
       />
     </StSearchForm>
   );
