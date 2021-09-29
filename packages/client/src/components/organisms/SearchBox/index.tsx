@@ -33,7 +33,9 @@ export const SearchBox: VFC<SearchBoxProps> = ({ onClick }) => {
    * @概要 バリデーション成功時に呼び出されるイベントハンドラ
    */
   const handleOnSubmit: SubmitHandler<UseSearchFormInputs> = (data): void => {
-    console.log(data);
+    console.log('data', data);
+    console.table(data);
+    console.log(data.select_category_box);
   };
 
   /**
@@ -47,14 +49,14 @@ export const SearchBox: VFC<SearchBoxProps> = ({ onClick }) => {
     <StSearchForm onSubmit={handleSubmit(handleOnSubmit, handleOnError)}>
       <SelectBox
         id='select_category_box'
-        name='select_category-box'
+        name='select_category_box'
         labelText='カテゴリー'
         optionList={['カテゴリーを選択してください', '家電', 'PC', 'ゲーム', '衣類', 'その他']}
         top='18px'
         width='300px'
-        isError={!!errors['select_category-box']}
+        isError={!!errors['select_category_box']}
         errors={errors}
-        register={register('select_category-box', {
+        register={register('select_category_box', {
           required: { message: 'カテゴリーをセットしてください', value: true },
         })}
       />
