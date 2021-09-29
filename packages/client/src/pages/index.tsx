@@ -1,8 +1,10 @@
+import { useQuery, gql } from '@apollo/client';
 import styled from '@emotion/styled';
 import React, { useState } from 'react';
 
 import type { NextPage } from 'next';
 
+import { Loader } from 'src/components/atoms/Loader';
 import { Margin } from 'src/components/layouts/Margin';
 import { Pagination } from 'src/components/organisms/Pagination';
 import { ProductCard } from 'src/components/organisms/ProductCard';
@@ -12,22 +14,35 @@ import { HeadTemplate } from 'src/components/templates/HeadTemplate';
 
 import { COLOR_PALETTE } from 'src/styles/color_palette';
 
-import { priceToJapaneseYen } from 'src/utils/price';
-
-import MacBookImage from '../../public/images/macbook.jpeg';
-import ReactImage from '../../public/images/react.jpg';
-
 type TopPageProps = {
   origin: string;
 };
 
 const TopPage: NextPage<TopPageProps> = ({ origin }) => {
-  console.log(productCardList);
+  const [paginationDefaultIndex, setPaginationDefaultIndex] = useState(1);
+
   // API通信の結果に応じて「動的」に変化していく予定
   const SEARCH_CURRENT_PAGE_NUMBER = 1;
   const SEARCH_TOTAL_RESULT_NUMBER = 3;
 
-  const [paginationDefaultIndex, setPaginationDefaultIndex] = useState(1);
+  // 初期描画時には「最大で6件のデータ」を取得する
+  const GET_PRODUCT_CARD = gql`
+    query {
+      product(limit: 6, offset: 2) {
+        id
+        name
+        price
+      }
+    }
+  `;
+
+  const { loading, error, data } = useQuery<{
+    product: [{ id: number; name: string; price: number }];
+  }>(GET_PRODUCT_CARD);
+
+  console.log(data?.product);
+
+  if (error) return <p>{error.toString()}</p>;
 
   return (
     <React.Fragment>
@@ -48,7 +63,13 @@ const TopPage: NextPage<TopPageProps> = ({ origin }) => {
                 {SEARCH_TOTAL_RESULT_NUMBER}件中
               </StSearchResultItem>
             </StSearchResultLabel>
-            <ProductCard productCardList={productCardList} />
+            {loading ? (
+              <StProductCardLoaderContainer>
+                <Loader />
+              </StProductCardLoaderContainer>
+            ) : (
+              <ProductCard productCardList={data?.product} />
+            )}
             <Margin bottom='8px' />
             <Pagination
               className='pagination'
@@ -104,59 +125,10 @@ const StSearchResultItem = styled.section`
   align-items: center;
 `;
 
-// データモックを簡易的に定義する
-export type ProductCardList = {
-  productImage: {
-    src: string;
-    width: number;
-    height: number;
-  };
-  productImageAlt: string;
-  productName: string;
-  productMoney: string;
-};
-
-const productCardList: ProductCardList[] = [
-  {
-    productImage: ReactImage,
-    productImageAlt: 'Reactの画像です',
-    productName: 'React First',
-    productMoney: `${priceToJapaneseYen(1000)}`,
-  },
-  {
-    productImage: ReactImage,
-    productImageAlt: 'Reactの画像です',
-    productName: 'React Second',
-    productMoney: `${priceToJapaneseYen(2000)}`,
-  },
-  {
-    productImage: ReactImage,
-    productImageAlt: 'Reactの画像です',
-    productName: 'React Third',
-    productMoney: `${priceToJapaneseYen(3000)}`,
-  },
-  {
-    productImage: ReactImage,
-    productImageAlt: 'Reactの画像です',
-    productName: 'React Fourth',
-    productMoney: `${priceToJapaneseYen(4000)}`,
-  },
-  {
-    productImage: ReactImage,
-    productImageAlt: 'Reactの画像です',
-    productName: 'React Fifth',
-    productMoney: `${priceToJapaneseYen(5000)}`,
-  },
-  {
-    productImage: ReactImage,
-    productImageAlt: 'Reactの画像です',
-    productName: 'React Sixth',
-    productMoney: `${priceToJapaneseYen(6000)}`,
-  },
-  {
-    productImage: MacBookImage,
-    productImageAlt: 'MacBookの画像です',
-    productName: 'MacBook Pro',
-    productMoney: `${priceToJapaneseYen(10000)}`,
-  },
-];
+const StProductCardLoaderContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 416px;
+  height: 376px;
+`;
