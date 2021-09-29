@@ -13,9 +13,9 @@ export const SearchBox: VFC = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors, isDirty },
+    formState: { errors },
   } = useForm({
-    mode: 'onBlur',
+    mode: 'onSubmit',
     reValidateMode: 'onChange',
   });
 
@@ -24,6 +24,10 @@ export const SearchBox: VFC = () => {
    */
   const onSubmit = (data: Record<string, unknown>): void => {
     console.log(data);
+  };
+
+  const handleSearchBtnClick = (): void => {
+    alert('検索するボタンをクリックしました');
   };
 
   return (
@@ -61,8 +65,7 @@ export const SearchBox: VFC = () => {
         width='300px'
         fontSizeValue='16px'
         buttonContent='検索する'
-        disabled={!isDirty}
-        onClick={(): void => alert('検索するボタンをクリック')}
+        onClick={handleSearchBtnClick}
       />
     </StSearchForm>
   );
