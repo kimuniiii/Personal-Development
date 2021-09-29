@@ -23,8 +23,8 @@ const TopPage: NextPage<TopPageProps> = ({ origin }) => {
   const [paginationDefaultIndex, setPaginationDefaultIndex] = useState(SEARCH_CURRENT_PAGE_NUMBER);
 
   // 初期描画時には「最大で6件のデータ」を取得する
-  const GET_PRODUCT_CARD = gql`
-    query {
+  const GET_PRODUCT_DATA = gql`
+    query GetProductData {
       product(limit: 6, offset: 0) {
         id
         name
@@ -34,7 +34,7 @@ const TopPage: NextPage<TopPageProps> = ({ origin }) => {
     }
   `;
 
-  const [getProductCard, setGetProductCard] = useState(GET_PRODUCT_CARD);
+  const [getProductCard, setGetProductCard] = useState(GET_PRODUCT_DATA);
 
   const { loading, error, data } = useQuery<{
     product: [{ id: number; name: string; price: number }];
@@ -55,8 +55,8 @@ const TopPage: NextPage<TopPageProps> = ({ origin }) => {
   const handleSearchBtnClick = (): void => {
     alert('検索するボタンをクリックしました');
 
-    const GET_FILTER_PRODUCT_CARD = gql`
-      query {
+    const GET_FILTER_PRODUCT_DATA = gql`
+      query GetFilterProductData {
         product(limit: 6, offset: 3, where: { category: { _eq: "その他" } }) {
           id
           name
@@ -65,7 +65,7 @@ const TopPage: NextPage<TopPageProps> = ({ origin }) => {
       }
     `;
 
-    setGetProductCard(GET_FILTER_PRODUCT_CARD);
+    setGetProductCard(GET_FILTER_PRODUCT_DATA);
   };
 
   return (
