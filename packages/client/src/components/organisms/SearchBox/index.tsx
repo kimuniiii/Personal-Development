@@ -15,7 +15,11 @@ type UseSearchFormInputs = {
   select_display_order_box: string;
 };
 
-export const SearchBox: VFC = () => {
+type SearchBoxProps = {
+  onClick: React.MouseEventHandler<HTMLButtonElement>;
+};
+
+export const SearchBox: VFC<SearchBoxProps> = ({ onClick }) => {
   const {
     register,
     handleSubmit,
@@ -37,10 +41,6 @@ export const SearchBox: VFC = () => {
    */
   const handleOnError: SubmitErrorHandler<UseSearchFormInputs> = (errors) => {
     console.error(errors);
-  };
-
-  const handleSearchBtnClick = (): void => {
-    alert('検索するボタンをクリックしました');
   };
 
   return (
@@ -78,7 +78,7 @@ export const SearchBox: VFC = () => {
         width='300px'
         fontSizeValue='16px'
         buttonContent='検索する'
-        onClick={handleSearchBtnClick}
+        onClick={onClick}
       />
     </StSearchForm>
   );
