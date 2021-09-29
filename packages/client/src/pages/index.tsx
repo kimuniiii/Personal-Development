@@ -29,6 +29,7 @@ const TopPage: NextPage<TopPageProps> = ({ origin }) => {
         id
         name
         price
+        category
       }
     }
   `;
@@ -56,7 +57,7 @@ const TopPage: NextPage<TopPageProps> = ({ origin }) => {
 
     const GET_FILTER_PRODUCT_CARD = gql`
       query {
-        product(limit: 6, where: { name: { _eq: "user3" } }) {
+        product(limit: 6, offset: 3, where: { category: { _eq: "その他" } }) {
           id
           name
           price
