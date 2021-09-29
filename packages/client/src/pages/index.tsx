@@ -46,18 +46,25 @@ const TopPage: NextPage<TopPageProps> = ({ origin }) => {
 
   if (error) return <p>{error.toString()}</p>;
 
+  /**
+   * @概要 検索ボタン押下時に呼び出されるイベントハンドラ
+   * @説明1 カテゴリーに合致したデータを取得する
+   * @説明2 金額の高い or 安い順番にデータを取得する
+   */
   const handleSearchBtnClick = (): void => {
     alert('検索するボタンをクリックしました');
 
-    setGetProductCard(gql`
+    const GET_FILTER_PRODUCT_CARD = gql`
       query {
-        product(limit: 6, offset: 2) {
+        product(limit: 6, where: { name: { _eq: "user3" } }) {
           id
           name
           price
         }
       }
-    `);
+    `;
+
+    setGetProductCard(GET_FILTER_PRODUCT_CARD);
   };
 
   return (
