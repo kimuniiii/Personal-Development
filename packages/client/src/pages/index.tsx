@@ -14,61 +14,38 @@ import { HeadTemplate } from 'src/components/templates/HeadTemplate';
 
 import { COLOR_PALETTE } from 'src/styles/color_palette';
 
+// 初期描画時には「最大で6件のデータ」を取得する
+const GET_PRODUCT_TOTAL_DATA = gql`
+  query GetProductData {
+    product(offset: 0) {
+      id
+      name
+      price
+      category
+    }
+  }
+`;
+
 type TopPageProps = {
   origin: string;
 };
 
 const TopPage: NextPage<TopPageProps> = ({ origin }) => {
   const SEARCH_CURRENT_PAGE_NUMBER = 1;
+
   const [paginationDefaultIndex, setPaginationDefaultIndex] = useState(SEARCH_CURRENT_PAGE_NUMBER);
-
-  // 初期描画時には「最大で6件のデータ」を取得する
-  const GET_PRODUCT_DATA = gql`
-    query GetProductData {
-      product(limit: 6, offset: 0) {
-        id
-        name
-        price
-        category
-      }
-    }
-  `;
-
-  const [getProductCard, setGetProductCard] = useState(GET_PRODUCT_DATA);
+  const [getProductData, setGetProductData] = useState(GET_PRODUCT_TOTAL_DATA);
 
   const { loading, error, data } = useQuery<{
     product: [{ id: number; name: string; price: number }];
-  }>(getProductCard);
+  }>(getProductData);
 
   // API通信の結果に応じて「動的」に変化していく予定
   const SEARCH_TOTAL_RESULT_NUMBER = data?.product.length;
-
-  console.log(data?.product);
+  console.log('data', data);
+  console.log('data?.product', data?.product);
 
   if (error) return <p>{error.toString()}</p>;
-
-  /**
-   * @概要 検索ボタン押下時に呼び出されるイベントハンドラ
-   * @説明1 カテゴリーに合致したデータを取得する
-   * @説明2 金額の高い or 安い順番にデータを取得する
-   */
-  const handleSearchBtnClick = (): void => {
-    alert('検索するボタンをクリックしました');
-
-    const test = 'その他';
-
-    const GET_FILTER_PRODUCT_DATA = gql`
-      query GetFilterProductData {
-        product(limit: 6, offset: 3, where: { category: { _eq: "${test}" }}) {
-          id
-          name
-          price
-        }
-      }
-    `;
-
-    setGetProductCard(GET_FILTER_PRODUCT_DATA);
-  };
 
   return (
     <React.Fragment>
@@ -79,7 +56,7 @@ const TopPage: NextPage<TopPageProps> = ({ origin }) => {
       />
       <CommonTemplate isSideBar={false}>
         <StRoot>
-          <SearchBox onClick={handleSearchBtnClick} />
+          <SearchBox setGetProductData={setGetProductData} />
           <StProductListContainer>
             <StSearchResultLabel>
               <h4>{SEARCH_TOTAL_RESULT_NUMBER}件の商品が見つかりました</h4>
@@ -91,7 +68,7 @@ const TopPage: NextPage<TopPageProps> = ({ origin }) => {
             </StSearchResultLabel>
             {loading ? (
               <StProductCardLoaderContainer>
-                <Loader />
+                <Loader loadingContent='商品を取得中です' />
               </StProductCardLoaderContainer>
             ) : (
               <ProductCard productCardList={data?.product} />
