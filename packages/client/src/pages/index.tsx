@@ -55,9 +55,11 @@ const TopPage: NextPage<TopPageProps> = ({ origin }) => {
   const handleSearchBtnClick = (): void => {
     alert('検索するボタンをクリックしました');
 
+    const test = 'その他';
+
     const GET_FILTER_PRODUCT_DATA = gql`
       query GetFilterProductData {
-        product(limit: 6, offset: 3, where: { category: { _eq: "その他" } }) {
+        product(limit: 6, offset: 3, where: { category: { _eq: "${test}" }}) {
           id
           name
           price
