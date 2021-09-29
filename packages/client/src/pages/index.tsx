@@ -4,10 +4,10 @@ import React, { useState } from 'react';
 
 import type { NextPage } from 'next';
 
-import { Loader } from 'src/components/atoms/Loader';
 import { Margin } from 'src/components/layouts/Margin';
 import { Pagination } from 'src/components/organisms/Pagination';
 import { ProductCard } from 'src/components/organisms/ProductCard';
+import { ProductCardSkeleton } from 'src/components/organisms/ProductCardSkeleton';
 import { SearchBox } from 'src/components/organisms/SearchBox';
 import { CommonTemplate } from 'src/components/templates/CommonTemplate';
 import { HeadTemplate } from 'src/components/templates/HeadTemplate';
@@ -66,13 +66,7 @@ const TopPage: NextPage<TopPageProps> = ({ origin }) => {
                 {SEARCH_TOTAL_RESULT_NUMBER}件中
               </StSearchResultItem>
             </StSearchResultLabel>
-            {loading ? (
-              <StProductCardLoaderContainer>
-                <Loader loadingContent='商品を取得中です' />
-              </StProductCardLoaderContainer>
-            ) : (
-              <ProductCard productCardList={data?.product} />
-            )}
+            {loading ? <ProductCardSkeleton /> : <ProductCard productCardList={data?.product} />}
             <Margin bottom='8px' />
             <Pagination
               className='pagination'
@@ -126,12 +120,4 @@ const StSearchResultLabel = styled.section`
 const StSearchResultItem = styled.section`
   display: flex;
   align-items: center;
-`;
-
-const StProductCardLoaderContainer = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 416px;
-  height: 376px;
 `;
