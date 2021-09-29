@@ -19,16 +19,13 @@ type TopPageProps = {
 };
 
 const TopPage: NextPage<TopPageProps> = ({ origin }) => {
-  const [paginationDefaultIndex, setPaginationDefaultIndex] = useState(1);
-
-  // API通信の結果に応じて「動的」に変化していく予定
   const SEARCH_CURRENT_PAGE_NUMBER = 1;
-  const SEARCH_TOTAL_RESULT_NUMBER = 3;
+  const [paginationDefaultIndex, setPaginationDefaultIndex] = useState(SEARCH_CURRENT_PAGE_NUMBER);
 
   // 初期描画時には「最大で6件のデータ」を取得する
   const GET_PRODUCT_CARD = gql`
     query {
-      product(limit: 6, offset: 2) {
+      product(limit: 6, offset: 0) {
         id
         name
         price
@@ -39,6 +36,9 @@ const TopPage: NextPage<TopPageProps> = ({ origin }) => {
   const { loading, error, data } = useQuery<{
     product: [{ id: number; name: string; price: number }];
   }>(GET_PRODUCT_CARD);
+
+  // API通信の結果に応じて「動的」に変化していく予定
+  const SEARCH_TOTAL_RESULT_NUMBER = data?.product.length;
 
   console.log(data?.product);
 
@@ -58,7 +58,7 @@ const TopPage: NextPage<TopPageProps> = ({ origin }) => {
             <StSearchResultLabel>
               <h4>{SEARCH_TOTAL_RESULT_NUMBER}件の商品が見つかりました</h4>
               <StSearchResultItem>
-                {SEARCH_CURRENT_PAGE_NUMBER} - {SEARCH_TOTAL_RESULT_NUMBER}件<Margin right='4px' />/
+                {paginationDefaultIndex} - {SEARCH_TOTAL_RESULT_NUMBER}件<Margin right='4px' />/
                 <Margin right='4px' />
                 {SEARCH_TOTAL_RESULT_NUMBER}件中
               </StSearchResultItem>
