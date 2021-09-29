@@ -1,11 +1,7 @@
 import { Story, Meta } from '@storybook/react/types-6-0';
 import React from 'react';
 
-import { priceToJapaneseYen } from 'src/utils/price';
-
 import { ProductCard } from '.';
-
-import ReactImage from '../../../../public/images/react.jpg';
 
 export default {
   title: 'organisms/ProductCard',
