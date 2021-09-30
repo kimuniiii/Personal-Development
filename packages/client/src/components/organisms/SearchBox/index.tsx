@@ -32,13 +32,14 @@ export const SearchBox: VFC<SearchBoxProps> = ({ setGetProductData }) => {
 
   /**
    * @概要 バリデーション成功時に呼び出されるイベントハンドラ
+   * @説明 検索ボックスで選択した値に基づいて`query`を実行する
    */
   const handleOnSubmit: SubmitHandler<UseSearchFormInputs> = (data): void => {
     const orderByPrice = data.select_display_order_box === '金額の安い順' ? 'asc' : 'desc';
 
     const GET_FILTER_PRODUCT_DATA = gql`
       query GetFilterProductData {
-        product(limit: 6, order_by: {price: ${orderByPrice} }, where: { category: { _eq: "${data.select_category_box}" }}) {
+        product(order_by: {price: ${orderByPrice} }, where: { category: { _eq: "${data.select_category_box}" }}) {
           id
           name
           price
