@@ -51,6 +51,7 @@ const TopPage: NextPage<TopPageProps> = ({ origin }) => {
   }>(getProductData);
 
   // useEffect内で`GraphQL`の`query`を飛ばす方法
+  // ただConsoleで結果を確かめているだけで画面上には影響のない実装
   useEffect(() => {
     client
       .query({
