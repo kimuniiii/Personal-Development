@@ -10,7 +10,7 @@ type SkeletonProps = {
 };
 
 export const Skeleton: VFC<SkeletonProps> = ({ width, height, borderRadius }) => {
-  return <StSkeletonDetail width={width} height={height} borderRadius={borderRadius} />;
+  return <StSkeleton width={width} height={height} borderRadius={borderRadius} />;
 };
 
 const skeletonLoading = keyframes`
@@ -22,7 +22,7 @@ const skeletonLoading = keyframes`
   }
 `;
 
-const StSkeletonDetail = styled.div<SkeletonProps>`
+const StSkeleton = styled.div<SkeletonProps>`
   position: relative;
   overflow: hidden;
   width: ${({ width }): string => width};
