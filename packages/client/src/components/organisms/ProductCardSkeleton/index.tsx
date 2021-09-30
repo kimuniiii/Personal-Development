@@ -22,4 +22,5 @@ const StProductList = styled.ul`
   ** 128 + 16 + 128 + 16 + 128 + 8 = 416
   */
   width: 416px;
+  padding: 16px 0 32px 0;
 `;
