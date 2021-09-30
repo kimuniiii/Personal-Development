@@ -17,7 +17,7 @@ import { COLOR_PALETTE } from 'src/styles/color_palette';
 // 初期描画時には「最大で6件のデータ」を取得する
 const GET_PRODUCT_TOTAL_DATA = gql`
   query GetProductData {
-    product(offset: 0, limit: 6) {
+    product(offset: 0, limit: 6, order_by: { id: asc }) {
       id
       name
       price
@@ -83,7 +83,7 @@ const TopPage: NextPage<TopPageProps> = ({ origin }) => {
 
       const GET_FILTER_PRODUCT_DATA = gql`
         query GetFilterProductData {
-          product(offset: ${offSet}, limit: 6) {
+          product(offset: ${offSet}, limit: 6, order_by: { id: asc }) {
             id
             name
             price
@@ -105,7 +105,7 @@ const TopPage: NextPage<TopPageProps> = ({ origin }) => {
 
       const GET_FILTER_PRODUCT_DATA = gql`
         query GetFilterProductData {
-          product(offset: ${offSet - 12}, limit: 6) {
+          product(offset: ${offSet - 12}, limit: 6, order_by: { id: asc }) {
             id
             name
             price
