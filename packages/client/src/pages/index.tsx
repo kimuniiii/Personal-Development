@@ -14,18 +14,6 @@ import { HeadTemplate } from 'src/components/templates/HeadTemplate';
 
 import { COLOR_PALETTE } from 'src/styles/color_palette';
 
-// 初期描画時には「最大で6件のデータ」を取得する
-const GET_PRODUCT_INITIAL_DATA = gql`
-  query GetProductInitialData {
-    product(offset: 0, limit: 6, order_by: { id: asc }) {
-      id
-      name
-      price
-      category
-    }
-  }
-`;
-
 type TopPageProps = {
   origin: string;
 };
@@ -33,6 +21,18 @@ type TopPageProps = {
 const TopPage: NextPage<TopPageProps> = ({ origin }) => {
   const SEARCH_CURRENT_PAGE_NUMBER = 1;
   const PAGINATION_OFFSET_NUMBER = 6;
+
+  // 初期描画時には「最大で6件のデータ」を取得する
+  const GET_PRODUCT_INITIAL_DATA = gql`
+    query GetProductInitialData {
+      product(offset: 0, limit: 6, order_by: { id: asc }) {
+        id
+        name
+        price
+        category
+      }
+    }
+  `;
 
   const [offSet, setOffSet] = useState(PAGINATION_OFFSET_NUMBER);
   const [paginationCurrentIndex, setPaginationCurrentIndex] = useState(SEARCH_CURRENT_PAGE_NUMBER);
@@ -43,7 +43,7 @@ const TopPage: NextPage<TopPageProps> = ({ origin }) => {
   }>(getProductData);
 
   // useEffect内で`GraphQL`の`query`を飛ばす方法
-  // ただ`Console`で結果を確かめているだけで画面上には影響のない実装
+  // ただ`Console`で結果を確かめているだけで画面上には何も影響のない実装
   useEffect(() => {
     client
       .query({
