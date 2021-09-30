@@ -3,7 +3,7 @@ import { Auth0Provider, AppState } from '@auth0/auth0-react';
 import { css, Global } from '@emotion/react';
 import App, { AppContext, AppInitialProps } from 'next/app';
 import Router from 'next/router';
-import React from 'react';
+import React, { useMemo } from 'react';
 
 import type { AppProps } from 'next/app';
 
@@ -35,13 +35,18 @@ const CustomApp = ({
   auth0ClientId,
 }: CustomAppProps): JSX.Element => {
   console.log('endPoint', endPoint);
-  const createApolloClient = new ApolloClient({
-    uri: endPoint,
-    cache: new InMemoryCache(),
-    headers: {
-      'x-hasura-admin-secret': X_HASURA_ADMIN_SECRET,
-    },
-  });
+
+  const createApolloClient = useMemo(() => {
+    console.log('1回目は走るけど2回目以降は走らない');
+    return new ApolloClient({
+      uri: endPoint,
+      cache: new InMemoryCache(),
+      headers: {
+        'x-hasura-admin-secret': X_HASURA_ADMIN_SECRET,
+      },
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // ログイン後のリダイレクト先を指定
   const redirectUri = `${origin}/my-page`;
