@@ -17,16 +17,11 @@ import { COLOR_PALETTE } from 'src/styles/color_palette';
 // 初期描画時には「最大で6件のデータ」を取得する
 const GET_PRODUCT_TOTAL_DATA = gql`
   query GetProductData {
-    product(offset: 0, limit: 6) {
+    product(offset: 0) {
       id
       name
       price
       category
-    }
-    product_aggregate(order_by: { id: asc }) {
-      aggregate {
-        count
-      }
     }
   }
 `;
@@ -70,7 +65,7 @@ const TopPage: NextPage<TopPageProps> = ({ origin }) => {
   });
 
   // API通信の結果に応じて「動的」に変化していく予定
-  const SEARCH_TOTAL_RESULT_NUMBER = data?.product_aggregate.aggregate.count;
+  const SEARCH_TOTAL_RESULT_NUMBER = data?.product?.length;
   console.log('data', data);
   console.log('data?.product', data?.product);
   console.log('previousData?.product', previousData?.product);
