@@ -1,31 +1,96 @@
+import { useQuery, gql } from '@apollo/client';
 import styled from '@emotion/styled';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import type { NextPage } from 'next';
 
 import { Margin } from 'src/components/layouts/Margin';
 import { Pagination } from 'src/components/organisms/Pagination';
 import { ProductCard } from 'src/components/organisms/ProductCard';
+import { ProductCardSkeleton } from 'src/components/organisms/ProductCardSkeleton';
 import { SearchBox } from 'src/components/organisms/SearchBox';
 import { CommonTemplate } from 'src/components/templates/CommonTemplate';
 import { HeadTemplate } from 'src/components/templates/HeadTemplate';
 
 import { COLOR_PALETTE } from 'src/styles/color_palette';
 
-import { priceToJapaneseYen } from 'src/utils/price';
-
-import ReactImage from '../../public/images/react.jpg';
+// 初期描画時には「最大で6件のデータ」を取得する
+const GET_PRODUCT_TOTAL_DATA = gql`
+  query GetProductData {
+    product(offset: 0, limit: 6) {
+      id
+      name
+      price
+      category
+    }
+    product_aggregate(order_by: { id: asc }) {
+      aggregate {
+        count
+      }
+    }
+  }
+`;
 
 type TopPageProps = {
   origin: string;
 };
 
 const TopPage: NextPage<TopPageProps> = ({ origin }) => {
-  // API通信の結果に応じて「動的」に変化していく予定
   const SEARCH_CURRENT_PAGE_NUMBER = 1;
-  const SEARCH_TOTAL_RESULT_NUMBER = 3;
 
-  const [paginationDefaultIndex, setPaginationDefaultIndex] = useState(1);
+  const [paginationCurrentIndex, setPaginationCurrentIndex] = useState(SEARCH_CURRENT_PAGE_NUMBER);
+  const [getProductData, setGetProductData] = useState(GET_PRODUCT_TOTAL_DATA);
+
+  const { loading, error, data, previousData, client } = useQuery<{
+    product: [{ id: number; name: string; price: number }];
+    product_aggregate: {
+      aggregate: {
+        count: number;
+      };
+    };
+  }>(getProductData);
+
+  // useEffect内で`GraphQL`の`query`を飛ばす方法
+  useEffect(() => {
+    client
+      .query({
+        query: gql`
+          query GetProductData {
+            product(offset: 0, order_by: { id: asc }) {
+              id
+              name
+              price
+              category
+            }
+          }
+        `,
+      })
+      .then((result) => console.log(result));
+  });
+
+  // API通信の結果に応じて「動的」に変化していく予定
+  const SEARCH_TOTAL_RESULT_NUMBER = data?.product_aggregate.aggregate.count;
+  console.log('data', data);
+  console.log('data?.product', data?.product);
+  console.log('previousData?.product', previousData?.product);
+
+  if (error) return <p>{error.toString()}</p>;
+
+  const onPaginationBtnClick = (paginationIndex: number): void => {
+    if (paginationCurrentIndex < paginationIndex) {
+      console.log('今よりも先に進む');
+      console.log('paginationCurrentIndex', paginationCurrentIndex);
+      console.log('paginationIndex', paginationIndex);
+    }
+
+    if (paginationCurrentIndex > paginationIndex) {
+      console.log('今よりも前に戻る');
+      console.log('paginationCurrentIndex', paginationCurrentIndex);
+      console.log('paginationIndex', paginationIndex);
+    }
+
+    setPaginationCurrentIndex(paginationIndex);
+  };
 
   return (
     <React.Fragment>
@@ -36,24 +101,24 @@ const TopPage: NextPage<TopPageProps> = ({ origin }) => {
       />
       <CommonTemplate isSideBar={false}>
         <StRoot>
-          <SearchBox />
+          <SearchBox setGetProductData={setGetProductData} />
           <StProductListContainer>
             <StSearchResultLabel>
               <h4>{SEARCH_TOTAL_RESULT_NUMBER}件の商品が見つかりました</h4>
               <StSearchResultItem>
-                {SEARCH_CURRENT_PAGE_NUMBER} - {SEARCH_TOTAL_RESULT_NUMBER}件<Margin right='4px' />/
+                {paginationCurrentIndex} - {SEARCH_TOTAL_RESULT_NUMBER}件<Margin right='4px' />/
                 <Margin right='4px' />
                 {SEARCH_TOTAL_RESULT_NUMBER}件中
               </StSearchResultItem>
             </StSearchResultLabel>
-            <ProductCard productCardList={productCardList} />
+            {loading ? <ProductCardSkeleton /> : <ProductCard productCardList={data?.product} />}
             <Margin bottom='8px' />
             <Pagination
               className='pagination'
-              defaultIndex={paginationDefaultIndex}
+              defaultIndex={paginationCurrentIndex}
               lastIndex={3}
               isPagerButton={true}
-              onClick={setPaginationDefaultIndex}
+              onClick={onPaginationBtnClick}
             />
           </StProductListContainer>
         </StRoot>
@@ -101,54 +166,3 @@ const StSearchResultItem = styled.section`
   display: flex;
   align-items: center;
 `;
-
-// データモックを簡易的に定義する
-export type ProductCardList = {
-  productImage: {
-    src: string;
-    width: number;
-    height: number;
-  };
-  productImageAlt: string;
-  productName: string;
-  productMoney: string;
-};
-
-const productCardList: ProductCardList[] = [
-  {
-    productImage: ReactImage,
-    productImageAlt: 'Reactの画像です',
-    productName: 'React First',
-    productMoney: `${priceToJapaneseYen(1000)}`,
-  },
-  {
-    productImage: ReactImage,
-    productImageAlt: 'Reactの画像です',
-    productName: 'React Second',
-    productMoney: `${priceToJapaneseYen(1000)}`,
-  },
-  {
-    productImage: ReactImage,
-    productImageAlt: 'Reactの画像です',
-    productName: 'React Third',
-    productMoney: `${priceToJapaneseYen(1000)}`,
-  },
-  {
-    productImage: ReactImage,
-    productImageAlt: 'Reactの画像です',
-    productName: 'React Fourth',
-    productMoney: `${priceToJapaneseYen(1000)}`,
-  },
-  {
-    productImage: ReactImage,
-    productImageAlt: 'Reactの画像です',
-    productName: 'React Fifth',
-    productMoney: `${priceToJapaneseYen(1000)}`,
-  },
-  {
-    productImage: ReactImage,
-    productImageAlt: 'Reactの画像です',
-    productName: 'React Sixth',
-    productMoney: `${priceToJapaneseYen(1000)}`,
-  },
-];

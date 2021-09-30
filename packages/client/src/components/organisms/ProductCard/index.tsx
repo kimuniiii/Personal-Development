@@ -3,30 +3,35 @@ import Image from 'next/image';
 import Router from 'next/router';
 
 import type { VFC } from 'react';
-import type { ProductCardList } from 'src/pages';
 
 import { COLOR_PALETTE } from 'src/styles/color_palette';
 
+import { priceToJapaneseYen } from 'src/utils/price';
+
+// import MacBookImage from '../../public/images/macbook.jpeg';
+// TODO : 画像は静的に読み込むのではなく「動的」に読み込みたい
+import ReactImage from '../../../../public/images/react.jpg';
+
 type Props = {
-  productCardList: ProductCardList[];
+  productCardList?: { id: number; name: string; price: number }[];
 };
 
 export const ProductCard: VFC<Props> = ({ productCardList }) => {
   return (
     <StProductList>
-      {productCardList.map((productItem, idx) => {
-        return (
-          <StProductItem key={idx}>
+      {productCardList?.map((productItem, idx) => {
+        return idx <= 5 ? (
+          <StProductItem key={productItem.id}>
             <StFigure>
               {/* TODO ログインしていなかったらユーザー登録画面に遷移させる実装を行う */}
               <StImageBtn onClick={(): Promise<boolean> => Router.push('/product/detail')}>
-                <Image src={productItem.productImage} alt={productItem.productImageAlt} />
+                <Image src={ReactImage} alt='React Image' width={126} height={126} />
               </StImageBtn>
-              <figcaption>{productItem.productName}</figcaption>
-              <figcaption>{productItem.productMoney}</figcaption>
+              <figcaption>{productItem.name}</figcaption>
+              <figcaption>{priceToJapaneseYen(productItem.price)}</figcaption>
             </StFigure>
           </StProductItem>
-        );
+        ) : null;
       })}
     </StProductList>
   );

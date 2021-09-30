@@ -67,7 +67,7 @@ const StLoader = styled.div<Pick<LoaderProps, 'width' | 'height'>>`
 `;
 
 const StLoaderExplain = styled.div`
-  width: 180px;
-  font-size: ${FONT_SIZE.FS_12};
+  flex: 1;
+  font-size: ${FONT_SIZE.FS_14};
   color: ${COLOR_PALETTE.DARK_GRAY};
 `;

@@ -14,7 +14,7 @@ type PaginationProps = {
   defaultIndex: number;
   lastIndex: number;
   isPagerButton: boolean;
-  onClick: (defaultIndex: number) => void;
+  onClick: (paginationIndex: number) => void;
   className?: string;
 };
 

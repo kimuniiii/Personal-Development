@@ -14,10 +14,6 @@ import { useAuth0Api } from 'src/hooks/useAuth0Api';
 
 import { formatDateToyyyyMMdd } from 'src/lib/date';
 
-import { priceToJapaneseYen } from 'src/utils/price';
-
-import ReactImage from '../../../public/images/react.jpg';
-
 type MyPageProps = {
   origin: string;
 };
@@ -136,52 +132,37 @@ const StUserProfileContainer = styled.div`
 `;
 
 // データモックを簡易的に定義する
-export type ProductCardList = {
-  productImage: {
-    src: string;
-    width: number;
-    height: number;
-  };
-  productImageAlt: string;
-  productName: string;
-  productMoney: string;
-};
+type ProductCardList = { id: number; name: string; price: number };
 
 const productCardList: ProductCardList[] = [
   {
-    productImage: ReactImage,
-    productImageAlt: 'Reactの画像です',
-    productName: 'React First',
-    productMoney: `${priceToJapaneseYen(1000)}`,
+    id: 1,
+    name: 'React First',
+    price: 1000,
   },
   {
-    productImage: ReactImage,
-    productImageAlt: 'Reactの画像です',
-    productName: 'React Second',
-    productMoney: `${priceToJapaneseYen(1000)}`,
+    id: 2,
+    name: 'React Second',
+    price: 2000,
   },
   {
-    productImage: ReactImage,
-    productImageAlt: 'Reactの画像です',
-    productName: 'React Third',
-    productMoney: `${priceToJapaneseYen(1000)}`,
+    id: 3,
+    name: 'React Third',
+    price: 3000,
   },
   {
-    productImage: ReactImage,
-    productImageAlt: 'Reactの画像です',
-    productName: 'React Fourth',
-    productMoney: `${priceToJapaneseYen(1000)}`,
+    id: 4,
+    name: 'React Fourth',
+    price: 4000,
   },
   {
-    productImage: ReactImage,
-    productImageAlt: 'Reactの画像です',
-    productName: 'React Fifth',
-    productMoney: `${priceToJapaneseYen(1000)}`,
+    id: 5,
+    name: 'React Fifth',
+    price: 5000,
   },
   {
-    productImage: ReactImage,
-    productImageAlt: 'Reactの画像です',
-    productName: 'React Sixth',
-    productMoney: `${priceToJapaneseYen(1000)}`,
+    id: 6,
+    name: 'React Sixth',
+    price: 6000,
   },
 ];
