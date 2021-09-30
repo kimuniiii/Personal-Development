@@ -14,18 +14,6 @@ import { HeadTemplate } from 'src/components/templates/HeadTemplate';
 
 import { COLOR_PALETTE } from 'src/styles/color_palette';
 
-// 初期描画時には「最大で6件のデータ」を取得する
-const GET_PRODUCT_INITIAL_DATA = gql`
-  query GetProductInitialData {
-    product(offset: 0, limit: 6, order_by: { id: asc }) {
-      id
-      name
-      price
-      category
-    }
-  }
-`;
-
 type TopPageProps = {
   origin: string;
 };
@@ -34,6 +22,19 @@ const TopPage: NextPage<TopPageProps> = ({ origin }) => {
   const SEARCH_CURRENT_PAGE_NUMBER = 1;
   const PAGINATION_OFFSET_NUMBER = 6;
 
+  // 初期描画時には「最大で6件のデータ」を取得する
+  const GET_PRODUCT_INITIAL_DATA = gql`
+    query GetProductInitialData {
+      product(offset: 0, limit: 6, order_by: { id: asc }) {
+        id
+        name
+        price
+        category
+      }
+    }
+  `;
+
+  const [selectedCategory, setSelectedCategory] = useState('');
   const [offSet, setOffSet] = useState(PAGINATION_OFFSET_NUMBER);
   const [paginationCurrentIndex, setPaginationCurrentIndex] = useState(SEARCH_CURRENT_PAGE_NUMBER);
   const [getProductData, setGetProductData] = useState(GET_PRODUCT_INITIAL_DATA);
@@ -43,7 +44,7 @@ const TopPage: NextPage<TopPageProps> = ({ origin }) => {
   }>(getProductData);
 
   // useEffect内で`GraphQL`の`query`を飛ばす方法
-  // ただ`Console`で結果を確かめているだけで画面上には影響のない実装
+  // ただ`Console`で結果を確かめているだけで画面上には何も影響のない実装
   useEffect(() => {
     client
       .query({
@@ -73,6 +74,9 @@ const TopPage: NextPage<TopPageProps> = ({ origin }) => {
 
   if (error) return <p>{error.toString()}</p>;
 
+  console.log('初期描画時は空文字・検索ボタンを押したら選択したカテゴリーの情報入る');
+  console.log('selectedCategory', selectedCategory);
+
   /**
    * @概要 ページネーションボタンを押した時に呼び出されるイベントハンドラ
    */
@@ -85,17 +89,28 @@ const TopPage: NextPage<TopPageProps> = ({ origin }) => {
       console.log('offSet', offSet);
       setOffSet((prev: number) => prev + 6);
 
-      const GET_FILTER_PRODUCT_DATA = gql`
-        query GetFilterProductData {
-          product(offset: ${offSet}, limit: 6, order_by: { id: asc }) {
+      // 検索してなかったら「カテゴリー」で絞り込みを行う`query`を実行しないようにする
+      const GET_INCREMENT_PAGINATION_FILTER_PRODUCT_DATA = selectedCategory
+        ? gql`
+        query GetIncrementPaginationFilterProductData {
+          product(offset: ${offSet}, limit: 6, order_by: { id: asc }, where: { category: { _eq: "${selectedCategory}" }}) {
             id
             name
             price
           }
         }
-      `;
+      `
+        : gql`
+      query GetIncrementPaginationFilterProductData {
+        product(offset: ${offSet}, limit: 6, order_by: { id: asc }) {
+          id
+          name
+          price
+        }
+      }
+    `;
 
-      setGetProductData(GET_FILTER_PRODUCT_DATA);
+      setGetProductData(GET_INCREMENT_PAGINATION_FILTER_PRODUCT_DATA);
     }
 
     if (paginationCurrentIndex > paginationIndex) {
@@ -107,17 +122,30 @@ const TopPage: NextPage<TopPageProps> = ({ origin }) => {
       console.log('offSet - 12', offSet - 12);
       setOffSet((prev: number) => prev - 6);
 
-      const GET_FILTER_PRODUCT_DATA = gql`
-        query GetFilterProductData {
-          product(offset: ${offSet - 12}, limit: 6, order_by: { id: asc }) {
+      // 検索してなかったら「カテゴリー」で絞り込みを行う`query`を実行しないようにする
+      const GET_DECREMENT_PAGINATION_FILTER_PRODUCT_DATA = selectedCategory
+        ? gql`
+        query GetDecrementPaginationFilterProductData {
+          product(offset: ${
+            offSet - 12
+          }, limit: 6, order_by: { id: asc }, where: { category: { _eq: "${selectedCategory}" }}) {
             id
             name
             price
           }
         }
-      `;
+      `
+        : gql`
+      query GetDecrementPaginationFilterProductData {
+        product(offset: ${offSet - 12}, limit: 6, order_by: { id: asc }) {
+          id
+          name
+          price
+        }
+      }
+    `;
 
-      setGetProductData(GET_FILTER_PRODUCT_DATA);
+      setGetProductData(GET_DECREMENT_PAGINATION_FILTER_PRODUCT_DATA);
     }
 
     setPaginationCurrentIndex(paginationIndex);
@@ -135,7 +163,10 @@ const TopPage: NextPage<TopPageProps> = ({ origin }) => {
       />
       <CommonTemplate isSideBar={false}>
         <StRoot>
-          <SearchBox setGetProductData={setGetProductData} />
+          <SearchBox
+            setGetProductData={setGetProductData}
+            setSelectedCategory={setSelectedCategory}
+          />
           <StProductListContainer>
             <StSearchResultLabel>
               <h4>{SEARCH_TOTAL_RESULT_NUMBER}件の商品が見つかりました</h4>
@@ -146,7 +177,6 @@ const TopPage: NextPage<TopPageProps> = ({ origin }) => {
               </StSearchResultItem>
             </StSearchResultLabel>
             {loading ? <ProductCardSkeleton /> : <ProductCard productCardList={data?.product} />}
-            <Margin bottom='8px' />
             <Pagination
               className='pagination'
               defaultIndex={paginationCurrentIndex}
@@ -180,12 +210,14 @@ const StProductListContainer = styled.section`
   display: flex;
   flex-direction: column;
   height: 500px;
-  gap: 16px;
 
   h1,
-  ul,
   .pagination {
-    flex: 1;
+    flex-basis: 40px;
+  }
+
+  ul {
+    flex-basis: 424px;
   }
 `;
 

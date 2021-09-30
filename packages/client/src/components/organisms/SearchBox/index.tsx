@@ -18,9 +18,10 @@ type UseSearchFormInputs = {
 
 type SearchBoxProps = {
   setGetProductData: React.Dispatch<React.SetStateAction<DocumentNode>>;
+  setSelectedCategory: React.Dispatch<React.SetStateAction<string>>;
 };
 
-export const SearchBox: VFC<SearchBoxProps> = ({ setGetProductData }) => {
+export const SearchBox: VFC<SearchBoxProps> = ({ setGetProductData, setSelectedCategory }) => {
   const {
     register,
     handleSubmit,
@@ -47,6 +48,7 @@ export const SearchBox: VFC<SearchBoxProps> = ({ setGetProductData }) => {
       }
     `;
 
+    setSelectedCategory(data.select_category_box);
     setGetProductData(GET_FILTER_PRODUCT_DATA);
   };
 

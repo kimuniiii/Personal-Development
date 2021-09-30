@@ -26,7 +26,7 @@ export const Pagination: VFC<PaginationProps> = ({
   className,
 }) => {
   return (
-    <StPaginationWrapper className={className}>
+    <StPaginationContainer className={className}>
       <IconButton
         type='button'
         svgComponent={<IoIosArrowBack size={20} fill={COLOR_PALETTE.DARK_GRAY} />}
@@ -42,7 +42,7 @@ export const Pagination: VFC<PaginationProps> = ({
         disabled={defaultIndex <= 1}
       />
       <Margin right='16px' />
-      <StPaginationText>
+      <StPagerButtonContainer>
         {isPagerButton ? (
           <>
             {[...Array(lastIndex)].map((_, idx) => {
@@ -68,7 +68,7 @@ export const Pagination: VFC<PaginationProps> = ({
             <span>{lastIndex}</span>
           </>
         )}
-      </StPaginationText>
+      </StPagerButtonContainer>
       <Margin right='16px' />
       <IconButton
         type='button'
@@ -84,9 +84,19 @@ export const Pagination: VFC<PaginationProps> = ({
         }}
         disabled={defaultIndex >= lastIndex}
       />
-    </StPaginationWrapper>
+    </StPaginationContainer>
   );
 };
+
+const StPaginationContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const StPagerButtonContainer = styled.p`
+  display: flex;
+`;
 
 const StPaginationButton = styled.button<{ disabled: boolean }>`
   width: 40px;
@@ -109,14 +119,4 @@ const StPaginationButton = styled.button<{ disabled: boolean }>`
             background-color: #e9e9e9;
           }
         `}
-`;
-
-const StPaginationText = styled.p`
-  display: flex;
-`;
-
-const StPaginationWrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
 `;
