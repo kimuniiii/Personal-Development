@@ -4,6 +4,8 @@ import Router from 'next/router';
 
 import type { VFC } from 'react';
 
+import { Margin } from 'src/components/layouts/Margin';
+
 import { COLOR_PALETTE } from 'src/styles/color_palette';
 
 import { priceToJapaneseYen } from 'src/utils/price';
@@ -21,16 +23,19 @@ export const ProductCard: VFC<Props> = ({ productCardList }) => {
     <StProductList>
       {productCardList?.map((productItem, idx) => {
         return idx <= 5 ? (
-          <StProductItem key={productItem.id}>
-            <StFigure>
-              {/* TODO ログインしていなかったらユーザー登録画面に遷移させる実装を行う */}
-              <StImageBtn onClick={(): Promise<boolean> => Router.push('/product/detail')}>
-                <Image src={ReactImage} alt='React Image' width={126} height={126} />
-              </StImageBtn>
-              <figcaption>{productItem.name}</figcaption>
-              <figcaption>{priceToJapaneseYen(productItem.price)}</figcaption>
-            </StFigure>
-          </StProductItem>
+          <>
+            <StProductItem key={productItem.id}>
+              <StFigure>
+                {/* TODO ログインしていなかったらユーザー登録画面に遷移させる実装を行う */}
+                <StImageBtn onClick={(): Promise<boolean> => Router.push('/product/detail')}>
+                  <Image src={ReactImage} alt='React Image' width={126} height={126} />
+                </StImageBtn>
+                <figcaption>{productItem.name}</figcaption>
+                <figcaption>{priceToJapaneseYen(productItem.price)}</figcaption>
+              </StFigure>
+            </StProductItem>
+            {idx !== 2 && idx !== 5 ? <Margin right='16px' /> : null}
+          </>
         ) : null;
       })}
     </StProductList>
@@ -40,11 +45,14 @@ export const ProductCard: VFC<Props> = ({ productCardList }) => {
 const StProductList = styled.ul`
   display: flex;
   flex-flow: row wrap;
-  gap: 16px;
+  /* TODO : Safari で表示崩れが起きるため */
+  row-gap: 16px;
+
   /*
   ** 128 + 16 + 128 + 16 + 128 + 8 = 416
   */
   width: 416px;
+  padding: 16px 0 32px 0;
 `;
 
 const StProductItem = styled.li`
