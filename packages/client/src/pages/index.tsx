@@ -89,17 +89,27 @@ const TopPage: NextPage<TopPageProps> = ({ origin }) => {
       console.log('offSet', offSet);
       setOffSet((prev: number) => prev + 6);
 
-      const GET_FILTER_PRODUCT_DATA = gql`
-        query GetFilterProductData {
-          product(offset: ${offSet}, limit: 6, order_by: { id: asc }) {
+      const GET_INCREMENT_PAGINATION_FILTER_PRODUCT_DATA = selectedCategory
+        ? gql`
+        query GetIncrementPaginationFilterProductData {
+          product(offset: ${offSet}, limit: 6, order_by: { id: asc }, where: { category: { _eq: "${selectedCategory}" }}) {
             id
             name
             price
           }
         }
-      `;
+      `
+        : gql`
+      query GetIncrementPaginationFilterProductData {
+        product(offset: ${offSet}, limit: 6, order_by: { id: asc }) {
+          id
+          name
+          price
+        }
+      }
+    `;
 
-      setGetProductData(GET_FILTER_PRODUCT_DATA);
+      setGetProductData(GET_INCREMENT_PAGINATION_FILTER_PRODUCT_DATA);
     }
 
     if (paginationCurrentIndex > paginationIndex) {
@@ -111,17 +121,29 @@ const TopPage: NextPage<TopPageProps> = ({ origin }) => {
       console.log('offSet - 12', offSet - 12);
       setOffSet((prev: number) => prev - 6);
 
-      const GET_FILTER_PRODUCT_DATA = gql`
-        query GetFilterProductData {
-          product(offset: ${offSet - 12}, limit: 6, order_by: { id: asc }) {
+      const GET_DECREMENT_PAGINATION_FILTER_PRODUCT_DATA = selectedCategory
+        ? gql`
+        query GetDecrementPaginationFilterProductData {
+          product(offset: ${
+            offSet - 12
+          }, limit: 6, order_by: { id: asc }, where: { category: { _eq: "${selectedCategory}" }}) {
             id
             name
             price
           }
         }
-      `;
+      `
+        : gql`
+      query GetDecrementPaginationFilterProductData {
+        product(offset: ${offSet - 12}, limit: 6, order_by: { id: asc }) {
+          id
+          name
+          price
+        }
+      }
+    `;
 
-      setGetProductData(GET_FILTER_PRODUCT_DATA);
+      setGetProductData(GET_DECREMENT_PAGINATION_FILTER_PRODUCT_DATA);
     }
 
     setPaginationCurrentIndex(paginationIndex);
