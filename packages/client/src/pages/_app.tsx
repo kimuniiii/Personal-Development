@@ -36,6 +36,8 @@ const CustomApp = ({
 }: CustomAppProps): JSX.Element => {
   console.log('endPoint', endPoint);
 
+  // MEMO : `useMemo`で`絶対に`キャッシュ化をしないといけない
+  // MEMO : なぜなら「ブラウザバック」の時と「Router.push()」の時にデータを取得できないから
   const createApolloClient = useMemo(() => {
     console.log('1回目は走るけど2回目以降は走らない');
     return new ApolloClient({
