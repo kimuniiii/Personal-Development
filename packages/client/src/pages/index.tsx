@@ -89,6 +89,7 @@ const TopPage: NextPage<TopPageProps> = ({ origin }) => {
       console.log('offSet', offSet);
       setOffSet((prev: number) => prev + 6);
 
+      // 検索してなかったら「カテゴリー」で絞り込みを行う`query`を実行しないようにする
       const GET_INCREMENT_PAGINATION_FILTER_PRODUCT_DATA = selectedCategory
         ? gql`
         query GetIncrementPaginationFilterProductData {
@@ -121,6 +122,7 @@ const TopPage: NextPage<TopPageProps> = ({ origin }) => {
       console.log('offSet - 12', offSet - 12);
       setOffSet((prev: number) => prev - 6);
 
+      // 検索してなかったら「カテゴリー」で絞り込みを行う`query`を実行しないようにする
       const GET_DECREMENT_PAGINATION_FILTER_PRODUCT_DATA = selectedCategory
         ? gql`
         query GetDecrementPaginationFilterProductData {
