@@ -177,7 +177,6 @@ const TopPage: NextPage<TopPageProps> = ({ origin }) => {
               </StSearchResultItem>
             </StSearchResultLabel>
             {loading ? <ProductCardSkeleton /> : <ProductCard productCardList={data?.product} />}
-            <Margin bottom='8px' />
             <Pagination
               className='pagination'
               defaultIndex={paginationCurrentIndex}
@@ -211,12 +210,14 @@ const StProductListContainer = styled.section`
   display: flex;
   flex-direction: column;
   height: 500px;
-  gap: 16px;
 
   h1,
-  ul,
   .pagination {
-    flex: 1;
+    flex-basis: 40px;
+  }
+
+  ul {
+    flex-basis: 424px;
   }
 `;
 
