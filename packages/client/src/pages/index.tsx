@@ -17,7 +17,7 @@ import { COLOR_PALETTE } from 'src/styles/color_palette';
 // 初期描画時には「最大で6件のデータ」を取得する
 const GET_PRODUCT_TOTAL_DATA = gql`
   query GetProductData {
-    product(offset: 0) {
+    product(offset: 0, limit: 6) {
       id
       name
       price
@@ -32,17 +32,14 @@ type TopPageProps = {
 
 const TopPage: NextPage<TopPageProps> = ({ origin }) => {
   const SEARCH_CURRENT_PAGE_NUMBER = 1;
+  const PAGINATION_OFFSET_NUMBER = 6;
 
+  const [offSet, setOffSet] = useState(PAGINATION_OFFSET_NUMBER);
   const [paginationCurrentIndex, setPaginationCurrentIndex] = useState(SEARCH_CURRENT_PAGE_NUMBER);
   const [getProductData, setGetProductData] = useState(GET_PRODUCT_TOTAL_DATA);
 
   const { loading, error, data, previousData, client } = useQuery<{
     product: [{ id: number; name: string; price: number }];
-    product_aggregate: {
-      aggregate: {
-        count: number;
-      };
-    };
   }>(getProductData);
 
   // useEffect内で`GraphQL`の`query`を飛ばす方法
@@ -72,21 +69,57 @@ const TopPage: NextPage<TopPageProps> = ({ origin }) => {
 
   if (error) return <p>{error.toString()}</p>;
 
+  /**
+   * @概要 ページネーションボタンを押した時に呼び出されるイベントハンドラ
+   */
   const onPaginationBtnClick = (paginationIndex: number): void => {
     if (paginationCurrentIndex < paginationIndex) {
       console.log('今よりも先に進む');
       console.log('paginationCurrentIndex', paginationCurrentIndex);
       console.log('paginationIndex', paginationIndex);
+
+      console.log('offSet', offSet);
+      setOffSet((prev: number) => prev + 6);
+
+      const GET_FILTER_PRODUCT_DATA = gql`
+        query GetFilterProductData {
+          product(offset: ${offSet}, limit: 6) {
+            id
+            name
+            price
+          }
+        }
+      `;
+
+      setGetProductData(GET_FILTER_PRODUCT_DATA);
     }
 
     if (paginationCurrentIndex > paginationIndex) {
       console.log('今よりも前に戻る');
       console.log('paginationCurrentIndex', paginationCurrentIndex);
       console.log('paginationIndex', paginationIndex);
+
+      console.log('offSet', offSet);
+      console.log('offSet - 12', offSet - 12);
+      setOffSet((prev: number) => prev - 6);
+
+      const GET_FILTER_PRODUCT_DATA = gql`
+        query GetFilterProductData {
+          product(offset: ${offSet - 12}, limit: 6) {
+            id
+            name
+            price
+          }
+        }
+      `;
+
+      setGetProductData(GET_FILTER_PRODUCT_DATA);
     }
 
     setPaginationCurrentIndex(paginationIndex);
   };
+
+  console.log('offSet', offSet);
 
   return (
     <React.Fragment>
