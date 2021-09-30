@@ -34,6 +34,7 @@ const TopPage: NextPage<TopPageProps> = ({ origin }) => {
     }
   `;
 
+  const [selectedCategory, setSelectedCategory] = useState('');
   const [offSet, setOffSet] = useState(PAGINATION_OFFSET_NUMBER);
   const [paginationCurrentIndex, setPaginationCurrentIndex] = useState(SEARCH_CURRENT_PAGE_NUMBER);
   const [getProductData, setGetProductData] = useState(GET_PRODUCT_INITIAL_DATA);
@@ -72,6 +73,9 @@ const TopPage: NextPage<TopPageProps> = ({ origin }) => {
   console.log('previousData?.product', previousData?.product);
 
   if (error) return <p>{error.toString()}</p>;
+
+  console.log('初期描画時は空文字・検索ボタンを押したら選択したカテゴリーの情報入る');
+  console.log('selectedCategory', selectedCategory);
 
   /**
    * @概要 ページネーションボタンを押した時に呼び出されるイベントハンドラ
@@ -135,7 +139,10 @@ const TopPage: NextPage<TopPageProps> = ({ origin }) => {
       />
       <CommonTemplate isSideBar={false}>
         <StRoot>
-          <SearchBox setGetProductData={setGetProductData} />
+          <SearchBox
+            setGetProductData={setGetProductData}
+            setSelectedCategory={setSelectedCategory}
+          />
           <StProductListContainer>
             <StSearchResultLabel>
               <h4>{SEARCH_TOTAL_RESULT_NUMBER}件の商品が見つかりました</h4>
