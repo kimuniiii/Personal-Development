@@ -17,7 +17,9 @@ type ErrorTemplateProps = {
 export const ErrorTemplate: VFC<ErrorTemplateProps> = ({ error }) => {
   return (
     <StErrorContainer>
-      <h1>{error.toString()}</h1>
+      <h1>
+        {error.name}: {error.message}
+      </h1>
       <Margin bottom='16px' />
       <p>{error.stack}</p>
     </StErrorContainer>
