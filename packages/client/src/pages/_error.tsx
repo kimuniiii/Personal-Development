@@ -1,13 +1,17 @@
-import { NextPage, NextPageContext } from 'next';
 import Head from 'next/head';
 import React from 'react';
 
-type Props = {
+import type { NextPage, NextPageContext } from 'next';
+
+type ErrorPageProps = {
   title: string;
   errorCode: number;
 };
 
-const ErrorPage: NextPage<Props> = ({ title, errorCode }) => {
+const ErrorPage: NextPage<ErrorPageProps> = ({ title, errorCode }) => {
+  console.log('Error Page Title', title);
+  console.log('Error Page statusCode', errorCode);
+
   return (
     <React.Fragment>
       <Head>
@@ -22,7 +26,7 @@ const ErrorPage: NextPage<Props> = ({ title, errorCode }) => {
 };
 
 // resが存在する時はSSR・resがない場合はCSR
-ErrorPage.getInitialProps = async ({ res }: NextPageContext): Promise<Props> => {
+ErrorPage.getInitialProps = async ({ res }: NextPageContext): Promise<ErrorPageProps> => {
   if (res !== undefined) {
     return {
       errorCode: res.statusCode,
