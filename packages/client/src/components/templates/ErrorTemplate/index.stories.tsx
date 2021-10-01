@@ -15,5 +15,5 @@ const Template: Story<Props> = (args) => <ErrorTemplate {...args} />;
 export const Basic = Template.bind({});
 
 Basic.args = {
-  text: 'サンプル',
+  errorMessage: 'エラーがありました',
 };
