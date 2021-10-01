@@ -16,15 +16,15 @@ type ErrorTemplateProps = {
  */
 export const ErrorTemplate: VFC<ErrorTemplateProps> = ({ error }) => {
   return (
-    <StBase>
+    <StErrorContainer>
       <h1>{error.toString()}</h1>
       <Margin bottom='16px' />
       <p>{error.stack}</p>
-    </StBase>
+    </StErrorContainer>
   );
 };
 
-const StBase = styled.div`
+const StErrorContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;

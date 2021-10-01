@@ -10,6 +10,7 @@ import { ProductCard } from 'src/components/organisms/ProductCard';
 import { ProductCardSkeleton } from 'src/components/organisms/ProductCardSkeleton';
 import { SearchBox } from 'src/components/organisms/SearchBox';
 import { CommonTemplate } from 'src/components/templates/CommonTemplate';
+import { ErrorTemplate } from 'src/components/templates/ErrorTemplate';
 import { HeadTemplate } from 'src/components/templates/HeadTemplate';
 
 import { COLOR_PALETTE } from 'src/styles/color_palette';
@@ -72,7 +73,9 @@ const TopPage: NextPage<TopPageProps> = ({ origin }) => {
   console.log('data?.product', data?.product);
   console.log('previousData?.product', previousData?.product);
 
-  if (error) return <p>{error.toString()}</p>;
+  if (error) {
+    return <ErrorTemplate error={error} />;
+  }
 
   console.log('初期描画時は空文字・検索ボタンを押したら選択したカテゴリーの情報入る');
   console.log('selectedCategory', selectedCategory);
