@@ -6,6 +6,7 @@ import type { NextPage } from 'next';
 
 import { Loader } from 'src/components/atoms/Loader';
 import { CommonTemplate } from 'src/components/templates/CommonTemplate';
+import { ErrorTemplate } from 'src/components/templates/ErrorTemplate';
 import { HeadTemplate } from 'src/components/templates/HeadTemplate';
 
 type HasuraProps = {
@@ -35,7 +36,9 @@ const Hasura: NextPage<HasuraProps> = ({ origin }) => {
       </StCenterLoaderContainer>
     );
 
-  if (error) return <p>{error.toString()}</p>;
+  if (error) {
+    return <ErrorTemplate error={error} />;
+  }
 
   return (
     <React.Fragment>

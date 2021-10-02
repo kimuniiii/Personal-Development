@@ -8,6 +8,7 @@ import { Loader } from 'src/components/atoms/Loader';
 import { Margin } from 'src/components/layouts/Margin';
 import { ProductCard } from 'src/components/organisms/ProductCard';
 import { CommonTemplate } from 'src/components/templates/CommonTemplate';
+import { ErrorTemplate } from 'src/components/templates/ErrorTemplate';
 import { HeadTemplate } from 'src/components/templates/HeadTemplate';
 
 import { useAuth0Api } from 'src/hooks/useAuth0Api';
@@ -28,22 +29,16 @@ const MyPage: NextPage<MyPageProps> = ({ origin }) => {
   });
   const { user } = useAuth0();
 
-  if (error) {
-    return (
-      <div style={{ color: 'red' }}>
-        <h1>{error.name}</h1>
-        <h2>{error.message}</h2>
-        <p>{error.stack}</p>
-      </div>
-    );
-  }
-
   if (isLoading) {
     return (
       <StCenterLoaderContainer>
         <Loader loadingContent='マイページに画面遷移しています' />
       </StCenterLoaderContainer>
     );
+  }
+
+  if (error) {
+    return <ErrorTemplate error={error} />;
   }
 
   if (typeof user === 'undefined') {
