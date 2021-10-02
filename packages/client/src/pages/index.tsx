@@ -60,7 +60,7 @@ const TopPage: NextPage<TopPageProps> = ({ origin }) => {
           }
         `,
       })
-      .then((result) => console.log('result', result));
+      .then((result) => console.log('useEffect | result', result));
     return (): void => {
       console.log('useEffect | 復習 | DOMを破棄するときに処理が走る');
     };
