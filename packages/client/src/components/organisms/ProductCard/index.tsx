@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import Image from 'next/image';
 import Router from 'next/router';
+import React from 'react';
 
 import type { VFC } from 'react';
 
@@ -23,8 +24,8 @@ export const ProductCard: VFC<Props> = ({ productCardList }) => {
     <StProductList>
       {productCardList?.map((productItem, idx) => {
         return idx <= 5 ? (
-          <>
-            <StProductItem key={productItem.id}>
+          <React.Fragment key={productItem.id}>
+            <StProductItem>
               <StFigure>
                 {/* TODO ログインしていなかったらユーザー登録画面に遷移させる実装を行う */}
                 <StImageBtn onClick={(): Promise<boolean> => Router.push('/product/detail')}>
@@ -35,7 +36,7 @@ export const ProductCard: VFC<Props> = ({ productCardList }) => {
               </StFigure>
             </StProductItem>
             {idx !== 2 && idx !== 5 ? <Margin right='16px' /> : null}
-          </>
+          </React.Fragment>
         ) : null;
       })}
     </StProductList>
