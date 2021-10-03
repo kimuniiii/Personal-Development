@@ -69,6 +69,28 @@ const ProfileEditPage: NextPage<ProfileEditProps> = ({ origin }) => {
     console.log('{ ...values, profileImage: selectedFile }');
     console.table({ ...values, profileImage: selectedFile });
 
+    const reader = new FileReader();
+
+    if (selectedFile) {
+      const test = reader.readAsDataURL(selectedFile);
+      console.log('if文の中身');
+      console.log('selectedFile', selectedFile);
+      console.log('test', test);
+      console.log('以下の値は「null」になっている');
+      console.log('reader.result', reader.result);
+    }
+
+    reader.addEventListener(
+      'load',
+      () => {
+        console.log('ここには「Base64」で変換された文字列を格納できる');
+        console.log('reader.result', reader.result);
+        console.log('addEventListenerの中身');
+        console.table({ ...values, profileImageBase64: reader.result });
+      },
+      false,
+    );
+
     // TODO : フォームデータを作成
     // TODO : 値を実際にサーバーに送信するときにちゃんと実装を行う
     // const formData = new FormData();
