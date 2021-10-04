@@ -22,13 +22,15 @@ import NoImage from '../../../public/images/no_image.png';
 
 type MyPageProps = {
   origin: string;
+  auth0Domain?: string;
+  auth0ClientId?: string;
 };
 
 /**
  * @概要 ログインしていたらマイページ・ログインしていなかったらログイン画面に遷移するコンポーネント
  * @説明 非ログイン時にアクセスできないようにしたいため「Protected Page」である
  */
-const MyPage: NextPage<MyPageProps> = ({ origin }) => {
+const MyPage: NextPage<MyPageProps> = ({ origin, auth0Domain, auth0ClientId }) => {
   const { isLoading, error } = useAuth0Api(`${origin}/my-page`, {
     audience: `${origin}`,
   });
@@ -57,7 +59,7 @@ const MyPage: NextPage<MyPageProps> = ({ origin }) => {
         pageCanonicalUrl='https://www.riot-ec-site.com/my-page'
         pageTitle='マイページ'
       />
-      <CommonTemplate isSideBar={true}>
+      <CommonTemplate isSideBar={true} auth0Domain={auth0Domain} auth0ClientId={auth0ClientId}>
         <StRoot>
           <StProductListContainer>
             <StProfileInfoContainer>
