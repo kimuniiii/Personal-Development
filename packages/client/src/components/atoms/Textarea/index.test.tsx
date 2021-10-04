@@ -12,6 +12,8 @@ import { COLOR_PALETTE } from 'src/styles/color_palette';
 const testRequiredProps = {
   name: 'test-textarea',
   placeholder: 'placeholder',
+  labelText: 'textarea',
+  labelType: 'optionalMarker' as const,
   width: '320px',
   height: '454px',
   isError: false,
@@ -68,7 +70,7 @@ describe('labelText', () => {
   describe('Truthy な値を渡す場合', () => {
     test('label要素ありの textarea要素 が描画されること', () => {
       render(<Textarea {...testRequiredProps} labelText='labelText' />);
-      expect(screen.getByLabelText('labelText')).toBeInTheDocument();
+      expect(screen.getByPlaceholderText('placeholder')).toBeInTheDocument();
     });
   });
 });
