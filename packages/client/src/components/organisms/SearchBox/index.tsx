@@ -44,6 +44,7 @@ export const SearchBox: VFC<SearchBoxProps> = ({ setGetProductData, setSelectedC
           id
           name
           price
+          base64_image
         }
       }
     `;
