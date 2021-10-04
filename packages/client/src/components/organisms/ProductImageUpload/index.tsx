@@ -3,6 +3,7 @@ import Image from 'next/image';
 import React, { useState, VFC } from 'react';
 import { ImCross } from 'react-icons/im';
 
+import { FormLabel } from 'src/components/atoms/FormLabel';
 import { IconButton } from 'src/components/atoms/IconButton';
 import { Margin } from 'src/components/layouts/Margin';
 
@@ -15,6 +16,7 @@ import NoImage from '../../../../public/images/no_image.png';
 
 type ProductImageUploadProps = {
   labelText: string;
+  labelType: 'requiredMarker' | 'optionalMarker';
   selectedFiles: File[];
   onFileSelect: (file: File[]) => void;
 };
@@ -24,6 +26,7 @@ type ProductImageUploadProps = {
  */
 export const ProductImageUpload: VFC<ProductImageUploadProps> = ({
   labelText,
+  labelType,
   selectedFiles,
   onFileSelect,
 }) => {
@@ -120,10 +123,10 @@ export const ProductImageUpload: VFC<ProductImageUploadProps> = ({
   return (
     <StRoot>
       {labelText !== '' ? (
-        <section>
-          {labelText}
+        <>
+          <FormLabel labelType={labelType} labelText={labelText} />
           <Margin bottom='8px' />
-        </section>
+        </>
       ) : null}
       <StImageContainer>
         {[...Array(3)].map((_: number, idx: number) =>

@@ -81,6 +81,7 @@ const ProductRegisterPage: NextPage<ProductRegisterProps> = ({ origin }) => {
             <SelectBox
               id='select-category-box'
               name='select-category-box'
+              labelType='requiredMarker'
               labelText='カテゴリー'
               optionList={[
                 'カテゴリーを選択してください',
@@ -105,6 +106,7 @@ const ProductRegisterPage: NextPage<ProductRegisterProps> = ({ origin }) => {
               id='productDetail'
               name='productDetail'
               labelText='詳細'
+              labelType='optionalMarker'
               placeholder='200文字以内で入力してください'
               width='343px'
               height='200px'
@@ -134,6 +136,7 @@ const ProductRegisterPage: NextPage<ProductRegisterProps> = ({ origin }) => {
             <Margin bottom='16px' />
             <ProductImageUpload
               labelText='商品画像'
+              labelType='optionalMarker'
               selectedFiles={selectedFiles}
               onFileSelect={onFileSelect}
             />

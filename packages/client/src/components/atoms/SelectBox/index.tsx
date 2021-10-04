@@ -6,6 +6,7 @@ import { IoIosArrowDown } from 'react-icons/io/index';
 import type { UseFormRegisterReturn } from 'react-hook-form';
 import type { ValueOf } from 'src/typings/utils/ValueOf';
 
+import { FormLabel } from 'src/components/atoms/FormLabel';
 import { Margin } from 'src/components/layouts/Margin';
 
 import { COLOR_PALETTE } from 'src/styles/color_palette';
@@ -20,9 +21,10 @@ type SelectBoxProps = {
   isError: boolean;
   errors: Record<string, unknown>;
   register: UseFormRegisterReturn;
+  labelType: 'requiredMarker' | 'optionalMarker';
+  labelText: string;
   padding?: string;
   fontSizeValue?: ValueOf<typeof FONT_SIZE>;
-  labelText?: string;
 };
 
 export const SelectBox = React.forwardRef<HTMLSelectElement, SelectBoxProps>(
@@ -36,18 +38,20 @@ export const SelectBox = React.forwardRef<HTMLSelectElement, SelectBoxProps>(
       isError,
       errors,
       register,
+      labelType,
+      labelText = '',
       padding,
       fontSizeValue,
-      labelText = '',
     },
     ref,
   ) => {
     return (
       <StSelectBoxWrapper width={width} top={top}>
-        {labelText !== '' ? (
-          <StLabel htmlFor={id} fontSizeValue={fontSizeValue}>
-            {labelText}
-          </StLabel>
+        {labelText ? (
+          <>
+            <FormLabel htmlFor={id} labelType={labelType} labelText={labelText} />
+            <Margin bottom='8px' />
+          </>
         ) : null}
         <StSelectBoxArea>
           <StSelect id={id} fontSizeValue={fontSizeValue} padding={padding} {...register} ref={ref}>
@@ -117,11 +121,6 @@ const StSelect = styled.select<Pick<SelectBoxProps, 'fontSizeValue' | 'padding'>
   &:focus {
     border: 2px solid ${COLOR_PALETTE.MAIN_COLOR};
   }
-`;
-
-const StLabel = styled.label<Pick<SelectBoxProps, 'fontSizeValue'>>`
-  padding-bottom: 8px;
-  font-size: ${({ fontSizeValue }): ValueOf<typeof FONT_SIZE> => fontSizeValue ?? FONT_SIZE.FS_14};
 `;
 
 const StErrorMessage = styled.div`

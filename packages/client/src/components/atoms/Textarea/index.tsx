@@ -6,6 +6,7 @@ import React, { VFC } from 'react';
 import type { UseFormRegisterReturn } from 'react-hook-form';
 import type { ValueOf } from 'src/typings/utils/ValueOf';
 
+import { FormLabel } from 'src/components/atoms/FormLabel';
 import { Margin } from 'src/components/layouts/Margin';
 
 import { COLOR_PALETTE } from 'src/styles/color_palette';
@@ -19,8 +20,9 @@ type TextareaProps = JSX.IntrinsicElements['textarea'] & {
   register: UseFormRegisterReturn;
   width: string;
   height: string;
+  labelText: string;
+  labelType: 'requiredMarker' | 'optionalMarker';
   id?: string;
-  labelText?: string;
   disabled?: boolean;
   fontSizeValue?: ValueOf<typeof FONT_SIZE>;
   bgColor?: ValueOf<typeof COLOR_PALETTE>;
@@ -34,8 +36,9 @@ export const Textarea: VFC<TextareaProps> = ({
   register,
   width,
   height,
-  id = 'textarea',
   labelText = '',
+  labelType,
+  id = 'textarea',
   disabled = false,
   fontSizeValue,
   bgColor,
@@ -43,10 +46,11 @@ export const Textarea: VFC<TextareaProps> = ({
 }) => {
   return (
     <StTextField>
-      {labelText !== '' ? (
-        <StLabel htmlFor={id} fontSizeValue={fontSizeValue}>
-          {labelText}
-        </StLabel>
+      {labelText ? (
+        <>
+          <FormLabel htmlFor={id} labelType={labelType} labelText={labelText} />
+          <Margin bottom='8px' />
+        </>
       ) : null}
       <StTextarea
         {...textAreaProps}
@@ -81,12 +85,6 @@ Textarea.displayName = 'TextArea';
 const StTextField = styled.div`
   display: flex;
   flex-direction: column;
-`;
-
-const StLabel = styled.label<Pick<TextareaProps, 'fontSizeValue'>>`
-  padding-bottom: 8px;
-  font-size: ${({ fontSizeValue }): ValueOf<typeof FONT_SIZE> => fontSizeValue ?? FONT_SIZE.FS_16};
-  cursor: pointer;
 `;
 
 type StTextareaProps = Pick<

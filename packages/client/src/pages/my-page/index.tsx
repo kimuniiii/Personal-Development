@@ -1,5 +1,6 @@
 import { withAuthenticationRequired, useAuth0 } from '@auth0/auth0-react';
 import styled from '@emotion/styled';
+import Image from 'next/image';
 import React from 'react';
 
 import type { NextPage } from 'next';
@@ -14,6 +15,10 @@ import { HeadTemplate } from 'src/components/templates/HeadTemplate';
 import { useAuth0Api } from 'src/hooks/useAuth0Api';
 
 import { formatDateToyyyyMMdd } from 'src/lib/date';
+
+import { COLOR_PALETTE } from 'src/styles/color_palette';
+
+import NoImage from '../../../public/images/no_image.png';
 
 type MyPageProps = {
   origin: string;
@@ -56,8 +61,12 @@ const MyPage: NextPage<MyPageProps> = ({ origin }) => {
         <StRoot>
           <StProductListContainer>
             <StProfileInfoContainer>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={user.picture} alt='user picture' width={126} height={126} />
+              {user.picture ? (
+                /* eslint-disable-next-line @next/next/no-img-element */
+                <img src={user.picture} alt='user picture' width={126} height={126} />
+              ) : (
+                <Image src={NoImage} alt='Mo Image' width={126} height={126} />
+              )}
               <Margin right='32px' />
               <StUserProfileContainer>
                 <h3>Hello！{user.nickname}さん</h3>
@@ -70,10 +79,12 @@ const MyPage: NextPage<MyPageProps> = ({ origin }) => {
               </StUserProfileContainer>
             </StProfileInfoContainer>
             <h3>登録商品</h3>
+            <StTodo>TODO : 自分が登録した商品情報だけが描画される</StTodo>
             <ProductCard productCardList={productCardList} />
-            <Margin bottom='8px' />
             <h3>連絡掲示板</h3>
+            <StTodo>TODO : 要件が決まり次第、実装を行う</StTodo>
             <h3>お気に入り一覧</h3>
+            <StTodo>TODO : 要件が決まり次第、実装を行う</StTodo>
           </StProductListContainer>
         </StRoot>
       </CommonTemplate>
@@ -126,38 +137,48 @@ const StUserProfileContainer = styled.div`
   flex-direction: column;
 `;
 
+const StTodo = styled.p`
+  color: ${COLOR_PALETTE.SUB_COLOR};
+`;
+
 // データモックを簡易的に定義する
-type ProductCardList = { id: number; name: string; price: number };
+type ProductCardList = { id: number; name: string; price: number; base64_image: string };
 
 const productCardList: ProductCardList[] = [
   {
     id: 1,
     name: 'React First',
     price: 1000,
+    base64_image: '',
   },
   {
     id: 2,
     name: 'React Second',
     price: 2000,
+    base64_image: '',
   },
   {
     id: 3,
     name: 'React Third',
     price: 3000,
+    base64_image: '',
   },
   {
     id: 4,
     name: 'React Fourth',
     price: 4000,
+    base64_image: '',
   },
   {
     id: 5,
     name: 'React Fifth',
     price: 5000,
+    base64_image: '',
   },
   {
     id: 6,
     name: 'React Sixth',
     price: 6000,
+    base64_image: '',
   },
 ];

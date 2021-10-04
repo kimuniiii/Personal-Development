@@ -31,6 +31,7 @@ const TopPage: NextPage<TopPageProps> = ({ origin }) => {
         name
         price
         category
+        base64_image
       }
     }
   `;
@@ -41,7 +42,7 @@ const TopPage: NextPage<TopPageProps> = ({ origin }) => {
   const [getProductData, setGetProductData] = useState(GET_PRODUCT_INITIAL_DATA);
 
   const { loading, error, data, previousData, client } = useQuery<{
-    product: [{ id: number; name: string; price: number }];
+    product: [{ id: number; name: string; price: number; base64_image: string }];
   }>(getProductData);
 
   // useEffect内で`GraphQL`の`query`を飛ばす方法
@@ -56,11 +57,12 @@ const TopPage: NextPage<TopPageProps> = ({ origin }) => {
               name
               price
               category
+              base64_image
             }
           }
         `,
       })
-      .then((result) => console.log('result', result));
+      .then((result) => console.log('useEffect | result', result));
     return (): void => {
       console.log('useEffect | 復習 | DOMを破棄するときに処理が走る');
     };
@@ -100,6 +102,7 @@ const TopPage: NextPage<TopPageProps> = ({ origin }) => {
             id
             name
             price
+            base64_image
           }
         }
       `
@@ -109,6 +112,7 @@ const TopPage: NextPage<TopPageProps> = ({ origin }) => {
           id
           name
           price
+          base64_image
         }
       }
     `;
@@ -135,6 +139,7 @@ const TopPage: NextPage<TopPageProps> = ({ origin }) => {
             id
             name
             price
+            base64_image
           }
         }
       `
@@ -144,6 +149,7 @@ const TopPage: NextPage<TopPageProps> = ({ origin }) => {
           id
           name
           price
+          base64_image
         }
       }
     `;
