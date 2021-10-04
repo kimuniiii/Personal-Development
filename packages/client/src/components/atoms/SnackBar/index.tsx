@@ -1,8 +1,7 @@
 import styled from '@emotion/styled';
+import { useEffect, VFC } from 'react';
 import { IoMdCheckmark } from 'react-icons/io/index';
 import { IoMdWarning } from 'react-icons/io/index';
-
-import type { VFC } from 'react';
 
 import { Margin } from 'src/components/layouts/Margin';
 
@@ -11,30 +10,48 @@ import { FONT_WEIGHT } from 'src/styles/font_weight';
 type SnackBarProps = {
   snackBarTypes: 'success' | 'fail';
   message: string;
+  isShowSnackBar: boolean;
+  setIsShowSnackBar: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-export const SnackBar: VFC<SnackBarProps> = ({ snackBarTypes, message }) => {
+export const SnackBar: VFC<SnackBarProps> = ({
+  snackBarTypes,
+  message,
+  isShowSnackBar,
+  setIsShowSnackBar,
+}) => {
+  useEffect(() => {
+    setTimeout(() => {
+      setIsShowSnackBar(false);
+    }, 3000);
+  }, [setIsShowSnackBar]);
+
   return (
-    <StSnackBarRoot>
-      {snackBarTypes === 'success' ? (
+    <StSnackBarPosition>
+      {isShowSnackBar && snackBarTypes === 'success' ? (
         <StSuccessContainer>
           <IoMdCheckmark />
           <Margin right='16px' />
           <p>{message}</p>
         </StSuccessContainer>
       ) : null}
-      {snackBarTypes === 'fail' ? (
+      {isShowSnackBar && snackBarTypes === 'fail' ? (
         <StFailContainer>
           <IoMdWarning />
           <Margin right='16px' />
           <p>{message}</p>
         </StFailContainer>
       ) : null}
-    </StSnackBarRoot>
+    </StSnackBarPosition>
   );
 };
 
-const StSnackBarRoot = styled.div``;
+const StSnackBarPosition = styled.div`
+  position: fixed;
+  top: 16px;
+  left: 50%;
+  transform: translate(-50%, 0);
+`;
 
 const StSuccessContainer = styled.div`
   display: flex;
