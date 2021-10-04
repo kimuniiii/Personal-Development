@@ -11,8 +11,8 @@ import { HeadTemplate } from 'src/components/templates/HeadTemplate';
 
 import { X_HASURA_ADMIN_SECRET } from 'src/constants';
 
-// import { getAuth0ClientId } from 'src/lib/getAuth0ClientId';
-// import { getAuth0Domain } from 'src/lib/getAuth0Domain';
+import { getAuth0ClientId } from 'src/lib/getAuth0ClientId';
+import { getAuth0Domain } from 'src/lib/getAuth0Domain';
 
 import { GLOBAL_STYLE } from 'src/styles/global_style';
 
@@ -115,8 +115,8 @@ CustomApp.getInitialProps = async (appContext: AppContext): Promise<CustomAppIni
   // VERCEL_ENV : Vercel の ダッシュボードで登録した環境変数
   const origin = getRedirectUriOrigin(process.env.VERCEL_ENV);
   const endPoint = getApiEndPoint(process.env.VERCEL_ENV);
-  const auth0Domain = process.env.AUTH0_DOMAIN || '';
-  const auth0ClientId = process.env.AUTH0_CLIENT_ID || '';
+  const auth0Domain = getAuth0Domain(process.env.VERCEL_ENV);
+  const auth0ClientId = getAuth0ClientId(process.env.VERCEL_ENV);
   const appProps = await App.getInitialProps(appContext);
   return { ...appProps, origin, endPoint, auth0Domain, auth0ClientId };
 };
