@@ -22,6 +22,10 @@ export const CommonTemplate: VFC<CommonTemplateProps> = ({
 }) => {
   const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
 
+  console.log('CommonTemplate');
+  console.log('auth0Domain', auth0Domain);
+  console.log('auth0ClientId', auth0ClientId);
+
   return (
     <StCommonRoot>
       <CommonHeader
