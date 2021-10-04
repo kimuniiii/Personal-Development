@@ -67,8 +67,21 @@ const CustomApp = ({
   console.log('process.env.AUTH0_CLIENT_ID は ステージングと本番環境では値が入る');
   console.log('process.env.AUTH0_CLIENT_ID', process.env.AUTH0_CLIENT_ID);
 
+  console.log('初期描画時は auth0Domain に値は入る。ログイン後は入らない');
   console.log('auth0Domain', auth0Domain);
+
+  console.log('初期描画時は auth0ClientId に値は入る。ログイン後は入らない');
   console.log('auth0ClientId', auth0ClientId);
+
+  const cacheAuth0Domain = useMemo(() => {
+    return auth0Domain;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const cacheAuth0ClientId = useMemo(() => {
+    return auth0ClientId;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const onRedirectCallback = (appState: AppState): void => {
     console.log('appState', appState);
@@ -80,8 +93,8 @@ const CustomApp = ({
     <React.Fragment>
       <HeadTemplate pageOrigin={origin} />
       <Auth0Provider
-        domain={auth0Domain}
-        clientId={auth0ClientId}
+        domain={cacheAuth0Domain}
+        clientId={cacheAuth0ClientId}
         redirectUri={redirectUri}
         audience={origin}
         onRedirectCallback={onRedirectCallback}
@@ -95,8 +108,8 @@ const CustomApp = ({
           <Component
             {...pageProps}
             origin={origin}
-            auth0Domain={auth0Domain}
-            auth0ClientId={auth0ClientId}
+            auth0Domain={cacheAuth0Domain}
+            auth0ClientId={cacheAuth0ClientId}
           />
         </ApolloProvider>
       </Auth0Provider>
