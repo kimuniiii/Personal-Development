@@ -51,9 +51,11 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
     return (
       <StTextField>
         {labelText !== '' ? (
-          <FormLabel htmlFor={id} labelType={labelType} labelText={labelText} />
+          <>
+            <FormLabel htmlFor={id} labelType={labelType} labelText={labelText} />
+            <Margin bottom='8px' />
+          </>
         ) : null}
-        <Margin bottom='8px' />
         <StInput
           {...textInputProps}
           type={type}
