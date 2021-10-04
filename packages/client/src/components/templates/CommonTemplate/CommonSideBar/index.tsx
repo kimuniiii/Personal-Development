@@ -26,6 +26,10 @@ export const CommonSideBar: VFC<CommonSideBarProps> = ({ auth0Domain, auth0Clien
   console.log('user');
   console.table(user);
 
+  /**
+   * @概要 パスワード変更ボタンをクリック時に呼び出されるイベントハンドラ
+   * @説明 指定のメールアドレスにパスワードリセットを要求するメールを送信する
+   */
   const handlePasswordChange = (): void => {
     if (window.confirm(CONFIRM_MESSAGE)) {
       changePassword({ auth0Domain, auth0ClientId, user });
