@@ -58,9 +58,11 @@ const CustomApp = ({
   console.log('NEXT_PUBLIC_VERCEL_ENV', process.env.NEXT_PUBLIC_VERCEL_ENV);
 
   console.log('NEXT_PUBLIC_AUTH0_DOMAIN は 環境ごとに異なる値が入るはず');
+  console.log('process.env.AUTH0_DOMAIN', process.env.AUTH0_DOMAIN);
   console.log('NEXT_PUBLIC_AUTH0_DOMAIN', process.env.NEXT_PUBLIC_AUTH0_DOMAIN);
 
   console.log('NEXT_PUBLIC_AUTH0_CLIENT_ID は 環境ごとに異なる値が入るはず');
+  console.log('process.env.AUTH0_CLIENT_ID', process.env.AUTH0_CLIENT_ID);
   console.log('NEXT_PUBLIC_AUTH0_CLIENT_ID', process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID);
 
   console.log('auth0Domain', auth0Domain);
@@ -113,8 +115,8 @@ CustomApp.getInitialProps = async (appContext: AppContext): Promise<CustomAppIni
   // VERCEL_ENV : Vercel の ダッシュボードで登録した環境変数
   const origin = getRedirectUriOrigin(process.env.VERCEL_ENV);
   const endPoint = getApiEndPoint(process.env.VERCEL_ENV);
-  const auth0Domain = process.env.NEXT_PUBLIC_AUTH0_DOMAIN || '';
-  const auth0ClientId = process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID || '';
+  const auth0Domain = process.env.AUTH0_DOMAIN || '';
+  const auth0ClientId = process.env.AUTH0_CLIENT_ID || '';
   const appProps = await App.getInitialProps(appContext);
   return { ...appProps, origin, endPoint, auth0Domain, auth0ClientId };
 };
