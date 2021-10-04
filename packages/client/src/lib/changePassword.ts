@@ -35,16 +35,13 @@ export const changePassword = async ({
 
   console.log('jsonBodyData', jsonBodyData);
 
-  const res = await fetch(
-    `https://${process.env.NEXT_PUBLIC_AUTH0_DOMAIN}/dbconnections/change_password`,
-    {
-      method: 'POST',
-      mode: 'cors',
-      credentials: 'same-origin',
-      headers: { 'Content-Type': 'application/json' },
-      body: jsonBodyData,
-    },
-  );
+  const res = await fetch(`https://${auth0ClientId}/dbconnections/change_password`, {
+    method: 'POST',
+    mode: 'cors',
+    credentials: 'same-origin',
+    headers: { 'Content-Type': 'application/json' },
+    body: jsonBodyData,
+  });
 
   console.log('res.text()');
   console.log(res.text());
