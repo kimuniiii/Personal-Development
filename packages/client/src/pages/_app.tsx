@@ -54,6 +54,8 @@ const CustomApp = ({
   const redirectUri = `${origin}/my-page`;
   console.log(redirectUri);
 
+  console.log('NEXT_PUBLIC_VERCEL_ENV', process.env.NEXT_PUBLIC_VERCEL_ENV);
+
   console.log('NEXT_PUBLIC_AUTH0_DOMAIN は 環境ごとに異なる値が入るはず');
   console.log('NEXT_PUBLIC_AUTH0_DOMAIN', process.env.NEXT_PUBLIC_AUTH0_DOMAIN);
 
