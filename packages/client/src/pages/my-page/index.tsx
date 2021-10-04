@@ -1,5 +1,6 @@
 import { withAuthenticationRequired, useAuth0 } from '@auth0/auth0-react';
 import styled from '@emotion/styled';
+import Image from 'next/image';
 import React from 'react';
 
 import type { NextPage } from 'next';
@@ -16,6 +17,8 @@ import { useAuth0Api } from 'src/hooks/useAuth0Api';
 import { formatDateToyyyyMMdd } from 'src/lib/date';
 
 import { COLOR_PALETTE } from 'src/styles/color_palette';
+
+import NoImage from '../../../public/images/no_image.png';
 
 type MyPageProps = {
   origin: string;
@@ -58,8 +61,11 @@ const MyPage: NextPage<MyPageProps> = ({ origin }) => {
         <StRoot>
           <StProductListContainer>
             <StProfileInfoContainer>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={user.picture} alt='user picture' width={126} height={126} />
+              {user.picture ? (
+                <Image src={user.picture} alt='user picture' width={126} height={126} />
+              ) : (
+                <Image src={NoImage} alt='Mo Image' width={126} height={126} />
+              )}
               <Margin right='32px' />
               <StUserProfileContainer>
                 <h3>Hello！{user.nickname}さん</h3>
