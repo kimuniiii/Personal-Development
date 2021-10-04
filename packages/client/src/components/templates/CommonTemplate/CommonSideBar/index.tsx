@@ -4,6 +4,7 @@ import Router from 'next/router';
 import { useState, VFC } from 'react';
 
 import { Button } from 'src/components/atoms/Button';
+import { SnackBar } from 'src/components/atoms/SnackBar';
 import { Margin } from 'src/components/layouts/Margin';
 
 import { changePassword } from 'src/lib/changePassword';
@@ -19,8 +20,8 @@ export const CommonSideBar: VFC<CommonSideBarProps> = ({ auth0Domain, auth0Clien
   const CONFIRM_MESSAGE =
     'ユーザー登録の時にメールアドレス・パスワードを設定した場合のみ有効になります。パスワードリセットメールを送信しますか？';
 
-  const [isOpen, setIsOpen] = useState(false);
-  const [state, setState] = useState(false);
+  const [isShowSnackBar, setIsShowSnackBar] = useState(false);
+  const [defaultSnackBar, setDefaultSnackBar] = useState(false);
 
   const { user } = useAuth0();
 
@@ -39,11 +40,13 @@ export const CommonSideBar: VFC<CommonSideBarProps> = ({ auth0Domain, auth0Clien
         console.log(res);
 
         if (res.ok) {
-          setIsOpen(true);
-          setState(true);
+          // 成功時には`Success SnackBar`を表示する
+          setIsShowSnackBar(true);
+          setDefaultSnackBar(true);
         } else {
-          setIsOpen(true);
-          setState(false);
+          // 失敗時には`Failed SnackBar`を表示する
+          setIsShowSnackBar(true);
+          setDefaultSnackBar(false);
         }
       });
     }
@@ -100,8 +103,21 @@ export const CommonSideBar: VFC<CommonSideBarProps> = ({ auth0Domain, auth0Clien
         buttonContent='退会'
         onClick={(): Promise<boolean> => Router.push('/withdraw')}
       />
-      {/* TODO : これを「SnackBar」に置き換えればいい */}
-      {isOpen && state ? <p>成功</p> : isOpen && !state ? <p>失敗</p> : null}
+      {isShowSnackBar && defaultSnackBar ? (
+        <SnackBar
+          snackBarTypes='success'
+          message='パスワードリセットメールの送信に成功しました'
+          isShowSnackBar={isShowSnackBar}
+          setIsShowSnackBar={setIsShowSnackBar}
+        />
+      ) : isShowSnackBar && !defaultSnackBar ? (
+        <SnackBar
+          snackBarTypes='fail'
+          message='パスワードリセットメールの送信に失敗しました'
+          isShowSnackBar={isShowSnackBar}
+          setIsShowSnackBar={setIsShowSnackBar}
+        />
+      ) : null}
     </StSideBarContainer>
   );
 };
