@@ -1,5 +1,7 @@
 import type { User } from '@auth0/auth0-spa-js';
 
+import { getAuth0ClientId } from 'src/lib/getAuth0ClientId';
+
 type ChangePasswordArgs = {
   auth0Domain?: string;
   auth0ClientId?: string;
@@ -20,13 +22,13 @@ export const changePassword = async ({
   console.log('change-password');
 
   console.log('auth0Domain', auth0Domain);
-  console.log('auth0Domain', process.env.NEXT_PUBLIC_AUTH0_DOMAIN);
+  console.log('process.env.NEXT_PUBLIC_AUTH0_DOMAIN', process.env.NEXT_PUBLIC_AUTH0_DOMAIN);
 
   console.log('auth0ClientId', auth0ClientId);
-  console.log('auth0ClientId', process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID);
+  console.log('process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID', process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID);
 
   console.log('user?.email', user?.email);
-  console.log('process.env.VERCEL_ENV', process.env.VERCEL_ENV);
+  console.log('process.env.NEXT_PUBLIC_VERCEL_ENV', process.env.NEXT_PUBLIC_VERCEL_ENV);
 
   const jsonBodyData = JSON.stringify({
     client_id: auth0ClientId,
@@ -36,13 +38,16 @@ export const changePassword = async ({
 
   console.log('jsonBodyData', jsonBodyData);
 
-  const res = await fetch(`https://${auth0ClientId}/dbconnections/change_password`, {
-    method: 'POST',
-    mode: 'cors',
-    credentials: 'same-origin',
-    headers: { 'Content-Type': 'application/json' },
-    body: jsonBodyData,
-  });
+  const res = await fetch(
+    `https://${process.env.NEXT_PUBLIC_AUTH0_DOMAIN}/dbconnections/change_password`,
+    {
+      method: 'POST',
+      mode: 'cors',
+      credentials: 'same-origin',
+      headers: { 'Content-Type': 'application/json' },
+      body: jsonBodyData,
+    },
+  );
 
   console.log('res.text()');
   console.log(res.text());
