@@ -81,6 +81,7 @@ const ProductRegisterPage: NextPage<ProductRegisterProps> = ({ origin }) => {
             <SelectBox
               id='select-category-box'
               name='select-category-box'
+              labelType='requiredMarker'
               labelText='カテゴリー'
               optionList={[
                 'カテゴリーを選択してください',
