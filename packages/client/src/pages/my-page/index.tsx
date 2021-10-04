@@ -62,7 +62,8 @@ const MyPage: NextPage<MyPageProps> = ({ origin }) => {
           <StProductListContainer>
             <StProfileInfoContainer>
               {user.picture ? (
-                <Image src={user.picture} alt='user picture' width={126} height={126} />
+                // eslint-disable-next-line @next/next/no-img-element
+                <img src={user.picture} alt='user picture' width={126} height={126} />
               ) : (
                 <Image src={NoImage} alt='Mo Image' width={126} height={126} />
               )}
