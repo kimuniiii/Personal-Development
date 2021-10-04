@@ -26,6 +26,7 @@ export const changePassword = async ({
   console.log('auth0ClientId', process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID);
 
   console.log('user?.email', user?.email);
+  console.log('process.env.VERCEL_ENV', process.env.VERCEL_ENV);
 
   const jsonBodyData = JSON.stringify({
     client_id: auth0ClientId,
