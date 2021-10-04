@@ -12,12 +12,10 @@ import { COLOR_PALETTE } from 'src/styles/color_palette';
 
 import { priceToJapaneseYen } from 'src/utils/price';
 
-// import MacBookImage from '../../public/images/macbook.jpeg';
-// TODO : 画像は静的に読み込むのではなく「動的」に読み込みたい
-import ReactImage from '../../../../public/images/react.jpg';
+import NoImage from '../../../../public/images/no_image.png';
 
 type Props = {
-  productCardList?: { id: number; name: string; price: number }[];
+  productCardList?: { id: number; name: string; price: number; base64_image: string }[];
 };
 
 export const ProductCard: VFC<Props> = ({ productCardList }) => {
@@ -46,7 +44,16 @@ export const ProductCard: VFC<Props> = ({ productCardList }) => {
             <StProductItem>
               <StFigure>
                 <StImageBtn onClick={handleProductImageBtnClick}>
-                  <Image src={ReactImage} alt='React Image' width={126} height={126} />
+                  {productItem.base64_image ? (
+                    <Image
+                      src={productItem.base64_image}
+                      alt='Product Image'
+                      width={126}
+                      height={126}
+                    />
+                  ) : (
+                    <Image src={NoImage} alt='No Image' width={126} height={126} />
+                  )}
                 </StImageBtn>
                 <figcaption>{productItem.name}</figcaption>
                 <figcaption>{priceToJapaneseYen(productItem.price)}</figcaption>
