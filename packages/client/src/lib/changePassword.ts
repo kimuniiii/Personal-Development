@@ -8,7 +8,6 @@ type ChangePasswordArgs = {
 
 /**
  * @概要 パスワード変更ボタンをクリックしたときに発火する関数
- * @説明 FIXME : なぜかメールが送信されない問題が起きているので対応が必要
  * @エラー文 FIXME : SyntaxError: Unexpected token W in JSON at position 0"
  * @解決方法 JSON.stringify() を 変数 に格納した上で「body」に紐付ける
  */
@@ -16,7 +15,7 @@ export const changePassword = async ({
   auth0Domain,
   auth0ClientId,
   user,
-}: ChangePasswordArgs): Promise<void> => {
+}: ChangePasswordArgs): Promise<void | string> => {
   console.log('change-password');
 
   console.log('auth0Domain は 値が入っているはず');
@@ -44,14 +43,22 @@ export const changePassword = async ({
 
   console.log('jsonBodyData', jsonBodyData);
 
-  const res = await fetch(`https://${AUTH0_DOMAIN}/dbconnections/change_password`, {
-    method: 'POST',
-    mode: 'cors',
-    credentials: 'same-origin',
-    headers: { 'Content-Type': 'application/json' },
-    body: jsonBodyData,
-  });
-
-  console.log('res.text()');
-  console.log(res.text());
+  try {
+    const res = await fetch(`https://${AUTH0_DOMAIN}/dbconnections/change_password`, {
+      method: 'POST',
+      mode: 'cors',
+      credentials: 'same-origin',
+      headers: { 'Content-Type': 'application/json' },
+      body: jsonBodyData,
+    });
+    if (res.ok) {
+      console.log('res.text()');
+      console.log(res.text());
+      return '成功しました';
+    }
+  } catch (error) {
+    if (error instanceof Error) {
+      return '失敗しました';
+    }
+  }
 };
