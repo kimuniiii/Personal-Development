@@ -21,16 +21,20 @@ export const changePassword = async ({
 
   console.log('auth0Domain は 値が入っているはず');
   console.log('auth0Domain', auth0Domain);
+
   console.log('process.env.NEXT_PUBLIC_AUTH0_DOMAIN は undefined');
   console.log('process.env.NEXT_PUBLIC_AUTH0_DOMAIN', process.env.NEXT_PUBLIC_AUTH0_DOMAIN);
 
   console.log('auth0ClientId は 値が入っているはず');
   console.log('auth0ClientId', auth0ClientId);
+
   console.log('process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID は undefined');
   console.log('process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID', process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID);
 
   console.log('user?.email', user?.email);
   console.log('process.env.NEXT_PUBLIC_VERCEL_ENV', process.env.NEXT_PUBLIC_VERCEL_ENV);
+
+  const AUTH0_DOMAIN = auth0Domain || process.env.NEXT_PUBLIC_AUTH0_DOMAIN || '';
 
   const jsonBodyData = JSON.stringify({
     client_id: auth0ClientId,
@@ -40,16 +44,13 @@ export const changePassword = async ({
 
   console.log('jsonBodyData', jsonBodyData);
 
-  const res = await fetch(
-    `https://${process.env.NEXT_PUBLIC_AUTH0_DOMAIN}/dbconnections/change_password`,
-    {
-      method: 'POST',
-      mode: 'cors',
-      credentials: 'same-origin',
-      headers: { 'Content-Type': 'application/json' },
-      body: jsonBodyData,
-    },
-  );
+  const res = await fetch(`https://${AUTH0_DOMAIN}/dbconnections/change_password`, {
+    method: 'POST',
+    mode: 'cors',
+    credentials: 'same-origin',
+    headers: { 'Content-Type': 'application/json' },
+    body: jsonBodyData,
+  });
 
   console.log('res.text()');
   console.log(res.text());
