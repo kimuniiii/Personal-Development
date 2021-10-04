@@ -189,7 +189,7 @@ const TopPage: NextPage<TopPageProps> = ({ origin }) => {
             <Pagination
               className='pagination'
               defaultIndex={paginationCurrentIndex}
-              lastIndex={3}
+              lastIndex={2}
               isPagerButton={true}
               onClick={onPaginationBtnClick}
             />

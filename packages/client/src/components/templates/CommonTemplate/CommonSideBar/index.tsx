@@ -17,10 +17,24 @@ type CommonSideBarProps = {
 };
 
 export const CommonSideBar: VFC<CommonSideBarProps> = ({ auth0Domain, auth0ClientId }) => {
+  const CONFIRM_MESSAGE =
+    'ユーザー登録の時にメールアドレス・パスワードを設定した場合のみ有効になります。パスワードリセットメールを送信しますか？';
+
   const { user } = useAuth0();
+
   console.log('CommonSideBar');
   console.log('user');
   console.table(user);
+
+  /**
+   * @概要 パスワード変更ボタンをクリック時に呼び出されるイベントハンドラ
+   * @説明 指定のメールアドレスにパスワードリセットを要求するメールを送信する
+   */
+  const handlePasswordChange = (): void => {
+    if (window.confirm(CONFIRM_MESSAGE)) {
+      changePassword({ auth0Domain, auth0ClientId, user });
+    }
+  };
 
   return (
     <StSideBarContainer>
@@ -61,7 +75,7 @@ export const CommonSideBar: VFC<CommonSideBarProps> = ({ auth0Domain, auth0Clien
         fontSizeValue='16px'
         padding='8px'
         buttonContent='パスワード変更'
-        onClick={(): Promise<void> => changePassword({ auth0Domain, auth0ClientId, user })}
+        onClick={handlePasswordChange}
       />
       <Margin bottom='8px' />
       <Button

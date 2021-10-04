@@ -7,11 +7,11 @@ export const getAuth0Domain = (): string => {
   }
 
   if (process.env.VERCEL_ENV === 'staging') {
-    return process.env.VERCEL_AUTH0_DOMAIN || '';
+    return process.env.NEXT_PUBLIC_AUTH0_DOMAIN || '';
   }
 
   if (process.env.VERCEL_ENV === 'production') {
-    return process.env.VERCEL_AUTH0_DOMAIN || '';
+    return process.env.NEXT_PUBLIC_AUTH0_DOMAIN || '';
   }
 
   return '';

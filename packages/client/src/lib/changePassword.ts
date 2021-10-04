@@ -18,16 +18,22 @@ export const changePassword = async ({
   user,
 }: ChangePasswordArgs): Promise<void> => {
   console.log('change-password');
+
+  console.log('auth0Domain は undefined');
   console.log('auth0Domain', auth0Domain);
-  console.log('auth0Domain', process.env.NEXT_PUBLIC_AUTH0_DOMAIN);
+  console.log('process.env.NEXT_PUBLIC_AUTH0_DOMAIN', process.env.NEXT_PUBLIC_AUTH0_DOMAIN);
+
+  console.log('auth0ClientId は undefined');
   console.log('auth0ClientId', auth0ClientId);
-  console.log('auth0ClientId', process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID);
+  console.log('process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID', process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID);
+
   console.log('user?.email', user?.email);
+  console.log('process.env.NEXT_PUBLIC_VERCEL_ENV', process.env.NEXT_PUBLIC_VERCEL_ENV);
 
   const jsonBodyData = JSON.stringify({
-    client_id: process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID,
+    client_id: auth0ClientId,
     email: user?.email,
-    connection: 'Username-Password-Authentication',
+    connection: 'Riot-EC-Site-Staging-Database',
   });
 
   console.log('jsonBodyData', jsonBodyData);

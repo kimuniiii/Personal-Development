@@ -54,12 +54,14 @@ const CustomApp = ({
   const redirectUri = `${origin}/my-page`;
   console.log(redirectUri);
 
-  console.log('NEXT_PUBLIC_AUTH0_DOMAIN', process.env.NEXT_PUBLIC_AUTH0_DOMAIN);
-  console.log('VERCEL_AUTH0_DOMAIN ', process.env.VERCEL_AUTH0_DOMAIN);
+  console.log('App Component');
+  console.log('NEXT_PUBLIC_VERCEL_ENV', process.env.NEXT_PUBLIC_VERCEL_ENV);
 
+  console.log('NEXT_PUBLIC_AUTH0_DOMAIN は 環境ごとに異なる値が入るはず');
+  console.log('NEXT_PUBLIC_AUTH0_DOMAIN', process.env.NEXT_PUBLIC_AUTH0_DOMAIN);
+
+  console.log('NEXT_PUBLIC_AUTH0_CLIENT_ID は 環境ごとに異なる値が入るはず');
   console.log('NEXT_PUBLIC_AUTH0_CLIENT_ID', process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID);
-  console.log('VERCEL_STAGING_AUTH0_CLIENT_ID', process.env.VERCEL_STAGING_AUTH0_CLIENT_ID);
-  console.log('VERCEL_PRODUCTION_AUTH0_CLIENT_ID', process.env.VERCEL_PRODUCTION_AUTH0_CLIENT_ID);
 
   console.log('auth0Domain', auth0Domain);
   console.log('auth0ClientId', auth0ClientId);
