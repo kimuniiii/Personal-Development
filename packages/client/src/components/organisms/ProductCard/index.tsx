@@ -25,7 +25,8 @@ export const ProductCard: VFC<Props> = ({ productCardList }) => {
 
   /**
    * @概要 商品画像をクリックしたときに呼ばれるイベントハンドラ
-   * @説明 ログインしていたら、商品詳細画面に遷移すること | ログインしてないならユーザー登録画面に遷移すること
+   * @要件1 ログインしていたら、商品詳細画面に遷移できること
+   * @要件2 ログインしてないなら、Auth0のユーザー登録モーダルに遷移すること
    */
   const handleProductImageBtnClick = (): void => {
     if (isAuthenticated) {
@@ -44,7 +45,6 @@ export const ProductCard: VFC<Props> = ({ productCardList }) => {
           <React.Fragment key={productItem.id}>
             <StProductItem>
               <StFigure>
-                {/* TODO ログインしていなかったらユーザー登録画面に遷移させる実装を行う */}
                 <StImageBtn onClick={handleProductImageBtnClick}>
                   <Image src={ReactImage} alt='React Image' width={126} height={126} />
                 </StImageBtn>
