@@ -57,14 +57,31 @@ const CustomApp = ({
   console.log('App Component');
   console.log('NEXT_PUBLIC_VERCEL_ENV', process.env.NEXT_PUBLIC_VERCEL_ENV);
 
-  console.log('NEXT_PUBLIC_AUTH0_DOMAIN は 環境ごとに異なる値が入るはず');
+  console.log('NEXT_PUBLIC_AUTH0_DOMAIN は 開発環境では値が入る');
   console.log('NEXT_PUBLIC_AUTH0_DOMAIN', process.env.NEXT_PUBLIC_AUTH0_DOMAIN);
+  console.log('process.env.AUTH0_DOMAIN は ステージングと本番環境では値が入る');
+  console.log('process.env.AUTH0_DOMAIN', process.env.AUTH0_DOMAIN);
 
-  console.log('NEXT_PUBLIC_AUTH0_CLIENT_ID は 環境ごとに異なる値が入るはず');
+  console.log('NEXT_PUBLIC_AUTH0_CLIENT_ID は 開発環境では値が入る');
   console.log('NEXT_PUBLIC_AUTH0_CLIENT_ID', process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID);
+  console.log('process.env.AUTH0_CLIENT_ID は ステージングと本番環境では値が入る');
+  console.log('process.env.AUTH0_CLIENT_ID', process.env.AUTH0_CLIENT_ID);
 
+  console.log('初期描画時は auth0Domain に値は入る。ログイン後は入らない');
   console.log('auth0Domain', auth0Domain);
+
+  console.log('初期描画時は auth0ClientId に値は入る。ログイン後は入らない');
   console.log('auth0ClientId', auth0ClientId);
+
+  const cacheAuth0Domain = useMemo(() => {
+    return auth0Domain;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const cacheAuth0ClientId = useMemo(() => {
+    return auth0ClientId;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const onRedirectCallback = (appState: AppState): void => {
     console.log('appState', appState);
@@ -76,8 +93,8 @@ const CustomApp = ({
     <React.Fragment>
       <HeadTemplate pageOrigin={origin} />
       <Auth0Provider
-        domain={auth0Domain}
-        clientId={auth0ClientId}
+        domain={cacheAuth0Domain}
+        clientId={cacheAuth0ClientId}
         redirectUri={redirectUri}
         audience={origin}
         onRedirectCallback={onRedirectCallback}
@@ -91,8 +108,8 @@ const CustomApp = ({
           <Component
             {...pageProps}
             origin={origin}
-            auth0Domain={auth0Domain}
-            auth0ClientId={auth0ClientId}
+            auth0Domain={cacheAuth0Domain}
+            auth0ClientId={cacheAuth0ClientId}
           />
         </ApolloProvider>
       </Auth0Provider>
@@ -113,8 +130,8 @@ CustomApp.getInitialProps = async (appContext: AppContext): Promise<CustomAppIni
   // VERCEL_ENV : Vercel の ダッシュボードで登録した環境変数
   const origin = getRedirectUriOrigin(process.env.VERCEL_ENV);
   const endPoint = getApiEndPoint(process.env.VERCEL_ENV);
-  const auth0Domain = getAuth0Domain();
-  const auth0ClientId = getAuth0ClientId();
+  const auth0Domain = getAuth0Domain(process.env.VERCEL_ENV);
+  const auth0ClientId = getAuth0ClientId(process.env.VERCEL_ENV);
   const appProps = await App.getInitialProps(appContext);
   return { ...appProps, origin, endPoint, auth0Domain, auth0ClientId };
 };
