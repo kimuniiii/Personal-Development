@@ -57,13 +57,15 @@ const CustomApp = ({
   console.log('App Component');
   console.log('NEXT_PUBLIC_VERCEL_ENV', process.env.NEXT_PUBLIC_VERCEL_ENV);
 
-  console.log('NEXT_PUBLIC_AUTH0_DOMAIN は 環境ごとに異なる値が入るはず');
-  console.log('process.env.AUTH0_DOMAIN', process.env.AUTH0_DOMAIN);
+  console.log('NEXT_PUBLIC_AUTH0_DOMAIN は 開発環境では値が入る');
   console.log('NEXT_PUBLIC_AUTH0_DOMAIN', process.env.NEXT_PUBLIC_AUTH0_DOMAIN);
+  console.log('process.env.AUTH0_DOMAIN は ステージングと本番環境では値が入る');
+  console.log('process.env.AUTH0_DOMAIN', process.env.AUTH0_DOMAIN);
 
-  console.log('NEXT_PUBLIC_AUTH0_CLIENT_ID は 環境ごとに異なる値が入るはず');
-  console.log('process.env.AUTH0_CLIENT_ID', process.env.AUTH0_CLIENT_ID);
+  console.log('NEXT_PUBLIC_AUTH0_CLIENT_ID は 開発環境では値が入る');
   console.log('NEXT_PUBLIC_AUTH0_CLIENT_ID', process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID);
+  console.log('process.env.AUTH0_CLIENT_ID は ステージングと本番環境では値が入る');
+  console.log('process.env.AUTH0_CLIENT_ID', process.env.AUTH0_CLIENT_ID);
 
   console.log('auth0Domain', auth0Domain);
   console.log('auth0ClientId', auth0ClientId);
