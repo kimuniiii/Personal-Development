@@ -16,12 +16,12 @@ export const Success = Template.bind({});
 
 Success.args = {
   snackBarTypes: 'success',
-  message: 'This is success message',
+  message: 'This is a success message',
 };
 
 export const Fail = Template.bind({});
 
 Fail.args = {
   snackBarTypes: 'fail',
-  message: 'This is failed message',
+  message: 'This is a failed message',
 };
