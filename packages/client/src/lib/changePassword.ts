@@ -1,7 +1,5 @@
 import type { User } from '@auth0/auth0-spa-js';
 
-import { getAuth0ClientId } from 'src/lib/getAuth0ClientId';
-
 type ChangePasswordArgs = {
   auth0Domain?: string;
   auth0ClientId?: string;
