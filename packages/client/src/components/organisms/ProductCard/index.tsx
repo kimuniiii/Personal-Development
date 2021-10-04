@@ -1,3 +1,4 @@
+import { useAuth0 } from '@auth0/auth0-react';
 import styled from '@emotion/styled';
 import Image from 'next/image';
 import Router from 'next/router';
@@ -20,6 +21,22 @@ type Props = {
 };
 
 export const ProductCard: VFC<Props> = ({ productCardList }) => {
+  const { isAuthenticated, loginWithRedirect } = useAuth0();
+
+  /**
+   * @概要 商品画像をクリックしたときに呼ばれるイベントハンドラ
+   * @説明 ログインしていたら、商品詳細画面に遷移すること | ログインしてないならユーザー登録画面に遷移すること
+   */
+  const handleProductImageBtnClick = (): void => {
+    if (isAuthenticated) {
+      Router.push('/product/detail');
+    } else {
+      loginWithRedirect({
+        screen_hint: 'signup',
+      });
+    }
+  };
+
   return (
     <StProductList>
       {productCardList?.map((productItem, idx) => {
@@ -28,7 +45,7 @@ export const ProductCard: VFC<Props> = ({ productCardList }) => {
             <StProductItem>
               <StFigure>
                 {/* TODO ログインしていなかったらユーザー登録画面に遷移させる実装を行う */}
-                <StImageBtn onClick={(): Promise<boolean> => Router.push('/product/detail')}>
+                <StImageBtn onClick={handleProductImageBtnClick}>
                   <Image src={ReactImage} alt='React Image' width={126} height={126} />
                 </StImageBtn>
                 <figcaption>{productItem.name}</figcaption>
