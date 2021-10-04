@@ -19,9 +19,11 @@ export const changePassword = async ({
 }: ChangePasswordArgs): Promise<void> => {
   console.log('change-password');
 
+  console.log('auth0Domain は undefined');
   console.log('auth0Domain', auth0Domain);
   console.log('process.env.NEXT_PUBLIC_AUTH0_DOMAIN', process.env.NEXT_PUBLIC_AUTH0_DOMAIN);
 
+  console.log('auth0ClientId は undefined');
   console.log('auth0ClientId', auth0ClientId);
   console.log('process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID', process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID);
 
