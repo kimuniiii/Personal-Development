@@ -1,10 +1,10 @@
 import { useAuth0 } from '@auth0/auth0-react';
 import styled from '@emotion/styled';
 import Router from 'next/router';
-
-import type { VFC } from 'react';
+import { useState, VFC } from 'react';
 
 import { Button } from 'src/components/atoms/Button';
+import { SnackBar } from 'src/components/atoms/SnackBar';
 import { Margin } from 'src/components/layouts/Margin';
 
 import { changePassword } from 'src/lib/changePassword';
@@ -20,6 +20,9 @@ export const CommonSideBar: VFC<CommonSideBarProps> = ({ auth0Domain, auth0Clien
   const CONFIRM_MESSAGE =
     'ユーザー登録の時にメールアドレス・パスワードを設定した場合のみ有効になります。パスワードリセットメールを送信しますか？';
 
+  const [isShowSnackBar, setIsShowSnackBar] = useState(false);
+  const [defaultSnackBar, setDefaultSnackBar] = useState(false);
+
   const { user } = useAuth0();
 
   console.log('CommonSideBar');
@@ -32,7 +35,20 @@ export const CommonSideBar: VFC<CommonSideBarProps> = ({ auth0Domain, auth0Clien
    */
   const handlePasswordChange = (): void => {
     if (window.confirm(CONFIRM_MESSAGE)) {
-      changePassword({ auth0Domain, auth0ClientId, user });
+      changePassword({ auth0Domain, auth0ClientId, user }).then((res) => {
+        console.log('then');
+        console.log(res);
+
+        if (res.ok) {
+          // 成功時には`Success SnackBar`を表示する
+          setIsShowSnackBar(true);
+          setDefaultSnackBar(true);
+        } else {
+          // 失敗時には`Failed SnackBar`を表示する
+          setIsShowSnackBar(true);
+          setDefaultSnackBar(false);
+        }
+      });
     }
   };
 
@@ -87,6 +103,21 @@ export const CommonSideBar: VFC<CommonSideBarProps> = ({ auth0Domain, auth0Clien
         buttonContent='退会'
         onClick={(): Promise<boolean> => Router.push('/withdraw')}
       />
+      {isShowSnackBar && defaultSnackBar ? (
+        <SnackBar
+          snackBarTypes='success'
+          message='パスワードリセットメールの送信に成功しました'
+          isShowSnackBar={isShowSnackBar}
+          setIsShowSnackBar={setIsShowSnackBar}
+        />
+      ) : isShowSnackBar && !defaultSnackBar ? (
+        <SnackBar
+          snackBarTypes='fail'
+          message='パスワードリセットメールの送信に失敗しました'
+          isShowSnackBar={isShowSnackBar}
+          setIsShowSnackBar={setIsShowSnackBar}
+        />
+      ) : null}
     </StSideBarContainer>
   );
 };

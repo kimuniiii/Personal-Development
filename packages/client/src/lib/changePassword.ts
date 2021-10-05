@@ -15,7 +15,7 @@ export const changePassword = async ({
   auth0Domain,
   auth0ClientId,
   user,
-}: ChangePasswordArgs): Promise<void | string> => {
+}: ChangePasswordArgs): Promise<Response> => {
   console.log('change-password');
 
   console.log('auth0Domain は 値が入っているはず');
@@ -43,22 +43,13 @@ export const changePassword = async ({
 
   console.log('jsonBodyData', jsonBodyData);
 
-  try {
-    const res = await fetch(`https://${AUTH0_DOMAIN}/dbconnections/change_password`, {
-      method: 'POST',
-      mode: 'cors',
-      credentials: 'same-origin',
-      headers: { 'Content-Type': 'application/json' },
-      body: jsonBodyData,
-    });
-    if (res.ok) {
-      console.log('res.text()');
-      console.log(res.text());
-      return '成功しました';
-    }
-  } catch (error) {
-    if (error instanceof Error) {
-      return '失敗しました';
-    }
-  }
+  const res = await fetch(`https://${AUTH0_DOMAIN}/dbconnections/change_password`, {
+    method: 'POST',
+    mode: 'cors',
+    credentials: 'same-origin',
+    headers: { 'Content-Type': 'application/json' },
+    body: jsonBodyData,
+  });
+
+  return res;
 };
