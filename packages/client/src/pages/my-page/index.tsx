@@ -7,7 +7,7 @@ import type { NextPage } from 'next';
 
 import { Loader } from 'src/components/atoms/Loader';
 import { Margin } from 'src/components/layouts/Margin';
-import { ProductCard } from 'src/components/organisms/ProductCard';
+import { PcProductCard } from 'src/components/organisms/ProductCard/Pc';
 import { CommonTemplate } from 'src/components/templates/CommonTemplate';
 import { ErrorTemplate } from 'src/components/templates/ErrorTemplate';
 import { HeadTemplate } from 'src/components/templates/HeadTemplate';
@@ -82,7 +82,7 @@ const MyPage: NextPage<MyPageProps> = ({ origin, auth0Domain, auth0ClientId }) =
             </StProfileInfoContainer>
             <h3>登録商品</h3>
             <StTodo>TODO : 自分が登録した商品情報だけが描画される</StTodo>
-            <ProductCard productCardList={productCardList} />
+            <PcProductCard productCardList={productCardList} />
             <h3>連絡掲示板</h3>
             <StTodo>TODO : 要件が決まり次第、実装を行う</StTodo>
             <h3>お気に入り一覧</h3>
