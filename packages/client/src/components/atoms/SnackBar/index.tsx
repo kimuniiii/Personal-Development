@@ -5,6 +5,7 @@ import { IoMdWarning } from 'react-icons/io/index';
 
 import { Margin } from 'src/components/layouts/Margin';
 
+import { COLOR_PALETTE } from 'src/styles/color_palette';
 import { FONT_WEIGHT } from 'src/styles/font_weight';
 
 type SnackBarProps = {
@@ -20,6 +21,7 @@ export const SnackBar: VFC<SnackBarProps> = ({
   isShowSnackBar,
   setIsShowSnackBar,
 }) => {
+  // 3秒後に`SnackBar`は消える
   useEffect(() => {
     setTimeout(() => {
       setIsShowSnackBar(false);
@@ -57,7 +59,7 @@ const StSuccessContainer = styled.div`
   display: flex;
   align-items: center;
   font-weight: ${FONT_WEIGHT.BOLD};
-  background-color: #00f593;
+  background-color: ${COLOR_PALETTE.SNACKBAR_SUCCESS_COLOR};
   padding: 16px;
   border-radius: 10px;
 `;
@@ -66,7 +68,7 @@ const StFailContainer = styled.div`
   display: flex;
   align-items: center;
   font-weight: ${FONT_WEIGHT.BOLD};
-  background-color: #ff0033;
+  background-color: ${COLOR_PALETTE.SNACKBAR_ERROR_COLOR};
   padding: 16px;
   border-radius: 10px;
 `;
