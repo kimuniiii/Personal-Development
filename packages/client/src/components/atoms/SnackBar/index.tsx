@@ -68,7 +68,8 @@ const StFailContainer = styled.div`
   display: flex;
   align-items: center;
   font-weight: ${FONT_WEIGHT.BOLD};
-  background-color: ${COLOR_PALETTE.SNACKBAR_ERROR_COLOR};
+  color: ${COLOR_PALETTE.ERROR_COLOR};
+  background-color: ${COLOR_PALETTE.WARNING_COLOR};
   padding: 16px;
   border-radius: 10px;
 `;
