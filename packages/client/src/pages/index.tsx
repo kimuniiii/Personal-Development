@@ -8,7 +8,9 @@ import type { GetServerSideProps, NextPage } from 'next';
 import { Margin } from 'src/components/layouts/Margin';
 import { Pagination } from 'src/components/organisms/Pagination';
 import { PcProductCard } from 'src/components/organisms/ProductCard/Pc';
-import { ProductCardSkeleton } from 'src/components/organisms/ProductCardSkeleton';
+import { SpProductCard } from 'src/components/organisms/ProductCard/Sp';
+import { PcProductCardSkeleton } from 'src/components/organisms/ProductCardSkeleton/Pc';
+import { SpProductCardSkeleton } from 'src/components/organisms/ProductCardSkeleton/Sp';
 import { SearchBox } from 'src/components/organisms/SearchBox';
 import { CommonTemplate } from 'src/components/templates/CommonTemplate';
 import { ErrorTemplate } from 'src/components/templates/ErrorTemplate';
@@ -180,7 +182,7 @@ const TopPage: NextPage<TopPageProps> = ({ origin, isMobileUaDeviceType }) => {
               setGetProductData={setGetProductData}
               setSelectedCategory={setSelectedCategory}
             />
-            <StProductListContainer>
+            <StSpProductListContainer>
               <StSearchResultLabel>
                 <h4>{SEARCH_TOTAL_RESULT_NUMBER}件の商品が見つかりました</h4>
                 <StSearchResultItem>
@@ -190,10 +192,11 @@ const TopPage: NextPage<TopPageProps> = ({ origin, isMobileUaDeviceType }) => {
                 </StSearchResultItem>
               </StSearchResultLabel>
               {loading ? (
-                <ProductCardSkeleton />
+                <SpProductCardSkeleton />
               ) : (
-                <PcProductCard productCardList={data?.product} />
+                <SpProductCard productCardList={data?.product} />
               )}
+              <Margin bottom='16px' />
               <Pagination
                 className='pagination'
                 defaultIndex={paginationCurrentIndex}
@@ -201,7 +204,7 @@ const TopPage: NextPage<TopPageProps> = ({ origin, isMobileUaDeviceType }) => {
                 isPagerButton={true}
                 onClick={onPaginationBtnClick}
               />
-            </StProductListContainer>
+            </StSpProductListContainer>
           </StSpRoot>
         ) : (
           <StPcRoot>
@@ -210,7 +213,7 @@ const TopPage: NextPage<TopPageProps> = ({ origin, isMobileUaDeviceType }) => {
               setGetProductData={setGetProductData}
               setSelectedCategory={setSelectedCategory}
             />
-            <StProductListContainer>
+            <StPcProductListContainer>
               <StSearchResultLabel>
                 <h4>{SEARCH_TOTAL_RESULT_NUMBER}件の商品が見つかりました</h4>
                 <StSearchResultItem>
@@ -220,7 +223,7 @@ const TopPage: NextPage<TopPageProps> = ({ origin, isMobileUaDeviceType }) => {
                 </StSearchResultItem>
               </StSearchResultLabel>
               {loading ? (
-                <ProductCardSkeleton />
+                <PcProductCardSkeleton />
               ) : (
                 <PcProductCard productCardList={data?.product} />
               )}
@@ -231,7 +234,7 @@ const TopPage: NextPage<TopPageProps> = ({ origin, isMobileUaDeviceType }) => {
                 isPagerButton={true}
                 onClick={onPaginationBtnClick}
               />
-            </StProductListContainer>
+            </StPcProductListContainer>
           </StPcRoot>
         )}
       </CommonTemplate>
@@ -274,7 +277,12 @@ const StPcRoot = styled.section`
   gap: 24px;
 `;
 
-const StProductListContainer = styled.section`
+const StSpProductListContainer = styled.section`
+  display: flex;
+  flex-direction: column;
+`;
+
+const StPcProductListContainer = styled.section`
   display: flex;
   flex-direction: column;
   height: 500px;
