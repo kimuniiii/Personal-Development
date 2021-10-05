@@ -202,6 +202,7 @@ const TopPage: NextPage<TopPageProps> = ({ origin, isMobileUaDeviceType }) => {
         ) : (
           <StPcRoot>
             <SearchBox
+              isMobileUaDeviceType={isMobileUaDeviceType}
               setGetProductData={setGetProductData}
               setSelectedCategory={setSelectedCategory}
             />
