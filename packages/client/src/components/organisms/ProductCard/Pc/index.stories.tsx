@@ -1,11 +1,11 @@
 import { Story, Meta } from '@storybook/react/types-6-0';
 import React from 'react';
 
-import { ProductCard } from '.';
+import { PcProductCard } from '.';
 
 export default {
-  title: 'organisms/ProductCard',
-  component: ProductCard,
+  title: 'organisms/PcProductCard',
+  component: PcProductCard,
 } as Meta;
 
 type ProductCardList = { id: number; name: string; price: number; base64_image: string };
@@ -49,9 +49,9 @@ const productCardList: ProductCardList[] = [
   },
 ];
 
-type Props = React.ComponentProps<typeof ProductCard>;
+type Props = React.ComponentProps<typeof PcProductCard>;
 
-const Template: Story<Props> = (args) => <ProductCard {...args} />;
+const Template: Story<Props> = (args) => <PcProductCard {...args} />;
 
 export const Basic = Template.bind({});
 

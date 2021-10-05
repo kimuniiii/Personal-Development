@@ -12,13 +12,13 @@ import { COLOR_PALETTE } from 'src/styles/color_palette';
 
 import { priceToJapaneseYen } from 'src/utils/price';
 
-import NoImage from '../../../../public/images/no_image.png';
+import NoImage from '../../../../../public/images/no_image.png';
 
 type Props = {
   productCardList?: { id: number; name: string; price: number; base64_image: string }[];
 };
 
-export const ProductCard: VFC<Props> = ({ productCardList }) => {
+export const PcProductCard: VFC<Props> = ({ productCardList }) => {
   const { isAuthenticated, loginWithRedirect } = useAuth0();
 
   /**

@@ -7,7 +7,7 @@ import type { GetServerSideProps, NextPage } from 'next';
 
 import { Margin } from 'src/components/layouts/Margin';
 import { Pagination } from 'src/components/organisms/Pagination';
-import { ProductCard } from 'src/components/organisms/ProductCard';
+import { PcProductCard } from 'src/components/organisms/ProductCard/Pc';
 import { ProductCardSkeleton } from 'src/components/organisms/ProductCardSkeleton';
 import { SearchBox } from 'src/components/organisms/SearchBox';
 import { CommonTemplate } from 'src/components/templates/CommonTemplate';
@@ -189,7 +189,11 @@ const TopPage: NextPage<TopPageProps> = ({ origin, isMobileUaDeviceType }) => {
                   {SEARCH_TOTAL_RESULT_NUMBER}件中
                 </StSearchResultItem>
               </StSearchResultLabel>
-              {loading ? <ProductCardSkeleton /> : <ProductCard productCardList={data?.product} />}
+              {loading ? (
+                <ProductCardSkeleton />
+              ) : (
+                <PcProductCard productCardList={data?.product} />
+              )}
               <Pagination
                 className='pagination'
                 defaultIndex={paginationCurrentIndex}
@@ -215,7 +219,11 @@ const TopPage: NextPage<TopPageProps> = ({ origin, isMobileUaDeviceType }) => {
                   {SEARCH_TOTAL_RESULT_NUMBER}件中
                 </StSearchResultItem>
               </StSearchResultLabel>
-              {loading ? <ProductCardSkeleton /> : <ProductCard productCardList={data?.product} />}
+              {loading ? (
+                <ProductCardSkeleton />
+              ) : (
+                <PcProductCard productCardList={data?.product} />
+              )}
               <Pagination
                 className='pagination'
                 defaultIndex={paginationCurrentIndex}
