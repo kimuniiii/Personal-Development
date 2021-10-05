@@ -4,17 +4,17 @@ import type { VFC } from 'react';
 
 import { Skeleton } from 'src/components/atoms/Skeleton';
 
-export const ProductCardSkeleton: VFC = () => {
+export const PcProductCardSkeleton: VFC = () => {
   return (
-    <StProductList>
+    <StPcProductList>
       {[...Array(6)].map((_, idx) => {
         return <Skeleton key={idx} width='126px' height='180px' />;
       })}
-    </StProductList>
+    </StPcProductList>
   );
 };
 
-const StProductList = styled.ul`
+const StPcProductList = styled.ul`
   display: flex;
   flex-flow: row wrap;
   gap: 16px;
