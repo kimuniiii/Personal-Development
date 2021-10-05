@@ -1,8 +1,9 @@
 import { useQuery, gql } from '@apollo/client';
 import styled from '@emotion/styled';
 import React, { useEffect, useState } from 'react';
+import Parser from 'ua-parser-js';
 
-import type { NextPage } from 'next';
+import type { GetServerSideProps, NextPage } from 'next';
 
 import { Margin } from 'src/components/layouts/Margin';
 import { Pagination } from 'src/components/organisms/Pagination';
@@ -17,9 +18,10 @@ import { COLOR_PALETTE } from 'src/styles/color_palette';
 
 type TopPageProps = {
   origin: string;
+  isMobileUaDeviceType: boolean;
 };
 
-const TopPage: NextPage<TopPageProps> = ({ origin }) => {
+const TopPage: NextPage<TopPageProps> = ({ origin, isMobileUaDeviceType }) => {
   const SEARCH_CURRENT_PAGE_NUMBER = 1;
   const PAGINATION_OFFSET_NUMBER = 6;
 
@@ -171,30 +173,58 @@ const TopPage: NextPage<TopPageProps> = ({ origin }) => {
         pageTitle='トップページ'
       />
       <CommonTemplate isSideBar={false}>
-        <StRoot>
-          <SearchBox
-            setGetProductData={setGetProductData}
-            setSelectedCategory={setSelectedCategory}
-          />
-          <StProductListContainer>
-            <StSearchResultLabel>
-              <h4>{SEARCH_TOTAL_RESULT_NUMBER}件の商品が見つかりました</h4>
-              <StSearchResultItem>
-                {paginationCurrentIndex} - {SEARCH_TOTAL_RESULT_NUMBER}件<Margin right='4px' />/
-                <Margin right='4px' />
-                {SEARCH_TOTAL_RESULT_NUMBER}件中
-              </StSearchResultItem>
-            </StSearchResultLabel>
-            {loading ? <ProductCardSkeleton /> : <ProductCard productCardList={data?.product} />}
-            <Pagination
-              className='pagination'
-              defaultIndex={paginationCurrentIndex}
-              lastIndex={2}
-              isPagerButton={true}
-              onClick={onPaginationBtnClick}
+        {isMobileUaDeviceType ? (
+          <StSpRoot>
+            <SearchBox
+              isMobileUaDeviceType={isMobileUaDeviceType}
+              setGetProductData={setGetProductData}
+              setSelectedCategory={setSelectedCategory}
             />
-          </StProductListContainer>
-        </StRoot>
+            <StProductListContainer>
+              <StSearchResultLabel>
+                <h4>{SEARCH_TOTAL_RESULT_NUMBER}件の商品が見つかりました</h4>
+                <StSearchResultItem>
+                  {paginationCurrentIndex} - {SEARCH_TOTAL_RESULT_NUMBER}件<Margin right='4px' />/
+                  <Margin right='4px' />
+                  {SEARCH_TOTAL_RESULT_NUMBER}件中
+                </StSearchResultItem>
+              </StSearchResultLabel>
+              {loading ? <ProductCardSkeleton /> : <ProductCard productCardList={data?.product} />}
+              <Pagination
+                className='pagination'
+                defaultIndex={paginationCurrentIndex}
+                lastIndex={2}
+                isPagerButton={true}
+                onClick={onPaginationBtnClick}
+              />
+            </StProductListContainer>
+          </StSpRoot>
+        ) : (
+          <StPcRoot>
+            <SearchBox
+              setGetProductData={setGetProductData}
+              setSelectedCategory={setSelectedCategory}
+            />
+            <StProductListContainer>
+              <StSearchResultLabel>
+                <h4>{SEARCH_TOTAL_RESULT_NUMBER}件の商品が見つかりました</h4>
+                <StSearchResultItem>
+                  {paginationCurrentIndex} - {SEARCH_TOTAL_RESULT_NUMBER}件<Margin right='4px' />/
+                  <Margin right='4px' />
+                  {SEARCH_TOTAL_RESULT_NUMBER}件中
+                </StSearchResultItem>
+              </StSearchResultLabel>
+              {loading ? <ProductCardSkeleton /> : <ProductCard productCardList={data?.product} />}
+              <Pagination
+                className='pagination'
+                defaultIndex={paginationCurrentIndex}
+                lastIndex={2}
+                isPagerButton={true}
+                onClick={onPaginationBtnClick}
+              />
+            </StProductListContainer>
+          </StPcRoot>
+        )}
       </CommonTemplate>
     </React.Fragment>
   );
@@ -202,7 +232,27 @@ const TopPage: NextPage<TopPageProps> = ({ origin }) => {
 
 export default TopPage;
 
-const StRoot = styled.section`
+// TODO : UserAgentの判別によってレスポンシブ対応を行っているが、SSGは非対応。SSGにも対応できる方法があったら置き換える
+export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+  const userAgent = Parser(req?.headers['user-agent']);
+  return { props: { isMobileUaDeviceType: userAgent.device.type === 'mobile' } };
+};
+
+const StSpRoot = styled.section`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 16px 48px;
+  /*
+  ** CommonHeaderのheight : 48px
+  ** CommonFooterのheight : 56px
+  */
+  min-height: calc(100vh - (48px + 56px));
+  gap: 24px;
+`;
+
+const StPcRoot = styled.section`
   display: flex;
   justify-content: center;
   align-items: center;

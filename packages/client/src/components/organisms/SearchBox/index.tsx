@@ -17,11 +17,16 @@ type UseSearchFormInputs = {
 };
 
 type SearchBoxProps = {
+  isMobileUaDeviceType: boolean;
   setGetProductData: React.Dispatch<React.SetStateAction<DocumentNode>>;
   setSelectedCategory: React.Dispatch<React.SetStateAction<string>>;
 };
 
-export const SearchBox: VFC<SearchBoxProps> = ({ setGetProductData, setSelectedCategory }) => {
+export const SearchBox: VFC<SearchBoxProps> = ({
+  isMobileUaDeviceType,
+  setGetProductData,
+  setSelectedCategory,
+}) => {
   const {
     register,
     handleSubmit,
@@ -68,7 +73,10 @@ export const SearchBox: VFC<SearchBoxProps> = ({ setGetProductData, setSelectedC
   };
 
   return (
-    <StSearchForm onSubmit={handleSubmit(handleOnSubmit, handleOnError)}>
+    <StSearchForm
+      isMobileUaDeviceType={isMobileUaDeviceType}
+      onSubmit={handleSubmit(handleOnSubmit, handleOnError)}
+    >
       <SelectBox
         id='select_category_box'
         name='select_category_box'
@@ -110,12 +118,12 @@ export const SearchBox: VFC<SearchBoxProps> = ({ setGetProductData, setSelectedC
   );
 };
 
-const StSearchForm = styled.form`
+const StSearchForm = styled.form<{ isMobileUaDeviceType: boolean }>`
   display: flex;
   flex-direction: column;
   gap: 16px;
   padding: 24px;
   width: 348px;
-  height: 500px;
+  height: ${({ isMobileUaDeviceType }): string => (isMobileUaDeviceType ? 'auto' : '500px')};
   background-color: ${COLOR_PALETTE.LIGHT_GRAY};
 `;
