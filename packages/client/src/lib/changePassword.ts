@@ -52,8 +52,8 @@ export const changePassword = async ({
 
   const res = await fetch(`https://${AUTH0_DOMAIN}/dbconnections/change_password`, {
     method: 'POST',
-    mode: 'cors',
-    credentials: 'same-origin',
+    mode: 'no-cors',
+    credentials: 'include',
     headers: { 'Content-Type': 'application/json' },
     body: jsonBodyData,
   });
