@@ -61,7 +61,7 @@ export const SelectBox = React.forwardRef<HTMLSelectElement, SelectBoxProps>(
               </option>
             ))}
           </StSelect>
-          <IoIosArrowDown width={12} height={12} fill={COLOR_PALETTE.DARK_GRAY} />
+          <IoIosArrowDown width={12} height={12} fill={COLOR_PALETTE.BLACK} />
         </StSelectBoxArea>
         {isError ? (
           <ErrorMessage
@@ -104,11 +104,11 @@ const StSelectBoxArea = styled.div`
 const StSelect = styled.select<Pick<SelectBoxProps, 'fontSizeValue' | 'padding'>>`
   width: 100%;
   padding: ${({ padding }): string => padding ?? '16px 8px'};
-  border: 1px solid ${COLOR_PALETTE.DARK_GRAY};
+  border: 1px solid ${COLOR_PALETTE.BLACK};
   border-radius: 3px;
   outline: 0;
   font-size: ${({ fontSizeValue }): ValueOf<typeof FONT_SIZE> => fontSizeValue ?? FONT_SIZE.FS_14};
-  color: ${COLOR_PALETTE.DARK_GRAY};
+  color: ${COLOR_PALETTE.BLACK};
   cursor: pointer;
 
   /* セレクトボックスのデフォルトの下矢印を消すため */
