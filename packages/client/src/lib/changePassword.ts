@@ -35,10 +35,17 @@ export const changePassword = async ({
 
   const AUTH0_DOMAIN = auth0Domain || process.env.NEXT_PUBLIC_AUTH0_DOMAIN || '';
 
+  const AUTH0_CONNECTION =
+    process.env.VERCEL_ENV === 'development'
+      ? 'Riot-EC-Site-Development-Database'
+      : process.env.VERCEL_ENV === 'staging'
+      ? 'Riot-EC-Site-Staging-Database'
+      : 'Riot-EC-Site-Production-Database';
+
   const jsonBodyData = JSON.stringify({
     client_id: auth0ClientId,
     email: user?.email,
-    connection: 'Riot-EC-Site-Staging-Database',
+    connection: AUTH0_CONNECTION,
   });
 
   console.log('jsonBodyData', jsonBodyData);
