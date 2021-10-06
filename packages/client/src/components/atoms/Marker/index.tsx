@@ -51,9 +51,9 @@ const StMarkerContainer = styled.div<Omit<Props, 'text'>>`
   font-size: ${({ fontSizeValue }): ValueOf<typeof FONT_SIZE> => fontSizeValue ?? '12px'};
   width: ${({ width }): `${number}px` => width ?? '40px'};
   height: ${({ height }): `${number}px` | undefined => height ?? '20px'};
-  color: ${({ color }): ValueOf<typeof COLOR_PALETTE> | undefined => color ?? COLOR_PALETTE.WHITE};
-  background-color: ${({ bgColor }): ValueOf<typeof COLOR_PALETTE> =>
-    bgColor ?? COLOR_PALETTE.ERROR_COLOR};
-  border: ${({ border }): string => border ?? 'none'};
+  color: ${({ color }): ValueOf<typeof COLOR_PALETTE> | undefined => color ?? COLOR_PALETTE.BLACK};
+  background-color: ${({ bgColor }): ValueOf<typeof COLOR_PALETTE> | null =>
+    bgColor !== undefined ? bgColor : null};
+  border: ${({ border }): string => border ?? `2px solid ${COLOR_PALETTE.ERROR_COLOR}`};
   opacity: ${({ opacity }): number | null => (opacity !== undefined ? opacity : null)};
 `;
