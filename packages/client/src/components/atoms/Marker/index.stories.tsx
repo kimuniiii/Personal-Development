@@ -18,9 +18,8 @@ export const Required = Template.bind({});
 
 Required.args = {
   text: '必須',
-  color: COLOR_PALETTE.WHITE,
-  bgColor: COLOR_PALETTE.ERROR_COLOR,
-  border: 'none',
+  color: COLOR_PALETTE.BLACK,
+  border: `2px solid ${COLOR_PALETTE.ERROR_COLOR}`,
 };
 
 export const Optional = Template.bind({});
