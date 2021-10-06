@@ -33,6 +33,6 @@ const StErrorContainer = styled.div`
   flex-direction: column;
   height: 100vh;
   text-align: center;
-  background-color: ${COLOR_PALETTE.ERROR_COLOR};
-  color: ${COLOR_PALETTE.WHITE};
+  background-color: ${COLOR_PALETTE.WARNING_COLOR};
+  color: ${COLOR_PALETTE.ERROR_COLOR};
 `;

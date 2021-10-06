@@ -4,6 +4,7 @@ import Router from 'next/router';
 import { useState, VFC } from 'react';
 
 import { Button } from 'src/components/atoms/Button';
+import { Dialog } from 'src/components/atoms/Dialog';
 import { SnackBar } from 'src/components/atoms/SnackBar';
 import { Margin } from 'src/components/layouts/Margin';
 
@@ -17,9 +18,10 @@ type CommonSideBarProps = {
 };
 
 export const CommonSideBar: VFC<CommonSideBarProps> = ({ auth0Domain, auth0ClientId }) => {
-  const CONFIRM_MESSAGE =
-    'ユーザー登録の時にメールアドレス・パスワードを設定した場合のみ有効になります。パスワードリセットメールを送信しますか？';
+  const CONFIRM_TITLE =
+    'ユーザー登録の時にメールアドレスとパスワード経由でログインした場合のみパスワードリセットメールは送信されます。メールアドレス宛にパスワードリセットメールを送信しますか？';
 
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isShowSnackBar, setIsShowSnackBar] = useState(false);
   const [defaultSnackBar, setDefaultSnackBar] = useState(false);
 
@@ -29,32 +31,41 @@ export const CommonSideBar: VFC<CommonSideBarProps> = ({ auth0Domain, auth0Clien
   console.log('user');
   console.table(user);
 
+  const onYesBtnClicked = (): void => {
+    setIsDialogOpen(false);
+
+    changePassword({ auth0Domain, auth0ClientId, user }).then((res) => {
+      console.log('then');
+      console.log(res);
+
+      if (res.ok) {
+        // 成功時には`Success SnackBar`を表示する
+        setIsShowSnackBar(true);
+        setDefaultSnackBar(true);
+      } else {
+        // 失敗時には`Failed SnackBar`を表示する
+        setIsShowSnackBar(true);
+        setDefaultSnackBar(false);
+      }
+    });
+  };
+
+  const onNoBtnClicked = (): void => {
+    setIsDialogOpen(false);
+  };
+
   /**
    * @概要 パスワード変更ボタンをクリック時に呼び出されるイベントハンドラ
-   * @説明 指定のメールアドレスにパスワードリセットを要求するメールを送信する
+   * @説明 クリックしたら`Dialog Component`を画面に描画する
    */
   const handlePasswordChange = (): void => {
-    if (window.confirm(CONFIRM_MESSAGE)) {
-      changePassword({ auth0Domain, auth0ClientId, user }).then((res) => {
-        console.log('then');
-        console.log(res);
-
-        if (res.ok) {
-          // 成功時には`Success SnackBar`を表示する
-          setIsShowSnackBar(true);
-          setDefaultSnackBar(true);
-        } else {
-          // 失敗時には`Failed SnackBar`を表示する
-          setIsShowSnackBar(true);
-          setDefaultSnackBar(false);
-        }
-      });
-    }
+    setIsDialogOpen(true);
   };
 
   return (
     <StSideBarContainer>
       <Button
+        className='product-register-btn'
         type='button'
         styleTypes='textLink'
         width='auto'
@@ -65,6 +76,7 @@ export const CommonSideBar: VFC<CommonSideBarProps> = ({ auth0Domain, auth0Clien
       />
       <Margin bottom='8px' />
       <Button
+        className='sales-history-btn'
         type='button'
         styleTypes='textLink'
         width='auto'
@@ -75,6 +87,7 @@ export const CommonSideBar: VFC<CommonSideBarProps> = ({ auth0Domain, auth0Clien
       />
       <Margin bottom='8px' />
       <Button
+        className='profile-edit-btn'
         type='button'
         styleTypes='textLink'
         width='auto'
@@ -85,6 +98,7 @@ export const CommonSideBar: VFC<CommonSideBarProps> = ({ auth0Domain, auth0Clien
       />
       <Margin bottom='8px' />
       <Button
+        className='password-change-btn'
         type='button'
         styleTypes='textLink'
         width='auto'
@@ -95,6 +109,7 @@ export const CommonSideBar: VFC<CommonSideBarProps> = ({ auth0Domain, auth0Clien
       />
       <Margin bottom='8px' />
       <Button
+        className='withdraw-btn'
         type='button'
         styleTypes='textLink'
         width='auto'
@@ -118,6 +133,14 @@ export const CommonSideBar: VFC<CommonSideBarProps> = ({ auth0Domain, auth0Clien
           setIsShowSnackBar={setIsShowSnackBar}
         />
       ) : null}
+      {isDialogOpen ? (
+        <Dialog
+          dialogTitle={CONFIRM_TITLE}
+          isDialogOpen={isDialogOpen}
+          onYesBtnClicked={onYesBtnClicked}
+          onNoBtnClicked={onNoBtnClicked}
+        />
+      ) : null}
     </StSideBarContainer>
   );
 };
@@ -129,7 +152,11 @@ const StSideBarContainer = styled.aside`
   width: 220px;
   padding: 16px;
 
-  button {
+  .product-register-btn,
+  .sales-history-btn,
+  .profile-edit-btn,
+  .password-change-btn,
+  .withdraw-btn {
     color: ${COLOR_PALETTE.BLACK};
   }
 `;
