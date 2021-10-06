@@ -41,24 +41,22 @@ export const PcProductCard: VFC<Props> = ({ productCardList }) => {
       {productCardList?.map((productItem, idx) => {
         return idx <= 5 ? (
           <React.Fragment key={productItem.id}>
-            <StProductItem>
-              <StFigure>
-                <StImageBtn onClick={handleProductImageBtnClick}>
-                  {productItem.base64_image ? (
-                    <Image
-                      src={productItem.base64_image}
-                      alt='Product Image'
-                      width={126}
-                      height={126}
-                    />
-                  ) : (
-                    <Image src={NoImage} alt='No Image' width={126} height={126} />
-                  )}
-                </StImageBtn>
-                <figcaption>{productItem.name}</figcaption>
-                <figcaption>{priceToJapaneseYen(productItem.price)}</figcaption>
-              </StFigure>
-            </StProductItem>
+            <StFigure>
+              <StImageBtn onClick={handleProductImageBtnClick}>
+                {productItem.base64_image ? (
+                  <Image
+                    src={productItem.base64_image}
+                    alt='Product Image'
+                    width={126}
+                    height={126}
+                  />
+                ) : (
+                  <Image src={NoImage} alt='No Image' width={126} height={126} />
+                )}
+              </StImageBtn>
+              <figcaption>{productItem.name}</figcaption>
+              <figcaption>{priceToJapaneseYen(productItem.price)}</figcaption>
+            </StFigure>
             {idx !== 2 && idx !== 5 ? <Margin right='16px' /> : null}
           </React.Fragment>
         ) : null;
@@ -67,7 +65,7 @@ export const PcProductCard: VFC<Props> = ({ productCardList }) => {
   );
 };
 
-const StProductList = styled.ul`
+const StProductList = styled.picture`
   display: flex;
   flex-flow: row wrap;
   /* TODO : Safari で表示崩れが起きるため */
@@ -80,20 +78,17 @@ const StProductList = styled.ul`
   padding: 16px 0 32px 0;
 `;
 
-const StProductItem = styled.li`
+const StFigure = styled.figure`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   width: 128px;
   height: 180px;
   border-radius: 3px;
   /* 白（光）とグレー（影）を対角線上に配置 */
   box-shadow: 13px 13px 26px #cac5c5, -13px -13px 26px #fff;
   border: 1px solid ${COLOR_PALETTE.BLACK};
-`;
-
-const StFigure = styled.figure`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
 `;
 
 const StImageBtn = styled.button`
