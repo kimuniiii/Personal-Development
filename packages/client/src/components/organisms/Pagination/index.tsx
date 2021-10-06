@@ -28,6 +28,7 @@ export const Pagination: VFC<PaginationProps> = ({
   return (
     <StPaginationContainer className={className}>
       <IconButton
+        aria-label='Go Back Button'
         type='button'
         svgComponent={<IoIosArrowBack size={20} fill={COLOR_PALETTE.DARK_GRAY} />}
         width='40px'
@@ -71,6 +72,7 @@ export const Pagination: VFC<PaginationProps> = ({
       </StPagerButtonContainer>
       <Margin right='16px' />
       <IconButton
+        aria-label='Go Forward Button'
         type='button'
         svgComponent={<IoIosArrowForward size={20} fill={COLOR_PALETTE.DARK_GRAY} />}
         width='40px'
