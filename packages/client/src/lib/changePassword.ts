@@ -36,9 +36,9 @@ export const changePassword = async ({
   const AUTH0_DOMAIN = auth0Domain || process.env.NEXT_PUBLIC_AUTH0_DOMAIN || '';
 
   const AUTH0_CONNECTION =
-    process.env.VERCEL_ENV === 'development'
+    process.env.NEXT_PUBLIC_VERCEL_ENV === 'development'
       ? 'Riot-EC-Site-Development-Database'
-      : process.env.VERCEL_ENV === 'staging'
+      : process.env.NEXT_PUBLIC_VERCEL_ENV === 'staging'
       ? 'Riot-EC-Site-Staging-Database'
       : 'Riot-EC-Site-Production-Database';
 
@@ -52,8 +52,8 @@ export const changePassword = async ({
 
   const res = await fetch(`https://${AUTH0_DOMAIN}/dbconnections/change_password`, {
     method: 'POST',
-    mode: 'no-cors',
-    credentials: 'include',
+    mode: 'cors',
+    credentials: 'same-origin',
     headers: { 'Content-Type': 'application/json' },
     body: jsonBodyData,
   });
