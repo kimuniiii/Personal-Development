@@ -81,6 +81,8 @@ const StProductItem = styled.li`
   width: 100%;
   height: auto;
   border-radius: 3px;
+  /* 白（光）とグレー（影）を対角線上に配置 */
+  box-shadow: 13px 13px 26px #cac5c5, -13px -13px 26px #fff;
   border: 1px solid ${COLOR_PALETTE.BLACK};
 `;
 
