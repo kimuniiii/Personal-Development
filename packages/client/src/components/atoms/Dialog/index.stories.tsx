@@ -16,7 +16,16 @@ const Template: Story<Props> = (args) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const onDialogOpen = (): void => setIsDialogOpen(true);
-  const onDialogClose = (): void => setIsDialogOpen(false);
+
+  const onYesBtnClicked = (): void => {
+    alert('Yes Button Clicked');
+    setIsDialogOpen(false);
+  };
+
+  const onNoBtnClicked = (): void => {
+    alert('No Button Clicked');
+    setIsDialogOpen(false);
+  };
 
   return (
     <div>
@@ -28,7 +37,12 @@ const Template: Story<Props> = (args) => {
         fontSizeValue='14px'
         onClick={onDialogOpen}
       />
-      <Dialog {...args} isDialogOpen={isDialogOpen} onDialogClose={onDialogClose} />
+      <Dialog
+        {...args}
+        isDialogOpen={isDialogOpen}
+        onYesBtnClicked={onYesBtnClicked}
+        onNoBtnClicked={onNoBtnClicked}
+      />
     </div>
   );
 };

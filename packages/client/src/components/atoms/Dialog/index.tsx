@@ -12,10 +12,16 @@ import { FONT_WEIGHT } from 'src/styles/font_weight';
 type DialogProps = {
   dialogTitle: string;
   isDialogOpen: boolean;
-  onDialogClose: () => void;
+  onYesBtnClicked: () => void;
+  onNoBtnClicked: () => void;
 };
 
-export const Dialog: VFC<DialogProps> = ({ dialogTitle, isDialogOpen, onDialogClose }) => {
+export const Dialog: VFC<DialogProps> = ({
+  dialogTitle,
+  isDialogOpen,
+  onYesBtnClicked,
+  onNoBtnClicked,
+}) => {
   return (
     <React.Fragment>
       {isDialogOpen ? (
@@ -30,7 +36,7 @@ export const Dialog: VFC<DialogProps> = ({ dialogTitle, isDialogOpen, onDialogCl
                 width='100%'
                 buttonContent='送信する'
                 fontSizeValue='20px'
-                onClick={onDialogClose}
+                onClick={onYesBtnClicked}
               />
               <Margin bottom='12px' />
               <Button
@@ -39,7 +45,7 @@ export const Dialog: VFC<DialogProps> = ({ dialogTitle, isDialogOpen, onDialogCl
                 width='100%'
                 buttonContent='送信しない'
                 fontSizeValue='20px'
-                onClick={onDialogClose}
+                onClick={onNoBtnClicked}
               />
             </footer>
           </StDialogWrapper>
