@@ -94,6 +94,10 @@ const StHeader = styled.header`
     color: ${COLOR_PALETTE.BLACK};
     text-align: left;
   }
+
+  button {
+    color: ${COLOR_PALETTE.BLACK};
+  }
 `;
 
 const StButtonContainer = styled.div`
