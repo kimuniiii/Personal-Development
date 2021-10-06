@@ -40,7 +40,9 @@ export const changePassword = async ({
       ? 'Riot-EC-Site-Development-Database'
       : process.env.NEXT_PUBLIC_VERCEL_ENV === 'staging'
       ? 'Riot-EC-Site-Staging-Database'
-      : 'Riot-EC-Site-Production-Database';
+      : process.env.NEXT_PUBLIC_VERCEL_ENV === 'production'
+      ? 'Riot-EC-Site-Production-Database'
+      : '';
 
   const jsonBodyData = JSON.stringify({
     client_id: auth0ClientId,
