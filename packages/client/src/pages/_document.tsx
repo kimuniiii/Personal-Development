@@ -6,7 +6,7 @@ import React from 'react';
 export default class CustomDocument extends Document {
   render(): JSX.Element {
     return (
-      <Html>
+      <Html lang='ja'>
         <Head />
         <body>
           <Main />
