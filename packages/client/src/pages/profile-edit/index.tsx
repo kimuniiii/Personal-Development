@@ -31,6 +31,7 @@ type ProfileEditProps = {
 
 /**
  * @概要 マイページのプロフィール編集ボタンを押したら表示されるページコンポーネント
+ * @説明 非ログイン時にアクセスできないようにしたいため「Protected Page」である
  */
 const ProfileEditPage: NextPage<ProfileEditProps> = ({ origin }) => {
   const {
