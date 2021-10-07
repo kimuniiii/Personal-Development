@@ -1,3 +1,4 @@
+import { useAuth0 } from '@auth0/auth0-react';
 import styled from '@emotion/styled';
 import Router from 'next/router';
 import React from 'react';
@@ -5,6 +6,7 @@ import React from 'react';
 import type { NextPage } from 'next';
 
 import { Button } from 'src/components/atoms/Button';
+import { Loader } from 'src/components/atoms/Loader';
 import { CommonTemplate } from 'src/components/templates/CommonTemplate';
 import { HeadTemplate } from 'src/components/templates/HeadTemplate';
 
@@ -16,8 +18,22 @@ type WithDrawProps = {
 
 /**
  * @概要 マイページの「退会ボタン」を押したら表示されるページコンポーネント
+ * @説明 非ログイン時にアクセスできないようにしたいため「Protected Page」である
  */
 const WithDrawPage: NextPage<WithDrawProps> = ({ origin }) => {
+  const { isAuthenticated, loginWithRedirect } = useAuth0();
+
+  // ログインしていなかったら「ログインページ」へ転送する
+  // ログイン画面に転送完了するまでは「画面中央」に「Loader」を表示する
+  if (!isAuthenticated) {
+    loginWithRedirect();
+    return (
+      <StCenterLoaderContainer>
+        <Loader loadingContent='ログインページに画面遷移しています' />
+      </StCenterLoaderContainer>
+    );
+  }
+
   return (
     <React.Fragment>
       <HeadTemplate
@@ -53,6 +69,13 @@ const WithDrawPage: NextPage<WithDrawProps> = ({ origin }) => {
 };
 
 export default WithDrawPage;
+
+const StCenterLoaderContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+`;
 
 const StWithDrawRoot = styled.div`
   display: flex;
