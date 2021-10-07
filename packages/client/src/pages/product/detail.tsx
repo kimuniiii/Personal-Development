@@ -1,5 +1,9 @@
+import { withAuthenticationRequired } from '@auth0/auth0-react';
+import styled from '@emotion/styled';
+
 import type { NextPage } from 'next';
 
+import { Loader } from 'src/components/atoms/Loader';
 import { CommonTemplate } from 'src/components/templates/CommonTemplate';
 import { HeadTemplate } from 'src/components/templates/HeadTemplate';
 
@@ -20,4 +24,20 @@ const ProductDetailPage: NextPage<ProductDetailPageProps> = ({ origin }) => {
   );
 };
 
-export default ProductDetailPage;
+export default withAuthenticationRequired(ProductDetailPage, {
+  // eslint-disable-next-line react/display-name
+  onRedirecting: () => {
+    return (
+      <StCenterLoaderContainer>
+        <Loader loadingContent='ログイン済みかどうか判定しています' />
+      </StCenterLoaderContainer>
+    );
+  },
+});
+
+const StCenterLoaderContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+`;
