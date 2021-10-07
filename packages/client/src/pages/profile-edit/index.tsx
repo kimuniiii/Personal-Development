@@ -64,7 +64,7 @@ const ProfileEditPage: NextPage<ProfileEditProps> = ({ origin }) => {
   const [imageUrl, setImageUrl] = useState<string>('');
 
   // ログインしていなかったら「ユーザー登録ページ」へ転送する
-  // ログイン画面に転送するまでは「画面中央」に「Loader」を表示する
+  // ログイン画面に転送完了するまでは「画面中央」に「Loader」を表示する
   if (!isAuthenticated) {
     loginWithRedirect();
     return (
