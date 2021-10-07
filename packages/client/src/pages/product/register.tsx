@@ -1,3 +1,4 @@
+import { useAuth0 } from '@auth0/auth0-react';
 import styled from '@emotion/styled';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -6,6 +7,7 @@ import type { NextPage } from 'next';
 
 import { Button } from 'src/components/atoms/Button';
 import { Input } from 'src/components/atoms/Input';
+import { Loader } from 'src/components/atoms/Loader';
 import { SelectBox } from 'src/components/atoms/SelectBox';
 import { Textarea } from 'src/components/atoms/Textarea';
 import { Margin } from 'src/components/layouts/Margin';
@@ -32,8 +34,21 @@ const ProductRegisterPage: NextPage<ProductRegisterProps> = ({ origin }) => {
     reValidateMode: 'onChange',
   });
 
+  const { isAuthenticated, loginWithRedirect } = useAuth0();
+
   // ProductImageUpload に関する状態管理と更新関数とイベントハンドラ
   const [selectedFiles, setPhotoFiles] = useState<File[]>([]);
+
+  // ログインしていなかったら「ログインページ」へ転送する
+  // ログイン画面に転送完了するまでは「画面中央」に「Loader」を表示する
+  if (!isAuthenticated) {
+    loginWithRedirect();
+    return (
+      <StCenterLoaderContainer>
+        <Loader loadingContent='ログインページに画面遷移しています' />
+      </StCenterLoaderContainer>
+    );
+  }
 
   /**
    * @概要 送信ボタンを押した時に呼び出されるイベントハンドラ
@@ -158,6 +173,13 @@ const ProductRegisterPage: NextPage<ProductRegisterProps> = ({ origin }) => {
 };
 
 export default ProductRegisterPage;
+
+const StCenterLoaderContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+`;
 
 const StProfileEditFormContainer = styled.form`
   display: flex;
