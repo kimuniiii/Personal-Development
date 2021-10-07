@@ -1,4 +1,4 @@
-import { useAuth0 } from '@auth0/auth0-react';
+import { useAuth0, withAuthenticationRequired } from '@auth0/auth0-react';
 import styled from '@emotion/styled';
 import Image from 'next/image';
 import React from 'react';
@@ -31,26 +31,15 @@ type MyPageProps = {
  * @説明 非ログイン時にアクセスできないようにしたいため「Protected Page」である
  */
 const MyPage: NextPage<MyPageProps> = ({ origin, auth0Domain, auth0ClientId }) => {
-  const { isAuthenticated, isLoading, error } = useAuth0Api(`${origin}/my-page`, {
+  const { isLoading, error } = useAuth0Api(`${origin}/my-page`, {
     audience: `${origin}`,
   });
-  const { user, loginWithRedirect } = useAuth0();
+  const { user } = useAuth0();
 
   if (isLoading) {
     return (
       <StCenterLoaderContainer>
         <Loader loadingContent='マイページに画面遷移しています' />
-      </StCenterLoaderContainer>
-    );
-  }
-
-  // ログインしていなかったら「ログインページ」へ転送する
-  // ログイン画面に転送完了するまでは「画面中央」に「Loader」を表示する
-  if (!isAuthenticated) {
-    loginWithRedirect();
-    return (
-      <StCenterLoaderContainer>
-        <Loader loadingContent='ログイン済みかどうか判定しています' />
       </StCenterLoaderContainer>
     );
   }
@@ -105,7 +94,16 @@ const MyPage: NextPage<MyPageProps> = ({ origin, auth0Domain, auth0ClientId }) =
   );
 };
 
-export default MyPage;
+export default withAuthenticationRequired(MyPage, {
+  // eslint-disable-next-line react/display-name
+  onRedirecting: () => {
+    return (
+      <StCenterLoaderContainer>
+        <Loader loadingContent='ログイン済みかどうか判定しています' />
+      </StCenterLoaderContainer>
+    );
+  },
+});
 
 const StCenterLoaderContainer = styled.div`
   display: flex;

@@ -1,4 +1,4 @@
-import { useAuth0 } from '@auth0/auth0-react';
+import { withAuthenticationRequired } from '@auth0/auth0-react';
 import styled from '@emotion/styled';
 import Router from 'next/router';
 import React from 'react';
@@ -21,18 +21,18 @@ type WithDrawProps = {
  * @説明 非ログイン時にアクセスできないようにしたいため「Protected Page」である
  */
 const WithDrawPage: NextPage<WithDrawProps> = ({ origin }) => {
-  const { isAuthenticated, loginWithRedirect } = useAuth0();
-
+  // FIXME : 以下のコードで「アクセスコントロール」を行うとうまくいかない
+  // const { isAuthenticated, loginWithRedirect } = useAuth0();
   // ログインしていなかったら「ログインページ」へ転送する
   // ログイン画面に転送完了するまでは「画面中央」に「Loader」を表示する
-  if (!isAuthenticated) {
-    loginWithRedirect();
-    return (
-      <StCenterLoaderContainer>
-        <Loader loadingContent='ログインページに画面遷移しています' />
-      </StCenterLoaderContainer>
-    );
-  }
+  // if (!isAuthenticated) {
+  //   loginWithRedirect();
+  //   return (
+  //     <StCenterLoaderContainer>
+  //       <Loader loadingContent='ログインページに画面遷移しています' />
+  //     </StCenterLoaderContainer>
+  //   );
+  // }
 
   return (
     <React.Fragment>
@@ -68,7 +68,16 @@ const WithDrawPage: NextPage<WithDrawProps> = ({ origin }) => {
   );
 };
 
-export default WithDrawPage;
+export default withAuthenticationRequired(WithDrawPage, {
+  // eslint-disable-next-line react/display-name
+  onRedirecting: () => {
+    return (
+      <StCenterLoaderContainer>
+        <Loader loadingContent='ログイン済みかどうか判定しています' />
+      </StCenterLoaderContainer>
+    );
+  },
+});
 
 const StCenterLoaderContainer = styled.div`
   display: flex;

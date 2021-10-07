@@ -1,4 +1,4 @@
-import { useAuth0 } from '@auth0/auth0-react';
+import { withAuthenticationRequired } from '@auth0/auth0-react';
 import styled from '@emotion/styled';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -34,21 +34,21 @@ const ProductRegisterPage: NextPage<ProductRegisterProps> = ({ origin }) => {
     reValidateMode: 'onChange',
   });
 
-  const { isAuthenticated, loginWithRedirect } = useAuth0();
-
   // ProductImageUpload に関する状態管理と更新関数とイベントハンドラ
   const [selectedFiles, setPhotoFiles] = useState<File[]>([]);
 
+  // FIXME : 以下のコードで「アクセスコントロール」を行うとうまくいかない
+  // const { isAuthenticated, loginWithRedirect } = useAuth0();
   // ログインしていなかったら「ログインページ」へ転送する
   // ログイン画面に転送完了するまでは「画面中央」に「Loader」を表示する
-  if (!isAuthenticated) {
-    loginWithRedirect();
-    return (
-      <StCenterLoaderContainer>
-        <Loader loadingContent='ログインページに画面遷移しています' />
-      </StCenterLoaderContainer>
-    );
-  }
+  // if (!isAuthenticated) {
+  //   loginWithRedirect();
+  //   return (
+  //     <StCenterLoaderContainer>
+  //       <Loader loadingContent='ログインページに画面遷移しています' />
+  //     </StCenterLoaderContainer>
+  //   );
+  // }
 
   /**
    * @概要 送信ボタンを押した時に呼び出されるイベントハンドラ
@@ -172,7 +172,16 @@ const ProductRegisterPage: NextPage<ProductRegisterProps> = ({ origin }) => {
   );
 };
 
-export default ProductRegisterPage;
+export default withAuthenticationRequired(ProductRegisterPage, {
+  // eslint-disable-next-line react/display-name
+  onRedirecting: () => {
+    return (
+      <StCenterLoaderContainer>
+        <Loader loadingContent='ログイン済みかどうか判定しています' />
+      </StCenterLoaderContainer>
+    );
+  },
+});
 
 const StCenterLoaderContainer = styled.div`
   display: flex;
