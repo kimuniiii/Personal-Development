@@ -1,6 +1,6 @@
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 import { Auth0Provider, AppState } from '@auth0/auth0-react';
-import { css, Global } from '@emotion/react';
+import { Global } from '@emotion/react';
 import App, { AppContext, AppInitialProps } from 'next/app';
 import Router from 'next/router';
 import React, { useMemo } from 'react';
@@ -96,11 +96,7 @@ const CustomApp = ({
         onRedirectCallback={onRedirectCallback}
       >
         <ApolloProvider client={createApolloClient}>
-          <Global
-            styles={css`
-              ${GLOBAL_STYLE}
-            `}
-          />
+          <Global styles={GLOBAL_STYLE} />
           <Component
             {...pageProps}
             origin={origin}
