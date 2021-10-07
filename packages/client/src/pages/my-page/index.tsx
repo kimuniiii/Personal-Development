@@ -50,7 +50,7 @@ const MyPage: NextPage<MyPageProps> = ({ origin, auth0Domain, auth0ClientId }) =
     loginWithRedirect();
     return (
       <StCenterLoaderContainer>
-        <Loader loadingContent='ログインページに画面遷移しています' />
+        <Loader loadingContent='ログイン済みかどうか判定しています' />
       </StCenterLoaderContainer>
     );
   }
