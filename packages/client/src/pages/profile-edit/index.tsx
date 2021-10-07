@@ -1,3 +1,4 @@
+import { useAuth0 } from '@auth0/auth0-react';
 import styled from '@emotion/styled';
 import React, { useState } from 'react';
 import { SubmitErrorHandler, SubmitHandler, useForm } from 'react-hook-form';
@@ -6,6 +7,7 @@ import type { NextPage } from 'next';
 
 import { Button } from 'src/components/atoms/Button';
 import { Input } from 'src/components/atoms/Input';
+import { Loader } from 'src/components/atoms/Loader';
 import { Margin } from 'src/components/layouts/Margin';
 import { ProfileImageUpload } from 'src/components/organisms/ProfileImageUpload';
 import { CommonTemplate } from 'src/components/templates/CommonTemplate';
@@ -55,9 +57,22 @@ const ProfileEditPage: NextPage<ProfileEditProps> = ({ origin }) => {
     },
   });
 
+  const { isAuthenticated, loginWithRedirect } = useAuth0();
+
   // プロフィール編集画像に関する「状態変数」と「更新関数」と「イベントハンドラ」
   const [selectedFile, setSelectedFile] = useState<File>();
   const [imageUrl, setImageUrl] = useState<string>('');
+
+  // ログインしていなかったら「ユーザー登録ページ」へ転送する
+  // ログイン画面に転送するまでは「画面中央」に「Loader」を表示する
+  if (!isAuthenticated) {
+    loginWithRedirect();
+    return (
+      <StCenterLoaderContainer>
+        <Loader loadingContent='ログインページに画面遷移しています' />
+      </StCenterLoaderContainer>
+    );
+  }
 
   /**
    * @概要 バリデーション成功時に呼び出されるイベントハンドラ
@@ -294,6 +309,13 @@ const ProfileEditPage: NextPage<ProfileEditProps> = ({ origin }) => {
 };
 
 export default ProfileEditPage;
+
+const StCenterLoaderContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+`;
 
 const StProfileEditFormContainer = styled.form`
   display: flex;
