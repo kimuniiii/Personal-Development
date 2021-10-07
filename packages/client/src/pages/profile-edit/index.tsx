@@ -1,4 +1,4 @@
-import { useAuth0 } from '@auth0/auth0-react';
+import { withAuthenticationRequired } from '@auth0/auth0-react';
 import styled from '@emotion/styled';
 import React, { useState } from 'react';
 import { SubmitErrorHandler, SubmitHandler, useForm } from 'react-hook-form';
@@ -57,22 +57,22 @@ const ProfileEditPage: NextPage<ProfileEditProps> = ({ origin }) => {
     },
   });
 
-  const { isAuthenticated, loginWithRedirect } = useAuth0();
-
   // プロフィール編集画像に関する「状態変数」と「更新関数」と「イベントハンドラ」
   const [selectedFile, setSelectedFile] = useState<File>();
   const [imageUrl, setImageUrl] = useState<string>('');
 
+  // FIXME : 以下のコードで「アクセスコントロール」を行うとうまくいかない
+  // const { isAuthenticated, loginWithRedirect } = useAuth0();
   // ログインしていなかったら「ログインページ」へ転送する
   // ログイン画面に転送完了するまでは「画面中央」に「Loader」を表示する
-  if (!isAuthenticated) {
-    loginWithRedirect();
-    return (
-      <StCenterLoaderContainer>
-        <Loader loadingContent='ログインページに画面遷移しています' />
-      </StCenterLoaderContainer>
-    );
-  }
+  // if (!isAuthenticated) {
+  //   loginWithRedirect();
+  //   return (
+  //     <StCenterLoaderContainer>
+  //       <Loader loadingContent='ログインページに画面遷移しています' />
+  //     </StCenterLoaderContainer>
+  //   );
+  // }
 
   /**
    * @概要 バリデーション成功時に呼び出されるイベントハンドラ
@@ -308,7 +308,16 @@ const ProfileEditPage: NextPage<ProfileEditProps> = ({ origin }) => {
   );
 };
 
-export default ProfileEditPage;
+export default withAuthenticationRequired(ProfileEditPage, {
+  // eslint-disable-next-line react/display-name
+  onRedirecting: () => {
+    return (
+      <StCenterLoaderContainer>
+        <Loader loadingContent='ログイン済みかどうか判定しています' />
+      </StCenterLoaderContainer>
+    );
+  },
+});
 
 const StCenterLoaderContainer = styled.div`
   display: flex;
