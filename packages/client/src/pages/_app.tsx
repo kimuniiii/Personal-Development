@@ -21,7 +21,6 @@ import { getRedirectUriOrigin } from 'src/utils/getRedirectUriOrigin';
 
 type CustomAppProps = AppProps & {
   origin: string;
-  endPoint: string;
   auth0Domain: string;
   auth0ClientId: string;
 };
@@ -30,18 +29,15 @@ const CustomApp = ({
   Component,
   pageProps,
   origin,
-  endPoint,
   auth0Domain,
   auth0ClientId,
 }: CustomAppProps): JSX.Element => {
-  console.log('endPoint', endPoint);
-
   // MEMO : `useMemo`で`絶対に`キャッシュ化をしないといけない
   // MEMO : なぜなら「ブラウザバック」の時と「Router.push()」の時にデータを取得できないから
   const createApolloClient = useMemo(() => {
     console.log('1回目は走るけど2回目以降は走らない');
     return new ApolloClient({
-      uri: endPoint,
+      uri: getApiEndPoint(process.env.NEXT_PUBLIC_VERCEL_ENV),
       cache: new InMemoryCache(),
       headers: {
         'x-hasura-admin-secret': X_HASURA_ADMIN_SECRET,
@@ -121,17 +117,16 @@ export default CustomApp;
 
 type CustomAppInitialProps = AppInitialProps & {
   origin: string;
-  endPoint: string;
   auth0Domain: string;
   auth0ClientId: string;
 };
 
 CustomApp.getInitialProps = async (appContext: AppContext): Promise<CustomAppInitialProps> => {
   // VERCEL_ENV : Vercel の ダッシュボードで登録した環境変数
+  console.log(process.env.VERCEL_ENV);
   const origin = getRedirectUriOrigin(process.env.VERCEL_ENV);
-  const endPoint = getApiEndPoint(process.env.VERCEL_ENV);
   const auth0Domain = getAuth0Domain(process.env.VERCEL_ENV);
   const auth0ClientId = getAuth0ClientId(process.env.VERCEL_ENV);
   const appProps = await App.getInitialProps(appContext);
-  return { ...appProps, origin, endPoint, auth0Domain, auth0ClientId };
+  return { ...appProps, origin, auth0Domain, auth0ClientId };
 };
