@@ -96,7 +96,7 @@ const StModalOverlay = styled.div`
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: #000;
+  background-color: ${COLOR_PALETTE.MODAL_BACKGROUND_COLOR};
   opacity: 0.5;
   animation: ${faderFadeIn} 0.5s ease-out;
   z-index: ${Z_INDEX.MODAL_OVERLAY};
