@@ -2,8 +2,9 @@ import { withAuthenticationRequired } from '@auth0/auth0-react';
 import styled from '@emotion/styled';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import Parser from 'ua-parser-js';
 
-import type { NextPage } from 'next';
+import type { NextPage, GetServerSideProps } from 'next';
 
 import { Button } from 'src/components/atoms/Button';
 import { Input } from 'src/components/atoms/Input';
@@ -18,13 +19,14 @@ import { HeadTemplate } from 'src/components/templates/HeadTemplate';
 import { COLOR_PALETTE } from 'src/styles/color_palette';
 
 type ProductRegisterProps = {
+  isMobileUaDeviceType: boolean;
   origin: string;
 };
 
 /**
  * @概要 マイページの商品を出品するボタンを押したら表示されるページコンポーネント
  */
-const ProductRegisterPage: NextPage<ProductRegisterProps> = ({ origin }) => {
+const ProductRegisterPage: NextPage<ProductRegisterProps> = ({ isMobileUaDeviceType, origin }) => {
   const {
     register,
     handleSubmit,
@@ -73,101 +75,199 @@ const ProductRegisterPage: NextPage<ProductRegisterProps> = ({ origin }) => {
         pageCanonicalUrl='https://www.riot-ec-site.com/product/register'
         pageTitle='商品登録ページ'
       />
-      <CommonTemplate isSideBar={true}>
-        <StProfileEditFormContainer onSubmit={handleSubmit(onSubmit)}>
-          <h3>商品名</h3>
-          <StProfileEditContainer>
-            <Input
-              type='text'
-              id='product-name'
-              name='productName'
-              placeholder='例: ノートPC'
-              labelText='商品名'
-              labelType='requiredMarker'
-              width='343px'
-              fontSizeValue='16px'
-              isError={!!errors.productName}
-              errors={errors}
-              register={register('productName', {
-                required: { message: '必須入力項目です！', value: true },
-              })}
-            />
-            <Margin bottom='16px' />
-            <SelectBox
-              id='select-category-box'
-              name='select-category-box'
-              labelType='requiredMarker'
-              labelText='カテゴリー'
-              optionList={[
-                'カテゴリーを選択してください',
-                '家電',
-                'PC',
-                'ゲーム',
-                '衣類',
-                'その他',
-              ]}
-              top='18px'
-              width='343px'
-              padding='16px'
-              fontSizeValue='16px'
-              isError={!!errors['select-category-box']}
-              errors={errors}
-              register={register('select-category-box', {
-                required: { message: 'カテゴリーをセットしてください', value: true },
-              })}
-            />
-            <Margin bottom='16px' />
-            <Textarea
-              id='productDetail'
-              name='productDetail'
-              labelText='詳細'
-              labelType='optionalMarker'
-              placeholder='200文字以内で入力してください'
-              width='343px'
-              height='200px'
-              fontSizeValue='16px'
-              isError={!!errors.productDetail}
-              errors={errors}
-              register={register('productDetail', {
-                required: { message: '必須入力項目です！', value: true },
-              })}
-            />
-            <Margin bottom='16px' />
-            <Input
-              type='number'
-              id='priceNumber'
-              name='priceNumber'
-              labelText='金額'
-              labelType='requiredMarker'
-              placeholder='例: 25000'
-              width='343px'
-              fontSizeValue='16px'
-              isError={!!errors.priceNumber}
-              errors={errors}
-              register={register('priceNumber', {
-                required: { message: '必須入力項目です！', value: true },
-              })}
-            />
-            <Margin bottom='16px' />
-            <ProductImageUpload
-              labelText='商品画像'
-              labelType='optionalMarker'
-              selectedFiles={selectedFiles}
-              onFileSelect={onFileSelect}
-            />
-            <Margin bottom='32px' />
-            <Button
-              type='submit'
-              styleTypes='tertiary'
-              width='100%'
-              fontSizeValue='16px'
-              buttonContent='商品を出品する'
-              disabled={!isValid}
-              onClick={(): void => alert('出品するボタンをクリック')}
-            />
-          </StProfileEditContainer>
-        </StProfileEditFormContainer>
-      </CommonTemplate>
+      {isMobileUaDeviceType ? (
+        <CommonTemplate isMobileUaDeviceType={isMobileUaDeviceType}>
+          <StProfileEditFormContainer onSubmit={handleSubmit(onSubmit)}>
+            <h3>商品名</h3>
+            <StProfileEditContainer>
+              <Input
+                type='text'
+                id='product-name'
+                name='productName'
+                placeholder='例: ノートPC'
+                labelText='商品名'
+                labelType='requiredMarker'
+                width='343px'
+                fontSizeValue='16px'
+                isError={!!errors.productName}
+                errors={errors}
+                register={register('productName', {
+                  required: { message: '必須入力項目です！', value: true },
+                })}
+              />
+              <Margin bottom='16px' />
+              <SelectBox
+                id='select-category-box'
+                name='select-category-box'
+                labelType='requiredMarker'
+                labelText='カテゴリー'
+                optionList={[
+                  'カテゴリーを選択してください',
+                  '家電',
+                  'PC',
+                  'ゲーム',
+                  '衣類',
+                  'その他',
+                ]}
+                top='18px'
+                width='343px'
+                padding='16px'
+                fontSizeValue='16px'
+                isError={!!errors['select-category-box']}
+                errors={errors}
+                register={register('select-category-box', {
+                  required: { message: 'カテゴリーをセットしてください', value: true },
+                })}
+              />
+              <Margin bottom='16px' />
+              <Textarea
+                id='productDetail'
+                name='productDetail'
+                labelText='詳細'
+                labelType='optionalMarker'
+                placeholder='200文字以内で入力してください'
+                width='343px'
+                height='200px'
+                fontSizeValue='16px'
+                isError={!!errors.productDetail}
+                errors={errors}
+                register={register('productDetail', {
+                  required: { message: '必須入力項目です！', value: true },
+                })}
+              />
+              <Margin bottom='16px' />
+              <Input
+                type='number'
+                id='priceNumber'
+                name='priceNumber'
+                labelText='金額'
+                labelType='requiredMarker'
+                placeholder='例: 25000'
+                width='343px'
+                fontSizeValue='16px'
+                isError={!!errors.priceNumber}
+                errors={errors}
+                register={register('priceNumber', {
+                  required: { message: '必須入力項目です！', value: true },
+                })}
+              />
+              <Margin bottom='16px' />
+              <ProductImageUpload
+                labelText='商品画像'
+                labelType='optionalMarker'
+                selectedFiles={selectedFiles}
+                onFileSelect={onFileSelect}
+              />
+              <Margin bottom='32px' />
+              <Button
+                type='submit'
+                styleTypes='tertiary'
+                width='100%'
+                fontSizeValue='16px'
+                buttonContent='商品を出品する'
+                disabled={!isValid}
+                onClick={(): void => alert('出品するボタンをクリック')}
+              />
+            </StProfileEditContainer>
+          </StProfileEditFormContainer>
+        </CommonTemplate>
+      ) : (
+        <CommonTemplate isSideBar={true}>
+          <StProfileEditFormContainer onSubmit={handleSubmit(onSubmit)}>
+            <h3>商品名</h3>
+            <StProfileEditContainer>
+              <Input
+                type='text'
+                id='product-name'
+                name='productName'
+                placeholder='例: ノートPC'
+                labelText='商品名'
+                labelType='requiredMarker'
+                width='343px'
+                fontSizeValue='16px'
+                isError={!!errors.productName}
+                errors={errors}
+                register={register('productName', {
+                  required: { message: '必須入力項目です！', value: true },
+                })}
+              />
+              <Margin bottom='16px' />
+              <SelectBox
+                id='select-category-box'
+                name='select-category-box'
+                labelType='requiredMarker'
+                labelText='カテゴリー'
+                optionList={[
+                  'カテゴリーを選択してください',
+                  '家電',
+                  'PC',
+                  'ゲーム',
+                  '衣類',
+                  'その他',
+                ]}
+                top='18px'
+                width='343px'
+                padding='16px'
+                fontSizeValue='16px'
+                isError={!!errors['select-category-box']}
+                errors={errors}
+                register={register('select-category-box', {
+                  required: { message: 'カテゴリーをセットしてください', value: true },
+                })}
+              />
+              <Margin bottom='16px' />
+              <Textarea
+                id='productDetail'
+                name='productDetail'
+                labelText='詳細'
+                labelType='optionalMarker'
+                placeholder='200文字以内で入力してください'
+                width='343px'
+                height='200px'
+                fontSizeValue='16px'
+                isError={!!errors.productDetail}
+                errors={errors}
+                register={register('productDetail', {
+                  required: { message: '必須入力項目です！', value: true },
+                })}
+              />
+              <Margin bottom='16px' />
+              <Input
+                type='number'
+                id='priceNumber'
+                name='priceNumber'
+                labelText='金額'
+                labelType='requiredMarker'
+                placeholder='例: 25000'
+                width='343px'
+                fontSizeValue='16px'
+                isError={!!errors.priceNumber}
+                errors={errors}
+                register={register('priceNumber', {
+                  required: { message: '必須入力項目です！', value: true },
+                })}
+              />
+              <Margin bottom='16px' />
+              <ProductImageUpload
+                labelText='商品画像'
+                labelType='optionalMarker'
+                selectedFiles={selectedFiles}
+                onFileSelect={onFileSelect}
+              />
+              <Margin bottom='32px' />
+              <Button
+                type='submit'
+                styleTypes='tertiary'
+                width='100%'
+                fontSizeValue='16px'
+                buttonContent='商品を出品する'
+                disabled={!isValid}
+                onClick={(): void => alert('出品するボタンをクリック')}
+              />
+            </StProfileEditContainer>
+          </StProfileEditFormContainer>
+        </CommonTemplate>
+      )}
     </React.Fragment>
   );
 };
@@ -182,6 +282,12 @@ export default withAuthenticationRequired(ProductRegisterPage, {
     );
   },
 });
+
+// TODO : UserAgentの判別によってレスポンシブ対応を行っているが、SSGは非対応。SSGにも対応できる方法があったら置き換える
+export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+  const userAgent = Parser(req?.headers['user-agent']);
+  return { props: { isMobileUaDeviceType: userAgent.device.type === 'mobile' } };
+};
 
 const StCenterLoaderContainer = styled.div`
   display: flex;

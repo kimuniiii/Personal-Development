@@ -2,8 +2,9 @@ import { withAuthenticationRequired } from '@auth0/auth0-react';
 import styled from '@emotion/styled';
 import React, { useState } from 'react';
 import { SubmitErrorHandler, SubmitHandler, useForm } from 'react-hook-form';
+import Parser from 'ua-parser-js';
 
-import type { NextPage } from 'next';
+import type { NextPage, GetServerSideProps } from 'next';
 
 import { Button } from 'src/components/atoms/Button';
 import { Input } from 'src/components/atoms/Input';
@@ -28,6 +29,7 @@ type UseFormInputs = {
 };
 
 type ProfileEditProps = {
+  isMobileUaDeviceType: boolean;
   origin: string;
 };
 
@@ -35,7 +37,7 @@ type ProfileEditProps = {
  * @概要 マイページのプロフィール編集ボタンを押したら表示されるページコンポーネント
  * @説明 非ログイン時にアクセスできないようにしたいため「Protected Page」である
  */
-const ProfileEditPage: NextPage<ProfileEditProps> = ({ origin }) => {
+const ProfileEditPage: NextPage<ProfileEditProps> = ({ isMobileUaDeviceType, origin }) => {
   const {
     register,
     handleSubmit,
@@ -145,165 +147,327 @@ const ProfileEditPage: NextPage<ProfileEditProps> = ({ origin }) => {
         pageCanonicalUrl='https://www.riot-ec-site.com/profile-edit'
         pageTitle='プロフィール編集ページ'
       />
-      <CommonTemplate isSideBar={true}>
-        <StProfileEditFormContainer onSubmit={handleSubmit(handleOnSubmit, handleOnError)}>
-          <h3>プロフィール編集</h3>
-          <StProfileEditContainer>
-            <Input
-              type='text'
-              id='first-name'
-              width='343px'
-              fontSizeValue='16px'
-              placeholder='例: タナカ'
-              labelText='姓（カナ）'
-              labelType='requiredMarker'
-              isError={!!errors.firstName}
-              errors={errors}
-              name='firstName'
-              register={register('firstName', {
-                pattern: {
-                  message: 'カタカナで入力してください',
-                  value: validations.firstName,
-                },
-                required: { message: '必須入力項目です', value: true },
-              })}
-            />
-            <Margin bottom='16px' />
-            <Input
-              type='text'
-              id='last-name'
-              width='343px'
-              fontSizeValue='16px'
-              placeholder='例: タロウ'
-              labelText='名（カナ）'
-              labelType='requiredMarker'
-              isError={!!errors.lastName}
-              errors={errors}
-              name='lastName'
-              register={register('lastName', {
-                pattern: {
-                  message: 'カタカナで入力してください',
-                  value: validations.lastName,
-                },
-                required: { message: '必須入力項目です', value: true },
-              })}
-            />
-            <Margin bottom='16px' />
-            <Input
-              type='tel'
-              id='phone-number'
-              name='phoneNumber'
-              labelText='TEL'
-              labelType='requiredMarker'
-              placeholder='例: 03-1234-5678'
-              width='343px'
-              fontSizeValue='16px'
-              isError={!!errors.phoneNumber}
-              errors={errors}
-              register={register('phoneNumber', {
-                pattern: {
-                  message: '電話番号の書き方が間違ってます',
-                  value: validations.telephone,
-                },
-                required: { message: '必須入力項目です', value: true },
-              })}
-            />
-            <Margin bottom='16px' />
-            <Input
-              type='text'
-              id='postcode'
-              name='postCode'
-              labelText='郵便番号'
-              labelType='requiredMarker'
-              placeholder='例: 1516608'
-              isError={!!errors.postCode}
-              errors={errors}
-              width='343px'
-              fontSizeValue='16px'
-              register={register('postCode', {
-                pattern: {
-                  message: '郵便番号の書き方が間違ってます',
-                  value: validations.postcode,
-                },
-                required: { message: '必須入力項目です', value: true },
-              })}
-            />
-            <Margin bottom='16px' />
-            <Input
-              type='text'
-              id='address'
-              name='address'
-              labelText='住所'
-              labelType='requiredMarker'
-              placeholder='例: 東京都調布市下石原3-9-12'
-              isError={!!errors.address}
-              errors={errors}
-              width='343px'
-              fontSizeValue='16px'
-              register={register('address', {
-                required: { message: '必須入力項目です', value: true },
-              })}
-            />
-            <Margin bottom='16px' />
-            <Input
-              type='number'
-              id='ageNumber'
-              name='ageNumber'
-              labelText='年齢'
-              labelType='requiredMarker'
-              placeholder='例: 25'
-              width='343px'
-              fontSizeValue='16px'
-              isError={!!errors.ageNumber}
-              errors={errors}
-              register={register('ageNumber', {
-                pattern: {
-                  message: '年齢の書き方が間違ってます',
-                  value: validations.ageNumber,
-                },
-                required: { message: '必須入力項目です', value: true },
-              })}
-            />
-            <Margin bottom='16px' />
-            <Input
-              type='email'
-              id='email'
-              name='email'
-              labelText='Email'
-              labelType='requiredMarker'
-              placeholder='メールアドレスを入力してください'
-              width='343px'
-              fontSizeValue='16px'
-              isError={!!errors.email}
-              errors={errors}
-              register={register('email', {
-                pattern: {
-                  message: 'メールアドレスの書き方が間違ってます',
-                  value: validations.email,
-                },
-                required: { message: '必須入力項目です', value: true },
-              })}
-            />
-            <Margin bottom='16px' />
-            <ProfileImageUpload
-              labelText='プロフィール画像'
-              name='profileImage'
-              imageUrl={imageUrl}
-              onClick={deleteProfileImg}
-              onFileSelect={onFileSelect}
-            />
-            <Margin bottom='24px' />
-            <Button
-              type='submit'
-              styleTypes='tertiary'
-              width='100%'
-              fontSizeValue='16px'
-              buttonContent='プロフィールを変更する'
-              onClick={(): void => alert('変更するボタンをクリック')}
-            />
-          </StProfileEditContainer>
-        </StProfileEditFormContainer>
-      </CommonTemplate>
+      {isMobileUaDeviceType ? (
+        <CommonTemplate isMobileUaDeviceType={isMobileUaDeviceType}>
+          <StProfileEditFormContainer onSubmit={handleSubmit(handleOnSubmit, handleOnError)}>
+            <h3>プロフィール編集</h3>
+            <StProfileEditContainer>
+              <Input
+                type='text'
+                id='first-name'
+                width='343px'
+                fontSizeValue='16px'
+                placeholder='例: タナカ'
+                labelText='姓（カナ）'
+                labelType='requiredMarker'
+                isError={!!errors.firstName}
+                errors={errors}
+                name='firstName'
+                register={register('firstName', {
+                  pattern: {
+                    message: 'カタカナで入力してください',
+                    value: validations.firstName,
+                  },
+                  required: { message: '必須入力項目です', value: true },
+                })}
+              />
+              <Margin bottom='16px' />
+              <Input
+                type='text'
+                id='last-name'
+                width='343px'
+                fontSizeValue='16px'
+                placeholder='例: タロウ'
+                labelText='名（カナ）'
+                labelType='requiredMarker'
+                isError={!!errors.lastName}
+                errors={errors}
+                name='lastName'
+                register={register('lastName', {
+                  pattern: {
+                    message: 'カタカナで入力してください',
+                    value: validations.lastName,
+                  },
+                  required: { message: '必須入力項目です', value: true },
+                })}
+              />
+              <Margin bottom='16px' />
+              <Input
+                type='tel'
+                id='phone-number'
+                name='phoneNumber'
+                labelText='TEL'
+                labelType='requiredMarker'
+                placeholder='例: 03-1234-5678'
+                width='343px'
+                fontSizeValue='16px'
+                isError={!!errors.phoneNumber}
+                errors={errors}
+                register={register('phoneNumber', {
+                  pattern: {
+                    message: '電話番号の書き方が間違ってます',
+                    value: validations.telephone,
+                  },
+                  required: { message: '必須入力項目です', value: true },
+                })}
+              />
+              <Margin bottom='16px' />
+              <Input
+                type='text'
+                id='postcode'
+                name='postCode'
+                labelText='郵便番号'
+                labelType='requiredMarker'
+                placeholder='例: 1516608'
+                isError={!!errors.postCode}
+                errors={errors}
+                width='343px'
+                fontSizeValue='16px'
+                register={register('postCode', {
+                  pattern: {
+                    message: '郵便番号の書き方が間違ってます',
+                    value: validations.postcode,
+                  },
+                  required: { message: '必須入力項目です', value: true },
+                })}
+              />
+              <Margin bottom='16px' />
+              <Input
+                type='text'
+                id='address'
+                name='address'
+                labelText='住所'
+                labelType='requiredMarker'
+                placeholder='例: 東京都調布市下石原3-9-12'
+                isError={!!errors.address}
+                errors={errors}
+                width='343px'
+                fontSizeValue='16px'
+                register={register('address', {
+                  required: { message: '必須入力項目です', value: true },
+                })}
+              />
+              <Margin bottom='16px' />
+              <Input
+                type='number'
+                id='ageNumber'
+                name='ageNumber'
+                labelText='年齢'
+                labelType='requiredMarker'
+                placeholder='例: 25'
+                width='343px'
+                fontSizeValue='16px'
+                isError={!!errors.ageNumber}
+                errors={errors}
+                register={register('ageNumber', {
+                  pattern: {
+                    message: '年齢の書き方が間違ってます',
+                    value: validations.ageNumber,
+                  },
+                  required: { message: '必須入力項目です', value: true },
+                })}
+              />
+              <Margin bottom='16px' />
+              <Input
+                type='email'
+                id='email'
+                name='email'
+                labelText='Email'
+                labelType='requiredMarker'
+                placeholder='メールアドレスを入力してください'
+                width='343px'
+                fontSizeValue='16px'
+                isError={!!errors.email}
+                errors={errors}
+                register={register('email', {
+                  pattern: {
+                    message: 'メールアドレスの書き方が間違ってます',
+                    value: validations.email,
+                  },
+                  required: { message: '必須入力項目です', value: true },
+                })}
+              />
+              <Margin bottom='16px' />
+              <ProfileImageUpload
+                labelText='プロフィール画像'
+                name='profileImage'
+                imageUrl={imageUrl}
+                onClick={deleteProfileImg}
+                onFileSelect={onFileSelect}
+              />
+              <Margin bottom='24px' />
+              <Button
+                type='submit'
+                styleTypes='tertiary'
+                width='100%'
+                fontSizeValue='16px'
+                buttonContent='プロフィールを変更する'
+                onClick={(): void => alert('変更するボタンをクリック')}
+              />
+            </StProfileEditContainer>
+          </StProfileEditFormContainer>
+        </CommonTemplate>
+      ) : (
+        <CommonTemplate isSideBar={true}>
+          <StProfileEditFormContainer onSubmit={handleSubmit(handleOnSubmit, handleOnError)}>
+            <h3>プロフィール編集</h3>
+            <StProfileEditContainer>
+              <Input
+                type='text'
+                id='first-name'
+                width='343px'
+                fontSizeValue='16px'
+                placeholder='例: タナカ'
+                labelText='姓（カナ）'
+                labelType='requiredMarker'
+                isError={!!errors.firstName}
+                errors={errors}
+                name='firstName'
+                register={register('firstName', {
+                  pattern: {
+                    message: 'カタカナで入力してください',
+                    value: validations.firstName,
+                  },
+                  required: { message: '必須入力項目です', value: true },
+                })}
+              />
+              <Margin bottom='16px' />
+              <Input
+                type='text'
+                id='last-name'
+                width='343px'
+                fontSizeValue='16px'
+                placeholder='例: タロウ'
+                labelText='名（カナ）'
+                labelType='requiredMarker'
+                isError={!!errors.lastName}
+                errors={errors}
+                name='lastName'
+                register={register('lastName', {
+                  pattern: {
+                    message: 'カタカナで入力してください',
+                    value: validations.lastName,
+                  },
+                  required: { message: '必須入力項目です', value: true },
+                })}
+              />
+              <Margin bottom='16px' />
+              <Input
+                type='tel'
+                id='phone-number'
+                name='phoneNumber'
+                labelText='TEL'
+                labelType='requiredMarker'
+                placeholder='例: 03-1234-5678'
+                width='343px'
+                fontSizeValue='16px'
+                isError={!!errors.phoneNumber}
+                errors={errors}
+                register={register('phoneNumber', {
+                  pattern: {
+                    message: '電話番号の書き方が間違ってます',
+                    value: validations.telephone,
+                  },
+                  required: { message: '必須入力項目です', value: true },
+                })}
+              />
+              <Margin bottom='16px' />
+              <Input
+                type='text'
+                id='postcode'
+                name='postCode'
+                labelText='郵便番号'
+                labelType='requiredMarker'
+                placeholder='例: 1516608'
+                isError={!!errors.postCode}
+                errors={errors}
+                width='343px'
+                fontSizeValue='16px'
+                register={register('postCode', {
+                  pattern: {
+                    message: '郵便番号の書き方が間違ってます',
+                    value: validations.postcode,
+                  },
+                  required: { message: '必須入力項目です', value: true },
+                })}
+              />
+              <Margin bottom='16px' />
+              <Input
+                type='text'
+                id='address'
+                name='address'
+                labelText='住所'
+                labelType='requiredMarker'
+                placeholder='例: 東京都調布市下石原3-9-12'
+                isError={!!errors.address}
+                errors={errors}
+                width='343px'
+                fontSizeValue='16px'
+                register={register('address', {
+                  required: { message: '必須入力項目です', value: true },
+                })}
+              />
+              <Margin bottom='16px' />
+              <Input
+                type='number'
+                id='ageNumber'
+                name='ageNumber'
+                labelText='年齢'
+                labelType='requiredMarker'
+                placeholder='例: 25'
+                width='343px'
+                fontSizeValue='16px'
+                isError={!!errors.ageNumber}
+                errors={errors}
+                register={register('ageNumber', {
+                  pattern: {
+                    message: '年齢の書き方が間違ってます',
+                    value: validations.ageNumber,
+                  },
+                  required: { message: '必須入力項目です', value: true },
+                })}
+              />
+              <Margin bottom='16px' />
+              <Input
+                type='email'
+                id='email'
+                name='email'
+                labelText='Email'
+                labelType='requiredMarker'
+                placeholder='メールアドレスを入力してください'
+                width='343px'
+                fontSizeValue='16px'
+                isError={!!errors.email}
+                errors={errors}
+                register={register('email', {
+                  pattern: {
+                    message: 'メールアドレスの書き方が間違ってます',
+                    value: validations.email,
+                  },
+                  required: { message: '必須入力項目です', value: true },
+                })}
+              />
+              <Margin bottom='16px' />
+              <ProfileImageUpload
+                labelText='プロフィール画像'
+                name='profileImage'
+                imageUrl={imageUrl}
+                onClick={deleteProfileImg}
+                onFileSelect={onFileSelect}
+              />
+              <Margin bottom='24px' />
+              <Button
+                type='submit'
+                styleTypes='tertiary'
+                width='100%'
+                fontSizeValue='16px'
+                buttonContent='プロフィールを変更する'
+                onClick={(): void => alert('変更するボタンをクリック')}
+              />
+            </StProfileEditContainer>
+          </StProfileEditFormContainer>
+        </CommonTemplate>
+      )}
     </React.Fragment>
   );
 };
@@ -318,6 +482,12 @@ export default withAuthenticationRequired(ProfileEditPage, {
     );
   },
 });
+
+// TODO : UserAgentの判別によってレスポンシブ対応を行っているが、SSGは非対応。SSGにも対応できる方法があったら置き換える
+export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+  const userAgent = Parser(req?.headers['user-agent']);
+  return { props: { isMobileUaDeviceType: userAgent.device.type === 'mobile' } };
+};
 
 const StCenterLoaderContainer = styled.div`
   display: flex;

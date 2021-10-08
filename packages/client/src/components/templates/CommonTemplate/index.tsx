@@ -11,6 +11,7 @@ type CommonTemplateProps = {
   children: ReactNode;
   auth0Domain?: string;
   auth0ClientId?: string;
+  isMobileUaDeviceType?: boolean;
   isSideBar?: boolean;
 };
 
@@ -18,6 +19,7 @@ export const CommonTemplate: VFC<CommonTemplateProps> = ({
   children,
   auth0Domain,
   auth0ClientId,
+  isMobileUaDeviceType,
   isSideBar,
 }) => {
   const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
@@ -28,11 +30,23 @@ export const CommonTemplate: VFC<CommonTemplateProps> = ({
 
   return (
     <StCommonRoot>
-      <CommonHeader
-        isAuthenticated={isAuthenticated}
-        loginWithRedirect={loginWithRedirect}
-        logout={logout}
-      />
+      {isMobileUaDeviceType ? (
+        <CommonHeader
+          isAuthenticated={isAuthenticated}
+          loginWithRedirect={loginWithRedirect}
+          logout={logout}
+          isMobileUaDeviceType={isMobileUaDeviceType}
+          auth0Domain={auth0Domain}
+          auth0ClientId={auth0ClientId}
+        />
+      ) : (
+        <CommonHeader
+          isMobileUaDeviceType={isMobileUaDeviceType}
+          isAuthenticated={isAuthenticated}
+          loginWithRedirect={loginWithRedirect}
+          logout={logout}
+        />
+      )}
       {isSideBar ? (
         <StMain isSideBar={isSideBar}>
           <main>{children}</main>

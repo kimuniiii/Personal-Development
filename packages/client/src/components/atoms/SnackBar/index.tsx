@@ -60,6 +60,8 @@ const StSuccessContainer = styled.div`
   align-items: center;
   font-weight: ${FONT_WEIGHT.BOLD};
   background-color: ${COLOR_PALETTE.SNACKBAR_SUCCESS_COLOR};
+  /* スマホで表示崩れが起きないようにするために指定 */
+  min-width: 320px;
   padding: 16px;
   border-radius: 10px;
 `;

@@ -13,29 +13,17 @@
     "server": "yarn workspace server",
     "client": "yarn workspace client",
     "prepare": "husky install",
-    "format": "prettier --write \"**/*.{css,html,js,json,ts,tsx}\"",
-    "lint": "eslint --ext .ts,.tsx .",
     "lint-staged": "lint-staged"
   },
   "lint-staged": {
     "packages/**/*.{js,ts,tsx}": [
       "yarn client lint:fix",
-      "yarn format",
-      "yarn lint"
+      "yarn client prettier"
     ]
   },
   "devDependencies": {
-    "@types/node": "15.6.1",
-    "@typescript-eslint/eslint-plugin": "4.33.0",
-    "@typescript-eslint/parser": "4.33.0",
-    "eslint": "7.32.0",
-    "eslint-config-prettier": "8.3.0",
-    "eslint-plugin-react": "7.26.1",
-    "eslint-plugin-react-hooks": "4.2.0",
     "husky": "7.0.2",
-    "lint-staged": "11.2.0",
-    "prettier": "2.4.1",
-    "typescript": "4.4.3"
+    "lint-staged": "11.2.0"
   },
   "volta": {
     "node": "14.18.0",

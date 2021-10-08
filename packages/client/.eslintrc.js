@@ -6,8 +6,6 @@ module.exports = {
   extends: [
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
-    'plugin:@next/next/recommended',
-    'next/core-web-vitals',
     'plugin:react/recommended',
     'plugin:react-hooks/recommended',
     'plugin:jest/recommended',
@@ -42,56 +40,5 @@ module.exports = {
       },
     ],
     '@typescript-eslint/explicit-function-return-type': 'error',
-    'import/order': [
-      'error',
-      {
-        alphabetize: { caseInsensitive: true, order: 'asc' },
-        groups: ['builtin', 'external', 'type', 'index', 'sibling', 'parent'],
-        'newlines-between': 'always',
-        pathGroups: [
-          {
-            group: 'index',
-            pattern: 'src/components/**',
-            position: 'before',
-          },
-          {
-            group: 'index',
-            pattern: 'src/constants',
-            position: 'before',
-          },
-          {
-            group: 'index',
-            pattern: 'src/hooks/**',
-            position: 'before',
-          },
-          {
-            group: 'index',
-            pattern: 'src/lib/**',
-            position: 'before',
-          },
-          {
-            group: 'index',
-            pattern: 'src/stores/**',
-            position: 'before',
-          },
-          {
-            group: 'index',
-            pattern: 'src/styles/**',
-            position: 'before',
-          },
-          {
-            group: 'index',
-            pattern: 'src/pages/**',
-            position: 'before',
-          },
-          {
-            group: 'index',
-            pattern: 'src/utils/**',
-            position: 'before',
-          },
-        ],
-        pathGroupsExcludedImportTypes: ['src/components/**', 'src/styles/**'],
-      },
-    ],
   },
 };
