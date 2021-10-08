@@ -79,7 +79,6 @@ const MyPage: NextPage<MyPageProps> = ({
               <h3>ユーザー情報</h3>
               <StProfileInfoContainer>
                 {user.picture ? (
-                  /* eslint-disable-next-line @next/next/no-img-element */
                   <img src={user.picture} alt='user picture' width={126} height={126} />
                 ) : (
                   <Image src={NoImage} alt='Mo Image' width={126} height={126} />
@@ -112,7 +111,6 @@ const MyPage: NextPage<MyPageProps> = ({
               <h3>ユーザー情報</h3>
               <StProfileInfoContainer>
                 {user.picture ? (
-                  /* eslint-disable-next-line @next/next/no-img-element */
                   <img src={user.picture} alt='user picture' width={126} height={126} />
                 ) : (
                   <Image src={NoImage} alt='Mo Image' width={126} height={126} />
