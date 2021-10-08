@@ -72,7 +72,6 @@ const StButton = styled.button<Omit<ButtonProps, 'buttonContent'>>`
   outline: none;
   font-size: ${({ fontSizeValue }): string => fontSizeValue};
   font-weight: ${({ fontWeight }): ValueOf<typeof FONT_WEIGHT> => fontWeight ?? FONT_WEIGHT.BOLD};
-  line-height: 1;
   text-align: center;
   white-space: nowrap;
   cursor: pointer;
