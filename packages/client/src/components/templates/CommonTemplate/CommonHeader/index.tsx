@@ -58,6 +58,7 @@ export const CommonHeader: VFC<CommonHeaderProps> = ({
           {isAuthenticated ? (
             <StButtonContainer>
               <Button
+                className='logout-button'
                 type='button'
                 styleTypes='textLink'
                 width='100px'
@@ -67,6 +68,7 @@ export const CommonHeader: VFC<CommonHeaderProps> = ({
                 onClick={(): void => logout({ returnTo: window.location.origin })}
               />
               <Button
+                className='my-page-button'
                 type='button'
                 styleTypes='textLink'
                 width='100px'
@@ -82,6 +84,7 @@ export const CommonHeader: VFC<CommonHeaderProps> = ({
           ) : (
             <StButtonContainer>
               <Button
+                className='login-button'
                 type='button'
                 styleTypes='textLink'
                 width='100px'
@@ -91,6 +94,7 @@ export const CommonHeader: VFC<CommonHeaderProps> = ({
                 onClick={loginWithRedirect}
               />
               <Button
+                className='register-button'
                 type='button'
                 styleTypes='textLink'
                 width='100px'
@@ -149,6 +153,7 @@ export const CommonHeader: VFC<CommonHeaderProps> = ({
           {isAuthenticated ? (
             <StButtonContainer>
               <Button
+                className='logout-button'
                 type='button'
                 styleTypes='textLink'
                 width='100px'
@@ -158,6 +163,7 @@ export const CommonHeader: VFC<CommonHeaderProps> = ({
                 onClick={(): void => logout({ returnTo: window.location.origin })}
               />
               <Button
+                className='my-page-button'
                 type='button'
                 styleTypes='textLink'
                 width='100px'
@@ -170,6 +176,7 @@ export const CommonHeader: VFC<CommonHeaderProps> = ({
           ) : (
             <StButtonContainer>
               <Button
+                className='login-button'
                 type='button'
                 styleTypes='textLink'
                 width='100px'
@@ -179,6 +186,7 @@ export const CommonHeader: VFC<CommonHeaderProps> = ({
                 onClick={loginWithRedirect}
               />
               <Button
+                className='register-button'
                 type='button'
                 styleTypes='textLink'
                 width='100px'
@@ -212,7 +220,10 @@ const StHeader = styled.header`
     text-align: left;
   }
 
-  button {
+  .logout-button,
+  .my-page-button,
+  .login-button,
+  .register-button {
     color: ${COLOR_PALETTE.BLACK};
   }
 `;
