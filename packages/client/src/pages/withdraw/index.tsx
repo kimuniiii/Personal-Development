@@ -2,8 +2,9 @@ import { withAuthenticationRequired } from '@auth0/auth0-react';
 import styled from '@emotion/styled';
 import Router from 'next/router';
 import React from 'react';
+import Parser from 'ua-parser-js';
 
-import type { NextPage } from 'next';
+import type { NextPage, GetServerSideProps } from 'next';
 
 import { Button } from 'src/components/atoms/Button';
 import { Loader } from 'src/components/atoms/Loader';
@@ -13,6 +14,7 @@ import { HeadTemplate } from 'src/components/templates/HeadTemplate';
 import { COLOR_PALETTE } from 'src/styles/color_palette';
 
 type WithDrawProps = {
+  isMobileUaDeviceType: boolean;
   origin: string;
 };
 
@@ -20,7 +22,7 @@ type WithDrawProps = {
  * @概要 マイページの「退会ボタン」を押したら表示されるページコンポーネント
  * @説明 非ログイン時にアクセスできないようにしたいため「Protected Page」である
  */
-const WithDrawPage: NextPage<WithDrawProps> = ({ origin }) => {
+const WithDrawPage: NextPage<WithDrawProps> = ({ isMobileUaDeviceType, origin }) => {
   // FIXME : 以下のコードで「アクセスコントロール」を行うとうまくいかない
   // const { isAuthenticated, loginWithRedirect } = useAuth0();
   // ログインしていなかったら「ログインページ」へ転送する
@@ -41,29 +43,55 @@ const WithDrawPage: NextPage<WithDrawProps> = ({ origin }) => {
         pageCanonicalUrl='https://www.riot-ec-site.com/withdraw'
         pageTitle='退会ページ'
       />
-      <CommonTemplate>
-        <StWithDrawRoot>
-          <h3>退会</h3>
-          <StWithDrawContainer>
+      {isMobileUaDeviceType ? (
+        <CommonTemplate isMobileUaDeviceType={isMobileUaDeviceType}>
+          <StWithDrawRoot>
+            <h3>退会</h3>
+            <StWithDrawContainer>
+              <Button
+                type='button'
+                styleTypes='tertiary'
+                width='200px'
+                fontSizeValue='16px'
+                buttonContent='退会する'
+                onClick={(): void => alert('退会するボタンをクリック')}
+              />
+            </StWithDrawContainer>
             <Button
               type='button'
-              styleTypes='tertiary'
+              styleTypes='textLink'
               width='200px'
               fontSizeValue='16px'
-              buttonContent='退会する'
-              onClick={(): void => alert('退会するボタンをクリック')}
+              buttonContent='マイページに戻る'
+              onClick={(): Promise<boolean> => Router.push('/my-page')}
             />
-          </StWithDrawContainer>
-          <Button
-            type='button'
-            styleTypes='textLink'
-            width='200px'
-            fontSizeValue='16px'
-            buttonContent='マイページに戻る'
-            onClick={(): Promise<boolean> => Router.push('/my-page')}
-          />
-        </StWithDrawRoot>
-      </CommonTemplate>
+          </StWithDrawRoot>
+        </CommonTemplate>
+      ) : (
+        <CommonTemplate isSideBar={true}>
+          <StWithDrawRoot>
+            <h3>退会</h3>
+            <StWithDrawContainer>
+              <Button
+                type='button'
+                styleTypes='tertiary'
+                width='200px'
+                fontSizeValue='16px'
+                buttonContent='退会する'
+                onClick={(): void => alert('退会するボタンをクリック')}
+              />
+            </StWithDrawContainer>
+            <Button
+              type='button'
+              styleTypes='textLink'
+              width='200px'
+              fontSizeValue='16px'
+              buttonContent='マイページに戻る'
+              onClick={(): Promise<boolean> => Router.push('/my-page')}
+            />
+          </StWithDrawRoot>
+        </CommonTemplate>
+      )}
     </React.Fragment>
   );
 };
@@ -78,6 +106,12 @@ export default withAuthenticationRequired(WithDrawPage, {
     );
   },
 });
+
+// TODO : UserAgentの判別によってレスポンシブ対応を行っているが、SSGは非対応。SSGにも対応できる方法があったら置き換える
+export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+  const userAgent = Parser(req?.headers['user-agent']);
+  return { props: { isMobileUaDeviceType: userAgent.device.type === 'mobile' } };
+};
 
 const StCenterLoaderContainer = styled.div`
   display: flex;
