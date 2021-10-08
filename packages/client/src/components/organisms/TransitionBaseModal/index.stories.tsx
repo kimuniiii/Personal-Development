@@ -46,5 +46,5 @@ Basic.args = {
   headerFontSize: '24px',
   headerPadding: '8px',
   mainContent: <p style={{ paddingLeft: '8px' }}>{'メインコンテンツ'}</p>,
-  titleContent: 'モーダルタイトル',
+  modalTitle: 'モーダルタイトル',
 };

@@ -8,7 +8,7 @@ import { FONT_SIZE } from 'src/styles/font_size';
 type TransitionBaseModalProps = {
   mainContent: string | JSX.Element;
   closeButtonComponent: JSX.Element;
-  titleContent?: string;
+  modalTitle?: string;
   headerPadding?: string;
   headerFontSize?: ValueOf<typeof FONT_SIZE>;
 };
@@ -16,14 +16,14 @@ type TransitionBaseModalProps = {
 export const TransitionBaseModal: VFC<TransitionBaseModalProps> = ({
   mainContent,
   closeButtonComponent,
-  titleContent,
+  modalTitle,
   headerPadding,
   headerFontSize,
 }) => {
   return (
     <StRootContainer>
       <StModalTitleWrapper headerPadding={headerPadding}>
-        <StModalTitle headerFontSize={headerFontSize}>{titleContent}</StModalTitle>
+        <StModalTitle headerFontSize={headerFontSize}>{modalTitle}</StModalTitle>
         {closeButtonComponent}
       </StModalTitleWrapper>
       <main>{mainContent}</main>
