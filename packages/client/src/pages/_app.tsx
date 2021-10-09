@@ -1,6 +1,6 @@
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 import { Auth0Provider, AppState } from '@auth0/auth0-react';
-import { Global } from '@emotion/react';
+import { Global, ThemeProvider } from '@emotion/react';
 import App, { AppContext, AppInitialProps } from 'next/app';
 import Router from 'next/router';
 import React, { useMemo } from 'react';
@@ -15,6 +15,7 @@ import { getAuth0ClientId } from 'src/lib/getAuth0ClientId';
 import { getAuth0Domain } from 'src/lib/getAuth0Domain';
 
 import { GLOBAL_STYLE } from 'src/styles/global_style';
+import { THEME } from 'src/styles/theme';
 
 import { getApiEndPoint } from 'src/utils/getApiEndPoint';
 import { getRedirectUriOrigin } from 'src/utils/getRedirectUriOrigin';
@@ -97,12 +98,14 @@ const CustomApp = ({
       >
         <ApolloProvider client={createApolloClient}>
           <Global styles={GLOBAL_STYLE} />
-          <Component
-            {...pageProps}
-            origin={origin}
-            auth0Domain={cacheAuth0Domain}
-            auth0ClientId={cacheAuth0ClientId}
-          />
+          <ThemeProvider theme={THEME}>
+            <Component
+              {...pageProps}
+              origin={origin}
+              auth0Domain={cacheAuth0Domain}
+              auth0ClientId={cacheAuth0ClientId}
+            />
+          </ThemeProvider>
         </ApolloProvider>
       </Auth0Provider>
     </React.Fragment>
