@@ -16,5 +16,6 @@ const StFooter = styled.footer`
   align-items: center;
   padding: 16px;
   height: 56px;
+  color: ${COLOR_PALETTE.BLACK};
   background-color: ${COLOR_PALETTE.LIGHT_GRAY};
 `;
