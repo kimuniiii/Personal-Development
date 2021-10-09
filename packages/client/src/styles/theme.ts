@@ -1,10 +1,12 @@
+import { COLOR_PALETTE } from 'src/styles/color_palette';
+
 export const THEME = {
-  bgColor: {
-    light: '#fefefe',
-    dark: '#222',
+  light: {
+    bgColor: `${COLOR_PALETTE.WHITE}`,
+    textColor: '#333',
   },
-  textColor: {
-    light: '#333',
-    dark: '#aaa',
+  dark: {
+    bgColor: `${COLOR_PALETTE.BLACK}`,
+    textColor: `${COLOR_PALETTE.DARK_MODE_TEXT_COLOR}`,
   },
 } as const;
