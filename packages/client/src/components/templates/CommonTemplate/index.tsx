@@ -2,8 +2,9 @@ import { useAuth0 } from '@auth0/auth0-react';
 import { css, SerializedStyles } from '@emotion/react';
 import styled from '@emotion/styled';
 import { useTheme } from '@emotion/react';
-import { ReactNode, VFC } from 'react';
+import { ReactNode, useEffect, useState, VFC } from 'react';
 
+import { Button } from 'src/components/atoms/Button';
 import { CommonFooter } from 'src/components/templates/CommonTemplate/CommonFooter';
 import { CommonHeader } from 'src/components/templates/CommonTemplate/CommonHeader';
 import { CommonSideBar } from 'src/components/templates/CommonTemplate/CommonSideBar';
@@ -17,13 +18,13 @@ type CommonTemplateProps = {
 };
 
 type Theme = {
-  bgColor: {
-    light: string;
-    dark: string;
+  light: {
+    bgColor: string;
+    textColor: string;
   };
-  textColor: {
-    light: string;
-    dark: string;
+  dark: {
+    bgColor: string;
+    textColor: string;
   };
 };
 
@@ -34,17 +35,42 @@ export const CommonTemplate: VFC<CommonTemplateProps> = ({
   isMobileUaDeviceType,
   isSideBar,
 }) => {
+  console.log('CommonTemplate');
   const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
 
   const theme = useTheme() as Theme;
   console.log('theme', theme);
 
-  console.log('CommonTemplate');
-  console.log('auth0Domain', auth0Domain);
-  console.log('auth0ClientId', auth0ClientId);
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
+  const handleDarkModeOn = (): void => {
+    localStorage.setItem('darkMode', 'on');
+    setIsDarkMode(true);
+  };
+
+  const handleDarkModeOff = (): void => {
+    localStorage.setItem('darkMode', 'off');
+    setIsDarkMode(false);
+  };
+
+  useEffect(() => {
+    if (localStorage.getItem('darkMode') === 'on') {
+      setIsDarkMode(true);
+    }
+
+    if (localStorage.getItem('darkMode') === 'off') {
+      setIsDarkMode(false);
+    }
+  }, []);
 
   return (
-    <StCommonRoot style={{ color: theme.textColor.dark, backgroundColor: theme.bgColor.dark }}>
+    <StCommonRoot
+      style={
+        isDarkMode
+          ? { color: theme.dark.textColor, backgroundColor: theme.dark.bgColor }
+          : { color: theme.light.textColor, backgroundColor: theme.light.bgColor }
+      }
+    >
       {isMobileUaDeviceType ? (
         <CommonHeader
           isAuthenticated={isAuthenticated}
@@ -71,6 +97,27 @@ export const CommonTemplate: VFC<CommonTemplateProps> = ({
         <StMain isSideBar={isSideBar}>
           <main>{children}</main>
         </StMain>
+      )}
+      {isDarkMode ? (
+        <Button
+          type='button'
+          styleTypes='primary'
+          width='auto'
+          fontSizeValue='16px'
+          padding='20px'
+          buttonContent='Change to LightMode'
+          onClick={handleDarkModeOff}
+        />
+      ) : (
+        <Button
+          type='button'
+          styleTypes='primary'
+          width='auto'
+          fontSizeValue='16px'
+          padding='20px'
+          buttonContent='Change to DarkMode'
+          onClick={handleDarkModeOn}
+        />
       )}
       <CommonFooter />
     </StCommonRoot>
