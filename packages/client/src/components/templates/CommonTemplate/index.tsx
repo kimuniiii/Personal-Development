@@ -1,6 +1,7 @@
 import { useAuth0 } from '@auth0/auth0-react';
 import { css, SerializedStyles } from '@emotion/react';
 import styled from '@emotion/styled';
+import { useTheme } from '@emotion/react';
 import { ReactNode, VFC } from 'react';
 
 import { CommonFooter } from 'src/components/templates/CommonTemplate/CommonFooter';
@@ -15,6 +16,17 @@ type CommonTemplateProps = {
   isSideBar?: boolean;
 };
 
+type Theme = {
+  bgColor: {
+    light: string;
+    dark: string;
+  };
+  textColor: {
+    light: string;
+    dark: string;
+  };
+};
+
 export const CommonTemplate: VFC<CommonTemplateProps> = ({
   children,
   auth0Domain,
@@ -24,12 +36,15 @@ export const CommonTemplate: VFC<CommonTemplateProps> = ({
 }) => {
   const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
 
+  const theme = useTheme() as Theme;
+  console.log('theme', theme);
+
   console.log('CommonTemplate');
   console.log('auth0Domain', auth0Domain);
   console.log('auth0ClientId', auth0ClientId);
 
   return (
-    <StCommonRoot>
+    <StCommonRoot style={{ color: theme.textColor.dark, backgroundColor: theme.bgColor.dark }}>
       {isMobileUaDeviceType ? (
         <CommonHeader
           isAuthenticated={isAuthenticated}
