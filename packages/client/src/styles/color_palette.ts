@@ -17,4 +17,5 @@ export const COLOR_PALETTE = {
   WARNING_COLOR: '#fff4f4',
   WHITE: '#fff',
   MODAL_BACKGROUND_COLOR: 'rgba(0, 0, 0, 0.8)',
+  DARK_MODE_TEXT_COLOR: '#aaa',
 } as const;
