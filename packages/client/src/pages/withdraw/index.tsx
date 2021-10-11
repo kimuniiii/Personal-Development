@@ -1,4 +1,4 @@
-import { withAuthenticationRequired } from '@auth0/auth0-react';
+import { withAuthenticationRequired, useAuth0 } from '@auth0/auth0-react';
 import styled from '@emotion/styled';
 import Router from 'next/router';
 import React from 'react';
@@ -11,6 +11,8 @@ import { Loader } from 'src/components/atoms/Loader';
 import { CommonTemplate } from 'src/components/templates/CommonTemplate';
 import { HeadTemplate } from 'src/components/templates/HeadTemplate';
 
+import { deleteUser } from 'src/lib/deleteUser';
+
 import { COLOR_PALETTE } from 'src/styles/color_palette';
 
 type WithDrawProps = {
@@ -20,7 +22,8 @@ type WithDrawProps = {
 
 /**
  * @概要 マイページの「退会ボタン」を押したら表示されるページコンポーネント
- * @説明 非ログイン時にアクセスできないようにしたいため「Protected Page」である
+ * @説明1 非ログイン時にアクセスできないようにしたいため「Protected Page」である
+ * @説明2 退会ボタンを押して、退会が完了したら、トップ画面に画面遷移する
  */
 const WithDrawPage: NextPage<WithDrawProps> = ({ isMobileUaDeviceType, origin }) => {
   // FIXME : 以下のコードで「アクセスコントロール」を行うとうまくいかない
@@ -35,6 +38,27 @@ const WithDrawPage: NextPage<WithDrawProps> = ({ isMobileUaDeviceType, origin })
   //     </StCenterLoaderContainer>
   //   );
   // }
+
+  const { user } = useAuth0();
+
+  const handleWithdrawBtnClickHandler = (): void => {
+    deleteUser({ user })
+      .then((res) => {
+        console.log('then');
+        console.log(res);
+
+        if (res.ok) {
+          console.log('res.ok');
+        } else {
+          // 失敗時には`Failed SnackBar`を表示する
+          console.log('response failed');
+        }
+      })
+      .catch((res) => {
+        console.log('catch');
+        console.error(res);
+      });
+  };
 
   return (
     <React.Fragment>
@@ -54,7 +78,7 @@ const WithDrawPage: NextPage<WithDrawProps> = ({ isMobileUaDeviceType, origin })
                 width='200px'
                 fontSizeValue='16px'
                 buttonContent='退会する'
-                onClick={(): void => alert('退会するボタンをクリック')}
+                onClick={handleWithdrawBtnClickHandler}
               />
             </StWithDrawContainer>
             <Button
@@ -78,7 +102,7 @@ const WithDrawPage: NextPage<WithDrawProps> = ({ isMobileUaDeviceType, origin })
                 width='200px'
                 fontSizeValue='16px'
                 buttonContent='退会する'
-                onClick={(): void => alert('退会するボタンをクリック')}
+                onClick={handleWithdrawBtnClickHandler}
               />
             </StWithDrawContainer>
             <Button
