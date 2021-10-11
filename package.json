@@ -16,9 +16,12 @@
     "lint-staged": "lint-staged"
   },
   "lint-staged": {
+    "packages/**/*.{css,html,json}": [
+      "yarn client not-js-ts-prettier"
+    ],
     "packages/**/*.{js,ts,tsx}": [
       "yarn client lint:fix",
-      "yarn client prettier"
+      "yarn client js-ts-prettier"
     ]
   },
   "devDependencies": {
