@@ -21,7 +21,7 @@ type HeadTemplateProps = {
    * @概要 サイト内で評価される正規URLをGoogleの検索エンジンに認識させるURL
    * @説明 重複コンテンツを解消する目的・リンクの評価を集約する目的
    */
-  pageCanonicalUrl?: string;
+  pageCanonicalUrl?: `${'https://www.riot-ec-site.com'}${string}`;
   /**
    * @概要 サイト内の各ページで個別の内容になるように設定すること
    * @説明 全角35文字以下
