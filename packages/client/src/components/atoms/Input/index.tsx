@@ -99,6 +99,7 @@ type StInputProps = Pick<
 >;
 
 const StInput = styled.input<StInputProps>`
+  /* 通常時のスタイル */
   display: block;
   width: ${({ width }): string => width};
   height: 52px;
@@ -126,6 +127,7 @@ const StInput = styled.input<StInputProps>`
     color: ${COLOR_PALETTE.DARK_GRAY};
   }
 
+  /* エラー状態のスタイル */
   ${({ isError }): SerializedStyles | null =>
     isError
       ? css`
@@ -140,12 +142,21 @@ const StInput = styled.input<StInputProps>`
         `
       : null}
 
+  /* 非活性状態のスタイル */
   ${({ disabled }): SerializedStyles | null =>
     disabled
       ? css`
           background-color: ${COLOR_PALETTE.GRAY};
           cursor: not-allowed;
           opacity: 0.3;
+
+          &:hover {
+            border: 1px solid ${COLOR_PALETTE.DARK_GRAY};
+          }
+
+          &:focus {
+            border: 1px solid ${COLOR_PALETTE.DARK_GRAY};
+          }
         `
       : null}
 `;
