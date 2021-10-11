@@ -50,7 +50,7 @@ export const deleteUser = async ({
   console.log('jsonBodyData', jsonBodyData);
 
   const res = await fetch(`https://login.auth0.com/api/v2/users/${user?.sub}`, {
-    method: 'POST',
+    method: 'DELETE',
     // mode: 'no-cors',
     // credentials: 'same-origin',
     headers: { 'Content-Type': 'application/json' },
