@@ -17,7 +17,7 @@ export const deleteUser = async ({
   user,
   getAccessTokenSilently,
 }: DeleteUserArgs): Promise<Response> => {
-  console.log('delete-user');
+  console.log('deleteUser Function');
   console.log('===================');
   console.log('user', user);
   console.log('user?.sub', user?.sub);
