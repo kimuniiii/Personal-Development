@@ -18,6 +18,8 @@ import { COLOR_PALETTE } from 'src/styles/color_palette';
 type WithDrawProps = {
   isMobileUaDeviceType: boolean;
   origin: string;
+  auth0Domain?: string;
+  auth0ClientId?: string;
 };
 
 /**
@@ -25,7 +27,12 @@ type WithDrawProps = {
  * @説明1 非ログイン時にアクセスできないようにしたいため「Protected Page」である
  * @説明2 退会ボタンを押して、退会が完了したら、トップ画面に画面遷移する
  */
-const WithDrawPage: NextPage<WithDrawProps> = ({ isMobileUaDeviceType, origin }) => {
+const WithDrawPage: NextPage<WithDrawProps> = ({
+  isMobileUaDeviceType,
+  origin,
+  auth0Domain,
+  auth0ClientId,
+}) => {
   // FIXME : 以下のコードで「アクセスコントロール」を行うとうまくいかない
   // const { isAuthenticated, loginWithRedirect } = useAuth0();
   // ログインしていなかったら「ログインページ」へ転送する
@@ -42,7 +49,7 @@ const WithDrawPage: NextPage<WithDrawProps> = ({ isMobileUaDeviceType, origin })
   const { user, getAccessTokenSilently } = useAuth0();
 
   const handleWithdrawBtnClickHandler = (): void => {
-    deleteUser({ user, getAccessTokenSilently })
+    deleteUser({ auth0Domain, auth0ClientId, user, getAccessTokenSilently })
       .then((res) => {
         console.log('then');
         console.log(res);
