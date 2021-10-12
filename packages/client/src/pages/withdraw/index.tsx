@@ -1,4 +1,4 @@
-import { withAuthenticationRequired } from '@auth0/auth0-react';
+import { withAuthenticationRequired, useAuth0 } from '@auth0/auth0-react';
 import styled from '@emotion/styled';
 import Router from 'next/router';
 import React from 'react';
@@ -11,18 +11,28 @@ import { Loader } from 'src/components/atoms/Loader';
 import { CommonTemplate } from 'src/components/templates/CommonTemplate';
 import { HeadTemplate } from 'src/components/templates/HeadTemplate';
 
+import { deleteUser } from 'src/lib/deleteUser';
+
 import { COLOR_PALETTE } from 'src/styles/color_palette';
 
 type WithDrawProps = {
   isMobileUaDeviceType: boolean;
   origin: string;
+  auth0Domain?: string;
+  auth0ClientId?: string;
 };
 
 /**
  * @概要 マイページの「退会ボタン」を押したら表示されるページコンポーネント
- * @説明 非ログイン時にアクセスできないようにしたいため「Protected Page」である
+ * @説明1 非ログイン時にアクセスできないようにしたいため「Protected Page」である
+ * @説明2 退会ボタンを押して、退会が完了したら、トップ画面に画面遷移する
  */
-const WithDrawPage: NextPage<WithDrawProps> = ({ isMobileUaDeviceType, origin }) => {
+const WithDrawPage: NextPage<WithDrawProps> = ({
+  isMobileUaDeviceType,
+  origin,
+  auth0Domain,
+  auth0ClientId,
+}) => {
   // FIXME : 以下のコードで「アクセスコントロール」を行うとうまくいかない
   // const { isAuthenticated, loginWithRedirect } = useAuth0();
   // ログインしていなかったら「ログインページ」へ転送する
@@ -35,6 +45,29 @@ const WithDrawPage: NextPage<WithDrawProps> = ({ isMobileUaDeviceType, origin })
   //     </StCenterLoaderContainer>
   //   );
   // }
+
+  const { user, getAccessTokenSilently } = useAuth0();
+
+  const handleWithdrawBtnClickHandler = (): void => {
+    deleteUser({ auth0Domain, auth0ClientId, user, getAccessTokenSilently })
+      .then((res) => {
+        console.log('then');
+        console.log(res);
+
+        if (res.ok) {
+          console.log('res.ok');
+          // 退会処理が完了したらトップページに画面遷移する
+          Router.replace('/');
+        } else {
+          // 失敗時には`Failed SnackBar`を表示する
+          console.log('response failed');
+        }
+      })
+      .catch((res) => {
+        console.log('catch');
+        console.error(res);
+      });
+  };
 
   return (
     <React.Fragment>
@@ -54,7 +87,7 @@ const WithDrawPage: NextPage<WithDrawProps> = ({ isMobileUaDeviceType, origin })
                 width='200px'
                 fontSizeValue='16px'
                 buttonContent='退会する'
-                onClick={(): void => alert('退会するボタンをクリック')}
+                onClick={handleWithdrawBtnClickHandler}
               />
             </StWithDrawContainer>
             <Button
@@ -78,7 +111,7 @@ const WithDrawPage: NextPage<WithDrawProps> = ({ isMobileUaDeviceType, origin })
                 width='200px'
                 fontSizeValue='16px'
                 buttonContent='退会する'
-                onClick={(): void => alert('退会するボタンをクリック')}
+                onClick={handleWithdrawBtnClickHandler}
               />
             </StWithDrawContainer>
             <Button

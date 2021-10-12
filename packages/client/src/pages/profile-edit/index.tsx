@@ -201,6 +201,7 @@ const ProfileEditPage: NextPage<ProfileEditProps> = ({ isMobileUaDeviceType, ori
                 placeholder='例: 03-1234-5678'
                 width='343px'
                 fontSizeValue='16px'
+                disabled={true}
                 isError={!!errors.phoneNumber}
                 errors={errors}
                 register={register('phoneNumber', {
@@ -223,6 +224,7 @@ const ProfileEditPage: NextPage<ProfileEditProps> = ({ isMobileUaDeviceType, ori
                 errors={errors}
                 width='343px'
                 fontSizeValue='16px'
+                disabled={true}
                 register={register('postCode', {
                   pattern: {
                     message: '郵便番号の書き方が間違ってます',
@@ -257,6 +259,7 @@ const ProfileEditPage: NextPage<ProfileEditProps> = ({ isMobileUaDeviceType, ori
                 placeholder='例: 25'
                 width='343px'
                 fontSizeValue='16px'
+                disabled={true}
                 isError={!!errors.ageNumber}
                 errors={errors}
                 register={register('ageNumber', {
@@ -361,6 +364,7 @@ const ProfileEditPage: NextPage<ProfileEditProps> = ({ isMobileUaDeviceType, ori
                 placeholder='例: 03-1234-5678'
                 width='343px'
                 fontSizeValue='16px'
+                disabled={true}
                 isError={!!errors.phoneNumber}
                 errors={errors}
                 register={register('phoneNumber', {
@@ -383,6 +387,7 @@ const ProfileEditPage: NextPage<ProfileEditProps> = ({ isMobileUaDeviceType, ori
                 errors={errors}
                 width='343px'
                 fontSizeValue='16px'
+                disabled={true}
                 register={register('postCode', {
                   pattern: {
                     message: '郵便番号の書き方が間違ってます',
@@ -403,6 +408,7 @@ const ProfileEditPage: NextPage<ProfileEditProps> = ({ isMobileUaDeviceType, ori
                 errors={errors}
                 width='343px'
                 fontSizeValue='16px'
+                disabled={true}
                 register={register('address', {
                   required: { message: '必須入力項目です', value: true },
                 })}
@@ -417,6 +423,7 @@ const ProfileEditPage: NextPage<ProfileEditProps> = ({ isMobileUaDeviceType, ori
                 placeholder='例: 25'
                 width='343px'
                 fontSizeValue='16px'
+                disabled={true}
                 isError={!!errors.ageNumber}
                 errors={errors}
                 register={register('ageNumber', {
