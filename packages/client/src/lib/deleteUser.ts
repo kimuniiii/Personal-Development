@@ -12,10 +12,10 @@ type DeleteUserArgs = {
  * @概要 退会するボタンをクリックしたときに発火する関数
  */
 export const deleteUser = async ({
+  getAccessTokenSilently,
   auth0Domain,
   auth0ClientId,
   user,
-  getAccessTokenSilently,
 }: DeleteUserArgs): Promise<Response> => {
   console.log('deleteUser Function');
   console.log('===================');
@@ -51,6 +51,7 @@ export const deleteUser = async ({
   console.log('userDeleteByIdUrl', userDeleteByIdUrl);
 
   const userDeleteResponse = await fetch(userDeleteByIdUrl, {
+    method: 'DELETE',
     headers: {
       Authorization: `Bearer ${accessToken}`,
     },
