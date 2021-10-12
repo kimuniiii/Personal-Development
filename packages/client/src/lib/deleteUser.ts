@@ -1,6 +1,8 @@
+import type { GetTokenSilentlyOptions } from '@auth0/auth0-react';
 import type { User } from '@auth0/auth0-spa-js';
 
 type DeleteUserArgs = {
+  getAccessTokenSilently: (options?: GetTokenSilentlyOptions) => Promise<string>;
   auth0Domain?: string;
   auth0ClientId?: string;
   user?: User;
@@ -13,8 +15,10 @@ export const deleteUser = async ({
   auth0Domain,
   auth0ClientId,
   user,
+  getAccessTokenSilently,
 }: DeleteUserArgs): Promise<Response> => {
   console.log('delete-user');
+  console.log('===================');
   console.log('user', user);
   console.log('user?.sub', user?.sub);
 
@@ -31,31 +35,26 @@ export const deleteUser = async ({
   console.log('process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID', process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID);
 
   console.log('process.env.NEXT_PUBLIC_VERCEL_ENV', process.env.NEXT_PUBLIC_VERCEL_ENV);
+  console.log('===================');
 
-  const AUTH0_CONNECTION =
-    process.env.NEXT_PUBLIC_VERCEL_ENV === 'development'
-      ? 'Riot-EC-Site-Development-Database'
-      : process.env.NEXT_PUBLIC_VERCEL_ENV === 'staging'
-      ? 'Riot-EC-Site-Staging-Database'
-      : process.env.NEXT_PUBLIC_VERCEL_ENV === 'production'
-      ? 'Riot-EC-Site-Production-Database'
-      : '';
+  const AUTH0_DOMAIN = auth0Domain || process.env.NEXT_PUBLIC_AUTH0_DOMAIN || '';
 
-  const jsonBodyData = JSON.stringify({
-    client_id: auth0ClientId,
-    email: user?.email,
-    connection: AUTH0_CONNECTION,
+  const accessToken = await getAccessTokenSilently({
+    audience: `https://${AUTH0_DOMAIN}/api/v2/`,
+    scope: 'delete:users',
   });
 
-  console.log('jsonBodyData', jsonBodyData);
+  console.log('accessToken', accessToken);
 
-  const res = await fetch(`https://login.auth0.com/api/v2/users/${user?.sub}`, {
-    method: 'DELETE',
-    // mode: 'no-cors',
-    // credentials: 'same-origin',
-    headers: { 'Content-Type': 'application/json' },
-    body: jsonBodyData,
+  const userDeleteByIdUrl = `https://${AUTH0_DOMAIN}/api/v2/users/${user?.sub}`;
+
+  console.log('userDeleteByIdUrl', userDeleteByIdUrl);
+
+  const userDeleteResponse = await fetch(userDeleteByIdUrl, {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
   });
 
-  return res;
+  return userDeleteResponse;
 };
