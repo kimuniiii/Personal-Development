@@ -39,10 +39,10 @@ const WithDrawPage: NextPage<WithDrawProps> = ({ isMobileUaDeviceType, origin })
   //   );
   // }
 
-  const { user } = useAuth0();
+  const { user, getAccessTokenSilently } = useAuth0();
 
   const handleWithdrawBtnClickHandler = (): void => {
-    deleteUser({ user })
+    deleteUser({ user, getAccessTokenSilently })
       .then((res) => {
         console.log('then');
         console.log(res);
