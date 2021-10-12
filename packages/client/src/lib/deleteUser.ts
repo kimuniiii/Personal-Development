@@ -10,6 +10,7 @@ type DeleteUserArgs = {
 
 /**
  * @概要 退会するボタンをクリックしたときに発火する関数
+ * @説明 TODO : 現在は退会ボタンをクリックしてもUser情報を削除できない
  */
 export const deleteUser = async ({
   getAccessTokenSilently,
