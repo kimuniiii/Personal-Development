@@ -21,8 +21,7 @@
     ],
     "packages/**/*.{js,ts,tsx}": [
       "yarn client lint:fix",
-      "yarn client js-ts-prettier",
-      "yarn client lint-staged-jest"
+      "yarn client js-ts-prettier"
     ],
     "packages/**/*.{ts,tsx}": [
       "yarn client lint-staged-jest"
