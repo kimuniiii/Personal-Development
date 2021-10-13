@@ -6,6 +6,7 @@ import React from 'react';
 
 import type { VFC } from 'react';
 
+import { LazyImage } from 'src/components/atoms/LazyImage';
 import { Margin } from 'src/components/layouts/Margin';
 
 import { COLOR_PALETTE } from 'src/styles/color_palette';
@@ -44,12 +45,11 @@ export const SpProductCard: VFC<Props> = ({ productCardList }) => {
             <StFigure>
               <StImageBtn onClick={handleProductImageBtnClick}>
                 {productItem.base64_image ? (
-                  <Image
+                  <LazyImage
                     src={productItem.base64_image}
                     alt='Product Image'
-                    width={348}
-                    height={180}
-                    objectFit='contain'
+                    width='348px'
+                    height='180px'
                   />
                 ) : (
                   <Image src={NoImage} alt='No Image' width={126} height={126} />

@@ -8,7 +8,7 @@ export const SpProductCardSkeleton: VFC = () => {
   return (
     <StSpProductList>
       {[...Array(6)].map((_, idx) => {
-        return <Skeleton key={idx} width='348px' height='180px' />;
+        return <Skeleton key={idx} width='348px' height='232px' />;
       })}
     </StSpProductList>
   );
