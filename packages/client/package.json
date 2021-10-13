@@ -19,6 +19,7 @@
     "lint": "eslint src --ext .ts,.tsx .",
     "lint:cache": "eslint --cache src --ext .ts,.tsx .",
     "lint:fix": "eslint src --ext .ts,.tsx --fix .",
+    "lint-staged-jest": "jest --passWithNoTests",
     "jest": "jest --coverage"
   },
   "dependencies": {
