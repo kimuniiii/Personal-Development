@@ -14,12 +14,14 @@
     "storybook": "start-storybook -s ./public -p 6007",
     "build-storybook": "build-storybook --output-dir ./build -s ./public",
     "ts-test": "tsc -p tsconfig.json --noEmit",
-    "not-js-ts-prettier": "prettier --write \"**/*.{css,html,json}\"",
-    "js-ts-prettier": "prettier --write \"**/*.{js,ts,tsx}\"",
+    "prettier-format": "prettier --write \"**/*.{css,html,json,js,ts,tsx}\"",
+    "prettier-ci-test": "prettier  --list-different --write \"**/*.{css,html,json,js,ts,tsx}\"",
+    "not-js-ts-prettier": "prettier --list-different --write \"**/*.{css,html,json}\"",
+    "js-ts-prettier": "prettier --list-different --write \"**/*.{js,ts,tsx}\"",
     "lint": "eslint src --ext .ts,.tsx .",
     "lint:cache": "eslint --cache src --ext .ts,.tsx .",
     "lint:fix": "eslint src --ext .ts,.tsx --fix .",
-    "lint-staged-jest": "jest --passWithNoTests",
+    "lint-staged-jest": "jest --passWithNoTests --onlyChanged",
     "jest": "jest --coverage"
   },
   "dependencies": {
