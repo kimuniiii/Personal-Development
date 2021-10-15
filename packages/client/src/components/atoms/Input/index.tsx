@@ -3,14 +3,14 @@ import styled from '@emotion/styled';
 import { ErrorMessage } from '@hookform/error-message';
 import React from 'react';
 
-import type { UseFormRegisterReturn } from 'react-hook-form';
-import type { ValueOf } from 'src/typings/utils/ValueOf';
-
 import { FormLabel } from 'src/components/atoms/FormLabel';
 import { Margin } from 'src/components/layouts/Margin';
 
 import { COLOR_PALETTE } from 'src/styles/color_palette';
 import { FONT_SIZE } from 'src/styles/font_size';
+
+import type { UseFormRegisterReturn } from 'react-hook-form';
+import type { ValueOf } from 'src/typings/utils/ValueOf';
 
 type InputProps = JSX.IntrinsicElements['input'] & {
   type: string;

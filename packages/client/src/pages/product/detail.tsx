@@ -1,11 +1,11 @@
 import { withAuthenticationRequired } from '@auth0/auth0-react';
 import styled from '@emotion/styled';
 
-import type { NextPage } from 'next';
-
 import { Loader } from 'src/components/atoms/Loader';
 import { CommonTemplate } from 'src/components/templates/CommonTemplate';
 import { HeadTemplate } from 'src/components/templates/HeadTemplate';
+
+import type { NextPage } from 'next';
 
 type ProductDetailPageProps = {
   origin: string;

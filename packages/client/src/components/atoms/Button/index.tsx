@@ -2,12 +2,12 @@ import { css, SerializedStyles } from '@emotion/react';
 import styled from '@emotion/styled';
 import React from 'react';
 
-import type { ValueOf } from 'src/typings/utils/ValueOf';
-
 import { buttonStyleTypes } from 'src/components/atoms/Button/buttonStyleTypes';
 
 import { FONT_SIZE } from 'src/styles/font_size';
 import { FONT_WEIGHT } from 'src/styles/font_weight';
+
+import type { ValueOf } from 'src/typings/utils/ValueOf';
 
 export type ButtonProps = JSX.IntrinsicElements['button'] & {
   type: 'button' | 'submit' | 'reset';

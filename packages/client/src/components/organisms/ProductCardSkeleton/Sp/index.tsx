@@ -1,8 +1,8 @@
 import styled from '@emotion/styled';
 
-import type { VFC } from 'react';
-
 import { Skeleton } from 'src/components/atoms/Skeleton';
+
+import type { VFC } from 'react';
 
 export const SpProductCardSkeleton: VFC = () => {
   return (

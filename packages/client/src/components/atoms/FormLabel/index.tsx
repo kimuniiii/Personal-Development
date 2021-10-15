@@ -1,13 +1,13 @@
 import styled from '@emotion/styled';
 import React from 'react';
 
-import type { VFC } from 'react';
-
 import { Marker } from 'src/components/atoms/Marker';
 import { Margin } from 'src/components/layouts/Margin';
 
 import { COLOR_PALETTE } from 'src/styles/color_palette';
 import { FONT_WEIGHT } from 'src/styles/font_weight';
+
+import type { VFC } from 'react';
 
 type Props = {
   labelType: 'requiredMarker' | 'optionalMarker';

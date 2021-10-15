@@ -1,9 +1,9 @@
 import React from 'react';
 
-import type { NextPage } from 'next';
-
 import { CommonTemplate } from 'src/components/templates/CommonTemplate';
 import { HeadTemplate } from 'src/components/templates/HeadTemplate';
+
+import type { NextPage } from 'next';
 
 type ChatRoomPageProps = {
   origin: string;

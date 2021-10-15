@@ -16,6 +16,7 @@ export const Basic = Template.bind({});
 
 Basic.args = {
   labelText: 'カテゴリー',
+  labelType: 'requiredMarker',
   optionList: ['選択肢1', '選択肢2', '選択肢3'],
   top: '18px',
   width: '300px',

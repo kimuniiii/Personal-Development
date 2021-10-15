@@ -4,8 +4,6 @@ import React, { useState } from 'react';
 import { SubmitErrorHandler, SubmitHandler, useForm } from 'react-hook-form';
 import Parser from 'ua-parser-js';
 
-import type { NextPage, GetServerSideProps } from 'next';
-
 import { Button } from 'src/components/atoms/Button';
 import { Input } from 'src/components/atoms/Input';
 import { Loader } from 'src/components/atoms/Loader';
@@ -17,6 +15,8 @@ import { HeadTemplate } from 'src/components/templates/HeadTemplate';
 import { COLOR_PALETTE } from 'src/styles/color_palette';
 
 import { validations } from 'src/utils/validate';
+
+import type { NextPage, GetServerSideProps } from 'next';
 
 type UseFormInputs = {
   firstName: string;

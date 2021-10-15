@@ -5,11 +5,11 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import type { ValueOf } from 'src/typings/utils/ValueOf';
-
 import { Button } from 'src/components/atoms/Button';
 
 import { FONT_SIZE } from 'src/styles/font_size';
+
+import type { ValueOf } from 'src/typings/utils/ValueOf';
 
 const testProps = {
   buttonContent: 'Button',

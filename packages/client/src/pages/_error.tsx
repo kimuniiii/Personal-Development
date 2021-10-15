@@ -1,13 +1,13 @@
 import styled from '@emotion/styled';
 import React from 'react';
 
-import type { NextPage, NextPageContext } from 'next';
-
 import { OuterLink } from 'src/components/atoms/OuterLink';
 import { Margin } from 'src/components/layouts/Margin';
 import { HeadTemplate } from 'src/components/templates/HeadTemplate';
 
 import { FONT_SIZE } from 'src/styles/font_size';
+
+import type { NextPage, NextPageContext } from 'next';
 
 type Props = {
   title: string;

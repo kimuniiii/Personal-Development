@@ -3,8 +3,6 @@ import styled from '@emotion/styled';
 import React, { useEffect, useState } from 'react';
 import Parser from 'ua-parser-js';
 
-import type { GetServerSideProps, NextPage } from 'next';
-
 import { Margin } from 'src/components/layouts/Margin';
 import { Pagination } from 'src/components/organisms/Pagination';
 import { PcProductCard } from 'src/components/organisms/ProductCard/Pc';
@@ -17,6 +15,8 @@ import { ErrorTemplate } from 'src/components/templates/ErrorTemplate';
 import { HeadTemplate } from 'src/components/templates/HeadTemplate';
 
 import { COLOR_PALETTE } from 'src/styles/color_palette';
+
+import type { GetServerSideProps, NextPage } from 'next';
 
 type TopPageProps = {
   origin: string;

@@ -2,14 +2,14 @@ import { DocumentNode, gql } from '@apollo/client';
 import styled from '@emotion/styled';
 import { useForm } from 'react-hook-form';
 
-import type { VFC } from 'react';
-import type { SubmitHandler, SubmitErrorHandler } from 'react-hook-form';
-
 import { Button } from 'src/components/atoms/Button';
 import { SelectBox } from 'src/components/atoms/SelectBox';
 import { Margin } from 'src/components/layouts/Margin';
 
 import { COLOR_PALETTE } from 'src/styles/color_palette';
+
+import type { VFC } from 'react';
+import type { SubmitHandler, SubmitErrorHandler } from 'react-hook-form';
 
 type UseSearchFormInputs = {
   select_category_box: string;

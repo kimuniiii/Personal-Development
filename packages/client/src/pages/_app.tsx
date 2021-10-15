@@ -5,8 +5,6 @@ import App, { AppContext, AppInitialProps } from 'next/app';
 import Router from 'next/router';
 import React, { useMemo } from 'react';
 
-import type { AppProps } from 'next/app';
-
 import { HeadTemplate } from 'src/components/templates/HeadTemplate';
 
 import { X_HASURA_ADMIN_SECRET } from 'src/constants';
@@ -19,6 +17,8 @@ import { THEME } from 'src/styles/theme';
 
 import { getApiEndPoint } from 'src/utils/getApiEndPoint';
 import { getRedirectUriOrigin } from 'src/utils/getRedirectUriOrigin';
+
+import type { AppProps } from 'next/app';
 
 type CustomAppProps = AppProps & {
   origin: string;

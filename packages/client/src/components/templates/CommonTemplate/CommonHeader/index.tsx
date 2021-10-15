@@ -4,15 +4,15 @@ import React, { useState } from 'react';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import { ImCross } from 'react-icons/im';
 
-import type { LogoutOptions, RedirectLoginOptions } from '@auth0/auth0-react';
-import type { VFC } from 'react';
-
 import { Button } from 'src/components/atoms/Button';
 import { IconButton } from 'src/components/atoms/IconButton';
 import { TransitionHorizontalModal } from 'src/components/organisms/TransitionHorizontalModal';
 import { CommonSideBar } from 'src/components/templates/CommonTemplate/CommonSideBar';
 
 import { COLOR_PALETTE } from 'src/styles/color_palette';
+
+import type { LogoutOptions, RedirectLoginOptions } from '@auth0/auth0-react';
+import type { VFC } from 'react';
 
 type CommonHeaderProps = {
   isAuthenticated: boolean;

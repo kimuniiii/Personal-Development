@@ -4,8 +4,6 @@ import Image from 'next/image';
 import React from 'react';
 import Parser from 'ua-parser-js';
 
-import type { NextPage, GetServerSideProps } from 'next';
-
 import { Loader } from 'src/components/atoms/Loader';
 import { Margin } from 'src/components/layouts/Margin';
 import { PcProductCard } from 'src/components/organisms/ProductCard/Pc';
@@ -19,6 +17,8 @@ import { useAuth0Api } from 'src/hooks/useAuth0Api';
 import { formatDateToyyyyMMdd } from 'src/lib/date';
 
 import { COLOR_PALETTE } from 'src/styles/color_palette';
+
+import type { NextPage, GetServerSideProps } from 'next';
 
 import NoImage from '../../../public/images/no_image.png';
 
