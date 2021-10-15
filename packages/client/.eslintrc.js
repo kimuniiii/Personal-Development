@@ -12,6 +12,7 @@ module.exports = {
     'prettier',
   ],
   parser: '@typescript-eslint/parser',
+  // plugins に import を 加えないと`Error`になる | 2021年10月15日時点
   plugins: ['@typescript-eslint', 'react', 'jest', 'import'],
   settings: {
     // TypeScript の import を eslint-import-resolver-typescript で解決するために必要
@@ -32,6 +33,7 @@ module.exports = {
     'import/order': [
       'error',
       {
+        // 'newlines-between': 'always-and-inside-groups' でないと設定と保存時の挙動が一致しない | 2021年10月15日時点
         'newlines-between': 'always-and-inside-groups',
         alphabetize: { caseInsensitive: true, order: 'asc' },
         groups: ['builtin', 'external', 'index', 'type', 'sibling', 'parent'],
