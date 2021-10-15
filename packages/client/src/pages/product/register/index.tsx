@@ -1,6 +1,7 @@
-import { gql, useMutation } from '@apollo/client';
+import { gql, useMutation, useQuery } from '@apollo/client';
 import { useAuth0, withAuthenticationRequired } from '@auth0/auth0-react';
 import styled from '@emotion/styled';
+import Router from 'next/router';
 import React, { useState } from 'react';
 import { SubmitErrorHandler, SubmitHandler, useForm } from 'react-hook-form';
 // eslint-disable-next-line import/order
@@ -14,6 +15,7 @@ import { Textarea } from 'src/components/atoms/Textarea';
 import { Margin } from 'src/components/layouts/Margin';
 import { ProductImageUpload } from 'src/components/organisms/ProductImageUpload';
 import { CommonTemplate } from 'src/components/templates/CommonTemplate';
+import { ErrorTemplate } from 'src/components/templates/ErrorTemplate';
 import { HeadTemplate } from 'src/components/templates/HeadTemplate';
 
 import { COLOR_PALETTE } from 'src/styles/color_palette';
@@ -62,6 +64,16 @@ const PRODUCT_REGISTER = gql`
   }
 `;
 
+const GET_PRODUCT_DATA_LENGTH = gql`
+  query GetProductDataLength {
+    product_aggregate {
+      aggregate {
+        count
+      }
+    }
+  }
+`;
+
 console.log(PRODUCT_REGISTER);
 
 /**
@@ -77,14 +89,36 @@ const ProductRegisterPage: NextPage<ProductRegisterProps> = ({ isMobileUaDeviceT
     reValidateMode: 'onChange',
   });
 
+  const { data } = useQuery<{
+    product_aggregate: {
+      aggregate: {
+        count: number;
+      };
+    };
+  }>(GET_PRODUCT_DATA_LENGTH, { fetchPolicy: 'no-cache' });
   const [productRegister, { loading, error }] = useMutation(PRODUCT_REGISTER);
   const { user } = useAuth0();
+
+  const MUTATION_ID = data?.product_aggregate.aggregate.count
+    ? data?.product_aggregate.aggregate.count + 1
+    : 20;
+
+  console.log(MUTATION_ID);
 
   // ProductImageUpload に関する状態管理と更新関数とイベントハンドラ
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
 
-  if (loading) return <p>Submitting...</p>;
-  if (error) return <p>`Submission error! ${error.message}`</p>;
+  // Mutation の 通信中 と エラー状態 の管理
+  if (loading)
+    return (
+      <StCenterLoaderContainer>
+        <Loader loadingContent='商品を登録中です' />
+      </StCenterLoaderContainer>
+    );
+
+  if (error) {
+    return <ErrorTemplate error={error} />;
+  }
 
   // FIXME : 以下のコードで「アクセスコントロール」を行うとうまくいかない
   // const { isAuthenticated, loginWithRedirect } = useAuth0();
@@ -129,12 +163,22 @@ const ProductRegisterPage: NextPage<ProductRegisterProps> = ({ isMobileUaDeviceT
             category: data['select-category-box'],
             created_at: new Date().toISOString(),
             description: data['productDetail'],
-            id: 18,
+            id: MUTATION_ID,
             name: data['productName'],
             price: data['priceNumber'],
             user_id: user?.sub,
           },
-        });
+        })
+          .then((res) => {
+            console.log('then');
+            console.log('res', res);
+            Router.replace('/my-page');
+          })
+          .catch((error) => {
+            console.log('catch');
+            console.log('error', error);
+            <ErrorTemplate error={error} />;
+          });
       },
       false,
     );
@@ -245,14 +289,16 @@ const ProductRegisterPage: NextPage<ProductRegisterProps> = ({ isMobileUaDeviceT
                 id='productDetail'
                 name='productDetail'
                 labelText='詳細'
-                labelType='optionalMarker'
+                labelType='requiredMarker'
                 placeholder='200文字以内で入力してください'
                 width='343px'
                 height='200px'
                 fontSizeValue='16px'
                 isError={!!errors.productDetail}
                 errors={errors}
-                register={register('productDetail')}
+                register={register('productDetail', {
+                  required: { message: '必須入力項目です！', value: true },
+                })}
               />
               <Margin bottom='16px' />
               <Input
@@ -273,7 +319,7 @@ const ProductRegisterPage: NextPage<ProductRegisterProps> = ({ isMobileUaDeviceT
               <Margin bottom='16px' />
               <ProductImageUpload
                 labelText='商品画像'
-                labelType='optionalMarker'
+                labelType='requiredMarker'
                 selectedFiles={selectedFiles}
                 onFileSelect={onFileSelect}
               />
@@ -338,14 +384,16 @@ const ProductRegisterPage: NextPage<ProductRegisterProps> = ({ isMobileUaDeviceT
                 id='productDetail'
                 name='productDetail'
                 labelText='詳細'
-                labelType='optionalMarker'
+                labelType='requiredMarker'
                 placeholder='200文字以内で入力してください'
                 width='343px'
                 height='200px'
                 fontSizeValue='16px'
                 isError={!!errors.productDetail}
                 errors={errors}
-                register={register('productDetail')}
+                register={register('productDetail', {
+                  required: { message: '必須入力項目です！', value: true },
+                })}
               />
               <Margin bottom='16px' />
               <Input
@@ -366,7 +414,7 @@ const ProductRegisterPage: NextPage<ProductRegisterProps> = ({ isMobileUaDeviceT
               <Margin bottom='16px' />
               <ProductImageUpload
                 labelText='商品画像'
-                labelType='optionalMarker'
+                labelType='requiredMarker'
                 selectedFiles={selectedFiles}
                 onFileSelect={onFileSelect}
               />

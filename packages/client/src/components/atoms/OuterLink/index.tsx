@@ -6,16 +6,16 @@ import { FONT_SIZE } from 'src/styles/font_size';
 
 import type { ValueOf } from 'src/typings/utils/ValueOf';
 
-type OuterLinkProps = {
+type OuterLinkProps = JSX.IntrinsicElements['a'] & {
   children: React.ReactNode;
   href: string;
   fontSizeValue?: ValueOf<typeof FONT_SIZE>;
 };
 
 export const OuterLink = React.forwardRef<HTMLAnchorElement, OuterLinkProps>(
-  ({ children, href, fontSizeValue }, ref) => {
+  ({ children, href, fontSizeValue, ...anchorProps }, ref) => {
     return (
-      <StOuterLink ref={ref} href={href} fontSizeValue={fontSizeValue}>
+      <StOuterLink {...anchorProps} ref={ref} href={href} fontSizeValue={fontSizeValue}>
         {children}
       </StOuterLink>
     );

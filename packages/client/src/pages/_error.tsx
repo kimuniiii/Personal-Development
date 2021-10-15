@@ -29,7 +29,7 @@ const ErrorPage: NextPage<Props> = ({ title, errorCode }) => {
         <StNotFoundMessage>We could not find that page</StNotFoundMessage>
         <Margin bottom='16px' />
         <OuterLink href='/' fontSizeValue={FONT_SIZE.FS_24}>
-          go back to home page
+          Go back to home page
         </OuterLink>
       </StNotFoundContainer>
     </React.Fragment>
