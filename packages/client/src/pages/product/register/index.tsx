@@ -289,14 +289,16 @@ const ProductRegisterPage: NextPage<ProductRegisterProps> = ({ isMobileUaDeviceT
                 id='productDetail'
                 name='productDetail'
                 labelText='詳細'
-                labelType='optionalMarker'
+                labelType='requiredMarker'
                 placeholder='200文字以内で入力してください'
                 width='343px'
                 height='200px'
                 fontSizeValue='16px'
                 isError={!!errors.productDetail}
                 errors={errors}
-                register={register('productDetail')}
+                register={register('productDetail', {
+                  required: { message: '必須入力項目です！', value: true },
+                })}
               />
               <Margin bottom='16px' />
               <Input
@@ -317,7 +319,7 @@ const ProductRegisterPage: NextPage<ProductRegisterProps> = ({ isMobileUaDeviceT
               <Margin bottom='16px' />
               <ProductImageUpload
                 labelText='商品画像'
-                labelType='optionalMarker'
+                labelType='requiredMarker'
                 selectedFiles={selectedFiles}
                 onFileSelect={onFileSelect}
               />
@@ -382,14 +384,16 @@ const ProductRegisterPage: NextPage<ProductRegisterProps> = ({ isMobileUaDeviceT
                 id='productDetail'
                 name='productDetail'
                 labelText='詳細'
-                labelType='optionalMarker'
+                labelType='requiredMarker'
                 placeholder='200文字以内で入力してください'
                 width='343px'
                 height='200px'
                 fontSizeValue='16px'
                 isError={!!errors.productDetail}
                 errors={errors}
-                register={register('productDetail')}
+                register={register('productDetail', {
+                  required: { message: '必須入力項目です！', value: true },
+                })}
               />
               <Margin bottom='16px' />
               <Input
@@ -410,7 +414,7 @@ const ProductRegisterPage: NextPage<ProductRegisterProps> = ({ isMobileUaDeviceT
               <Margin bottom='16px' />
               <ProductImageUpload
                 labelText='商品画像'
-                labelType='optionalMarker'
+                labelType='requiredMarker'
                 selectedFiles={selectedFiles}
                 onFileSelect={onFileSelect}
               />
