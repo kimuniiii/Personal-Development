@@ -2,6 +2,7 @@ import { useAuth0, withAuthenticationRequired } from '@auth0/auth0-react';
 import styled from '@emotion/styled';
 import Image from 'next/image';
 import React from 'react';
+
 import Parser from 'ua-parser-js';
 
 import { Loader } from 'src/components/atoms/Loader';
