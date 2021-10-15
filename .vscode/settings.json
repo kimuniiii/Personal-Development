@@ -24,6 +24,8 @@
     "RDBMS",
     "signup",
     "testid",
+    "timestamptz",
+    "timetz",
     "Ydui"
   ]
 }
