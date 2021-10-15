@@ -31,14 +31,14 @@ const ProductRegisterPage: NextPage<ProductRegisterProps> = ({ isMobileUaDeviceT
   const {
     register,
     handleSubmit,
-    formState: { errors, isValid },
+    formState: { errors },
   } = useForm({
-    mode: 'onBlur',
+    mode: 'onSubmit',
     reValidateMode: 'onChange',
   });
 
   // ProductImageUpload に関する状態管理と更新関数とイベントハンドラ
-  const [selectedFiles, setPhotoFiles] = useState<File[]>([]);
+  const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
 
   // FIXME : 以下のコードで「アクセスコントロール」を行うとうまくいかない
   // const { isAuthenticated, loginWithRedirect } = useAuth0();
@@ -57,7 +57,62 @@ const ProductRegisterPage: NextPage<ProductRegisterProps> = ({ isMobileUaDeviceT
    * @概要 バリデーション成功時に呼び出されるイベントハンドラ
    */
   const handleOnSubmit: SubmitHandler<Record<string, unknown>> = (data): void => {
-    console.log(data);
+    console.log('data');
+    console.table(data);
+    console.log('selectedFiles');
+    console.table(selectedFiles);
+    console.log('data + selectedFiles');
+    console.table({ ...data, productImage: selectedFiles });
+
+    const reader = new FileReader();
+
+    reader.addEventListener(
+      'load',
+      () => {
+        console.log('ここには「Base64」で変換された文字列を格納できる');
+        // 画像ファイルを base64 文字列に変換している
+        console.log('reader.result', reader.result);
+        console.log('addEventListenerの中身');
+        console.table({ ...data, profileImageBase64: reader.result });
+        // ここに`GraphQL`の`mutation`を入れたらいけるはず
+      },
+      false,
+    );
+
+    if (selectedFiles.length === 1) {
+      const test1 = reader.readAsDataURL(selectedFiles[0]);
+      console.log('if文の中身');
+      console.log('selectedFile', selectedFiles);
+      console.log('test1', test1);
+      console.log('以下の値は「null」になっている');
+      console.log('reader.result', reader.result);
+    }
+
+    // FIXME : Uncaught InvalidStateError: Failed to execute 'readAsDataURL' on 'FileReader': The object is already busy reading Blobs.
+    // TODO : 商品詳細画面が完成したら、複数画像アップロードに対応できるようにプログラムを組む
+    // if (selectedFiles.length === 2) {
+    //   const test1 = reader.readAsDataURL(selectedFiles[0]);
+    //   const test2 = reader.readAsDataURL(selectedFiles[1]);
+    //   console.log('if文の中身');
+    //   console.log('selectedFile', selectedFiles);
+    //   console.log('test1', test1);
+    //   console.log('test2', test2);
+    //   console.log('以下の値は「null」になっている');
+    //   console.log('reader.result', reader.result);
+    // }
+
+    // if (selectedFiles.length === 3) {
+    //   const test1 = reader.readAsDataURL(selectedFiles[0]);
+    //   const test2 = reader.readAsDataURL(selectedFiles[1]);
+    //   const test3 = reader.readAsDataURL(selectedFiles[2]);
+    //   console.log('if文の中身');
+    //   console.log('selectedFile', selectedFiles);
+    //   console.log('test1', test1);
+    //   console.log('test2', test2);
+    //   console.log('test3', test3);
+    //   console.log('以下の値は「null」になっている');
+    //   console.log('reader.result', reader.result);
+    // }
   };
 
   /**
@@ -71,7 +126,7 @@ const ProductRegisterPage: NextPage<ProductRegisterProps> = ({ isMobileUaDeviceT
    * @概要 子供から親に送られたファイル情報を更新する関数
    */
   const onFileSelect = (selectedFiles: File[]): void => {
-    setPhotoFiles(selectedFiles);
+    setSelectedFiles(selectedFiles);
   };
 
   return (
@@ -137,9 +192,7 @@ const ProductRegisterPage: NextPage<ProductRegisterProps> = ({ isMobileUaDeviceT
                 fontSizeValue='16px'
                 isError={!!errors.productDetail}
                 errors={errors}
-                register={register('productDetail', {
-                  required: { message: '必須入力項目です！', value: true },
-                })}
+                register={register('productDetail')}
               />
               <Margin bottom='16px' />
               <Input
@@ -171,7 +224,6 @@ const ProductRegisterPage: NextPage<ProductRegisterProps> = ({ isMobileUaDeviceT
                 width='100%'
                 fontSizeValue='16px'
                 buttonContent='商品を出品する'
-                disabled={!isValid}
                 onClick={(): void => alert('出品するボタンをクリック')}
               />
             </StProfileEditContainer>
@@ -233,9 +285,7 @@ const ProductRegisterPage: NextPage<ProductRegisterProps> = ({ isMobileUaDeviceT
                 fontSizeValue='16px'
                 isError={!!errors.productDetail}
                 errors={errors}
-                register={register('productDetail', {
-                  required: { message: '必須入力項目です！', value: true },
-                })}
+                register={register('productDetail')}
               />
               <Margin bottom='16px' />
               <Input
@@ -267,7 +317,6 @@ const ProductRegisterPage: NextPage<ProductRegisterProps> = ({ isMobileUaDeviceT
                 width='100%'
                 fontSizeValue='16px'
                 buttonContent='商品を出品する'
-                disabled={!isValid}
                 onClick={(): void => alert('出品するボタンをクリック')}
               />
             </StProfileEditContainer>
