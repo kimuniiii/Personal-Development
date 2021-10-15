@@ -1,7 +1,8 @@
 import { withAuthenticationRequired } from '@auth0/auth0-react';
 import styled from '@emotion/styled';
 import React, { useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { SubmitErrorHandler, SubmitHandler, useForm } from 'react-hook-form';
+// eslint-disable-next-line import/order
 import Parser from 'ua-parser-js';
 
 import { Button } from 'src/components/atoms/Button';
@@ -53,12 +54,17 @@ const ProductRegisterPage: NextPage<ProductRegisterProps> = ({ isMobileUaDeviceT
   // }
 
   /**
-   * @概要 送信ボタンを押した時に呼び出されるイベントハンドラ
+   * @概要 バリデーション成功時に呼び出されるイベントハンドラ
    */
-  const onSubmit = (data: Record<string, unknown>): void => {
-    console.log('selectedFiles', selectedFiles);
+  const handleOnSubmit: SubmitHandler<Record<string, unknown>> = (data): void => {
     console.log(data);
-    console.log({ ...data, profileImage: selectedFiles });
+  };
+
+  /**
+   * @概要 バリデーション失敗時に呼び出されるイベントハンドラ
+   */
+  const handleOnError: SubmitErrorHandler<Record<string, unknown>> = (errors) => {
+    console.error(errors);
   };
 
   /**
@@ -77,7 +83,7 @@ const ProductRegisterPage: NextPage<ProductRegisterProps> = ({ isMobileUaDeviceT
       />
       {isMobileUaDeviceType ? (
         <CommonTemplate isMobileUaDeviceType={isMobileUaDeviceType}>
-          <StProfileEditFormContainer onSubmit={handleSubmit(onSubmit)}>
+          <StProfileEditFormContainer onSubmit={handleSubmit(handleOnSubmit, handleOnError)}>
             <h3>商品名</h3>
             <StProfileEditContainer>
               <Input
@@ -173,7 +179,7 @@ const ProductRegisterPage: NextPage<ProductRegisterProps> = ({ isMobileUaDeviceT
         </CommonTemplate>
       ) : (
         <CommonTemplate isSideBar={true}>
-          <StProfileEditFormContainer onSubmit={handleSubmit(onSubmit)}>
+          <StProfileEditFormContainer onSubmit={handleSubmit(handleOnSubmit, handleOnError)}>
             <h3>商品名</h3>
             <StProfileEditContainer>
               <Input
