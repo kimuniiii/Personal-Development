@@ -2,6 +2,7 @@ import { withAuthenticationRequired } from '@auth0/auth0-react';
 import styled from '@emotion/styled';
 import React, { useState } from 'react';
 import { SubmitErrorHandler, SubmitHandler, useForm } from 'react-hook-form';
+// eslint-disable-next-line import/order
 import Parser from 'ua-parser-js';
 
 import { Button } from 'src/components/atoms/Button';

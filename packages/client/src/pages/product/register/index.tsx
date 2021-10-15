@@ -1,7 +1,9 @@
-import { withAuthenticationRequired } from '@auth0/auth0-react';
+import { gql, useMutation } from '@apollo/client';
+import { useAuth0, withAuthenticationRequired } from '@auth0/auth0-react';
 import styled from '@emotion/styled';
 import React, { useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { SubmitErrorHandler, SubmitHandler, useForm } from 'react-hook-form';
+// eslint-disable-next-line import/order
 import Parser from 'ua-parser-js';
 
 import { Button } from 'src/components/atoms/Button';
@@ -23,6 +25,45 @@ type ProductRegisterProps = {
   origin: string;
 };
 
+const PRODUCT_REGISTER = gql`
+  mutation MyMutation(
+    $base64_image: String
+    $category: String
+    $created_at: timestamptz
+    $description: String
+    $id: Int!
+    $name: String
+    $price: Int
+    $user_id: String!
+  ) {
+    insert_product(
+      objects: {
+        base64_image: $base64_image
+        category: $category
+        created_at: $created_at
+        description: $description
+        id: $id
+        name: $name
+        price: $price
+        user_id: $user_id
+      }
+    ) {
+      returning {
+        base64_image
+        category
+        category
+        created_at
+        id
+        name
+        price
+        user_id
+      }
+    }
+  }
+`;
+
+console.log(PRODUCT_REGISTER);
+
 /**
  * @概要 マイページの商品を出品するボタンを押したら表示されるページコンポーネント
  */
@@ -30,14 +71,20 @@ const ProductRegisterPage: NextPage<ProductRegisterProps> = ({ isMobileUaDeviceT
   const {
     register,
     handleSubmit,
-    formState: { errors, isValid },
+    formState: { errors },
   } = useForm({
-    mode: 'onBlur',
+    mode: 'onSubmit',
     reValidateMode: 'onChange',
   });
 
+  const [productRegister, { loading, error }] = useMutation(PRODUCT_REGISTER);
+  const { user } = useAuth0();
+
   // ProductImageUpload に関する状態管理と更新関数とイベントハンドラ
-  const [selectedFiles, setPhotoFiles] = useState<File[]>([]);
+  const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
+
+  if (loading) return <p>Submitting...</p>;
+  if (error) return <p>`Submission error! ${error.message}`</p>;
 
   // FIXME : 以下のコードで「アクセスコントロール」を行うとうまくいかない
   // const { isAuthenticated, loginWithRedirect } = useAuth0();
@@ -53,19 +100,93 @@ const ProductRegisterPage: NextPage<ProductRegisterProps> = ({ isMobileUaDeviceT
   // }
 
   /**
-   * @概要 送信ボタンを押した時に呼び出されるイベントハンドラ
+   * @概要 バリデーション成功時に呼び出されるイベントハンドラ
    */
-  const onSubmit = (data: Record<string, unknown>): void => {
-    console.log('selectedFiles', selectedFiles);
-    console.log(data);
-    console.log({ ...data, profileImage: selectedFiles });
+  const handleOnSubmit: SubmitHandler<Record<string, unknown>> = (data): void => {
+    console.log('data');
+    console.table(data);
+    console.log('data[select-category-box]');
+    console.log(data['select-category-box']);
+    console.log('selectedFiles');
+    console.table(selectedFiles);
+    console.log('data + selectedFiles');
+    console.table({ ...data, productImage: selectedFiles });
+
+    const reader = new FileReader();
+
+    reader.addEventListener(
+      'load',
+      () => {
+        console.log('ここには「Base64」で変換された文字列を格納できる');
+        // 画像ファイルを base64 文字列に変換している
+        console.log('reader.result', reader.result);
+        console.log('addEventListenerの中身');
+        console.table({ ...data, profileImageBase64: reader.result });
+        // ここに`GraphQL`の`mutation`を入れたらいけるはず
+        productRegister({
+          variables: {
+            base64_image: reader.result,
+            category: data['select-category-box'],
+            created_at: new Date().toISOString(),
+            description: data['productDetail'],
+            id: 18,
+            name: data['productName'],
+            price: data['priceNumber'],
+            user_id: user?.sub,
+          },
+        });
+      },
+      false,
+    );
+
+    if (selectedFiles.length === 1) {
+      const test1 = reader.readAsDataURL(selectedFiles[0]);
+      console.log('if文の中身');
+      console.log('selectedFile', selectedFiles);
+      console.log('test1', test1);
+      console.log('以下の値は「null」になっている');
+      console.log('reader.result', reader.result);
+    }
+
+    // FIXME : Uncaught InvalidStateError: Failed to execute 'readAsDataURL' on 'FileReader': The object is already busy reading Blobs.
+    // TODO : 商品詳細画面が完成したら、複数画像アップロードに対応できるようにプログラムを組む
+    // if (selectedFiles.length === 2) {
+    //   const test1 = reader.readAsDataURL(selectedFiles[0]);
+    //   const test2 = reader.readAsDataURL(selectedFiles[1]);
+    //   console.log('if文の中身');
+    //   console.log('selectedFile', selectedFiles);
+    //   console.log('test1', test1);
+    //   console.log('test2', test2);
+    //   console.log('以下の値は「null」になっている');
+    //   console.log('reader.result', reader.result);
+    // }
+
+    // if (selectedFiles.length === 3) {
+    //   const test1 = reader.readAsDataURL(selectedFiles[0]);
+    //   const test2 = reader.readAsDataURL(selectedFiles[1]);
+    //   const test3 = reader.readAsDataURL(selectedFiles[2]);
+    //   console.log('if文の中身');
+    //   console.log('selectedFile', selectedFiles);
+    //   console.log('test1', test1);
+    //   console.log('test2', test2);
+    //   console.log('test3', test3);
+    //   console.log('以下の値は「null」になっている');
+    //   console.log('reader.result', reader.result);
+    // }
+  };
+
+  /**
+   * @概要 バリデーション失敗時に呼び出されるイベントハンドラ
+   */
+  const handleOnError: SubmitErrorHandler<Record<string, unknown>> = (errors) => {
+    console.error(errors);
   };
 
   /**
    * @概要 子供から親に送られたファイル情報を更新する関数
    */
   const onFileSelect = (selectedFiles: File[]): void => {
-    setPhotoFiles(selectedFiles);
+    setSelectedFiles(selectedFiles);
   };
 
   return (
@@ -77,7 +198,7 @@ const ProductRegisterPage: NextPage<ProductRegisterProps> = ({ isMobileUaDeviceT
       />
       {isMobileUaDeviceType ? (
         <CommonTemplate isMobileUaDeviceType={isMobileUaDeviceType}>
-          <StProfileEditFormContainer onSubmit={handleSubmit(onSubmit)}>
+          <StProfileEditFormContainer onSubmit={handleSubmit(handleOnSubmit, handleOnError)}>
             <h3>商品名</h3>
             <StProfileEditContainer>
               <Input
@@ -131,9 +252,7 @@ const ProductRegisterPage: NextPage<ProductRegisterProps> = ({ isMobileUaDeviceT
                 fontSizeValue='16px'
                 isError={!!errors.productDetail}
                 errors={errors}
-                register={register('productDetail', {
-                  required: { message: '必須入力項目です！', value: true },
-                })}
+                register={register('productDetail')}
               />
               <Margin bottom='16px' />
               <Input
@@ -165,7 +284,6 @@ const ProductRegisterPage: NextPage<ProductRegisterProps> = ({ isMobileUaDeviceT
                 width='100%'
                 fontSizeValue='16px'
                 buttonContent='商品を出品する'
-                disabled={!isValid}
                 onClick={(): void => alert('出品するボタンをクリック')}
               />
             </StProfileEditContainer>
@@ -173,7 +291,7 @@ const ProductRegisterPage: NextPage<ProductRegisterProps> = ({ isMobileUaDeviceT
         </CommonTemplate>
       ) : (
         <CommonTemplate isSideBar={true}>
-          <StProfileEditFormContainer onSubmit={handleSubmit(onSubmit)}>
+          <StProfileEditFormContainer onSubmit={handleSubmit(handleOnSubmit, handleOnError)}>
             <h3>商品名</h3>
             <StProfileEditContainer>
               <Input
@@ -227,9 +345,7 @@ const ProductRegisterPage: NextPage<ProductRegisterProps> = ({ isMobileUaDeviceT
                 fontSizeValue='16px'
                 isError={!!errors.productDetail}
                 errors={errors}
-                register={register('productDetail', {
-                  required: { message: '必須入力項目です！', value: true },
-                })}
+                register={register('productDetail')}
               />
               <Margin bottom='16px' />
               <Input
@@ -261,7 +377,6 @@ const ProductRegisterPage: NextPage<ProductRegisterProps> = ({ isMobileUaDeviceT
                 width='100%'
                 fontSizeValue='16px'
                 buttonContent='商品を出品する'
-                disabled={!isValid}
                 onClick={(): void => alert('出品するボタンをクリック')}
               />
             </StProfileEditContainer>

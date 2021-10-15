@@ -162,7 +162,7 @@ export const ProductImageUpload: VFC<ProductImageUploadProps> = ({
       </StImageContainer>
       <Margin bottom='16px' />
       <StLabel>
-        商品の写真を追加する（最大3枚まで）
+        商品の写真を追加する（最大3枚まで）Warning : 詳細画面完成までは1枚のみ
         <input type='file' accept='image/*' onChange={onFileInputChange} />
       </StLabel>
       {isFileTypeError ? (

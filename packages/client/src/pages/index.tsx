@@ -1,6 +1,7 @@
 import { useQuery, gql } from '@apollo/client';
 import styled from '@emotion/styled';
 import React, { useEffect, useState } from 'react';
+// eslint-disable-next-line import/order
 import Parser from 'ua-parser-js';
 
 import { Margin } from 'src/components/layouts/Margin';
