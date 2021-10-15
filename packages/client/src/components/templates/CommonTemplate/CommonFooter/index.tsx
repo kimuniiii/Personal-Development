@@ -1,10 +1,10 @@
 import styled from '@emotion/styled';
 
-import type { VFC } from 'react';
-
 import { COPY_RIGHT } from 'src/constants';
 
 import { COLOR_PALETTE } from 'src/styles/color_palette';
+
+import type { VFC } from 'react';
 
 export const CommonFooter: VFC = () => {
   return <StFooter>{COPY_RIGHT}</StFooter>;

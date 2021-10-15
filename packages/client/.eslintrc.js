@@ -12,8 +12,9 @@ module.exports = {
     'prettier',
   ],
   parser: '@typescript-eslint/parser',
-  plugins: ['@typescript-eslint', 'react', 'jest'],
+  plugins: ['@typescript-eslint', 'react', 'jest', 'import'],
   settings: {
+    // TypeScript の import を eslint-import-resolver-typescript で解決するために必要
     'import/resolver': {
       node: {
         extensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],
@@ -28,6 +29,51 @@ module.exports = {
     },
   },
   rules: {
+    'import/order': [
+      'error',
+      {
+        'newlines-between': 'always-and-inside-groups',
+        alphabetize: { caseInsensitive: true, order: 'asc' },
+        groups: ['builtin', 'external', 'index', 'type', 'sibling', 'parent'],
+        pathGroups: [
+          {
+            group: 'index',
+            pattern: 'src/components/**',
+            position: 'before',
+          },
+          {
+            group: 'index',
+            pattern: 'src/constants',
+            position: 'before',
+          },
+          {
+            group: 'index',
+            pattern: 'src/hooks/**',
+            position: 'before',
+          },
+          {
+            group: 'index',
+            pattern: 'src/lib/**',
+            position: 'before',
+          },
+          {
+            group: 'index',
+            pattern: 'src/stores/**',
+            position: 'before',
+          },
+          {
+            group: 'index',
+            pattern: 'src/styles/**',
+            position: 'before',
+          },
+          {
+            group: 'index',
+            pattern: 'src/utils/**',
+            position: 'before',
+          },
+        ],
+      },
+    ],
     'react/prop-types': 'off',
     'react/react-in-jsx-scope': 'off',
     '@typescript-eslint/ban-types': [

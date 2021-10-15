@@ -3,14 +3,14 @@ import styled from '@emotion/styled';
 import React from 'react';
 import { CSSTransition } from 'react-transition-group';
 
-import type { VFC } from 'react';
-import type { ValueOf } from 'typings/utils/ValueOf';
-
 import { TransitionBaseModal } from 'src/components/organisms/TransitionBaseModal';
 
 import { COLOR_PALETTE } from 'src/styles/color_palette';
 import { FONT_SIZE } from 'src/styles/font_size';
 import { Z_INDEX } from 'src/styles/z_index';
+
+import type { VFC } from 'react';
+import type { ValueOf } from 'typings/utils/ValueOf';
 
 type TransitionHorizontalModalProps = {
   /**

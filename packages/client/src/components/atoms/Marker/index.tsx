@@ -1,10 +1,11 @@
 import styled from '@emotion/styled';
 
+import { COLOR_PALETTE } from 'src/styles/color_palette';
+
+import { FONT_SIZE } from 'src/styles/font_size';
+
 import type { VFC } from 'react';
 import type { ValueOf } from 'src/typings/utils/ValueOf';
-
-import { COLOR_PALETTE } from 'src/styles/color_palette';
-import { FONT_SIZE } from 'src/styles/font_size';
 
 type Props = {
   text: string;

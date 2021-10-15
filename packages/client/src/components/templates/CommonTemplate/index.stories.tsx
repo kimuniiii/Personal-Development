@@ -1,5 +1,5 @@
-import { Story, Meta } from '@storybook/react/types-6-0';
 import { ThemeProvider } from '@emotion/react';
+import { Story, Meta } from '@storybook/react/types-6-0';
 import React from 'react';
 
 import { THEME } from 'src/styles/theme';

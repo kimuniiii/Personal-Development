@@ -4,14 +4,14 @@ import Image from 'next/image';
 import Router from 'next/router';
 import React from 'react';
 
-import type { VFC } from 'react';
-
 import { LazyImage } from 'src/components/atoms/LazyImage';
 import { Margin } from 'src/components/layouts/Margin';
 
 import { COLOR_PALETTE } from 'src/styles/color_palette';
 
 import { priceToJapaneseYen } from 'src/utils/price';
+
+import type { VFC } from 'react';
 
 import NoImage from '../../../../../public/images/no_image.png';
 

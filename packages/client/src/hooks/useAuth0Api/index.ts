@@ -1,9 +1,9 @@
 import { useAuth0 } from '@auth0/auth0-react';
 import { useEffect, useState } from 'react';
 
-import type { AuthState } from 'src/typings/lib/AuthState';
-
 import { initialAuthState } from 'src/lib/initialAuthState';
+
+import type { AuthState } from 'src/typings/lib/AuthState';
 
 export const useAuth0Api = (
   url: string,

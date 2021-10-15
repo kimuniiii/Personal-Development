@@ -1,10 +1,10 @@
 import styled from '@emotion/styled';
 
-import type { VFC } from 'react';
-
 import { Margin } from 'src/components/layouts/Margin';
 
 import { COLOR_PALETTE } from 'src/styles/color_palette';
+
+import type { VFC } from 'react';
 
 type ErrorTemplateProps = {
   error: Error;

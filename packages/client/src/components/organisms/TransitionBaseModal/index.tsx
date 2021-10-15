@@ -1,9 +1,9 @@
 import styled from '@emotion/styled';
 
+import { FONT_SIZE } from 'src/styles/font_size';
+
 import type { VFC } from 'react';
 import type { ValueOf } from 'typings/utils/ValueOf';
-
-import { FONT_SIZE } from 'src/styles/font_size';
 
 type TransitionBaseModalProps = {
   mainContent: string | JSX.Element;

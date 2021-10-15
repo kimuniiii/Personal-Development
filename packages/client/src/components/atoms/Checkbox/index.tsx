@@ -2,12 +2,12 @@ import { css, SerializedStyles } from '@emotion/react';
 import styled from '@emotion/styled';
 import React from 'react';
 
-import type { UseFormRegisterReturn } from 'react-hook-form';
-import type { ValueOf } from 'src/typings/utils/ValueOf';
-
 import { COLOR_PALETTE } from 'src/styles/color_palette';
 import { FONT_SIZE } from 'src/styles/font_size';
 import { FONT_WEIGHT } from 'src/styles/font_weight';
+
+import type { UseFormRegisterReturn } from 'react-hook-form';
+import type { ValueOf } from 'src/typings/utils/ValueOf';
 
 type CheckboxProps = JSX.IntrinsicElements['input'] & {
   register: UseFormRegisterReturn;

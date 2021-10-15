@@ -2,12 +2,12 @@ import { useQuery, gql } from '@apollo/client';
 import styled from '@emotion/styled';
 import React from 'react';
 
-import type { NextPage } from 'next';
-
 import { Loader } from 'src/components/atoms/Loader';
 import { CommonTemplate } from 'src/components/templates/CommonTemplate';
 import { ErrorTemplate } from 'src/components/templates/ErrorTemplate';
 import { HeadTemplate } from 'src/components/templates/HeadTemplate';
+
+import type { NextPage } from 'next';
 
 type HasuraProps = {
   origin: string;

@@ -4,8 +4,6 @@ import Router from 'next/router';
 import React from 'react';
 import Parser from 'ua-parser-js';
 
-import type { NextPage, GetServerSideProps } from 'next';
-
 import { Button } from 'src/components/atoms/Button';
 import { Loader } from 'src/components/atoms/Loader';
 import { CommonTemplate } from 'src/components/templates/CommonTemplate';
@@ -14,6 +12,8 @@ import { HeadTemplate } from 'src/components/templates/HeadTemplate';
 import { deleteUser } from 'src/lib/deleteUser';
 
 import { COLOR_PALETTE } from 'src/styles/color_palette';
+
+import type { NextPage, GetServerSideProps } from 'next';
 
 type WithDrawProps = {
   isMobileUaDeviceType: boolean;
