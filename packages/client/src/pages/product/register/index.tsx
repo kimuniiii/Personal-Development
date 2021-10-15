@@ -101,7 +101,7 @@ const ProductRegisterPage: NextPage<ProductRegisterProps> = ({ isMobileUaDeviceT
 
   const MUTATION_ID = data?.product_aggregate.aggregate.count
     ? data?.product_aggregate.aggregate.count + 1
-    : 20;
+    : 1;
 
   console.log(MUTATION_ID);
 
