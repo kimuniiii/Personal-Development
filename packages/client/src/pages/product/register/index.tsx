@@ -1,4 +1,5 @@
-import { withAuthenticationRequired } from '@auth0/auth0-react';
+import { gql, useMutation } from '@apollo/client';
+import { useAuth0, withAuthenticationRequired } from '@auth0/auth0-react';
 import styled from '@emotion/styled';
 import React, { useState } from 'react';
 import { SubmitErrorHandler, SubmitHandler, useForm } from 'react-hook-form';
@@ -24,6 +25,45 @@ type ProductRegisterProps = {
   origin: string;
 };
 
+const PRODUCT_REGISTER = gql`
+  mutation MyMutation(
+    $base64_image: String
+    $category: String
+    $created_at: timestamptz
+    $description: String
+    $id: Int!
+    $name: String
+    $price: Int
+    $user_id: String!
+  ) {
+    insert_product(
+      objects: {
+        base64_image: $base64_image
+        category: $category
+        created_at: $created_at
+        description: $description
+        id: $id
+        name: $name
+        price: $price
+        user_id: $user_id
+      }
+    ) {
+      returning {
+        base64_image
+        category
+        category
+        created_at
+        id
+        name
+        price
+        user_id
+      }
+    }
+  }
+`;
+
+console.log(PRODUCT_REGISTER);
+
 /**
  * @概要 マイページの商品を出品するボタンを押したら表示されるページコンポーネント
  */
@@ -37,8 +77,14 @@ const ProductRegisterPage: NextPage<ProductRegisterProps> = ({ isMobileUaDeviceT
     reValidateMode: 'onChange',
   });
 
+  const [productRegister, { loading, error }] = useMutation(PRODUCT_REGISTER);
+  const { user } = useAuth0();
+
   // ProductImageUpload に関する状態管理と更新関数とイベントハンドラ
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
+
+  if (loading) return <p>Submitting...</p>;
+  if (error) return <p>`Submission error! ${error.message}`</p>;
 
   // FIXME : 以下のコードで「アクセスコントロール」を行うとうまくいかない
   // const { isAuthenticated, loginWithRedirect } = useAuth0();
@@ -59,6 +105,8 @@ const ProductRegisterPage: NextPage<ProductRegisterProps> = ({ isMobileUaDeviceT
   const handleOnSubmit: SubmitHandler<Record<string, unknown>> = (data): void => {
     console.log('data');
     console.table(data);
+    console.log('data[select-category-box]');
+    console.log(data['select-category-box']);
     console.log('selectedFiles');
     console.table(selectedFiles);
     console.log('data + selectedFiles');
@@ -75,6 +123,18 @@ const ProductRegisterPage: NextPage<ProductRegisterProps> = ({ isMobileUaDeviceT
         console.log('addEventListenerの中身');
         console.table({ ...data, profileImageBase64: reader.result });
         // ここに`GraphQL`の`mutation`を入れたらいけるはず
+        productRegister({
+          variables: {
+            base64_image: reader.result,
+            category: data['select-category-box'],
+            created_at: new Date().toISOString(),
+            description: data['productDetail'],
+            id: 18,
+            name: data['productName'],
+            price: data['priceNumber'],
+            user_id: user?.sub,
+          },
+        });
       },
       false,
     );
