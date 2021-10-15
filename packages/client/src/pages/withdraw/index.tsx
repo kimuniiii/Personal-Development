@@ -2,7 +2,7 @@ import { withAuthenticationRequired, useAuth0 } from '@auth0/auth0-react';
 import styled from '@emotion/styled';
 import Router from 'next/router';
 import React from 'react';
-
+// eslint-disable-next-line import/order
 import Parser from 'ua-parser-js';
 
 import { Button } from 'src/components/atoms/Button';
