@@ -64,6 +64,7 @@ const PRODUCT_REGISTER = gql`
   }
 `;
 
+// 連続で商品登録を行ったときに適切な`id`を付与するために必要
 const GET_PRODUCT_DATA_LENGTH = gql`
   query GetProductDataLength {
     product_aggregate {
