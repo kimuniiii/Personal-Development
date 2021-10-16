@@ -63,7 +63,7 @@ const MyPage: NextPage<MyPageProps> = ({
 
   const { loading, data } = useQuery<{
     product: [{ id: number; name: string; price: number; base64_image: string }];
-  }>(GET_USER_REGISTER_PRODUCT_DATA);
+  }>(GET_USER_REGISTER_PRODUCT_DATA, { fetchPolicy: 'no-cache' });
 
   if (isLoading) {
     return (
