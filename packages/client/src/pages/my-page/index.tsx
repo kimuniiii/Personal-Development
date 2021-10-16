@@ -61,6 +61,8 @@ const MyPage: NextPage<MyPageProps> = ({
     }
   `;
 
+  // 商品登録が完了したらマイページに画面遷移して、商品が登録されていることを示したい
+  // なので「cache」を用いないで、常に最新のDBの情報を取得するようにしている
   const { loading, data } = useQuery<{
     product: [{ id: number; name: string; price: number; base64_image: string }];
   }>(GET_USER_REGISTER_PRODUCT_DATA, { fetchPolicy: 'no-cache' });
