@@ -1,3 +1,4 @@
+import { gql, useQuery } from '@apollo/client';
 import { useAuth0, withAuthenticationRequired } from '@auth0/auth0-react';
 import styled from '@emotion/styled';
 import Image from 'next/image';
@@ -9,6 +10,8 @@ import { Loader } from 'src/components/atoms/Loader';
 import { Margin } from 'src/components/layouts/Margin';
 import { PcProductCard } from 'src/components/organisms/ProductCard/Pc';
 import { SpProductCard } from 'src/components/organisms/ProductCard/Sp';
+import { PcProductCardSkeleton } from 'src/components/organisms/ProductCardSkeleton/Pc';
+import { SpProductCardSkeleton } from 'src/components/organisms/ProductCardSkeleton/Sp';
 import { CommonTemplate } from 'src/components/templates/CommonTemplate';
 import { ErrorTemplate } from 'src/components/templates/ErrorTemplate';
 import { HeadTemplate } from 'src/components/templates/HeadTemplate';
@@ -44,6 +47,23 @@ const MyPage: NextPage<MyPageProps> = ({
     audience: `${origin}`,
   });
   const { user } = useAuth0();
+
+  // ログインユーザーが実際に登録した商品情報だけを取得する
+  const GET_USER_REGISTER_PRODUCT_DATA = gql`
+    query GetUserRegisterProductData {
+      product(offset: 0, limit: 6, order_by: { id: asc }, where: { user_id: { _eq: "${user?.sub}" }}) {
+        id
+        name
+        price
+        category
+        base64_image
+      }
+    }
+  `;
+
+  const { loading, data } = useQuery<{
+    product: [{ id: number; name: string; price: number; base64_image: string }];
+  }>(GET_USER_REGISTER_PRODUCT_DATA);
 
   if (isLoading) {
     return (
@@ -96,8 +116,9 @@ const MyPage: NextPage<MyPageProps> = ({
                 </StUserProfileContainer>
               </StProfileInfoContainer>
               <h3>登録商品</h3>
-              <StTodo>TODO : 自分が登録した商品情報だけが描画される</StTodo>
-              <SpProductCard productCardList={productCardList} />
+              <StComplete>MEMO : 自分が登録した商品情報だけが描画</StComplete>
+              {loading && !data ? <SpProductCardSkeleton /> : null}
+              {!loading && data ? <SpProductCard productCardList={data?.product} /> : null}
               <h3>連絡掲示板</h3>
               <StTodo>TODO : 要件が決まり次第、実装を行う</StTodo>
               <h3>お気に入り一覧</h3>
@@ -128,8 +149,9 @@ const MyPage: NextPage<MyPageProps> = ({
                 </StUserProfileContainer>
               </StProfileInfoContainer>
               <h3>登録商品</h3>
-              <StTodo>TODO : 自分が登録した商品情報だけが描画される</StTodo>
-              <PcProductCard productCardList={productCardList} />
+              <StComplete>MEMO : 自分が登録した商品情報だけが描画</StComplete>
+              {loading && !data ? <PcProductCardSkeleton /> : null}
+              {!loading && data ? <PcProductCard productCardList={data?.product} /> : null}
               <h3>連絡掲示板</h3>
               <StTodo>TODO : 要件が決まり次第、実装を行う</StTodo>
               <h3>お気に入り一覧</h3>
@@ -206,6 +228,13 @@ const StProfileInfoContainer = styled.div`
 const StUserProfileContainer = styled.div`
   display: flex;
   flex-direction: column;
+`;
+
+const StComplete = styled.p`
+  /* max-content値は内因性の優先幅 | コンテンツの幅に等しくなる */
+  width: max-content;
+  color: ${COLOR_PALETTE.BLACK};
+  background-color: ${COLOR_PALETTE.SNACKBAR_SUCCESS_COLOR};
 `;
 
 const StTodo = styled.p`
