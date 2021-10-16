@@ -90,6 +90,7 @@ const ProductRegisterPage: NextPage<ProductRegisterProps> = ({ isMobileUaDeviceT
     reValidateMode: 'onChange',
   });
 
+  // 常に最新の`Product Table`のデータ数を取得するようにしている
   const { data } = useQuery<{
     product_aggregate: {
       aggregate: {
@@ -173,6 +174,7 @@ const ProductRegisterPage: NextPage<ProductRegisterProps> = ({ isMobileUaDeviceT
           .then((res) => {
             console.log('then');
             console.log('res', res);
+            // DBに商品登録が完了したら「マイページ」に画面遷移させる
             Router.replace('/my-page');
           })
           .catch((error) => {
