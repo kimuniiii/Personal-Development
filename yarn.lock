@@ -3112,6 +3112,11 @@
   resolved "https://registry.yarnpkg.com/@types/aria-query/-/aria-query-4.2.2.tgz#ed4e0ad92306a704f9fb132a0cfcf77486dbe2bc"
   integrity sha512-HnYpAE1Y6kRyKM/XkEuiRQhTHvkzMBurTHnpFLYLBGPIylZNPs9jJcuOOYWxPLJCSEtmZT0Y8rHDokKN7rRTig==
 
+"@types/auth0@^2.34.2":
+  version "2.34.2"
+  resolved "https://registry.npmjs.org/@types/auth0/-/auth0-2.34.2.tgz#9addb269e8084f047cd0e1b7dac3994dd3a9ff61"
+  integrity sha512-PcoizB6dXBcIoYpJGSqxiItFMLgyosapIjL5P4o7naKClPLtJg9xZIFuiLJ4S7Zu4pGr02wGo5ovvhJ1ezsbIA==
+
 "@types/babel__core@^7.0.0", "@types/babel__core@^7.1.14":
   version "7.1.16"
   resolved "https://registry.yarnpkg.com/@types/babel__core/-/babel__core-7.1.16.tgz#bc12c74b7d65e82d29876b5d0baf5c625ac58702"
