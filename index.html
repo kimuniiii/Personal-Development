@@ -7,7 +7,7 @@
     <title>HTML・CSS・JavaScript練習用</title>
   </head>
   <body>
-    <button id="modal-open-btn">ボタンを押したらアラートを出すボタン</button>
+    <button id="alert-open-btn">ボタンを押したらアラートを出すボタン</button>
     <button id="speech-execute" onclick="executeSpeech">
       日本語をしゃべるボタン
     </button>
@@ -16,7 +16,7 @@
     </button>
   </body>
   <script>
-    const alertButtonElement = document.getElementById("modal-open-btn");
+    const alertButtonElement = document.getElementById("alert-open-btn");
     alertButtonElement.addEventListener("click", () => alert("Alert"));
 
     function executeSpeech() {
