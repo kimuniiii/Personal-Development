@@ -10,7 +10,7 @@ import { Loader } from 'src/components/atoms/Loader';
 import { CommonTemplate } from 'src/components/templates/CommonTemplate';
 import { HeadTemplate } from 'src/components/templates/HeadTemplate';
 
-import { deleteUser } from 'src/lib/deleteUser';
+// import { deleteUser } from 'src/lib/deleteUser';
 
 import { COLOR_PALETTE } from 'src/styles/color_palette';
 
@@ -47,28 +47,36 @@ const WithDrawPage: NextPage<WithDrawProps> = ({
   //   );
   // }
 
-  const { user, getAccessTokenSilently } = useAuth0();
+  const { user } = useAuth0();
 
   const handleWithdrawBtnClickHandler = (): void => {
-    deleteUser({ auth0Domain, auth0ClientId, user, getAccessTokenSilently })
-      .then((res) => {
-        console.log('then');
-        console.log(res);
-
-        if (res.ok) {
-          console.log('res.ok');
-          // 退会処理が完了したらトップページに画面遷移する
-          Router.replace('/');
-        } else {
-          // 失敗時には`Failed SnackBar`を表示する
-          console.log('response failed');
-        }
-      })
-      .catch((res) => {
-        console.log('catch');
-        console.error(res);
-      });
+    alert('退会ボタンをクリックしました');
+    Router.push({
+      pathname: '/api/delete/',
+      query: { auth0UserId: user?.sub },
+    });
   };
+
+  // const handleWithdrawBtnClickHandler = (): void => {
+  //   deleteUser({ auth0Domain, auth0ClientId, user, getAccessTokenSilently })
+  //     .then((res) => {
+  //       console.log('then');
+  //       console.log(res);
+
+  //       if (res.ok) {
+  //         console.log('res.ok');
+  //         // 退会処理が完了したらトップページに画面遷移する
+  //         Router.replace('/');
+  //       } else {
+  //         // 失敗時には`Failed SnackBar`を表示する
+  //         console.log('response failed');
+  //       }
+  //     })
+  //     .catch((res) => {
+  //       console.log('catch');
+  //       console.error(res);
+  //     });
+  // };
 
   return (
     <React.Fragment>
