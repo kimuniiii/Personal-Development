@@ -21,7 +21,7 @@ const management = new ManagementClient({
   scope: 'delete:users',
 });
 
-const KOKK_NP_USER_ID = 'auth0|615afce4c69eb200704af5e3';
+// const KOKK_NP_USER_ID = 'auth0|615afce4c69eb200704af5e3';
 
 export default async function deleteAuth0User(
   req: NextApiRequest,
