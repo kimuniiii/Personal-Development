@@ -1,13 +1,16 @@
+import { gql, useMutation } from '@apollo/client';
 import { withAuthenticationRequired, useAuth0 } from '@auth0/auth0-react';
 import styled from '@emotion/styled';
 import Router from 'next/router';
-import React from 'react';
+import React, { useState } from 'react';
 // eslint-disable-next-line import/order
 import Parser from 'ua-parser-js';
 
 import { Button } from 'src/components/atoms/Button';
 import { Loader } from 'src/components/atoms/Loader';
 import { CommonTemplate } from 'src/components/templates/CommonTemplate';
+
+import { ErrorTemplate } from 'src/components/templates/ErrorTemplate';
 import { HeadTemplate } from 'src/components/templates/HeadTemplate';
 
 import { COLOR_PALETTE } from 'src/styles/color_palette';
@@ -30,6 +33,30 @@ const WithDrawPage: NextPage<WithDrawProps> = ({ isMobileUaDeviceType, origin })
   const { user, logout } = useAuth0();
   console.log('user', user);
 
+  const USER_DELETE = gql`
+    mutation UserDelete {
+      delete_users(where: {id: {_eq: "${user?.sub}"}}) {
+        returning {
+          id
+        }
+      }
+    }
+    `;
+
+  const [userDelete, { loading, error }] = useMutation(USER_DELETE);
+
+  // Mutation の 通信中 と エラー状態 の管理
+  if (loading)
+    return (
+      <StCenterLoaderContainer>
+        <Loader loadingContent='退会処理中です' />
+      </StCenterLoaderContainer>
+    );
+
+  if (error) {
+    return <ErrorTemplate error={error} />;
+  }
+
   const handleWithdrawBtnClickHandler = (): void => {
     alert('退会ボタンをクリックしました');
 
@@ -37,12 +64,18 @@ const WithDrawPage: NextPage<WithDrawProps> = ({ isMobileUaDeviceType, origin })
       .then((res) => {
         if (res.ok) {
           console.log('res.ok');
-          // 退会処理が完了したら`トップページ`に画面遷移する
-          // logout関数を呼び出すことで「isAuthenticated」を「false」にする
-          logout({ returnTo: window.location.origin });
+          // Auth0 の DB から情報を削除した後に Next.js から直接 Hasura の情報を削除する
+          userDelete()
+            .then((res) => {
+              console.log('mutation complete');
+              console.log('res', res);
+              // Auth0 と Hasura からユーザー情報を削除したら`トップページ`に画面遷移する
+              // `logout関数`を呼び出すことで「isAuthenticated」を「false」にする
+              logout({ returnTo: window.location.origin });
+            })
+            .catch((error) => console.error(error));
         } else {
-          // 失敗時には`Failed SnackBar`を表示する
-          console.log('response failed');
+          console.error('response failed');
         }
       })
       .catch((error) => console.error(error));
