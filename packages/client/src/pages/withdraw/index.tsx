@@ -65,6 +65,7 @@ const WithDrawPage: NextPage<WithDrawProps> = ({
         if (res.ok) {
           console.log('res.ok');
           // 退会処理が完了したらトップページに画面遷移する
+          // TODO : 認証済みのままになってしまう問題を解決したい
           Router.replace('/');
         } else {
           // 失敗時には`Failed SnackBar`を表示する
