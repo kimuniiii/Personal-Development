@@ -17,8 +17,6 @@ import type { NextPage, GetServerSideProps } from 'next';
 type WithDrawProps = {
   isMobileUaDeviceType: boolean;
   origin: string;
-  auth0Domain?: string;
-  auth0ClientId?: string;
 };
 
 /**
@@ -26,15 +24,8 @@ type WithDrawProps = {
  * @説明1 非ログイン時にアクセスできないようにしたいため「Protected Page」である
  * @説明2 退会ボタンを押して、退会が完了したら、トップ画面に画面遷移する
  */
-const WithDrawPage: NextPage<WithDrawProps> = ({
-  isMobileUaDeviceType,
-  origin,
-  auth0Domain,
-  auth0ClientId,
-}) => {
+const WithDrawPage: NextPage<WithDrawProps> = ({ isMobileUaDeviceType, origin }) => {
   console.log('WithDrawPage');
-  console.log('auth0Domain', auth0Domain);
-  console.log('auth0ClientId', auth0ClientId);
 
   const { user, logout } = useAuth0();
   console.log('user', user);
@@ -46,7 +37,8 @@ const WithDrawPage: NextPage<WithDrawProps> = ({
       .then((res) => {
         if (res.ok) {
           console.log('res.ok');
-          // 退会処理が完了したらトップページに画面遷移する
+          // 退会処理が完了したら`トップページ`に画面遷移する
+          // logout関数を呼び出すことで「isAuthenticated」を「false」にする
           logout({ returnTo: window.location.origin });
         } else {
           // 失敗時には`Failed SnackBar`を表示する
