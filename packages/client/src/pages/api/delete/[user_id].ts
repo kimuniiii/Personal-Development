@@ -31,8 +31,6 @@ export default async function deleteAuth0User(
     if (typeof user_id === 'object') {
       return;
     }
-    // ここに以下のコードがあればOK
-    // res.status(200).json({ auth0UserId });
     await management.deleteUser({ id: user_id });
     res.status(200).end();
   } catch (error) {
