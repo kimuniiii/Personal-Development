@@ -5,6 +5,7 @@ import { ManagementClient } from 'auth0';
 // eslint-disable-next-line import/order
 import type { NextApiRequest, NextApiResponse } from 'next';
 
+// 開発環境の「AUTH0_CLIENT_ID」と「AUTH0_CLIENT_SECRET」
 const DEVELOPMENT_AUTH0_CLIENT_ID = 'lGXhyxHZ7KcY035Ng4zbvBYduiJBNBHY';
 const DEVELOPMENT_AUTH0_CLIENT_SECRET =
   '4h_F-vUcsS9kgoUAnxw4JfMwKxg8S_xY50sVVhsEj2ZFeoOhKz5O0nkmcMmr0WzA';
@@ -31,12 +32,13 @@ export default async function deleteAuth0User(
     const { user_id } = req.query;
     console.log('user_id', user_id);
 
+    // string | string[] → string に絞り込む
     if (typeof user_id === 'object') {
       return;
     }
     // ここに以下のコードがあればOK
     // res.status(200).json({ auth0UserId });
-    await management.deleteUser({ id: user_id }, function (err: unknown) {
+    await management.deleteUser({ id: user_id }, (err: unknown) => {
       if (err) {
         // Handle error.
         console.log('> Delete Auth0 user, err = ', err);
@@ -45,7 +47,8 @@ export default async function deleteAuth0User(
       }
       // User deleted.
       console.log('Auth0 user deleted');
-      res.send('User Delete Complete');
+      return res;
+      // res.send('User Delete Complete');
       // res.status(200).json({ auth0UserId });
     });
   } catch (error) {

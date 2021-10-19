@@ -59,7 +59,10 @@ const WithDrawPage: NextPage<WithDrawProps> = ({
     // MEMO1 : api/delete だと 403認証エラー になる
     // MEMO2 : api/delete : NG | /api/delete : OK
     // Router.push('/api/delete');
-    fetch(`/api/delete/${user?.sub}`, { method: 'DELETE' }).then((res) => console.log(res.json()));
+
+    fetch(`/api/delete/${user?.sub}`, { method: 'DELETE' })
+      .then((res) => console.log(res.json()))
+      .catch((error) => console.log(error));
 
     // エラー内容 : SanitizedError [APIError]: connect ECONNREFUSED 127.0.0.1:443
     // エラー解決方法 : 127.0.0.1 を localhost に変更したら解決した
