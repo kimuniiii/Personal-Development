@@ -56,18 +56,17 @@ const WithDrawPage: NextPage<WithDrawProps> = ({
 
   const handleWithdrawBtnClickHandler = (): void => {
     alert('退会ボタンをクリックしました');
-    // MEMO : api/delete だと 403認証エラー になる
-    // Router.push({
-    //   pathname: 'api/delete',
-    //   query: { auth0UserId: user?.sub },
-    // });
+    // MEMO1 : api/delete だと 403認証エラー になる
+    // MEMO2 : api/delete : NG | /api/delete : OK
     // fetch(`/api/delete?${user?.sub}`, { method: 'DELETE' }).then((res) => console.log(res.json()));
 
     // エラー内容 : SanitizedError [APIError]: connect ECONNREFUSED 127.0.0.1:443
-    Router.push({
-      pathname: 'http://localhost:8000/user-delete',
-    });
+    // エラー解決方法 : 127.0.0.1 を localhost に変更したら解決した
+    // Router.push({
+    //   pathname: 'http://localhost:8000/user-delete',
+    // });
     // fetch(`http://127.0.0.1:8000/user-delete`, { mode: 'no-cors' });
+    Router.push('/user-delete');
   };
 
   // const handleWithdrawBtnClickHandler = (): void => {
