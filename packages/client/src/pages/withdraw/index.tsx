@@ -58,15 +58,17 @@ const WithDrawPage: NextPage<WithDrawProps> = ({
     alert('退会ボタンをクリックしました');
     // MEMO1 : api/delete だと 403認証エラー になる
     // MEMO2 : api/delete : NG | /api/delete : OK
-    // fetch(`/api/delete?${user?.sub}`, { method: 'DELETE' }).then((res) => console.log(res.json()));
+    // Router.push('/api/delete');
+    fetch(`/api/delete`, { method: 'DELETE' }).then((res) => console.log(res.json()));
 
     // エラー内容 : SanitizedError [APIError]: connect ECONNREFUSED 127.0.0.1:443
     // エラー解決方法 : 127.0.0.1 を localhost に変更したら解決した
+    // FIXME : Vercel で カスタムサーバー を動かすことはできないので API Routes で代替する
+    // Router.push('/user-delete');
     // Router.push({
     //   pathname: 'http://localhost:8000/user-delete',
     // });
     // fetch(`http://127.0.0.1:8000/user-delete`, { mode: 'no-cors' });
-    Router.push('/user-delete');
   };
 
   // const handleWithdrawBtnClickHandler = (): void => {
