@@ -57,7 +57,7 @@ const WithDrawPage: NextPage<WithDrawProps> = ({ isMobileUaDeviceType, origin })
     return <ErrorTemplate error={error} />;
   }
 
-  const handleWithdrawBtnClickHandler = (): void => {
+  const handleWithdrawBtnClickHandler = async (): Promise<void> => {
     alert('退会ボタンをクリックしました');
 
     fetch(`/api/delete/${user?.sub}`, { method: 'DELETE' })
