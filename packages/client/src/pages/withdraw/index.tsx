@@ -2,7 +2,7 @@ import { gql, useMutation } from '@apollo/client';
 import { withAuthenticationRequired, useAuth0 } from '@auth0/auth0-react';
 import styled from '@emotion/styled';
 import Router from 'next/router';
-import React, { useState } from 'react';
+import React from 'react';
 // eslint-disable-next-line import/order
 import Parser from 'ua-parser-js';
 
@@ -71,6 +71,7 @@ const WithDrawPage: NextPage<WithDrawProps> = ({ isMobileUaDeviceType, origin })
               console.log('res', res);
               // Auth0 と Hasura からユーザー情報を削除したら`トップページ`に画面遷移する
               // `logout関数`を呼び出すことで「isAuthenticated」を「false」にする
+              // TODO : mutation が完了した後に「退会画面」が一瞬チラつく問題を解決したい
               logout({ returnTo: window.location.origin });
             })
             .catch((error) => console.error(error));
