@@ -7,25 +7,33 @@
     <title>HTML・CSS・JavaScript練習用</title>
   </head>
   <body>
-    <button id="speech-execute" onclick="executeSpeech">日本語をしゃべるボタン</button>
-    <button id="current-position" onclick="getPosition">現在地を取得するボタン</button>
+    <button id="alert-open-btn">ボタンを押したらアラートを出すボタン</button>
+    <button id="speech-execute" onclick="executeSpeech">
+      日本語をしゃべるボタン
+    </button>
+    <button id="current-position" onclick="getPosition">
+      現在地を取得するボタン
+    </button>
   </body>
   <script>
+    const alertButtonElement = document.getElementById("alert-open-btn");
+    alertButtonElement.addEventListener("click", () => alert("Alert"));
+
     function executeSpeech() {
       // 発言を作成
       let u = new SpeechSynthesisUtterance();
-      u.text = '日本語喋ります。かなり流暢に。';
-      u.lang = 'ja-JP';
+      u.text = "日本語喋ります。かなり流暢に。";
+      u.lang = "ja-JP";
       u.tate = 1.4;
       // 発言を再生（発言キューに発言を追加）
       speechSynthesis.speak(u);
     }
 
-    const buttonElement = document.getElementById('speech-execute');
-    buttonElement.addEventListener('click', executeSpeech);
+    const buttonElement = document.getElementById("speech-execute");
+    buttonElement.addEventListener("click", executeSpeech);
 
     function getPosition() {
-      console.log('うんこ');
+      console.log("うんこ");
       navigator.geolocation.getCurrentPosition((args) => {
         console.log(args);
         // 緯度を取得
@@ -34,7 +42,7 @@
       });
     }
 
-    const buttonPositionElement = document.getElementById('current-position');
-    buttonPositionElement.addEventListener('click', getPosition);
+    const buttonPositionElement = document.getElementById("current-position");
+    buttonPositionElement.addEventListener("click", getPosition);
   </script>
 </html>

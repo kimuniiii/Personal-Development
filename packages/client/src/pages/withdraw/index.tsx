@@ -10,7 +10,7 @@ import { Loader } from 'src/components/atoms/Loader';
 import { CommonTemplate } from 'src/components/templates/CommonTemplate';
 import { HeadTemplate } from 'src/components/templates/HeadTemplate';
 
-import { deleteUser } from 'src/lib/deleteUser';
+// import { deleteUser } from 'src/lib/deleteUser';
 
 import { COLOR_PALETTE } from 'src/styles/color_palette';
 
@@ -47,28 +47,49 @@ const WithDrawPage: NextPage<WithDrawProps> = ({
   //   );
   // }
 
-  const { user, getAccessTokenSilently } = useAuth0();
+  console.log('WithDrawPage');
+  console.log('auth0Domain', auth0Domain);
+  console.log('auth0ClientId', auth0ClientId);
+
+  const { user } = useAuth0();
+  console.log('user', user);
 
   const handleWithdrawBtnClickHandler = (): void => {
-    deleteUser({ auth0Domain, auth0ClientId, user, getAccessTokenSilently })
-      .then((res) => {
-        console.log('then');
-        console.log(res);
+    alert('退会ボタンをクリックしました');
+    // MEMO : api/delete だと 403認証エラー になる
+    // Router.push({
+    //   pathname: 'api/delete',
+    //   query: { auth0UserId: user?.sub },
+    // });
+    // fetch(`/api/delete?${user?.sub}`, { method: 'DELETE' }).then((res) => console.log(res.json()));
 
-        if (res.ok) {
-          console.log('res.ok');
-          // 退会処理が完了したらトップページに画面遷移する
-          Router.replace('/');
-        } else {
-          // 失敗時には`Failed SnackBar`を表示する
-          console.log('response failed');
-        }
-      })
-      .catch((res) => {
-        console.log('catch');
-        console.error(res);
-      });
+    // エラー内容 : SanitizedError [APIError]: connect ECONNREFUSED 127.0.0.1:443
+    Router.push({
+      pathname: 'http://localhost:8000/user-delete',
+    });
+    // fetch(`http://127.0.0.1:8000/user-delete`, { mode: 'no-cors' });
   };
+
+  // const handleWithdrawBtnClickHandler = (): void => {
+  //   deleteUser({ auth0Domain, auth0ClientId, user, getAccessTokenSilently })
+  //     .then((res) => {
+  //       console.log('then');
+  //       console.log(res);
+
+  //       if (res.ok) {
+  //         console.log('res.ok');
+  //         // 退会処理が完了したらトップページに画面遷移する
+  //         Router.replace('/');
+  //       } else {
+  //         // 失敗時には`Failed SnackBar`を表示する
+  //         console.log('response failed');
+  //       }
+  //     })
+  //     .catch((res) => {
+  //       console.log('catch');
+  //       console.error(res);
+  //     });
+  // };
 
   return (
     <React.Fragment>
