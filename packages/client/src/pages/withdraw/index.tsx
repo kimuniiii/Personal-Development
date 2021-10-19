@@ -61,8 +61,17 @@ const WithDrawPage: NextPage<WithDrawProps> = ({
     // Router.push('/api/delete');
 
     fetch(`/api/delete/${user?.sub}`, { method: 'DELETE' })
-      .then((res) => console.log(res.json()))
-      .catch((error) => console.log(error));
+      .then((res) => {
+        if (res.ok) {
+          console.log('res.ok');
+          // 退会処理が完了したらトップページに画面遷移する
+          Router.replace('/');
+        } else {
+          // 失敗時には`Failed SnackBar`を表示する
+          console.log('response failed');
+        }
+      })
+      .catch((error) => console.error(error));
 
     // エラー内容 : SanitizedError [APIError]: connect ECONNREFUSED 127.0.0.1:443
     // エラー解決方法 : 127.0.0.1 を localhost に変更したら解決した

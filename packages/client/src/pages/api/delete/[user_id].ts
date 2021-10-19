@@ -1,8 +1,5 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-// const ManagementClient = require('auth0').ManagementClient;
 import { ManagementClient } from 'auth0';
 
-// eslint-disable-next-line import/order
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 // 開発環境の「AUTH0_CLIENT_ID」と「AUTH0_CLIENT_SECRET」
@@ -22,8 +19,6 @@ const management = new ManagementClient({
   scope: 'delete:users',
 });
 
-// const KOKK_NP_USER_ID = 'auth0|615afce4c69eb200704af5e3';
-
 export default async function deleteAuth0User(
   req: NextApiRequest,
   res: NextApiResponse,
@@ -38,20 +33,12 @@ export default async function deleteAuth0User(
     }
     // ここに以下のコードがあればOK
     // res.status(200).json({ auth0UserId });
-    await management.deleteUser({ id: user_id }, (err: unknown) => {
-      if (err) {
-        // Handle error.
-        console.log('> Delete Auth0 user, err = ', err);
-        res.send('User Delete Failed');
-        return;
-      }
-      // User deleted.
-      console.log('Auth0 user deleted');
-      return res;
-      // res.send('User Delete Complete');
-      // res.status(200).json({ auth0UserId });
-    });
+    await management.deleteUser({ id: user_id });
+    res.status(200).end();
   } catch (error) {
-    console.error(error);
+    if (error instanceof Error) {
+      console.error(error);
+      res.status(500).end(error.message);
+    }
   }
 }
