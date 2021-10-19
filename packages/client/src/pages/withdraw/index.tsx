@@ -10,8 +10,6 @@ import { Loader } from 'src/components/atoms/Loader';
 import { CommonTemplate } from 'src/components/templates/CommonTemplate';
 import { HeadTemplate } from 'src/components/templates/HeadTemplate';
 
-// import { deleteUser } from 'src/lib/deleteUser';
-
 import { COLOR_PALETTE } from 'src/styles/color_palette';
 
 import type { NextPage, GetServerSideProps } from 'next';
@@ -19,8 +17,6 @@ import type { NextPage, GetServerSideProps } from 'next';
 type WithDrawProps = {
   isMobileUaDeviceType: boolean;
   origin: string;
-  auth0Domain?: string;
-  auth0ClientId?: string;
 };
 
 /**
@@ -28,68 +24,29 @@ type WithDrawProps = {
  * @説明1 非ログイン時にアクセスできないようにしたいため「Protected Page」である
  * @説明2 退会ボタンを押して、退会が完了したら、トップ画面に画面遷移する
  */
-const WithDrawPage: NextPage<WithDrawProps> = ({
-  isMobileUaDeviceType,
-  origin,
-  auth0Domain,
-  auth0ClientId,
-}) => {
-  // FIXME : 以下のコードで「アクセスコントロール」を行うとうまくいかない
-  // const { isAuthenticated, loginWithRedirect } = useAuth0();
-  // ログインしていなかったら「ログインページ」へ転送する
-  // ログイン画面に転送完了するまでは「画面中央」に「Loader」を表示する
-  // if (!isAuthenticated) {
-  //   loginWithRedirect();
-  //   return (
-  //     <StCenterLoaderContainer>
-  //       <Loader loadingContent='ログインページに画面遷移しています' />
-  //     </StCenterLoaderContainer>
-  //   );
-  // }
-
+const WithDrawPage: NextPage<WithDrawProps> = ({ isMobileUaDeviceType, origin }) => {
   console.log('WithDrawPage');
-  console.log('auth0Domain', auth0Domain);
-  console.log('auth0ClientId', auth0ClientId);
 
-  const { user } = useAuth0();
+  const { user, logout } = useAuth0();
   console.log('user', user);
 
   const handleWithdrawBtnClickHandler = (): void => {
     alert('退会ボタンをクリックしました');
-    // MEMO : api/delete だと 403認証エラー になる
-    // Router.push({
-    //   pathname: 'api/delete',
-    //   query: { auth0UserId: user?.sub },
-    // });
-    // fetch(`/api/delete?${user?.sub}`, { method: 'DELETE' }).then((res) => console.log(res.json()));
 
-    // エラー内容 : SanitizedError [APIError]: connect ECONNREFUSED 127.0.0.1:443
-    Router.push({
-      pathname: 'http://localhost:8000/user-delete',
-    });
-    // fetch(`http://127.0.0.1:8000/user-delete`, { mode: 'no-cors' });
+    fetch(`/api/delete/${user?.sub}`, { method: 'DELETE' })
+      .then((res) => {
+        if (res.ok) {
+          console.log('res.ok');
+          // 退会処理が完了したら`トップページ`に画面遷移する
+          // logout関数を呼び出すことで「isAuthenticated」を「false」にする
+          logout({ returnTo: window.location.origin });
+        } else {
+          // 失敗時には`Failed SnackBar`を表示する
+          console.log('response failed');
+        }
+      })
+      .catch((error) => console.error(error));
   };
-
-  // const handleWithdrawBtnClickHandler = (): void => {
-  //   deleteUser({ auth0Domain, auth0ClientId, user, getAccessTokenSilently })
-  //     .then((res) => {
-  //       console.log('then');
-  //       console.log(res);
-
-  //       if (res.ok) {
-  //         console.log('res.ok');
-  //         // 退会処理が完了したらトップページに画面遷移する
-  //         Router.replace('/');
-  //       } else {
-  //         // 失敗時には`Failed SnackBar`を表示する
-  //         console.log('response failed');
-  //       }
-  //     })
-  //     .catch((res) => {
-  //       console.log('catch');
-  //       console.error(res);
-  //     });
-  // };
 
   return (
     <React.Fragment>
