@@ -47,14 +47,27 @@ const WithDrawPage: NextPage<WithDrawProps> = ({
   //   );
   // }
 
+  console.log('WithDrawPage');
+  console.log('auth0Domain', auth0Domain);
+  console.log('auth0ClientId', auth0ClientId);
+
   const { user } = useAuth0();
+  console.log('user', user);
 
   const handleWithdrawBtnClickHandler = (): void => {
     alert('退会ボタンをクリックしました');
+    // MEMO : api/delete だと 403認証エラー になる
+    // Router.push({
+    //   pathname: 'api/delete',
+    //   query: { auth0UserId: user?.sub },
+    // });
+    // fetch(`/api/delete?${user?.sub}`, { method: 'DELETE' }).then((res) => console.log(res.json()));
+
+    // エラー内容 : SanitizedError [APIError]: connect ECONNREFUSED 127.0.0.1:443
     Router.push({
-      pathname: '/api/delete/',
-      query: { auth0UserId: user?.sub },
+      pathname: 'http://localhost:8000/user-delete',
     });
+    // fetch(`http://127.0.0.1:8000/user-delete`, { mode: 'no-cors' });
   };
 
   // const handleWithdrawBtnClickHandler = (): void => {
