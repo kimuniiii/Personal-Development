@@ -31,7 +31,6 @@ const WithDrawPage: NextPage<WithDrawProps> = ({ isMobileUaDeviceType, origin })
   console.log('WithDrawPage');
 
   const { user, logout } = useAuth0();
-  console.log('user', user);
 
   const USER_DELETE = gql`
     mutation UserDelete {
@@ -64,9 +63,7 @@ const WithDrawPage: NextPage<WithDrawProps> = ({ isMobileUaDeviceType, origin })
           console.log('res.ok');
           // Auth0 の DB から情報を削除した後に Next.js から直接 Hasura の情報を削除する
           userDelete()
-            .then((res) => {
-              console.log('mutation complete');
-              console.log('res', res);
+            .then(() => {
               // Auth0 と Hasura からユーザー情報を削除したら`トップページ`に画面遷移する
               // `logout関数`を呼び出すことで「isAuthenticated」を「false」にする
               // TODO : mutation が完了した後に「退会画面」が一瞬チラつく問題を解決したい

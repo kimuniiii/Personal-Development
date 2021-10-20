@@ -27,17 +27,10 @@ export const CommonSideBar: VFC<CommonSideBarProps> = ({ auth0Domain, auth0Clien
 
   const { user } = useAuth0();
 
-  console.log('CommonSideBar');
-  console.log('user');
-  console.table(user);
-
   const onYesBtnClicked = (): void => {
     setIsDialogOpen(false);
 
     changePassword({ auth0Domain, auth0ClientId, user }).then((res) => {
-      console.log('then');
-      console.log(res);
-
       if (res.ok) {
         // 成功時には`Success SnackBar`を表示する
         setIsShowSnackBar(true);
