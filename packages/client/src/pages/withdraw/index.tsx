@@ -57,7 +57,24 @@ const WithDrawPage: NextPage<WithDrawProps> = ({ isMobileUaDeviceType, origin })
   }
 
   const handleWithdrawBtnClickHandler = async (): Promise<void> => {
-    fetch(`/api/delete/${user?.sub}`, { method: 'DELETE' })
+    // fetch('https://dev-dt8p9ro2.us.auth0.com/oauth/token', {
+    //   method: 'POST',
+    //   headers: { 'content-type': 'application/x-www-form-urlencoded' },
+    //   body: JSON.stringify({
+    //     grant_type: 'client_credentials',
+    //     client_id: 'lGXhyxHZ7KcY035Ng4zbvBYduiJBNBHY',
+    //     client_secret: '4h_F-vUcsS9kgoUAnxw4JfMwKxg8S_xY50sVVhsEj2ZFeoOhKz5O0nkmcMmr0WzA',
+    //     audience: 'https://dev-dt8p9ro2.us.auth0.com/api/v2/',
+    //   }),
+    // }).then((res) => {
+    //   console.log(res);
+    // });
+
+    fetch(`/api/delete/${user?.sub}`, {
+      method: 'DELETE',
+      headers: { 'content-type': 'application/x-www-form-urlencoded' },
+      body: JSON.stringify({ grant_type: 'client_credentials' }),
+    })
       .then((res) => {
         if (res.ok) {
           console.log('res.ok');
