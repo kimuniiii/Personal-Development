@@ -18,20 +18,20 @@ export const changePassword = async ({
 }: ChangePasswordArgs): Promise<Response> => {
   console.log('change-password');
 
-  console.log('auth0Domain は 値が入っているはず');
-  console.log('auth0Domain', auth0Domain);
+  // console.log('auth0Domain は 値が入っているはず');
+  // console.log('auth0Domain', auth0Domain);
 
-  console.log('process.env.NEXT_PUBLIC_AUTH0_DOMAIN は undefined');
-  console.log('process.env.NEXT_PUBLIC_AUTH0_DOMAIN', process.env.NEXT_PUBLIC_AUTH0_DOMAIN);
+  // console.log('process.env.NEXT_PUBLIC_AUTH0_DOMAIN は undefined');
+  // console.log('process.env.NEXT_PUBLIC_AUTH0_DOMAIN', process.env.NEXT_PUBLIC_AUTH0_DOMAIN);
 
-  console.log('auth0ClientId は 値が入っているはず');
-  console.log('auth0ClientId', auth0ClientId);
+  // console.log('auth0ClientId は 値が入っているはず');
+  // console.log('auth0ClientId', auth0ClientId);
 
-  console.log('process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID は undefined');
-  console.log('process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID', process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID);
+  // console.log('process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID は undefined');
+  // console.log('process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID', process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID);
 
-  console.log('user?.email', user?.email);
-  console.log('process.env.NEXT_PUBLIC_VERCEL_ENV', process.env.NEXT_PUBLIC_VERCEL_ENV);
+  // console.log('user?.email', user?.email);
+  // console.log('process.env.NEXT_PUBLIC_VERCEL_ENV', process.env.NEXT_PUBLIC_VERCEL_ENV);
 
   const AUTH0_DOMAIN = auth0Domain || process.env.NEXT_PUBLIC_AUTH0_DOMAIN || '';
 
@@ -50,7 +50,7 @@ export const changePassword = async ({
     connection: AUTH0_CONNECTION,
   });
 
-  console.log('jsonBodyData', jsonBodyData);
+  // console.log('jsonBodyData', jsonBodyData);
 
   const res = await fetch(`https://${AUTH0_DOMAIN}/dbconnections/change_password`, {
     method: 'POST',

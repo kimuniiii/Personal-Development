@@ -1,5 +1,7 @@
 // import { ManagementClient } from 'auth0';
 
+import fs from 'fs';
+
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 // 403エラーを解消するために絶対に必要
@@ -27,6 +29,11 @@ export default async function updateAuth0User(
     console.log('updateAuth0User');
     const { params } = req.query;
     console.log('params', params);
+    console.log('params[2]', params[2]);
+    console.log('${params[3]}${params[4]}', `${params[3]}${'/'}${params[4]}`);
+
+    const base64Data = fs.readFileSync(params[2], { encoding: 'base64' });
+    console.log('base64Data', `data:image/png;base64,${base64Data}`);
 
     // string | string[] → string に絞り込む
     // if (typeof params[0] === 'object') {

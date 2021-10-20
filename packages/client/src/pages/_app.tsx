@@ -54,21 +54,21 @@ const CustomApp = ({
   console.log('App Component');
   console.log('NEXT_PUBLIC_VERCEL_ENV', process.env.NEXT_PUBLIC_VERCEL_ENV);
 
-  console.log('NEXT_PUBLIC_AUTH0_DOMAIN は 開発環境では値が入る');
-  console.log('NEXT_PUBLIC_AUTH0_DOMAIN', process.env.NEXT_PUBLIC_AUTH0_DOMAIN);
-  console.log('process.env.AUTH0_DOMAIN は ステージングと本番環境では値が入る');
-  console.log('process.env.AUTH0_DOMAIN', process.env.AUTH0_DOMAIN);
+  // console.log('NEXT_PUBLIC_AUTH0_DOMAIN は 開発環境では値が入る');
+  // console.log('NEXT_PUBLIC_AUTH0_DOMAIN', process.env.NEXT_PUBLIC_AUTH0_DOMAIN);
+  // console.log('process.env.AUTH0_DOMAIN は ステージングと本番環境では値が入る');
+  // console.log('process.env.AUTH0_DOMAIN', process.env.AUTH0_DOMAIN);
 
-  console.log('NEXT_PUBLIC_AUTH0_CLIENT_ID は 開発環境では値が入る');
-  console.log('NEXT_PUBLIC_AUTH0_CLIENT_ID', process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID);
-  console.log('process.env.AUTH0_CLIENT_ID は ステージングと本番環境では値が入る');
-  console.log('process.env.AUTH0_CLIENT_ID', process.env.AUTH0_CLIENT_ID);
+  // console.log('NEXT_PUBLIC_AUTH0_CLIENT_ID は 開発環境では値が入る');
+  // console.log('NEXT_PUBLIC_AUTH0_CLIENT_ID', process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID);
+  // console.log('process.env.AUTH0_CLIENT_ID は ステージングと本番環境では値が入る');
+  // console.log('process.env.AUTH0_CLIENT_ID', process.env.AUTH0_CLIENT_ID);
 
-  console.log('初期描画時は auth0Domain に値は入る。ログイン後は入らない');
-  console.log('auth0Domain', auth0Domain);
+  // console.log('初期描画時は auth0Domain に値は入る。ログイン後は入らない');
+  // console.log('auth0Domain', auth0Domain);
 
-  console.log('初期描画時は auth0ClientId に値は入る。ログイン後は入らない');
-  console.log('auth0ClientId', auth0ClientId);
+  // console.log('初期描画時は auth0ClientId に値は入る。ログイン後は入らない');
+  // console.log('auth0ClientId', auth0ClientId);
 
   const cacheAuth0Domain = useMemo(() => {
     return auth0Domain;

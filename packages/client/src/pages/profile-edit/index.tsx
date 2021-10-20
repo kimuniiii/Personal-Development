@@ -1,5 +1,6 @@
 import { useAuth0, withAuthenticationRequired } from '@auth0/auth0-react';
 import styled from '@emotion/styled';
+import Router from 'next/router';
 import React, { useState } from 'react';
 import { SubmitErrorHandler, SubmitHandler, useForm } from 'react-hook-form';
 // eslint-disable-next-line import/order
@@ -109,13 +110,20 @@ const ProfileEditPage: NextPage<ProfileEditProps> = ({ isMobileUaDeviceType, ori
         console.log('reader.result', reader.result);
         console.log('addEventListenerの中身');
         console.table({ ...values, profileImageBase64: reader.result });
+        // MEMO : 確かに画像データは登録されていたけどエラーになっている
+        // Router.push(
+        //   `/api/update/${user?.sub}/${values['firstName']}${values['lastName']}/${reader.result}`,
+        // );
       },
       false,
     );
 
-    fetch(`/api/update/${user?.sub}/${values['firstName']}${values['lastName']}/${reader.result}`, {
-      method: 'PUT',
-    })
+    fetch(
+      `/api/update/${user?.sub}/${values['firstName']}${values['lastName']}/${selectedFile?.name}/${selectedFile?.type}`,
+      {
+        method: 'PUT',
+      },
+    )
       .then((res) => {
         if (res.ok) {
           console.log('res.ok');
@@ -146,6 +154,7 @@ const ProfileEditPage: NextPage<ProfileEditProps> = ({ isMobileUaDeviceType, ori
 
   const onFileSelect = (selectedFile: File): void => {
     setSelectedFile(selectedFile);
+    console.log('btoa(selectedFile.name)', btoa(selectedFile.name));
     setImageUrl(URL.createObjectURL(selectedFile));
   };
 
