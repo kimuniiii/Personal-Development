@@ -33,11 +33,11 @@
     buttonElement.addEventListener("click", executeSpeech);
 
     function getPosition() {
-      console.log("うんこ");
       navigator.geolocation.getCurrentPosition((args) => {
         console.log(args);
         // 緯度を取得
         console.log(args.coords.latitude);
+        // 経度を取得
         console.log(args.coords.longitude);
       });
     }

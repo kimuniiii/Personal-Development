@@ -10346,11 +10346,6 @@ no-case@^3.0.4:
     lower-case "^2.0.2"
     tslib "^2.0.3"
 
-node-auth0@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.npmjs.org/node-auth0/-/node-auth0-1.0.0.tgz#1ae8df4cd5e0c355cc99c0143b0ac91f979f4fbc"
-  integrity sha512-jt37muHNPLNToTw8ugtwRM65u6P+hCq9pOH2EQeb2woT4WpkSei81c1G9e38QfEAroHh9cu4SLD77nIq5LM7tg==
-
 node-dir@^0.1.10:
   version "0.1.17"
   resolved "https://registry.yarnpkg.com/node-dir/-/node-dir-0.1.17.tgz#5f5665d93351335caabef8f1c554516cf5f1e4e5"

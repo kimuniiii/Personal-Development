@@ -1,5 +1,6 @@
-import { withAuthenticationRequired } from '@auth0/auth0-react';
+import { useAuth0, withAuthenticationRequired } from '@auth0/auth0-react';
 import styled from '@emotion/styled';
+import Router from 'next/router';
 import React, { useState } from 'react';
 import { SubmitErrorHandler, SubmitHandler, useForm } from 'react-hook-form';
 // eslint-disable-next-line import/order
@@ -60,9 +61,12 @@ const ProfileEditPage: NextPage<ProfileEditProps> = ({ isMobileUaDeviceType, ori
     },
   });
 
+  const { user } = useAuth0();
+
   // プロフィール編集画像に関する「状態変数」と「更新関数」と「イベントハンドラ」
   const [selectedFile, setSelectedFile] = useState<File>();
   const [imageUrl, setImageUrl] = useState<string>('');
+  const [imageBase64, setImageBase64] = useState<string | ArrayBuffer | null>('');
 
   // FIXME : 以下のコードで「アクセスコントロール」を行うとうまくいかない
   // const { isAuthenticated, loginWithRedirect } = useAuth0();
@@ -80,35 +84,28 @@ const ProfileEditPage: NextPage<ProfileEditProps> = ({ isMobileUaDeviceType, ori
   /**
    * @概要 バリデーション成功時に呼び出されるイベントハンドラ
    */
-  const handleOnSubmit: SubmitHandler<UseFormInputs> = (values) => {
+  const handleOnSubmit: SubmitHandler<UseFormInputs> = async (values) => {
     console.log('selectedFile');
     console.table(selectedFile);
     console.log('values');
     console.table(values);
     console.log('{ ...values, profileImage: selectedFile }');
     console.table({ ...values, profileImage: selectedFile });
+    console.log('imageBase64', imageBase64);
 
-    const reader = new FileReader();
-
-    if (selectedFile) {
-      const test = reader.readAsDataURL(selectedFile);
-      console.log('if文の中身');
-      console.log('selectedFile', selectedFile);
-      console.log('test', test);
-      console.log('以下の値は「null」になっている');
-      console.log('reader.result', reader.result);
-    }
-
-    reader.addEventListener(
-      'load',
-      () => {
-        console.log('ここには「Base64」で変換された文字列を格納できる');
-        console.log('reader.result', reader.result);
-        console.log('addEventListenerの中身');
-        console.table({ ...values, profileImageBase64: reader.result });
-      },
-      false,
-    );
+    fetch(`/api/update/${user?.sub}/${values['firstName']}${values['lastName']}`, {
+      method: 'PUT',
+      body: JSON.stringify(imageBase64),
+    })
+      .then((res) => {
+        if (res.ok) {
+          console.log('res.ok');
+          Router.replace('/my-page');
+        } else {
+          console.error('response failed');
+        }
+      })
+      .catch((error) => console.error(error));
 
     // TODO : フォームデータを作成
     // TODO : 値を実際にサーバーに送信するときにちゃんと実装を行う
@@ -129,9 +126,28 @@ const ProfileEditPage: NextPage<ProfileEditProps> = ({ isMobileUaDeviceType, ori
     console.error(errors);
   };
 
+  /**
+   * @概要 子供のコンポーネントで呼び出すイベントハンドラ
+   */
   const onFileSelect = (selectedFile: File): void => {
     setSelectedFile(selectedFile);
     setImageUrl(URL.createObjectURL(selectedFile));
+
+    // 送信ボタンを押した時ではなくファイルを選択した時にBase64形式に変換する
+    const reader = new FileReader();
+
+    reader.readAsDataURL(selectedFile);
+
+    reader.addEventListener(
+      'load',
+      () => {
+        console.log('addEventListenerの中身');
+        console.log('ここには「Base64」で変換された文字列を格納できる');
+        console.log('reader.result', reader.result);
+        setImageBase64(reader.result);
+      },
+      false,
+    );
   };
 
   // TODO : 画面上で画像は消えているけどデータ上は削除できていない
@@ -281,6 +297,7 @@ const ProfileEditPage: NextPage<ProfileEditProps> = ({ isMobileUaDeviceType, ori
                 placeholder='メールアドレスを入力してください'
                 width='343px'
                 fontSizeValue='16px'
+                disabled={true}
                 isError={!!errors.email}
                 errors={errors}
                 register={register('email', {
@@ -368,13 +385,14 @@ const ProfileEditPage: NextPage<ProfileEditProps> = ({ isMobileUaDeviceType, ori
                 disabled={true}
                 isError={!!errors.phoneNumber}
                 errors={errors}
-                register={register('phoneNumber', {
-                  pattern: {
-                    message: '電話番号の書き方が間違ってます',
-                    value: validations.telephone,
-                  },
-                  required: { message: '必須入力項目です', value: true },
-                })}
+                register={register('phoneNumber')}
+                // register={register('phoneNumber', {
+                //   pattern: {
+                //     message: '電話番号の書き方が間違ってます',
+                //     value: validations.telephone,
+                //   },
+                //   required: { message: '必須入力項目です', value: true },
+                // })}
               />
               <Margin bottom='16px' />
               <Input
@@ -389,13 +407,14 @@ const ProfileEditPage: NextPage<ProfileEditProps> = ({ isMobileUaDeviceType, ori
                 width='343px'
                 fontSizeValue='16px'
                 disabled={true}
-                register={register('postCode', {
-                  pattern: {
-                    message: '郵便番号の書き方が間違ってます',
-                    value: validations.postcode,
-                  },
-                  required: { message: '必須入力項目です', value: true },
-                })}
+                register={register('postCode')}
+                // register={register('postCode', {
+                //   pattern: {
+                //     message: '郵便番号の書き方が間違ってます',
+                //     value: validations.postcode,
+                //   },
+                //   required: { message: '必須入力項目です', value: true },
+                // })}
               />
               <Margin bottom='16px' />
               <Input
@@ -410,9 +429,10 @@ const ProfileEditPage: NextPage<ProfileEditProps> = ({ isMobileUaDeviceType, ori
                 width='343px'
                 fontSizeValue='16px'
                 disabled={true}
-                register={register('address', {
-                  required: { message: '必須入力項目です', value: true },
-                })}
+                register={register('address')}
+                // register={register('address', {
+                //   required: { message: '必須入力項目です', value: true },
+                // })}
               />
               <Margin bottom='16px' />
               <Input
@@ -427,13 +447,14 @@ const ProfileEditPage: NextPage<ProfileEditProps> = ({ isMobileUaDeviceType, ori
                 disabled={true}
                 isError={!!errors.ageNumber}
                 errors={errors}
-                register={register('ageNumber', {
-                  pattern: {
-                    message: '年齢の書き方が間違ってます',
-                    value: validations.ageNumber,
-                  },
-                  required: { message: '必須入力項目です', value: true },
-                })}
+                register={register('ageNumber')}
+                // register={register('ageNumber', {
+                //   pattern: {
+                //     message: '年齢の書き方が間違ってます',
+                //     value: validations.ageNumber,
+                //   },
+                //   required: { message: '必須入力項目です', value: true },
+                // })}
               />
               <Margin bottom='16px' />
               <Input
@@ -445,15 +466,17 @@ const ProfileEditPage: NextPage<ProfileEditProps> = ({ isMobileUaDeviceType, ori
                 placeholder='メールアドレスを入力してください'
                 width='343px'
                 fontSizeValue='16px'
+                disabled={true}
                 isError={!!errors.email}
                 errors={errors}
-                register={register('email', {
-                  pattern: {
-                    message: 'メールアドレスの書き方が間違ってます',
-                    value: validations.email,
-                  },
-                  required: { message: '必須入力項目です', value: true },
-                })}
+                register={register('email')}
+                // register={register('email', {
+                //   pattern: {
+                //     message: 'メールアドレスの書き方が間違ってます',
+                //     value: validations.email,
+                //   },
+                //   required: { message: '必須入力項目です', value: true },
+                // })}
               />
               <Margin bottom='16px' />
               <ProfileImageUpload

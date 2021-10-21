@@ -21,7 +21,7 @@ export const useAuth0Api = (
       try {
         // auth0-react ではクライアントサイドで「アクセストークン」を取得する
         const accessToken = await getAccessTokenSilently({ audience });
-        console.log('accessToken', accessToken);
+        // console.log('accessToken', accessToken);
         console.log('accessToken は「Googleの通常モード」では出力される');
         console.log('accessToken は「シークレットモード」では出力されない');
         const res = await fetch(url, {
