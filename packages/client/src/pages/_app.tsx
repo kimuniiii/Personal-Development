@@ -3,9 +3,7 @@ import { Auth0Provider, AppState } from '@auth0/auth0-react';
 import { Global, ThemeProvider } from '@emotion/react';
 import App, { AppContext, AppInitialProps } from 'next/app';
 import Router from 'next/router';
-import React, { useMemo } from 'react';
-
-import { HeadTemplate } from 'src/components/templates/HeadTemplate';
+import { useMemo } from 'react';
 
 import { X_HASURA_ADMIN_SECRET } from 'src/constants';
 
@@ -89,28 +87,25 @@ const CustomApp = ({
   // Auth0Provider | audience : https://dev-dt8p9ro2.us.auth0.com/api/v2/ | Error
   // Auth0Provider | audience : origin | OK
   return (
-    <React.Fragment>
-      <HeadTemplate pageOrigin={origin} />
-      <Auth0Provider
-        domain={cacheAuth0Domain}
-        clientId={cacheAuth0ClientId}
-        redirectUri={redirectUri}
-        audience={origin}
-        onRedirectCallback={onRedirectCallback}
-      >
-        <ApolloProvider client={createApolloClient}>
-          <Global styles={GLOBAL_STYLE} />
-          <ThemeProvider theme={THEME}>
-            <Component
-              {...pageProps}
-              origin={origin}
-              auth0Domain={cacheAuth0Domain}
-              auth0ClientId={cacheAuth0ClientId}
-            />
-          </ThemeProvider>
-        </ApolloProvider>
-      </Auth0Provider>
-    </React.Fragment>
+    <Auth0Provider
+      domain={cacheAuth0Domain}
+      clientId={cacheAuth0ClientId}
+      redirectUri={redirectUri}
+      audience={origin}
+      onRedirectCallback={onRedirectCallback}
+    >
+      <ApolloProvider client={createApolloClient}>
+        <Global styles={GLOBAL_STYLE} />
+        <ThemeProvider theme={THEME}>
+          <Component
+            {...pageProps}
+            origin={origin}
+            auth0Domain={cacheAuth0Domain}
+            auth0ClientId={cacheAuth0ClientId}
+          />
+        </ThemeProvider>
+      </ApolloProvider>
+    </Auth0Provider>
   );
 };
 
