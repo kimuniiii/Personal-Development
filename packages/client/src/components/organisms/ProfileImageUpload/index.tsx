@@ -1,6 +1,5 @@
 import styled from '@emotion/styled';
 import Image from 'next/image';
-
 import React, { useState } from 'react';
 import { ImCross } from 'react-icons/im';
 
@@ -63,6 +62,7 @@ export const ProfileImageUpload: VFC<ProfileImageUploadProps> = ({
     // TODO : 9.9MB | 10MB | 10.1MB でテストを行う（境界値テスト）
     if (event.target.files[0].size >= validations.maxImageSize) {
       setIsMaxImgSizeError(true);
+
       return;
     }
 
@@ -73,6 +73,7 @@ export const ProfileImageUpload: VFC<ProfileImageUploadProps> = ({
       )
     ) {
       setIsFileTypeError(true);
+
       return;
     }
 

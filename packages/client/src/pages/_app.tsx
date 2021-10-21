@@ -36,6 +36,7 @@ const CustomApp = ({
   // MEMO : なぜなら「ブラウザバック」の時と「Router.push()」の時にデータを取得できないから
   const createApolloClient = useMemo(() => {
     console.log('1回目は走るけど2回目以降は走らない');
+
     return new ApolloClient({
       uri: getApiEndPoint(process.env.NEXT_PUBLIC_VERCEL_ENV),
       cache: new InMemoryCache(),
@@ -125,5 +126,6 @@ CustomApp.getInitialProps = async (appContext: AppContext): Promise<CustomAppIni
   const auth0Domain = getAuth0Domain(process.env.VERCEL_ENV);
   const auth0ClientId = getAuth0ClientId(process.env.VERCEL_ENV);
   const appProps = await App.getInitialProps(appContext);
+
   return { ...appProps, origin, auth0Domain, auth0ClientId };
 };
