@@ -79,7 +79,9 @@ module.exports = {
     'newline-before-return': 'error',
     'react/prop-types': 'off',
     'react/react-in-jsx-scope': 'off',
+    '@typescript-eslint/explicit-module-boundary-types': 'error',
     '@typescript-eslint/consistent-type-imports': 'error',
+    '@typescript-eslint/explicit-function-return-type': 'error',
     '@typescript-eslint/ban-types': [
       'error',
       {
@@ -89,6 +91,5 @@ module.exports = {
         },
       },
     ],
-    '@typescript-eslint/explicit-function-return-type': 'error',
   },
 };
