@@ -1,9 +1,10 @@
-import { Story, Meta } from '@storybook/react/types-6-0';
 import React from 'react';
 
 import { COLOR_PALETTE } from 'src/styles/color_palette';
 
 import { Marker } from '.';
+
+import type { Story, Meta } from '@storybook/react/types-6-0';
 
 export default {
   title: 'atoms/Marker',

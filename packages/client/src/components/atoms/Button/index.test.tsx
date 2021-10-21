@@ -7,7 +7,7 @@ import userEvent from '@testing-library/user-event';
 
 import { Button } from 'src/components/atoms/Button';
 
-import { FONT_SIZE } from 'src/styles/font_size';
+import type { FONT_SIZE } from 'src/styles/font_size';
 
 import type { ValueOf } from 'src/typings/utils/ValueOf';
 

@@ -1,6 +1,7 @@
 import { keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
-import React, { VFC } from 'react';
+
+import React from 'react';
 
 import { Button } from 'src/components/atoms/Button';
 import { Margin } from 'src/components/layouts/Margin';
@@ -8,6 +9,8 @@ import { Margin } from 'src/components/layouts/Margin';
 import { COLOR_PALETTE } from 'src/styles/color_palette';
 import { FONT_SIZE } from 'src/styles/font_size';
 import { FONT_WEIGHT } from 'src/styles/font_weight';
+
+import type { VFC } from 'react';
 
 type DialogProps = {
   dialogTitle: string;

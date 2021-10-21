@@ -1,7 +1,7 @@
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
-import { Auth0Provider, AppState } from '@auth0/auth0-react';
+import { Auth0Provider } from '@auth0/auth0-react';
 import { Global, ThemeProvider } from '@emotion/react';
-import App, { AppContext, AppInitialProps } from 'next/app';
+import App from 'next/app';
 import Router from 'next/router';
 import { useMemo } from 'react';
 
@@ -16,7 +16,8 @@ import { THEME } from 'src/styles/theme';
 import { getApiEndPoint } from 'src/utils/getApiEndPoint';
 import { getRedirectUriOrigin } from 'src/utils/getRedirectUriOrigin';
 
-import type { AppProps } from 'next/app';
+import type { AppState } from '@auth0/auth0-react';
+import type { AppProps, AppContext, AppInitialProps } from 'next/app';
 
 type CustomAppProps = AppProps & {
   origin: string;

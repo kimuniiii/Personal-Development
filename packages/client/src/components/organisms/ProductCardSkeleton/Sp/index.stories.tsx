@@ -1,7 +1,8 @@
-import { Story, Meta } from '@storybook/react/types-6-0';
 import React from 'react';
 
 import { SpProductCardSkeleton } from '.';
+
+import type { Story, Meta } from '@storybook/react/types-6-0';
 
 export default {
   title: 'organisms/SpProductCardSkeleton',

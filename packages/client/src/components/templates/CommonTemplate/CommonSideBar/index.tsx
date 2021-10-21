@@ -1,7 +1,7 @@
 import { useAuth0 } from '@auth0/auth0-react';
 import styled from '@emotion/styled';
 import Router from 'next/router';
-import { useState, VFC } from 'react';
+import { useState } from 'react';
 
 import { Button } from 'src/components/atoms/Button';
 import { Dialog } from 'src/components/atoms/Dialog';
@@ -11,6 +11,8 @@ import { Margin } from 'src/components/layouts/Margin';
 import { changePassword } from 'src/lib/changePassword';
 
 import { COLOR_PALETTE } from 'src/styles/color_palette';
+
+import type { VFC } from 'react';
 
 type CommonSideBarProps = {
   auth0Domain?: string;

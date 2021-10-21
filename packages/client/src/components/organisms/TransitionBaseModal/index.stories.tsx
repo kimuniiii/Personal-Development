@@ -1,11 +1,12 @@
 import { action } from '@storybook/addon-actions';
-import { Meta, Story } from '@storybook/react/types-6-0';
 import React from 'react';
 import { ImCross } from 'react-icons/im';
 
 import { IconButton } from 'src/components/atoms/IconButton';
 
 import { TransitionBaseModal } from '.';
+
+import type { Meta, Story } from '@storybook/react/types-6-0';
 
 export default {
   argTypes: {

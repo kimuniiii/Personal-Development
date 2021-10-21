@@ -1,10 +1,11 @@
 import { ThemeProvider } from '@emotion/react';
-import { Story, Meta } from '@storybook/react/types-6-0';
 import React from 'react';
 
 import { THEME } from 'src/styles/theme';
 
 import { CommonTemplate } from '.';
+
+import type { Story, Meta } from '@storybook/react/types-6-0';
 
 export default {
   title: 'templates/CommonTemplate',

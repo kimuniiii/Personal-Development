@@ -1,6 +1,10 @@
-import { css, keyframes, SerializedStyles } from '@emotion/react';
+import { css, keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
-import React, { VFC, useEffect, useRef, useState } from 'react';
+
+import React, { useEffect, useRef, useState } from 'react';
+
+import type { SerializedStyles } from '@emotion/react';
+import type { VFC } from 'react';
 
 import 'intersection-observer';
 

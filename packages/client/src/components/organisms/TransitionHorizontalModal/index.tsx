@@ -6,7 +6,7 @@ import { CSSTransition } from 'react-transition-group';
 import { TransitionBaseModal } from 'src/components/organisms/TransitionBaseModal';
 
 import { COLOR_PALETTE } from 'src/styles/color_palette';
-import { FONT_SIZE } from 'src/styles/font_size';
+import type { FONT_SIZE } from 'src/styles/font_size';
 import { Z_INDEX } from 'src/styles/z_index';
 
 import type { VFC } from 'react';

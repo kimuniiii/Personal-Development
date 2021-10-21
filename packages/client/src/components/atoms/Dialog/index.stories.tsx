@@ -1,9 +1,10 @@
-import { Meta, Story } from '@storybook/react/types-6-0';
 import React, { useState } from 'react';
 
 import { Button } from 'src/components/atoms/Button';
 
 import { Dialog } from '.';
+
+import type { Meta, Story } from '@storybook/react/types-6-0';
 
 export default {
   component: Dialog,

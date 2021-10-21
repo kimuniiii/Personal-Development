@@ -1,4 +1,3 @@
-import { NextPage } from 'next';
 import Head from 'next/head';
 
 import {
@@ -10,6 +9,8 @@ import {
 } from 'src/constants';
 
 import { getSrcAbsolutePath } from 'src/utils/getSrcAbsolutePath';
+
+import type { NextPage } from 'next';
 
 type HeadTemplateProps = {
   /**

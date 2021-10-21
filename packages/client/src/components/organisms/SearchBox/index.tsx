@@ -1,4 +1,4 @@
-import { DocumentNode, gql } from '@apollo/client';
+import { gql } from '@apollo/client';
 import styled from '@emotion/styled';
 import { useForm } from 'react-hook-form';
 
@@ -8,6 +8,7 @@ import { Margin } from 'src/components/layouts/Margin';
 
 import { COLOR_PALETTE } from 'src/styles/color_palette';
 
+import type { DocumentNode } from '@apollo/client';
 import type { VFC } from 'react';
 import type { SubmitHandler, SubmitErrorHandler } from 'react-hook-form';
 

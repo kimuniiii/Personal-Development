@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import Image from 'next/image';
-import React, { useState, VFC } from 'react';
+
+import React, { useState } from 'react';
 import { ImCross } from 'react-icons/im';
 
 import { FormLabel } from 'src/components/atoms/FormLabel';
@@ -12,6 +13,8 @@ import { FONT_SIZE } from 'src/styles/font_size';
 import { FONT_WEIGHT } from 'src/styles/font_weight';
 
 import { validations } from 'src/utils/validate';
+
+import type { VFC } from 'react';
 
 import NoImage from '../../../../public/images/no_image.png';
 
