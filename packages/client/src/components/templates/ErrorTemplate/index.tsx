@@ -26,7 +26,7 @@ export const ErrorTemplate: VFC<ErrorTemplateProps> = ({ error }) => {
       <Margin bottom='16px' />
       <p>{error.stack}</p>
       <Margin bottom='16px' />
-      <Link href='/' passHref>
+      <Link href='/' passHref prefetch={false}>
         <OuterLink className='error-outer-link' href='/' fontSizeValue={FONT_SIZE.FS_24}>
           Go back to home page
         </OuterLink>
