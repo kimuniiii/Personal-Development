@@ -221,13 +221,14 @@ const ProfileEditPage: NextPage<ProfileEditProps> = ({ isMobileUaDeviceType, ori
                 disabled={true}
                 isError={!!errors.phoneNumber}
                 errors={errors}
-                register={register('phoneNumber', {
-                  pattern: {
-                    message: '電話番号の書き方が間違ってます',
-                    value: validations.telephone,
-                  },
-                  required: { message: '必須入力項目です', value: true },
-                })}
+                register={register('phoneNumber')}
+                // register={register('phoneNumber', {
+                //   pattern: {
+                //     message: '電話番号の書き方が間違ってます',
+                //     value: validations.telephone,
+                //   },
+                //   required: { message: '必須入力項目です', value: true },
+                // })}
               />
               <Margin bottom='16px' />
               <Input
@@ -242,13 +243,14 @@ const ProfileEditPage: NextPage<ProfileEditProps> = ({ isMobileUaDeviceType, ori
                 width='343px'
                 fontSizeValue='16px'
                 disabled={true}
-                register={register('postCode', {
-                  pattern: {
-                    message: '郵便番号の書き方が間違ってます',
-                    value: validations.postcode,
-                  },
-                  required: { message: '必須入力項目です', value: true },
-                })}
+                register={register('postCode')}
+                // register={register('postCode', {
+                //   pattern: {
+                //     message: '郵便番号の書き方が間違ってます',
+                //     value: validations.postcode,
+                //   },
+                //   required: { message: '必須入力項目です', value: true },
+                // })}
               />
               <Margin bottom='16px' />
               <Input
@@ -263,9 +265,10 @@ const ProfileEditPage: NextPage<ProfileEditProps> = ({ isMobileUaDeviceType, ori
                 width='343px'
                 fontSizeValue='16px'
                 disabled={true}
-                register={register('address', {
-                  required: { message: '必須入力項目です', value: true },
-                })}
+                register={register('address')}
+                // register={register('address', {
+                //   required: { message: '必須入力項目です', value: true },
+                // })}
               />
               <Margin bottom='16px' />
               <Input
@@ -280,13 +283,14 @@ const ProfileEditPage: NextPage<ProfileEditProps> = ({ isMobileUaDeviceType, ori
                 disabled={true}
                 isError={!!errors.ageNumber}
                 errors={errors}
-                register={register('ageNumber', {
-                  pattern: {
-                    message: '年齢の書き方が間違ってます',
-                    value: validations.ageNumber,
-                  },
-                  required: { message: '必須入力項目です', value: true },
-                })}
+                register={register('ageNumber')}
+                // register={register('ageNumber', {
+                //   pattern: {
+                //     message: '年齢の書き方が間違ってます',
+                //     value: validations.ageNumber,
+                //   },
+                //   required: { message: '必須入力項目です', value: true },
+                // })}
               />
               <Margin bottom='16px' />
               <Input
@@ -301,13 +305,14 @@ const ProfileEditPage: NextPage<ProfileEditProps> = ({ isMobileUaDeviceType, ori
                 disabled={true}
                 isError={!!errors.email}
                 errors={errors}
-                register={register('email', {
-                  pattern: {
-                    message: 'メールアドレスの書き方が間違ってます',
-                    value: validations.email,
-                  },
-                  required: { message: '必須入力項目です', value: true },
-                })}
+                register={register('email')}
+                // register={register('email', {
+                //   pattern: {
+                //     message: 'メールアドレスの書き方が間違ってます',
+                //     value: validations.email,
+                //   },
+                //   required: { message: '必須入力項目です', value: true },
+                // })}
               />
               <Margin bottom='16px' />
               <ProfileImageUpload
