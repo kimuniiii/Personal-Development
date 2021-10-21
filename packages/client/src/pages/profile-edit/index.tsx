@@ -262,6 +262,7 @@ const ProfileEditPage: NextPage<ProfileEditProps> = ({ isMobileUaDeviceType, ori
                 errors={errors}
                 width='343px'
                 fontSizeValue='16px'
+                disabled={true}
                 register={register('address', {
                   required: { message: '必須入力項目です', value: true },
                 })}
