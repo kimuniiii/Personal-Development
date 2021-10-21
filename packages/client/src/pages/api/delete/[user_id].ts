@@ -1,3 +1,4 @@
+// TODO : 本番用のアクセストークンを取得するために必要な可能性が高いんだが機能しない
 // import { AuthenticationClient } from 'auth0';
 import { ManagementClient } from 'auth0';
 
@@ -27,10 +28,7 @@ console.log('process.env.AUTH0_CLIENT_SECRET', process.env.AUTH0_CLIENT_SECRET);
 // チェック観点2 : Grant Types の Client Credentials に チェック を入れているかどうか | OK
 // チェック観点3 : MyPage に リダイレクトできるかどうか | NG
 // 参考文献 : https://stackoverflow.com/questions/60984893/unauthorized-client-grant-type-authorization-code-not-allowed-for-the-client
-export default async function deleteAuth0User(
-  req: NextApiRequest,
-  res: NextApiResponse,
-): Promise<void> {
+const deleteAuth0User = async (req: NextApiRequest, res: NextApiResponse): Promise<void> => {
   try {
     // TODO : 本番用のアクセストークンを取得するために必要な可能性が高いんだが機能しない
     // エラー内容 : Grant type 'client_credentials' not allowed for the client
@@ -72,4 +70,6 @@ export default async function deleteAuth0User(
       res.status(500).end(error.message);
     }
   }
-}
+};
+
+export default deleteAuth0User;
