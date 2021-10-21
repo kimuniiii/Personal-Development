@@ -1,5 +1,6 @@
 import { useAuth0, withAuthenticationRequired } from '@auth0/auth0-react';
 import styled from '@emotion/styled';
+import Router from 'next/router';
 import React, { useState } from 'react';
 import { SubmitErrorHandler, SubmitHandler, useForm } from 'react-hook-form';
 // eslint-disable-next-line import/order
@@ -61,7 +62,6 @@ const ProfileEditPage: NextPage<ProfileEditProps> = ({ isMobileUaDeviceType, ori
   });
 
   const { user } = useAuth0();
-  console.log('user', user);
 
   // プロフィール編集画像に関する「状態変数」と「更新関数」と「イベントハンドラ」
   const [selectedFile, setSelectedFile] = useState<File>();
@@ -93,32 +93,6 @@ const ProfileEditPage: NextPage<ProfileEditProps> = ({ isMobileUaDeviceType, ori
     console.table({ ...values, profileImage: selectedFile });
     console.log('imageBase64', imageBase64);
 
-    // const reader = new FileReader();
-
-    // if (selectedFile) {
-    //   const test = reader.readAsDataURL(selectedFile);
-    //   console.log('if文の中身');
-    //   console.log('selectedFile', selectedFile);
-    //   console.log('test', test);
-    //   console.log('以下の値は「null」になっている');
-    //   console.log('reader.result', reader.result);
-    // }
-
-    // reader.addEventListener(
-    //   'load',
-    //   () => {
-    //     console.log('ここには「Base64」で変換された文字列を格納できる');
-    //     console.log('reader.result', reader.result);
-    //     console.log('addEventListenerの中身');
-    //     console.table({ ...values, profileImageBase64: reader.result });
-    //     // MEMO : 確かに画像データは登録されていたけどエラーになっている
-    //     // Router.push(
-    //     //   `/api/update/${user?.sub}/${values['firstName']}${values['lastName']}/${reader.result}`,
-    //     // );
-    //   },
-    //   false,
-    // );
-
     fetch(`/api/update/${user?.sub}/${values['firstName']}${values['lastName']}`, {
       method: 'PUT',
       body: JSON.stringify(imageBase64),
@@ -126,6 +100,7 @@ const ProfileEditPage: NextPage<ProfileEditProps> = ({ isMobileUaDeviceType, ori
       .then((res) => {
         if (res.ok) {
           console.log('res.ok');
+          Router.replace('/my-page');
         } else {
           console.error('response failed');
         }
@@ -151,10 +126,14 @@ const ProfileEditPage: NextPage<ProfileEditProps> = ({ isMobileUaDeviceType, ori
     console.error(errors);
   };
 
+  /**
+   * @概要 子供のコンポーネントで呼び出すイベントハンドラ
+   */
   const onFileSelect = (selectedFile: File): void => {
     setSelectedFile(selectedFile);
     setImageUrl(URL.createObjectURL(selectedFile));
 
+    // 送信ボタンを押した時ではなくファイルを選択した時にBase64形式に変換する
     const reader = new FileReader();
 
     reader.readAsDataURL(selectedFile);
