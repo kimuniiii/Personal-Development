@@ -93,7 +93,7 @@ const CustomApp = ({
         domain={cacheAuth0Domain}
         clientId={cacheAuth0ClientId}
         redirectUri={redirectUri}
-        audience={origin}
+        audience='https://dev-dt8p9ro2.us.auth0.com/api/v2/'
         onRedirectCallback={onRedirectCallback}
       >
         <ApolloProvider client={createApolloClient}>
