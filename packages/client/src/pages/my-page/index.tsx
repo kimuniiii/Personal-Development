@@ -108,6 +108,7 @@ const MyPage: NextPage<MyPageProps> = ({
                 )}
                 <Margin right='32px' />
                 <StUserProfileContainer>
+                  {/* TODO : Hasura から query で 最新の情報を取得する */}
                   <h3>{user.nickname}</h3>
                   <Margin bottom='8px' />
                   <h5>Email : {user.email}</h5>
