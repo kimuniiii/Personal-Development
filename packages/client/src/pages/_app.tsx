@@ -86,6 +86,8 @@ const CustomApp = ({
     Router.replace(appState?.returnTo || '/my-page');
   };
 
+  // Auth0Provider | audience : https://dev-dt8p9ro2.us.auth0.com/api/v2/ | Error
+  // Auth0Provider | audience : origin | OK
   return (
     <React.Fragment>
       <HeadTemplate pageOrigin={origin} />
@@ -93,7 +95,7 @@ const CustomApp = ({
         domain={cacheAuth0Domain}
         clientId={cacheAuth0ClientId}
         redirectUri={redirectUri}
-        audience='https://dev-dt8p9ro2.us.auth0.com/api/v2/'
+        audience={origin}
         onRedirectCallback={onRedirectCallback}
       >
         <ApolloProvider client={createApolloClient}>
