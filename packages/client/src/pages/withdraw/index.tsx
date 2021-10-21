@@ -99,7 +99,7 @@ const WithDrawPage: NextPage<WithDrawProps> = ({ isMobileUaDeviceType, origin })
                 width='200px'
                 fontSizeValue='16px'
                 buttonContent='退会する'
-                onClick={handleWithdrawBtnClickHandler}
+                onClick={(): Promise<void> => handleWithdrawBtnClickHandler()}
               />
             </StWithDrawContainer>
             <Button
