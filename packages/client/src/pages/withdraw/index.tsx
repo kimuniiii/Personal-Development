@@ -56,6 +56,9 @@ const WithDrawPage: NextPage<WithDrawProps> = ({ isMobileUaDeviceType, origin })
     return <ErrorTemplate error={error} />;
   }
 
+  /**
+   * @概要 退会ボタンを押した時に呼ばれるイベントハンドラ
+   */
   const handleWithdrawBtnClickHandler = async (): Promise<void> => {
     fetch(`/api/delete/${user?.sub}`, {
       method: 'GET',
@@ -123,7 +126,7 @@ const WithDrawPage: NextPage<WithDrawProps> = ({ isMobileUaDeviceType, origin })
                 width='200px'
                 fontSizeValue='16px'
                 buttonContent='退会する'
-                onClick={handleWithdrawBtnClickHandler}
+                onClick={(): Promise<void> => handleWithdrawBtnClickHandler()}
               />
             </StWithDrawContainer>
             <Button
