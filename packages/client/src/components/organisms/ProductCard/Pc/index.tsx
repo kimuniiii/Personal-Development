@@ -49,6 +49,7 @@ export const PcProductCard: VFC<Props> = ({ productCardList }) => {
                     alt='Product Image'
                     width={126}
                     height={126}
+                    objectFit='cover'
                   />
                 ) : (
                   <Image src={NoImage} alt='No Image' width={126} height={126} />
@@ -92,6 +93,8 @@ const StFigure = styled.figure`
 `;
 
 const StImageBtn = styled.button`
+  width: 126px;
+  height: 126px;
   cursor: pointer;
   /* ホバーをなめらかにするため */
   transition: opacity 0.3s;
