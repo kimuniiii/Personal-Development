@@ -4,7 +4,7 @@ import { ManagementClient } from 'auth0';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 // 403エラーを解消するために絶対に必要な工程
-// トークンの有効期限 : 604800(s) = 7日間
+// Auth0 Management API トークンの有効期限 : 604800(s) = 7日間
 // TODO : これは`テスト用アクセストークン`なので、本当は本番環境ではアクセストークンを動的に生成したい
 // 参考文献 : https://auth0.com/docs/security/tokens/access-tokens/get-management-api-access-tokens-for-production#prerequisites
 const TEST_ACCESS_TOKEN =
