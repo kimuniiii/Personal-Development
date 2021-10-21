@@ -102,7 +102,11 @@ const WithDrawPage: NextPage<WithDrawProps> = ({ isMobileUaDeviceType, origin })
                 width='200px'
                 fontSizeValue='16px'
                 buttonContent='退会する'
-                onClick={(): Promise<void> => handleWithdrawBtnClickHandler()}
+                onClick={(): Promise<void> | void => {
+                  if (window.confirm('本当に退会しますか？')) {
+                    handleWithdrawBtnClickHandler();
+                  }
+                }}
               />
             </StWithDrawContainer>
             <Button
@@ -126,7 +130,11 @@ const WithDrawPage: NextPage<WithDrawProps> = ({ isMobileUaDeviceType, origin })
                 width='200px'
                 fontSizeValue='16px'
                 buttonContent='退会する'
-                onClick={(): Promise<void> => handleWithdrawBtnClickHandler()}
+                onClick={(): Promise<void> | void => {
+                  if (window.confirm('本当に退会しますか？')) {
+                    handleWithdrawBtnClickHandler();
+                  }
+                }}
               />
             </StWithDrawContainer>
             <Button
