@@ -1,7 +1,8 @@
-import { Meta, Story } from '@storybook/react/types-6-0';
 import React, { useState } from 'react';
 
 import { Pagination } from './index';
+
+import type { Meta, Story } from '@storybook/react/types-6-0';
 
 export default {
   component: Pagination,

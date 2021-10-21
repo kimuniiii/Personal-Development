@@ -1,4 +1,3 @@
-import { Meta, Story } from '@storybook/react/types-6-0';
 import React, { useState } from 'react';
 import { ImCross } from 'react-icons/im';
 
@@ -6,6 +5,8 @@ import { Button } from 'src/components/atoms/Button';
 import { IconButton } from 'src/components/atoms/IconButton';
 
 import { TransitionHorizontalModal } from '.';
+
+import type { Meta, Story } from '@storybook/react/types-6-0';
 
 export default {
   argTypes: {

@@ -1,7 +1,8 @@
-import { Meta, Story } from '@storybook/react/types-6-0';
 import React from 'react';
 
 import { Loader } from './index';
+
+import type { Meta, Story } from '@storybook/react/types-6-0';
 
 export default {
   component: Loader,

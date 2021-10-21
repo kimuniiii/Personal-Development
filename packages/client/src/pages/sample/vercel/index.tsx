@@ -1,5 +1,6 @@
-import { GetStaticProps, NextPage } from 'next';
 import React from 'react';
+
+import type { GetStaticProps, NextPage } from 'next';
 
 type DisplayVercelEnvTestProps = {
   env: string;

@@ -68,6 +68,7 @@ const TopPage: NextPage<TopPageProps> = ({ origin, isMobileUaDeviceType }) => {
         `,
       })
       .then((result) => console.log('useEffect | result', result));
+
     return (): void => {
       console.log('useEffect | 復習 | DOMを破棄するときに処理が走る');
     };
@@ -248,6 +249,7 @@ export default TopPage;
 // TODO : UserAgentの判別によってレスポンシブ対応を行っているが、SSGは非対応。SSGにも対応できる方法があったら置き換える
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   const userAgent = Parser(req?.headers['user-agent']);
+
   return { props: { isMobileUaDeviceType: userAgent.device.type === 'mobile' } };
 };
 

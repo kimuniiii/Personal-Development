@@ -1,13 +1,16 @@
 import { useAuth0 } from '@auth0/auth0-react';
-import { css, SerializedStyles } from '@emotion/react';
+import { css } from '@emotion/react';
 import { useTheme } from '@emotion/react';
 import styled from '@emotion/styled';
-import { ReactNode, useEffect, useState, VFC } from 'react';
+import { useEffect, useState } from 'react';
 
 import { Button } from 'src/components/atoms/Button';
 import { CommonFooter } from 'src/components/templates/CommonTemplate/CommonFooter';
 import { CommonHeader } from 'src/components/templates/CommonTemplate/CommonHeader';
 import { CommonSideBar } from 'src/components/templates/CommonTemplate/CommonSideBar';
+
+import type { SerializedStyles } from '@emotion/react';
+import type { ReactNode, VFC } from 'react';
 
 type CommonTemplateProps = {
   children: ReactNode;

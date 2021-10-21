@@ -1,8 +1,10 @@
-import { css, SerializedStyles } from '@emotion/react';
+import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import React from 'react';
 
 import { COLOR_PALETTE } from 'src/styles/color_palette';
+
+import type { SerializedStyles } from '@emotion/react';
 
 export type IconButtonProps = JSX.IntrinsicElements['button'] & {
   type: 'button';

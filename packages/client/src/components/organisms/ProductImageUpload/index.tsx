@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import Image from 'next/image';
-import React, { useState, VFC } from 'react';
+
+import React, { useState } from 'react';
 import { ImCross } from 'react-icons/im';
 
 import { FormLabel } from 'src/components/atoms/FormLabel';
@@ -11,6 +12,8 @@ import { COLOR_PALETTE } from 'src/styles/color_palette';
 import { FONT_SIZE } from 'src/styles/font_size';
 
 import { validations } from 'src/utils/validate';
+
+import type { VFC } from 'react';
 
 import NoImage from '../../../../public/images/no_image.png';
 
@@ -60,6 +63,7 @@ export const ProductImageUpload: VFC<ProductImageUploadProps> = ({
     // TODO : 9.9MB | 10MB | 10.1MB でテストを行う（境界値テスト）
     if (event.target.files[0].size >= validations.maxImageSize) {
       setIsMaxImgSizeError(true);
+
       return;
     }
 
@@ -78,6 +82,7 @@ export const ProductImageUpload: VFC<ProductImageUploadProps> = ({
 
     if (existsSameSizeImg) {
       setIsSameImgSizeError(true);
+
       return;
     }
 
@@ -89,6 +94,7 @@ export const ProductImageUpload: VFC<ProductImageUploadProps> = ({
       )
     ) {
       setIsFileTypeError(true);
+
       return;
     }
 
@@ -96,6 +102,7 @@ export const ProductImageUpload: VFC<ProductImageUploadProps> = ({
     // 3枚以上のファイルをアップロードしようとしたらエラー文を出す。処理を中断する。
     if (selectedFiles.length >= 3) {
       setIsNumberError(true);
+
       return;
     }
 

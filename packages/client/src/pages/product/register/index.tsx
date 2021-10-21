@@ -3,7 +3,7 @@ import { useAuth0, withAuthenticationRequired } from '@auth0/auth0-react';
 import styled from '@emotion/styled';
 import Router from 'next/router';
 import React, { useState } from 'react';
-import { SubmitErrorHandler, SubmitHandler, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 // eslint-disable-next-line import/order
 import Parser from 'ua-parser-js';
 
@@ -21,6 +21,7 @@ import { HeadTemplate } from 'src/components/templates/HeadTemplate';
 import { COLOR_PALETTE } from 'src/styles/color_palette';
 
 import type { NextPage, GetServerSideProps } from 'next';
+import type { SubmitErrorHandler, SubmitHandler } from 'react-hook-form';
 
 type ProductRegisterProps = {
   isMobileUaDeviceType: boolean;
@@ -452,6 +453,7 @@ export default withAuthenticationRequired(ProductRegisterPage, {
 // TODO : UserAgentの判別によってレスポンシブ対応を行っているが、SSGは非対応。SSGにも対応できる方法があったら置き換える
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   const userAgent = Parser(req?.headers['user-agent']);
+
   return { props: { isMobileUaDeviceType: userAgent.device.type === 'mobile' } };
 };
 

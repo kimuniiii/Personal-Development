@@ -1,9 +1,10 @@
-import { Meta, Story } from '@storybook/react/types-6-0';
 import React from 'react';
 
 import { Margin } from 'src/components/layouts/Margin';
 
 import { LazyImage } from '.';
+
+import type { Meta, Story } from '@storybook/react/types-6-0';
 
 export default {
   component: LazyImage,

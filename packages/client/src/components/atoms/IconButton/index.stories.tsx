@@ -1,11 +1,12 @@
 import { action } from '@storybook/addon-actions';
-import { Meta, Story } from '@storybook/react/types-6-0';
 import React from 'react';
 import { IoIosArrowForward } from 'react-icons/io/index';
 
 import { COLOR_PALETTE } from 'src/styles/color_palette';
 
 import { IconButton } from '.';
+
+import type { Meta, Story } from '@storybook/react/types-6-0';
 
 export default {
   components: IconButton,

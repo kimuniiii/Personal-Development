@@ -1,9 +1,10 @@
-import { Story, Meta } from '@storybook/react/types-6-0';
 import React from 'react';
 
 import { productCardListTestData } from 'src/components/organisms/ProductCard/testData';
 
 import { SpProductCard } from '.';
+
+import type { Story, Meta } from '@storybook/react/types-6-0';
 
 export default {
   title: 'organisms/SpProductCard',

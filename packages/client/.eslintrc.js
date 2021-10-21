@@ -76,8 +76,10 @@ module.exports = {
         ],
       },
     ],
+    'newline-before-return': 'error',
     'react/prop-types': 'off',
     'react/react-in-jsx-scope': 'off',
+    '@typescript-eslint/consistent-type-imports': 'error',
     '@typescript-eslint/ban-types': [
       'error',
       {

@@ -1,12 +1,14 @@
-import { css, SerializedStyles } from '@emotion/react';
+import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import React from 'react';
 
 import { buttonStyleTypes } from 'src/components/atoms/Button/buttonStyleTypes';
 
-import { FONT_SIZE } from 'src/styles/font_size';
 import { FONT_WEIGHT } from 'src/styles/font_weight';
 
+// eslint-disable-next-line import/order
+import type { FONT_SIZE } from 'src/styles/font_size';
+import type { SerializedStyles } from '@emotion/react';
 import type { ValueOf } from 'src/typings/utils/ValueOf';
 
 export type ButtonProps = JSX.IntrinsicElements['button'] & {
