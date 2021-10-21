@@ -27,7 +27,10 @@ console.log('process.env.AUTH0_CLIENT_SECRET', process.env.AUTH0_CLIENT_SECRET);
 // チェック観点2 : Grant Types の Client Credentials に チェック を入れているかどうか | OK
 // チェック観点3 : MyPage に リダイレクトできるかどうか | NG
 // 参考文献 : https://stackoverflow.com/questions/60984893/unauthorized-client-grant-type-authorization-code-not-allowed-for-the-client
-export default function deleteAuth0User(req: NextApiRequest, res: NextApiResponse): void {
+export default async function deleteAuth0User(
+  req: NextApiRequest,
+  res: NextApiResponse,
+): Promise<void> {
   try {
     // TODO : 本番用のアクセストークンを取得するために必要な可能性が高いんだが機能しない
     // エラー内容 : Grant type 'client_credentials' not allowed for the client
@@ -59,8 +62,9 @@ export default function deleteAuth0User(req: NextApiRequest, res: NextApiRespons
       return;
     }
 
-    management.deleteUser({ id: user_id });
-    console.log('res.statusCode', res.statusCode);
+    await management.deleteUser({ id: user_id });
+    // Error : API resolved without sending a response for /api/delete/auth0%7C61711fe11e38d90068621830, this may result in stalled requests
+    // 解決方法 : この下に以下のコードを記載する
     res.status(res.statusCode).end();
   } catch (error) {
     if (error instanceof Error) {
