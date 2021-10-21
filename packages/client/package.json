@@ -19,9 +19,9 @@
     "prettier-ci-test": "prettier --list-different --write \"**/*.{css,html,json,js,ts,tsx}\"",
     "not-js-ts-prettier": "prettier --list-different --write \"**/*.{css,html,json}\"",
     "js-ts-prettier": "prettier --list-different --write \"**/*.{js,ts,tsx}\"",
-    "lint": "eslint src --ext .ts,.tsx .",
-    "lint:cache": "eslint --cache --quiet src --ext .ts,.tsx .",
-    "lint:fix": "eslint src --ext .ts,.tsx --fix .",
+    "lint": "eslint \"src/**/*.{ts,tsx}\"",
+    "lint:cache": "eslint --cache --quiet \"src/**/*.{ts,tsx}\"",
+    "lint:fix": "eslint --fix \"src/**/*.{ts,tsx}\"",
     "lint-staged-jest": "jest --passWithNoTests --onlyChanged",
     "jest": "jest --coverage"
   },
