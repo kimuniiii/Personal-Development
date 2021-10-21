@@ -6,7 +6,6 @@
     "dev": "next dev -p 3010",
     "build": "next build",
     "start": "next start",
-    "express-server": "node server.js",
     "vercel:development": "vercel dev --listen 3020 ~/Desktop/Personal-Development/",
     "vercel:preview": "vercel --token=ccpZP7wkF05shEr99bqgYSdC",
     "vercel:production": "vercel --prod",
