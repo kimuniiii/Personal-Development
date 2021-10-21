@@ -32,7 +32,7 @@ const updateAuth0User = async (req: NextApiRequest, res: NextApiResponse): Promi
     // console.log('req.body', req.body);
 
     await management.updateUser({ id: params[0] }, { nickname: params[1] });
-    res.status(200).end();
+    res.status(res.statusCode).end();
   } catch (error) {
     if (error instanceof Error) {
       console.error(error);
