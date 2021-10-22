@@ -79,6 +79,7 @@ module.exports = {
     ],
     'newline-before-return': 'error',
     'no-console': 'error',
+    'import/no-default-export': 'error',
     'unused-imports/no-unused-imports': 'error',
     'unused-imports/no-unused-vars': [
       'error',
@@ -100,4 +101,12 @@ module.exports = {
       },
     ],
   },
+  overrides: [
+    {
+      files: ['*.stories.tsx', 'src/pages/**/*'],
+      rules: {
+        'import/no-default-export': 'off',
+      },
+    },
+  ],
 };
