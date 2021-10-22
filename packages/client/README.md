@@ -2,6 +2,7 @@
 
 - React
 - React Hook Form
+- React Auth0
 - TypeScript
 - Next.js
 - Apollo Client
