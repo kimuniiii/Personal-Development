@@ -7,8 +7,12 @@
 - Next.js
 - Apollo Client
 - Emotion
+- Storybook
+- GitHub Actions
 - ESLint
 - Prettier
 - Husky
 - lint-staged
 - Renovate
+- Jest
+- React Testing Library
