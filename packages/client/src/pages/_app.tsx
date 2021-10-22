@@ -35,7 +35,7 @@ const CustomApp = ({
   // MEMO : `useMemo`で`絶対に`キャッシュ化をしないといけない
   // MEMO : なぜなら「ブラウザバック」の時と「Router.push()」の時にデータを取得できないから
   const createApolloClient = useMemo(() => {
-    console.log('1回目は走るけど2回目以降は走らない');
+    // console.log('1回目は走るけど2回目以降は走らない');
 
     return new ApolloClient({
       uri: getApiEndPoint(process.env.NEXT_PUBLIC_VERCEL_ENV),
@@ -49,10 +49,10 @@ const CustomApp = ({
 
   // ログイン後のリダイレクト先を指定
   const redirectUri = `${origin}/my-page`;
-  console.log(redirectUri);
+  // console.log(redirectUri);
 
-  console.log('App Component');
-  console.log('NEXT_PUBLIC_VERCEL_ENV', process.env.NEXT_PUBLIC_VERCEL_ENV);
+  // console.log('App Component');
+  // console.log('NEXT_PUBLIC_VERCEL_ENV', process.env.NEXT_PUBLIC_VERCEL_ENV);
 
   // console.log('NEXT_PUBLIC_AUTH0_DOMAIN は 開発環境では値が入る');
   // console.log('NEXT_PUBLIC_AUTH0_DOMAIN', process.env.NEXT_PUBLIC_AUTH0_DOMAIN);
@@ -81,8 +81,8 @@ const CustomApp = ({
   }, []);
 
   const onRedirectCallback = (appState: AppState): void => {
-    console.log('appState', appState);
-    console.log('appState?.returnTo', appState?.returnTo);
+    // console.log('appState', appState);
+    // console.log('appState?.returnTo', appState?.returnTo);
     Router.replace(appState?.returnTo || '/my-page');
   };
 
@@ -121,7 +121,7 @@ type CustomAppInitialProps = AppInitialProps & {
 
 CustomApp.getInitialProps = async (appContext: AppContext): Promise<CustomAppInitialProps> => {
   // VERCEL_ENV : Vercel の ダッシュボードで登録した環境変数
-  console.log(process.env.VERCEL_ENV);
+  // console.log(process.env.VERCEL_ENV);
   const origin = getRedirectUriOrigin(process.env.VERCEL_ENV);
   const auth0Domain = getAuth0Domain(process.env.VERCEL_ENV);
   const auth0ClientId = getAuth0ClientId(process.env.VERCEL_ENV);

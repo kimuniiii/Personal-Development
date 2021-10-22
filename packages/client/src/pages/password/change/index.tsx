@@ -30,6 +30,7 @@ const PasswordChangePage = (): JSX.Element => {
    * 送信ボタンを押した時に呼び出されるイベントハンドラ
    */
   const onSubmit = (data: Record<string, unknown>): void => {
+    // eslint-disable-next-line no-console
     console.log(data);
   };
 

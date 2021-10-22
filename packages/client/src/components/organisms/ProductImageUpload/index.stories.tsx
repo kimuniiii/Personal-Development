@@ -23,8 +23,8 @@ const Template: Story<Props> = (args) => {
    */
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
-    console.log('selectedFiles', selectedFiles);
-    console.log({ profileImage: selectedFiles });
+    // console.log('selectedFiles', selectedFiles);
+    // console.log({ profileImage: selectedFiles });
   };
 
   /**

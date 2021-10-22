@@ -63,6 +63,7 @@ export const SearchBox: VFC<SearchBoxProps> = ({
    * @概要 バリデーション失敗時に呼び出されるイベントハンドラ
    */
   const handleOnError: SubmitErrorHandler<UseSearchFormInputs> = (errors) => {
+    // eslint-disable-next-line no-console
     console.error(errors);
   };
 

@@ -16,7 +16,7 @@ export const changePassword = async ({
   auth0ClientId,
   user,
 }: ChangePasswordArgs): Promise<Response> => {
-  console.log('change-password-function');
+  // console.log('change-password-function');
 
   // console.log('auth0Domain は 値が入っているはず');
   // console.log('auth0Domain', auth0Domain);

@@ -34,9 +34,6 @@ const LoginFormPage = (): JSX.Element => {
     if (data.checkbox === undefined) {
       data.checkbox = 'off';
     }
-
-    console.log(data.checkbox);
-    console.log(data);
   };
 
   return (

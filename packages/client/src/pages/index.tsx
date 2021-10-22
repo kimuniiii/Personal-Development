@@ -46,7 +46,7 @@ const TopPage: NextPage<TopPageProps> = ({ origin, isMobileUaDeviceType }) => {
   const [paginationCurrentIndex, setPaginationCurrentIndex] = useState(SEARCH_CURRENT_PAGE_NUMBER);
   const [getProductData, setGetProductData] = useState(GET_PRODUCT_INITIAL_DATA);
 
-  const { loading, error, data, previousData, client } = useQuery<{
+  const { loading, error, data, client } = useQuery<{
     product: [{ id: number; name: string; price: number; base64_image: string }];
   }>(getProductData);
 
@@ -67,9 +67,13 @@ const TopPage: NextPage<TopPageProps> = ({ origin, isMobileUaDeviceType }) => {
           }
         `,
       })
-      .then((result) => console.log('useEffect | result', result));
+      .then((result) => {
+        // eslint-disable-next-line no-console
+        console.log('useEffect | result', result);
+      });
 
     return (): void => {
+      // eslint-disable-next-line no-console
       console.log('useEffect | 復習 | DOMを破棄するときに処理が走る');
     };
   });
@@ -77,27 +81,27 @@ const TopPage: NextPage<TopPageProps> = ({ origin, isMobileUaDeviceType }) => {
   // API通信の結果に応じて「動的」に変化していく予定
   const SEARCH_TOTAL_RESULT_NUMBER = data?.product?.length;
 
-  console.log('data', data);
-  console.log('data?.product', data?.product);
-  console.log('previousData?.product', previousData?.product);
+  // console.log('data', data);
+  // console.log('data?.product', data?.product);
+  // console.log('previousData?.product', previousData?.product);
 
   if (error) {
     return <ErrorTemplate error={error} />;
   }
 
-  console.log('初期描画時は空文字・検索ボタンを押したら選択したカテゴリーの情報入る');
-  console.log('selectedCategory', selectedCategory);
+  // console.log('初期描画時は空文字・検索ボタンを押したら選択したカテゴリーの情報入る');
+  // console.log('selectedCategory', selectedCategory);
 
   /**
    * @概要 ページネーションボタンを押した時に呼び出されるイベントハンドラ
    */
   const onPaginationBtnClick = (paginationIndex: number): void => {
     if (paginationCurrentIndex < paginationIndex) {
-      console.log('今よりも先に進む');
-      console.log('paginationCurrentIndex', paginationCurrentIndex);
-      console.log('paginationIndex', paginationIndex);
+      // console.log('今よりも先に進む');
+      // console.log('paginationCurrentIndex', paginationCurrentIndex);
+      // console.log('paginationIndex', paginationIndex);
 
-      console.log('offSet', offSet);
+      // console.log('offSet', offSet);
       setOffSet((prev: number) => prev + 6);
 
       // 検索してなかったら「カテゴリー」で絞り込みを行う`query`を実行しないようにする
@@ -127,12 +131,12 @@ const TopPage: NextPage<TopPageProps> = ({ origin, isMobileUaDeviceType }) => {
     }
 
     if (paginationCurrentIndex > paginationIndex) {
-      console.log('今よりも前に戻る');
-      console.log('paginationCurrentIndex', paginationCurrentIndex);
-      console.log('paginationIndex', paginationIndex);
+      // console.log('今よりも前に戻る');
+      // console.log('paginationCurrentIndex', paginationCurrentIndex);
+      // console.log('paginationIndex', paginationIndex);
 
-      console.log('offSet', offSet);
-      console.log('offSet - 12', offSet - 12);
+      // console.log('offSet', offSet);
+      // console.log('offSet - 12', offSet - 12);
       setOffSet((prev: number) => prev - 6);
 
       // 検索してなかったら「カテゴリー」で絞り込みを行う`query`を実行しないようにする
@@ -166,8 +170,8 @@ const TopPage: NextPage<TopPageProps> = ({ origin, isMobileUaDeviceType }) => {
     setPaginationCurrentIndex(paginationIndex);
   };
 
-  console.log('イベントハンドラの外');
-  console.log('offSet', offSet);
+  // console.log('イベントハンドラの外');
+  // console.log('offSet', offSet);
 
   return (
     <React.Fragment>
