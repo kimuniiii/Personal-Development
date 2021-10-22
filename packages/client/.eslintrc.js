@@ -13,7 +13,7 @@ module.exports = {
   ],
   parser: '@typescript-eslint/parser',
   // plugins に import を 加えないと`Error`になる | 2021年10月15日時点
-  plugins: ['@typescript-eslint', 'react', 'jest', 'import'],
+  plugins: ['@typescript-eslint', 'react', 'jest', 'import', 'unused-imports'],
   settings: {
     // TypeScript の import を eslint-import-resolver-typescript で解決するために必要
     'import/resolver': {
@@ -36,40 +36,41 @@ module.exports = {
         // 'newlines-between': 'always-and-inside-groups' でないと設定と保存時の挙動が一致しない | 2021年10月15日時点
         'newlines-between': 'always-and-inside-groups',
         alphabetize: { caseInsensitive: true, order: 'asc' },
-        groups: ['builtin', 'external', 'index', 'type', 'sibling', 'parent'],
+        groups: ['builtin', 'external', 'internal', 'index', 'type', 'sibling', 'parent'],
+        pathGroupsExcludedImportTypes: ['builtin'],
         pathGroups: [
           {
-            group: 'index',
+            group: 'internal',
             pattern: 'src/components/**',
             position: 'before',
           },
           {
-            group: 'index',
+            group: 'internal',
             pattern: 'src/constants',
             position: 'before',
           },
           {
-            group: 'index',
+            group: 'internal',
             pattern: 'src/hooks/**',
             position: 'before',
           },
           {
-            group: 'index',
+            group: 'internal',
             pattern: 'src/lib/**',
             position: 'before',
           },
           {
-            group: 'index',
+            group: 'internal',
             pattern: 'src/stores/**',
             position: 'before',
           },
           {
-            group: 'index',
+            group: 'internal',
             pattern: 'src/styles/**',
             position: 'before',
           },
           {
-            group: 'index',
+            group: 'internal',
             pattern: 'src/utils/**',
             position: 'before',
           },
@@ -78,6 +79,7 @@ module.exports = {
     ],
     'newline-before-return': 'error',
     'no-console': 'error',
+    'unused-imports/no-unused-imports': 'error',
     'react/prop-types': 'off',
     'react/react-in-jsx-scope': 'off',
     '@typescript-eslint/explicit-module-boundary-types': 'error',
