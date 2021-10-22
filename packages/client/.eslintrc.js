@@ -77,6 +77,7 @@ module.exports = {
       },
     ],
     'newline-before-return': 'error',
+    'no-console': 'error',
     'react/prop-types': 'off',
     'react/react-in-jsx-scope': 'off',
     '@typescript-eslint/explicit-module-boundary-types': 'error',
