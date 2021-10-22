@@ -76,7 +76,7 @@ const GET_PRODUCT_DATA_LENGTH = gql`
   }
 `;
 
-console.log(PRODUCT_REGISTER);
+// console.log(PRODUCT_REGISTER);
 
 /**
  * @概要 マイページの商品を出品するボタンを押したら表示されるページコンポーネント
@@ -106,7 +106,7 @@ const ProductRegisterPage: NextPage<ProductRegisterProps> = ({ isMobileUaDeviceT
     ? data?.product_aggregate.aggregate.count + 1
     : 1;
 
-  console.log(MUTATION_ID);
+  // console.log(MUTATION_ID);
 
   // ProductImageUpload に関する状態管理と更新関数とイベントハンドラ
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
@@ -140,25 +140,25 @@ const ProductRegisterPage: NextPage<ProductRegisterProps> = ({ isMobileUaDeviceT
    * @概要 バリデーション成功時に呼び出されるイベントハンドラ
    */
   const handleOnSubmit: SubmitHandler<Record<string, unknown>> = (data): void => {
-    console.log('data');
-    console.table(data);
-    console.log('data[select-category-box]');
-    console.log(data['select-category-box']);
-    console.log('selectedFiles');
-    console.table(selectedFiles);
-    console.log('data + selectedFiles');
-    console.table({ ...data, productImage: selectedFiles });
+    // console.log('data');
+    // console.table(data);
+    // console.log('data[select-category-box]');
+    // console.log(data['select-category-box']);
+    // console.log('selectedFiles');
+    // console.table(selectedFiles);
+    // console.log('data + selectedFiles');
+    // console.table({ ...data, productImage: selectedFiles });
 
     const reader = new FileReader();
 
     reader.addEventListener(
       'load',
       () => {
-        console.log('ここには「Base64」で変換された文字列を格納できる');
+        // console.log('ここには「Base64」で変換された文字列を格納できる');
         // 画像ファイルを base64 文字列に変換している
-        console.log('reader.result', reader.result);
-        console.log('addEventListenerの中身');
-        console.table({ ...data, profileImageBase64: reader.result });
+        // console.log('reader.result', reader.result);
+        // console.log('addEventListenerの中身');
+        // console.table({ ...data, profileImageBase64: reader.result });
         // ここに`GraphQL`の`mutation`を入れたらいけるはず
         productRegister({
           variables: {
@@ -172,15 +172,15 @@ const ProductRegisterPage: NextPage<ProductRegisterProps> = ({ isMobileUaDeviceT
             user_id: user?.sub,
           },
         })
-          .then((res) => {
-            console.log('then');
-            console.log('res', res);
+          .then(() => {
+            // console.log('then');
+            // console.log('res', res);
             // DBに商品登録が完了したら「マイページ」に画面遷移させる
             Router.replace('/my-page');
           })
           .catch((error) => {
-            console.log('catch');
-            console.log('error', error);
+            // console.log('catch');
+            // console.log('error', error);
             <ErrorTemplate error={error} />;
           });
       },
@@ -188,12 +188,12 @@ const ProductRegisterPage: NextPage<ProductRegisterProps> = ({ isMobileUaDeviceT
     );
 
     if (selectedFiles.length === 1) {
-      const test1 = reader.readAsDataURL(selectedFiles[0]);
-      console.log('if文の中身');
-      console.log('selectedFile', selectedFiles);
-      console.log('test1', test1);
-      console.log('以下の値は「null」になっている');
-      console.log('reader.result', reader.result);
+      reader.readAsDataURL(selectedFiles[0]);
+      // console.log('if文の中身');
+      // console.log('selectedFile', selectedFiles);
+      // console.log('test1', test1);
+      // console.log('以下の値は「null」になっている');
+      // console.log('reader.result', reader.result);
     }
 
     // FIXME : Uncaught InvalidStateError: Failed to execute 'readAsDataURL' on 'FileReader': The object is already busy reading Blobs.
@@ -227,6 +227,7 @@ const ProductRegisterPage: NextPage<ProductRegisterProps> = ({ isMobileUaDeviceT
    * @概要 バリデーション失敗時に呼び出されるイベントハンドラ
    */
   const handleOnError: SubmitErrorHandler<Record<string, unknown>> = (errors) => {
+    // eslint-disable-next-line no-console
     console.error(errors);
   };
 

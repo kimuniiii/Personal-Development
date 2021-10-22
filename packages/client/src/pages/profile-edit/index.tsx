@@ -65,7 +65,6 @@ const ProfileEditPage: NextPage<ProfileEditProps> = ({ isMobileUaDeviceType, ori
   const { user } = useAuth0();
 
   // プロフィール編集画像に関する「状態変数」と「更新関数」と「イベントハンドラ」
-  const [selectedFile, setSelectedFile] = useState<File>();
   const [imageUrl, setImageUrl] = useState<string>('');
   const [imageBase64, setImageBase64] = useState<string | ArrayBuffer | null>('');
 
@@ -86,13 +85,13 @@ const ProfileEditPage: NextPage<ProfileEditProps> = ({ isMobileUaDeviceType, ori
    * @概要 バリデーション成功時に呼び出されるイベントハンドラ
    */
   const handleOnSubmit: SubmitHandler<UseFormInputs> = async (values) => {
-    console.log('selectedFile');
-    console.table(selectedFile);
-    console.log('values');
-    console.table(values);
-    console.log('{ ...values, profileImage: selectedFile }');
-    console.table({ ...values, profileImage: selectedFile });
-    console.log('imageBase64', imageBase64);
+    // console.log('selectedFile');
+    // console.table(selectedFile);
+    // console.log('values');
+    // console.table(values);
+    // console.log('{ ...values, profileImage: selectedFile }');
+    // console.table({ ...values, profileImage: selectedFile });
+    // console.log('imageBase64', imageBase64);
 
     fetch(`/api/update/${user?.sub}/${values['firstName']}${values['lastName']}`, {
       method: 'PUT',
@@ -100,12 +99,14 @@ const ProfileEditPage: NextPage<ProfileEditProps> = ({ isMobileUaDeviceType, ori
     })
       .then((res) => {
         if (res.ok) {
-          console.log('res.ok');
+          // console.log('res.ok');
           Router.replace('/my-page');
         } else {
+          // eslint-disable-next-line no-console
           console.error('response failed');
         }
       })
+      // eslint-disable-next-line no-console
       .catch((error) => console.error(error));
 
     // TODO : フォームデータを作成
@@ -124,6 +125,7 @@ const ProfileEditPage: NextPage<ProfileEditProps> = ({ isMobileUaDeviceType, ori
    * @概要 バリデーション失敗時に呼び出されるイベントハンドラ
    */
   const handleOnError: SubmitErrorHandler<UseFormInputs> = (errors) => {
+    // eslint-disable-next-line no-console
     console.error(errors);
   };
 
@@ -131,7 +133,6 @@ const ProfileEditPage: NextPage<ProfileEditProps> = ({ isMobileUaDeviceType, ori
    * @概要 子供のコンポーネントで呼び出すイベントハンドラ
    */
   const onFileSelect = (selectedFile: File): void => {
-    setSelectedFile(selectedFile);
     setImageUrl(URL.createObjectURL(selectedFile));
 
     // 送信ボタンを押した時ではなくファイルを選択した時にBase64形式に変換する
@@ -142,9 +143,9 @@ const ProfileEditPage: NextPage<ProfileEditProps> = ({ isMobileUaDeviceType, ori
     reader.addEventListener(
       'load',
       () => {
-        console.log('addEventListenerの中身');
-        console.log('ここには「Base64」で変換された文字列を格納できる');
-        console.log('reader.result', reader.result);
+        // console.log('addEventListenerの中身');
+        // console.log('ここには「Base64」で変換された文字列を格納できる');
+        // console.log('reader.result', reader.result);
         setImageBase64(reader.result);
       },
       false,

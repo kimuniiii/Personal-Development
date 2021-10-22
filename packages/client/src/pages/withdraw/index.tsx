@@ -28,8 +28,6 @@ type WithDrawProps = {
  * @説明2 退会ボタンを押して、退会が完了したら、トップ画面に画面遷移する
  */
 const WithDrawPage: NextPage<WithDrawProps> = ({ isMobileUaDeviceType, origin }) => {
-  console.log('WithDrawPage');
-
   const { user, logout } = useAuth0();
 
   const USER_DELETE = gql`
@@ -67,7 +65,7 @@ const WithDrawPage: NextPage<WithDrawProps> = ({ isMobileUaDeviceType, origin })
     })
       .then((res) => {
         if (res.ok) {
-          console.log('res.ok');
+          // console.log('res.ok');
           // Auth0 の DB から情報を削除した後に Next.js から直接 Hasura の情報を削除する
           userDelete()
             .then(() => {
@@ -76,11 +74,14 @@ const WithDrawPage: NextPage<WithDrawProps> = ({ isMobileUaDeviceType, origin })
               // TODO : mutation が完了した後に「退会画面」が一瞬チラつく問題を解決したい
               logout({ returnTo: window.location.origin });
             })
+            // eslint-disable-next-line no-console
             .catch((error) => console.error(error));
         } else {
+          // eslint-disable-next-line no-console
           console.error('response failed');
         }
       })
+      // eslint-disable-next-line no-console
       .catch((error) => console.error(error));
   };
 

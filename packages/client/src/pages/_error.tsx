@@ -18,8 +18,8 @@ type Props = {
  * @概要 本番環境でのみ使用される`Error Page Component`
  */
 const ErrorPage: NextPage<Props> = ({ title, errorCode }) => {
-  console.log('Error Page Title', title);
-  console.log('Error Page statusCode', errorCode);
+  // console.log('Error Page Title', title);
+  // console.log('Error Page statusCode', errorCode);
 
   return (
     <React.Fragment>

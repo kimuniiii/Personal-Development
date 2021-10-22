@@ -27,6 +27,7 @@ const SignUpFormPage = (): JSX.Element => {
    * 送信ボタンを押した時に呼び出されるイベントハンドラ
    */
   const onSubmit = (data: unknown): void => {
+    // eslint-disable-next-line no-console
     console.log(data);
   };
 

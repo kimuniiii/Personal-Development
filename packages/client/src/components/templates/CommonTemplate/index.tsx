@@ -38,11 +38,11 @@ export const CommonTemplate: VFC<CommonTemplateProps> = ({
   isMobileUaDeviceType,
   isSideBar,
 }) => {
-  console.log('CommonTemplate');
+  // console.log('CommonTemplate');
   const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
 
   const theme = useTheme() as Theme;
-  console.log('theme', theme);
+  // console.log('theme', theme);
 
   const [isDarkMode, setIsDarkMode] = useState(false);
 

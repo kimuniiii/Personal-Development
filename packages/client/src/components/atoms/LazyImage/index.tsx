@@ -34,7 +34,7 @@ export const LazyImage: VFC<LazyImageProps> = ({
 
   let observer: IntersectionObserver;
 
-  console.log('再レンダリング確認用');
+  // console.log('再レンダリング確認用');
 
   useEffect(() => {
     if (imageRef.current) {
@@ -45,9 +45,9 @@ export const LazyImage: VFC<LazyImageProps> = ({
             // 画像が画面内に入ってきたらpropsで渡したsrc属性に更新をかける
             // TODO : 画像が画面内に入ってきても画像が描画されない場合がある
             if (entry.intersectionRatio > 0 && entry.isIntersecting) {
-              console.log('setImageSrcの前 | 画像が画面内に入ってきたらここの処理が走る');
+              // console.log('setImageSrcの前 | 画像が画面内に入ってきたらここの処理が走る');
               setImageSrc(src);
-              console.log('setImageSrcの後 | 画像が画面内に入ってきたらsrcが更新される');
+              // console.log('setImageSrcの後 | 画像が画面内に入ってきたらsrcが更新される');
               // 交差を監視したい要素の「observe」を解除する
               // observer.unobserve(imageRef.current);
               // if (observer && observer.unobserve) {

@@ -21,6 +21,7 @@ const Template: Story<Props> = (args) => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
+    // eslint-disable-next-line no-console
     console.log('selectedFile', selectedFile);
   };
 

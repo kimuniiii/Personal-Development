@@ -106,9 +106,9 @@ export const ProductImageUpload: VFC<ProductImageUploadProps> = ({
       return;
     }
 
-    console.log('event.target.value', event.target.value);
-    console.log('event.target.files', event.target.files);
-    console.log('event.target.files[0]', event.target.files[0]);
+    // console.log('event.target.value', event.target.value);
+    // console.log('event.target.files', event.target.files);
+    // console.log('event.target.files[0]', event.target.files[0]);
 
     onFileSelect([...selectedFiles, ...event.target.files]);
 
