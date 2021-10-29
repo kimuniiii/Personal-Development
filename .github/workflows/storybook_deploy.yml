@@ -33,8 +33,8 @@ jobs:
           key: ${{ matrix.os }}-node-v${{ matrix.node }}-deps-${{ hashFiles(format('{0}{1}', github.workspace, '/yarn.lock')) }}
 
       - name: Yarn Install
-        if: steps.node_modules_cache_id.outputs.cache-hit != 'true'
-        run: yarn client install --frozen-lockfile
+        # if: steps.node_modules_cache_id.outputs.cache-hit != 'true'
+        run: yarn client install
 
       - name: build storybook
         run: yarn client build-storybook
