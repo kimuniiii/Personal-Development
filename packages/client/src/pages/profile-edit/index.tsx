@@ -331,7 +331,6 @@ const ProfileEditPage: NextPage<ProfileEditProps> = ({ isMobileUaDeviceType, ori
                 width='100%'
                 fontSizeValue='16px'
                 buttonContent='プロフィールを変更する'
-                onClick={(): void => alert('変更するボタンをクリック')}
               />
             </StProfileEditContainer>
           </StProfileEditFormContainer>
@@ -501,7 +500,6 @@ const ProfileEditPage: NextPage<ProfileEditProps> = ({ isMobileUaDeviceType, ori
                 width='100%'
                 fontSizeValue='16px'
                 buttonContent='プロフィールを変更する'
-                onClick={(): void => alert('変更するボタンをクリック')}
               />
             </StProfileEditContainer>
           </StProfileEditFormContainer>

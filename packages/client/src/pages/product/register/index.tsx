@@ -335,7 +335,6 @@ const ProductRegisterPage: NextPage<ProductRegisterProps> = ({ isMobileUaDeviceT
                 width='100%'
                 fontSizeValue='16px'
                 buttonContent='商品を出品する'
-                onClick={(): void => alert('出品するボタンをクリック')}
               />
             </StProfileEditContainer>
           </StProfileEditFormContainer>
@@ -431,7 +430,6 @@ const ProductRegisterPage: NextPage<ProductRegisterProps> = ({ isMobileUaDeviceT
                 width='100%'
                 fontSizeValue='16px'
                 buttonContent='商品を出品する'
-                onClick={(): void => alert('出品するボタンをクリック')}
               />
             </StProfileEditContainer>
           </StProfileEditFormContainer>
