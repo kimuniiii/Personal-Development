@@ -27,11 +27,11 @@ jobs:
           path: node_modules
           key: ${{ matrix.os }}-node-v${{ matrix.node }}-deps-${{ hashFiles(format('{0}{1}', github.workspace, '/yarn.lock')) }}
 
-      - name: Yarn Install
-        if: steps.node_modules_cache_id.outputs.cache-hit != 'true'
-        run: yarn client install --frozen-lockfile
+      - name: Client Yarn Install
+        # if: steps.node_modules_cache_id.outputs.cache-hit != 'true'
+        run: yarn client install
 
-      - name: Prettier Test
+      - name: Client Prettier Test
         run: yarn client prettier-ci-test
 
       - name: Client ESLint

@@ -78,7 +78,6 @@ module.exports = {
       },
     ],
     'newline-before-return': 'error',
-    'no-console': 'error',
     'import/no-default-export': 'error',
     'unused-imports/no-unused-imports': 'error',
     'unused-imports/no-unused-vars': [
