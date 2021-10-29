@@ -398,6 +398,7 @@ const ProductRegisterPage: NextPage<ProductRegisterProps> = ({ isMobileUaDeviceT
                 errors={errors}
                 register={register('productDetail', {
                   required: { message: '必須入力項目です！', value: true },
+                  maxLength: { message: '最大文字数は200文字です', value: 200 },
                 })}
               />
               <Margin bottom='16px' />
