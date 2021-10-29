@@ -55,10 +55,16 @@ export const SelectBox = React.forwardRef<HTMLSelectElement, SelectBoxProps>(
         ) : null}
         <StSelectBoxArea>
           <StSelect id={id} fontSizeValue={fontSizeValue} padding={padding} {...register} ref={ref}>
-            {optionList.map((cur) => (
-              <option key={cur} value={cur}>
-                {cur}
-              </option>
+            {optionList.map((cur, idx) => (
+              <React.Fragment key={cur}>
+                {idx === 0 ? (
+                  <option value='' selected disabled>
+                    {cur}
+                  </option>
+                ) : (
+                  <option value={cur}>{cur}</option>
+                )}
+              </React.Fragment>
             ))}
           </StSelect>
           <IoIosArrowDown width={12} height={12} fill={COLOR_PALETTE.BLACK} />
