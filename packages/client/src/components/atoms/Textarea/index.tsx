@@ -145,9 +145,11 @@ const StTextarea = styled.textarea<StTextareaProps>`
   ${({ disabled }): SerializedStyles | null =>
     disabled
       ? css`
-          background-color: ${COLOR_PALETTE.GRAY};
-          cursor: not-allowed;
-          opacity: 0.3;
+          &:disabled {
+            background-color: ${COLOR_PALETTE.GRAY};
+            cursor: not-allowed;
+            opacity: 0.3;
+          }
         `
       : null}
 `;

@@ -1,3 +1,4 @@
+import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { ErrorMessage } from '@hookform/error-message';
 import React from 'react';
@@ -8,6 +9,8 @@ import { Margin } from 'src/components/layouts/Margin';
 
 import { COLOR_PALETTE } from 'src/styles/color_palette';
 import { FONT_SIZE } from 'src/styles/font_size';
+
+import type { SerializedStyles } from '@emotion/react';
 
 import type { UseFormRegisterReturn } from 'react-hook-form';
 import type { ValueOf } from 'src/typings/utils/ValueOf';
@@ -54,11 +57,24 @@ export const SelectBox = React.forwardRef<HTMLSelectElement, SelectBoxProps>(
           </>
         ) : null}
         <StSelectBoxArea>
-          <StSelect id={id} fontSizeValue={fontSizeValue} padding={padding} {...register} ref={ref}>
-            {optionList.map((cur) => (
-              <option key={cur} value={cur}>
-                {cur}
-              </option>
+          <StSelect
+            id={id}
+            fontSizeValue={fontSizeValue}
+            padding={padding}
+            isError={isError}
+            {...register}
+            ref={ref}
+          >
+            {optionList.map((cur, idx) => (
+              <React.Fragment key={cur}>
+                {idx === 0 ? (
+                  <option value='' selected disabled>
+                    {cur}
+                  </option>
+                ) : (
+                  <option value={cur}>{cur}</option>
+                )}
+              </React.Fragment>
             ))}
           </StSelect>
           <IoIosArrowDown width={12} height={12} fill={COLOR_PALETTE.BLACK} />
@@ -101,7 +117,7 @@ const StSelectBoxArea = styled.div`
   position: relative;
 `;
 
-const StSelect = styled.select<Pick<SelectBoxProps, 'fontSizeValue' | 'padding'>>`
+const StSelect = styled.select<Pick<SelectBoxProps, 'fontSizeValue' | 'padding' | 'isError'>>`
   width: 100%;
   padding: ${({ padding }): string => padding ?? '16px 8px'};
   border: 1px solid ${COLOR_PALETTE.BLACK};
@@ -121,6 +137,21 @@ const StSelect = styled.select<Pick<SelectBoxProps, 'fontSizeValue' | 'padding'>
   &:focus {
     border: 2px solid ${COLOR_PALETTE.MAIN_COLOR};
   }
+
+  /* エラー状態のスタイル */
+  ${({ isError }): SerializedStyles | null =>
+    isError
+      ? css`
+          border: solid 2px ${COLOR_PALETTE.ERROR_COLOR};
+          background-color: ${COLOR_PALETTE.WARNING_COLOR};
+
+          &:hover,
+          &:focus {
+            border: solid 2px ${COLOR_PALETTE.ERROR_COLOR};
+            background-color: ${COLOR_PALETTE.WARNING_COLOR};
+          }
+        `
+      : null}
 `;
 
 const StErrorMessage = styled.div`

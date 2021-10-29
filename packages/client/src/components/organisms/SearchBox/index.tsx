@@ -67,13 +67,6 @@ export const SearchBox: VFC<SearchBoxProps> = ({
     console.error(errors);
   };
 
-  /**
-   * @概要 検索ボタン押下時に呼び出されるイベントハンドラ
-   */
-  const handleSearchBtnClick = (): void => {
-    alert('検索するボタンをクリックしました');
-  };
-
   return (
     <StSearchForm
       isMobileUaDeviceType={isMobileUaDeviceType}
@@ -114,7 +107,6 @@ export const SearchBox: VFC<SearchBoxProps> = ({
         width='300px'
         fontSizeValue='16px'
         buttonContent='検索する'
-        onClick={handleSearchBtnClick}
       />
     </StSearchForm>
   );

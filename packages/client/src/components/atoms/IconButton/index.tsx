@@ -79,11 +79,13 @@ const StIconButton = styled.button<Omit<IconButtonProps, 'type' | 'svgComponent'
   ${({ disabled }): SerializedStyles | null =>
     disabled
       ? css`
-          cursor: not-allowed;
-          opacity: 0.45;
+          &:disabled {
+            cursor: not-allowed;
+            opacity: 0.45;
 
-          &:hover {
-            background-color: ${COLOR_PALETTE.WHITE};
+            &:hover {
+              background-color: ${COLOR_PALETTE.WHITE};
+            }
           }
         `
       : null}

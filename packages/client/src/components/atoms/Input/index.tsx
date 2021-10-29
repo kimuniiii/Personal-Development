@@ -147,16 +147,18 @@ const StInput = styled.input<StInputProps>`
   ${({ disabled }): SerializedStyles | null =>
     disabled
       ? css`
-          background-color: ${COLOR_PALETTE.GRAY};
-          cursor: not-allowed;
-          opacity: 0.3;
+          &:disabled {
+            background-color: ${COLOR_PALETTE.GRAY};
+            cursor: not-allowed;
+            opacity: 0.3;
 
-          &:hover {
-            border: 1px solid ${COLOR_PALETTE.DARK_GRAY};
-          }
+            &:hover {
+              border: 1px solid ${COLOR_PALETTE.DARK_GRAY};
+            }
 
-          &:focus {
-            border: 1px solid ${COLOR_PALETTE.DARK_GRAY};
+            &:focus {
+              border: 1px solid ${COLOR_PALETTE.DARK_GRAY};
+            }
           }
         `
       : null}

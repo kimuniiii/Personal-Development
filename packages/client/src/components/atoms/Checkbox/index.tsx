@@ -40,8 +40,10 @@ const StLabel = styled.label<Pick<CheckboxProps, 'disabled'>>`
   ${({ disabled }): SerializedStyles | null =>
     disabled
       ? css`
-          cursor: not-allowed;
-          opacity: 0.3;
+          &:disabled {
+            cursor: not-allowed;
+            opacity: 0.3;
+          }
         `
       : null}
 `;

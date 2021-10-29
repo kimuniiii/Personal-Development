@@ -1,14 +1,17 @@
 {
-  "workbench.iconTheme": "vscode-icons",
   "editor.bracketPairColorization.enabled": true,
-  "editor.formatOnSave": true,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "liveServer.settings.port": 5501,
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "workbench.editor.enablePreview": false,
+  "workbench.editor.showTabs": true,
+  "workbench.iconTheme": "vscode-icons",
   "editor.codeActionsOnSave": {
+    "source.addMissingImports": true,
     "source.fixAll.eslint": true
   },
-  "liveServer.settings.port": 5501,
-  "workbench.editor.showTabs": true,
-  "workbench.editor.enablePreview": false,
   "search.exclude": {
     "**/node_modules": true,
     "**/yarn.lock": true

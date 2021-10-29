@@ -8,25 +8,33 @@ export const buttonStyleTypes = {
     color: ${COLOR_PALETTE.BLACK};
 
     &:hover {
+      cursor: pointer;
       opacity: 0.6;
     }
   `,
   PRIMARY_DISABLED: css`
-    background-color: ${COLOR_PALETTE.GRAY};
-    color: ${COLOR_PALETTE.BLACK};
+    &:disabled {
+      background-color: ${COLOR_PALETTE.GRAY};
+      color: ${COLOR_PALETTE.BLACK};
+      cursor: not-allowed;
+    }
   `,
   SECONDARY: css`
     background-color: ${COLOR_PALETTE.MAIN_COLOR};
     color: ${COLOR_PALETTE.WHITE};
 
     &:hover {
+      cursor: pointer;
       opacity: 0.6;
     }
   `,
   SECONDARY_DISABLED: css`
-    border: none;
-    background-color: ${COLOR_PALETTE.GRAY};
-    color: ${COLOR_PALETTE.BLACK};
+    &:disabled {
+      border: none;
+      background-color: ${COLOR_PALETTE.GRAY};
+      color: ${COLOR_PALETTE.BLACK};
+      cursor: not-allowed;
+    }
   `,
   TERTIARY: css`
     border: 1px solid ${COLOR_PALETTE.MAIN_COLOR};
@@ -34,23 +42,31 @@ export const buttonStyleTypes = {
     color: ${COLOR_PALETTE.MAIN_COLOR};
 
     &:hover {
+      cursor: pointer;
       opacity: 0.6;
     }
   `,
   TERTIARY_DISABLED: css`
-    border: none;
-    background-color: ${COLOR_PALETTE.GRAY};
-    color: ${COLOR_PALETTE.BLACK};
+    &:disabled {
+      border: none;
+      background-color: ${COLOR_PALETTE.GRAY};
+      color: ${COLOR_PALETTE.BLACK};
+      cursor: not-allowed;
+    }
   `,
   TEXT_LINK: css`
     color: ${COLOR_PALETTE.MAIN_COLOR};
 
     &:hover {
+      cursor: pointer;
       text-decoration: underline;
     }
   `,
   TEXT_LINK_DISABLED: css`
-    background-color: ${COLOR_PALETTE.GRAY};
-    color: ${COLOR_PALETTE.BLACK};
+    &:disabled {
+      background-color: ${COLOR_PALETTE.GRAY};
+      color: ${COLOR_PALETTE.BLACK};
+      cursor: not-allowed;
+    }
   `,
 };

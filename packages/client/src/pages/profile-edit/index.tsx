@@ -64,6 +64,8 @@ const ProfileEditPage: NextPage<ProfileEditProps> = ({ isMobileUaDeviceType, ori
 
   const { user } = useAuth0();
 
+  const [isProfileEditError, setIsProfileEditError] = useState(false);
+
   // プロフィール編集画像に関する「状態変数」と「更新関数」と「イベントハンドラ」
   const [imageUrl, setImageUrl] = useState<string>('');
   const [imageBase64, setImageBase64] = useState<string | ArrayBuffer | null>('');
@@ -85,6 +87,7 @@ const ProfileEditPage: NextPage<ProfileEditProps> = ({ isMobileUaDeviceType, ori
    * @概要 バリデーション成功時に呼び出されるイベントハンドラ
    */
   const handleOnSubmit: SubmitHandler<UseFormInputs> = async (values) => {
+    setIsProfileEditError(false);
     // console.log('selectedFile');
     // console.table(selectedFile);
     // console.log('values');
@@ -127,6 +130,7 @@ const ProfileEditPage: NextPage<ProfileEditProps> = ({ isMobileUaDeviceType, ori
   const handleOnError: SubmitErrorHandler<UseFormInputs> = (errors) => {
     // eslint-disable-next-line no-console
     console.error(errors);
+    setIsProfileEditError(true);
   };
 
   /**
@@ -331,7 +335,6 @@ const ProfileEditPage: NextPage<ProfileEditProps> = ({ isMobileUaDeviceType, ori
                 width='100%'
                 fontSizeValue='16px'
                 buttonContent='プロフィールを変更する'
-                onClick={(): void => alert('変更するボタンをクリック')}
               />
             </StProfileEditContainer>
           </StProfileEditFormContainer>
@@ -501,8 +504,10 @@ const ProfileEditPage: NextPage<ProfileEditProps> = ({ isMobileUaDeviceType, ori
                 width='100%'
                 fontSizeValue='16px'
                 buttonContent='プロフィールを変更する'
-                onClick={(): void => alert('変更するボタンをクリック')}
               />
+              {isProfileEditError ? (
+                <StErrorMessage>エラーがあります。修正してください</StErrorMessage>
+              ) : null}
             </StProfileEditContainer>
           </StProfileEditFormContainer>
         </CommonTemplate>
@@ -558,4 +563,9 @@ const StProfileEditContainer = styled.section`
   width: 375px;
   padding: 16px;
   background-color: ${COLOR_PALETTE.LIGHT_GRAY};
+`;
+
+const StErrorMessage = styled.div`
+  color: ${COLOR_PALETTE.ERROR_COLOR};
+  margin-top: 8px;
 `;
