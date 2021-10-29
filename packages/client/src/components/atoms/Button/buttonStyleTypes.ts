@@ -12,8 +12,10 @@ export const buttonStyleTypes = {
     }
   `,
   PRIMARY_DISABLED: css`
-    background-color: ${COLOR_PALETTE.GRAY};
-    color: ${COLOR_PALETTE.BLACK};
+    &:disabled {
+      background-color: ${COLOR_PALETTE.GRAY};
+      color: ${COLOR_PALETTE.BLACK};
+    }
   `,
   SECONDARY: css`
     background-color: ${COLOR_PALETTE.MAIN_COLOR};
@@ -24,9 +26,11 @@ export const buttonStyleTypes = {
     }
   `,
   SECONDARY_DISABLED: css`
-    border: none;
-    background-color: ${COLOR_PALETTE.GRAY};
-    color: ${COLOR_PALETTE.BLACK};
+    &:disabled {
+      border: none;
+      background-color: ${COLOR_PALETTE.GRAY};
+      color: ${COLOR_PALETTE.BLACK};
+    }
   `,
   TERTIARY: css`
     border: 1px solid ${COLOR_PALETTE.MAIN_COLOR};
@@ -38,9 +42,11 @@ export const buttonStyleTypes = {
     }
   `,
   TERTIARY_DISABLED: css`
-    border: none;
-    background-color: ${COLOR_PALETTE.GRAY};
-    color: ${COLOR_PALETTE.BLACK};
+    &:disabled {
+      border: none;
+      background-color: ${COLOR_PALETTE.GRAY};
+      color: ${COLOR_PALETTE.BLACK};
+    }
   `,
   TEXT_LINK: css`
     color: ${COLOR_PALETTE.MAIN_COLOR};
@@ -50,7 +56,9 @@ export const buttonStyleTypes = {
     }
   `,
   TEXT_LINK_DISABLED: css`
-    background-color: ${COLOR_PALETTE.GRAY};
-    color: ${COLOR_PALETTE.BLACK};
+    &:disabled {
+      background-color: ${COLOR_PALETTE.GRAY};
+      color: ${COLOR_PALETTE.BLACK};
+    }
   `,
 };
