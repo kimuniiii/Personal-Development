@@ -76,15 +76,6 @@ const StButton = styled.button<Omit<ButtonProps, 'buttonContent'>>`
   font-weight: ${({ fontWeight }): ValueOf<typeof FONT_WEIGHT> => fontWeight ?? FONT_WEIGHT.BOLD};
   text-align: center;
   white-space: nowrap;
-  cursor: pointer;
-
-  ${({ disabled }): SerializedStyles | null =>
-    disabled !== undefined && disabled
-      ? css`
-          pointer-events: none;
-          opacity: 0.45;
-        `
-      : null}
 
   ${({ styleTypes, disabled }): SerializedStyles => {
     switch (styleTypes) {

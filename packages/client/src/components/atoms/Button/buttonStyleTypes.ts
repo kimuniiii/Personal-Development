@@ -8,6 +8,7 @@ export const buttonStyleTypes = {
     color: ${COLOR_PALETTE.BLACK};
 
     &:hover {
+      cursor: pointer;
       opacity: 0.6;
     }
   `,
@@ -15,6 +16,7 @@ export const buttonStyleTypes = {
     &:disabled {
       background-color: ${COLOR_PALETTE.GRAY};
       color: ${COLOR_PALETTE.BLACK};
+      cursor: not-allowed;
     }
   `,
   SECONDARY: css`
@@ -22,6 +24,7 @@ export const buttonStyleTypes = {
     color: ${COLOR_PALETTE.WHITE};
 
     &:hover {
+      cursor: pointer;
       opacity: 0.6;
     }
   `,
@@ -30,6 +33,7 @@ export const buttonStyleTypes = {
       border: none;
       background-color: ${COLOR_PALETTE.GRAY};
       color: ${COLOR_PALETTE.BLACK};
+      cursor: not-allowed;
     }
   `,
   TERTIARY: css`
@@ -38,6 +42,7 @@ export const buttonStyleTypes = {
     color: ${COLOR_PALETTE.MAIN_COLOR};
 
     &:hover {
+      cursor: pointer;
       opacity: 0.6;
     }
   `,
@@ -46,12 +51,14 @@ export const buttonStyleTypes = {
       border: none;
       background-color: ${COLOR_PALETTE.GRAY};
       color: ${COLOR_PALETTE.BLACK};
+      cursor: not-allowed;
     }
   `,
   TEXT_LINK: css`
     color: ${COLOR_PALETTE.MAIN_COLOR};
 
     &:hover {
+      cursor: pointer;
       text-decoration: underline;
     }
   `,
@@ -59,6 +66,7 @@ export const buttonStyleTypes = {
     &:disabled {
       background-color: ${COLOR_PALETTE.GRAY};
       color: ${COLOR_PALETTE.BLACK};
+      cursor: not-allowed;
     }
   `,
 };
