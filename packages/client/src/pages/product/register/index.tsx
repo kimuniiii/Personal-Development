@@ -108,6 +108,8 @@ const ProductRegisterPage: NextPage<ProductRegisterProps> = ({ isMobileUaDeviceT
 
   // console.log(MUTATION_ID);
 
+  const [isProductRegisterError, setIsProductRegisterError] = useState(false);
+
   // ProductImageUpload に関する状態管理と更新関数とイベントハンドラ
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
 
@@ -140,6 +142,7 @@ const ProductRegisterPage: NextPage<ProductRegisterProps> = ({ isMobileUaDeviceT
    * @概要 バリデーション成功時に呼び出されるイベントハンドラ
    */
   const handleOnSubmit: SubmitHandler<Record<string, unknown>> = (data): void => {
+    setIsProductRegisterError(false);
     // console.log('data');
     // console.table(data);
     // console.log('data[select-category-box]');
@@ -229,6 +232,7 @@ const ProductRegisterPage: NextPage<ProductRegisterProps> = ({ isMobileUaDeviceT
   const handleOnError: SubmitErrorHandler<Record<string, unknown>> = (errors) => {
     // eslint-disable-next-line no-console
     console.error(errors);
+    setIsProductRegisterError(true);
   };
 
   /**
@@ -262,7 +266,7 @@ const ProductRegisterPage: NextPage<ProductRegisterProps> = ({ isMobileUaDeviceT
                 isError={!!errors.productName}
                 errors={errors}
                 register={register('productName', {
-                  required: { message: '必須入力項目です！', value: true },
+                  required: { message: '必須入力項目です', value: true },
                 })}
               />
               <Margin bottom='16px' />
@@ -302,7 +306,7 @@ const ProductRegisterPage: NextPage<ProductRegisterProps> = ({ isMobileUaDeviceT
                 isError={!!errors.productDetail}
                 errors={errors}
                 register={register('productDetail', {
-                  required: { message: '必須入力項目です！', value: true },
+                  required: { message: '必須入力項目です', value: true },
                   maxLength: { message: '最大文字数は200文字です', value: 200 },
                 })}
               />
@@ -319,7 +323,7 @@ const ProductRegisterPage: NextPage<ProductRegisterProps> = ({ isMobileUaDeviceT
                 isError={!!errors.priceNumber}
                 errors={errors}
                 register={register('priceNumber', {
-                  required: { message: '必須入力項目です！', value: true },
+                  required: { message: '必須入力項目です', value: true },
                 })}
               />
               <Margin bottom='16px' />
@@ -357,7 +361,7 @@ const ProductRegisterPage: NextPage<ProductRegisterProps> = ({ isMobileUaDeviceT
                 isError={!!errors.productName}
                 errors={errors}
                 register={register('productName', {
-                  required: { message: '必須入力項目です！', value: true },
+                  required: { message: '必須入力項目です', value: true },
                 })}
               />
               <Margin bottom='16px' />
@@ -397,7 +401,7 @@ const ProductRegisterPage: NextPage<ProductRegisterProps> = ({ isMobileUaDeviceT
                 isError={!!errors.productDetail}
                 errors={errors}
                 register={register('productDetail', {
-                  required: { message: '必須入力項目です！', value: true },
+                  required: { message: '必須入力項目です', value: true },
                   maxLength: { message: '最大文字数は200文字です', value: 200 },
                 })}
               />
@@ -414,7 +418,7 @@ const ProductRegisterPage: NextPage<ProductRegisterProps> = ({ isMobileUaDeviceT
                 isError={!!errors.priceNumber}
                 errors={errors}
                 register={register('priceNumber', {
-                  required: { message: '必須入力項目です！', value: true },
+                  required: { message: '必須入力項目です', value: true },
                 })}
               />
               <Margin bottom='16px' />
@@ -432,6 +436,9 @@ const ProductRegisterPage: NextPage<ProductRegisterProps> = ({ isMobileUaDeviceT
                 fontSizeValue='16px'
                 buttonContent='商品を出品する'
               />
+              {isProductRegisterError ? (
+                <StErrorMessage>エラーがあります。修正してください</StErrorMessage>
+              ) : null}
             </StProfileEditContainer>
           </StProfileEditFormContainer>
         </CommonTemplate>
@@ -487,4 +494,9 @@ const StProfileEditContainer = styled.section`
   width: 375px;
   padding: 16px;
   background-color: ${COLOR_PALETTE.LIGHT_GRAY};
+`;
+
+const StErrorMessage = styled.div`
+  color: ${COLOR_PALETTE.ERROR_COLOR};
+  margin-top: 8px;
 `;
