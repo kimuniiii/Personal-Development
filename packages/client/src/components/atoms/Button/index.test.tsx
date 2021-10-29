@@ -114,10 +114,6 @@ describe('Button', () => {
         });
       });
       describe('props.disabled=trueの場合', () => {
-        test('props.disabledをbutton要素に適用すること', () => {
-          render(<Button {...testProps} disabled={true} />);
-          expect(screen.getByText('Button')).toHaveStyle('pointer-events: none;');
-        });
         describe('props.styleType全てのパターン', () => {
           test('props.styleTypes="primary"をbutton要素に適用すること', () => {
             render(<Button {...testProps} styleTypes={'primary'} disabled={true} />);
