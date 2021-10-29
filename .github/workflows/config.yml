@@ -31,7 +31,7 @@ jobs:
         # if: steps.node_modules_cache_id.outputs.cache-hit != 'true'
         run: yarn client install
 
-      - name: Prettier Test
+      - name: Client Prettier Test
         run: yarn client prettier-ci-test
 
       - name: Client ESLint
