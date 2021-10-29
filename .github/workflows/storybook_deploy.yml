@@ -5,37 +5,36 @@ name: Storybook Deploy
 on:
   push:
     branches:
-      - 'master'
+      - "master"
 
 jobs:
-  client-build:
-    runs-on: ubuntu-latest
+  storybook-deploy:
+    runs-on: ${{ matrix.os }}
 
     strategy:
       matrix:
-        node-version: [14.x]
+        os: ["ubuntu-latest"]
+        node: [14.x]
 
     steps:
-      - uses: actions/checkout@v2
-
-      - name: Setup NodeJs ${{ matrix.node-version }}
+      - name: Setup NodeJs ${{ matrix.node }}
         uses: actions/setup-node@v2
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: ${{ matrix.node }}
 
-      - name: Get yarn cache directory path
-        id: yarn-cache-client-path
-        run: echo "::set-output name=dir::$(yarn cache dir)"
+      - name: Checkout
+        uses: actions/checkout@v2
 
-      - uses: actions/cache@v2
-        id: yarn-cache-client
+      - name: Cache node_modules
+        id: node_modules_cache_id
+        uses: actions/cache@v2
         with:
-          path: ${{ steps.yarn-cache-client-path.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: ${{ runner.os }}-yarn-
+          path: node_modules
+          key: ${{ matrix.os }}-node-v${{ matrix.node }}-deps-${{ hashFiles(format('{0}{1}', github.workspace, '/yarn.lock')) }}
 
-      - name: Client Install Dependencies
-        run: yarn client install
+      - name: Yarn Install
+        if: steps.node_modules_cache_id.outputs.cache-hit != 'true'
+        run: yarn client install --frozen-lockfile
 
       - name: build storybook
         run: yarn client build-storybook
