@@ -44,3 +44,4 @@ jobs:
         with:
           branch: gh-pages
           folder: packages/client/build
+          ssh-key: ${{ secrets.DEPLOY_KEY }}
