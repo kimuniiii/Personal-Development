@@ -53,6 +53,6 @@ Basic.args = {
   labelText: 'Email',
   labelType: 'requiredMarker',
   name: 'email',
-  placeholder: '例: riot-ec-site@gmail.com',
+  placeholder: '例: kimura-kazuki@gmail.com',
   width: '343px',
 };

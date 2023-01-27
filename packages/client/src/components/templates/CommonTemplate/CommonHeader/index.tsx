@@ -52,7 +52,7 @@ export const CommonHeader: VFC<CommonHeaderProps> = ({
             width='100px'
             fontSizeValue='16px'
             padding='0'
-            buttonContent='Riot'
+            buttonContent='Kimura'
             onClick={(): Promise<boolean> => Router.push('/')}
           />
           {isAuthenticated ? (
@@ -147,7 +147,7 @@ export const CommonHeader: VFC<CommonHeaderProps> = ({
             width='100px'
             fontSizeValue='16px'
             padding='0'
-            buttonContent='Riot'
+            buttonContent='Kimura'
             onClick={(): Promise<boolean> => Router.push('/')}
           />
           {isAuthenticated ? (

@@ -1,4 +1,4 @@
-export const COPY_RIGHT = `Copyright(c) ${new Date().getFullYear()} RIOT inc. All Rights Reserved`;
+export const COPY_RIGHT = `Copyright(c) ${new Date().getFullYear()} Kimura inc. All Rights Reserved`;
 
 // 開発環境・ステージング環境・本番環境の「HASURA_GRAPHQL_ADMIN_SECRET」
 // GraphQL EndPoint を「管理者シークレット」で保護するため
