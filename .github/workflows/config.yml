@@ -28,7 +28,8 @@ jobs:
           key: ${{ matrix.os }}-node-v${{ matrix.node }}-deps-${{ hashFiles(format('{0}{1}', github.workspace, '/yarn.lock')) }}
 
       - name: Client Yarn Install
-        if: steps.node_modules_cache_id.outputs.cache-hit != 'true'
+        # キャッシュすると GitHub Actions が落ちるのでいったんコメントアウト
+        # if: steps.node_modules_cache_id.outputs.cache-hit != 'true'
         run: yarn client install
 
       - name: Client Prettier Test
