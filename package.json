@@ -2,12 +2,13 @@
   "name": "personal-development",
   "version": "0.1.0",
   "private": true,
+  "license": "UNLICENSED",
   "workspaces": [
     "packages/*"
   ],
   "engines": {
     "npm": "npmではなくyarnを使ってください",
-    "node": "14.x"
+    "node": "16.x"
   },
   "scripts": {
     "server": "yarn workspace server",

@@ -14,25 +14,26 @@ jobs:
     strategy:
       matrix:
         os: ["ubuntu-latest"]
-        node: [14.x]
+        node: [16.x]
 
     steps:
       - name: Setup NodeJs ${{ matrix.node }}
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node }}
 
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Cache node_modules
         id: node_modules_cache_id
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: node_modules
           key: ${{ matrix.os }}-node-v${{ matrix.node }}-deps-${{ hashFiles(format('{0}{1}', github.workspace, '/yarn.lock')) }}
 
       - name: Client Yarn Install
+        # キャッシュすると GitHub Actions が落ちるのでいったんコメントアウト
         # if: steps.node_modules_cache_id.outputs.cache-hit != 'true'
         run: yarn client install
 

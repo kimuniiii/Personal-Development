@@ -31,7 +31,7 @@ const Template: Story<Props> = (args) => {
 export const Basic = Template.bind({});
 
 Basic.args = {
-  src: '/images/react.jpg',
+  src: 'images/react.jpg',
   alt: 'No Image',
   width: '160px',
   height: '160px',
