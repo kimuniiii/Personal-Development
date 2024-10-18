@@ -8,7 +8,7 @@
   ],
   "engines": {
     "npm": "npmではなくyarnを使ってください",
-    "node": "16.x"
+    "node": "20.x"
   },
   "scripts": {
     "server": "yarn workspace server",
@@ -29,11 +29,11 @@
     ]
   },
   "devDependencies": {
-    "husky": "7.0.2",
-    "lint-staged": "11.2.0"
+    "husky": "9.1.6",
+    "lint-staged": "15.2.10"
   },
   "volta": {
-    "node": "14.18.0",
+    "node": "20.18.0",
     "yarn": "1.22.15"
   }
 }
