@@ -42,7 +42,7 @@
     "ua-parser-js": "^0.7.28"
   },
   "devDependencies": {
-    "@babel/core": "7.15.5",
+    "@babel/core": "7.29.6",
     "@emotion/babel-plugin": "11.3.0",
     "@next/eslint-plugin-next": "11.1.2",
     "@storybook/addon-actions": "6.3.9",
